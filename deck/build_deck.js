@@ -99,7 +99,7 @@ section("Opening");
     ["Where the pain really is", "For ultra-high-net-worth (UHNW) travellers the best-evidenced pains are solvency, supplier legitimacy, privacy and security. JetSuite owed card holders ~US$50M (2020); OneFlight put ~US$150M of deposits at risk (Sep 2026)."],
     ["What they already pay", "Heavily for privacy and for someone to vouch: private airport suites US$3,550–4,850 a visit; close protection US$1,800–4,000 a day; charter brokers’ 10–20% markup."],
     ["Where every option fails", "Risk stays with the traveller; providers keep failing; safety audits (ARGUS, Wyvern) ignore solvency; no scheme protects deposits across providers."],
-    ["The breakthrough", "Counterparty assurance for private travel: a solvency-and-legitimacy standard (stage 1, capital-light), then insured deposit protection with an insurer (stage 2). Scores 16/20 outside-in; the only option whose moat stacks a standard, a two-sided network and loss data."],
+    ["The breakthrough", "Counterparty assurance for private travel: a solvency-and-legitimacy standard (stage 1, capital-light), then insured deposit protection with an insurer (stage 2). Scores 16/20 outside-in. Its wedge: buyers value certainty at their loss exposure; each report costs us little."],
     ["Next 90 days", "A free failure tracker, one paid due-diligence pilot, 10 suppliers to a verified badge and insurer feedback; go/no-go at day 90, with no capital at risk."],
   ];
   rows.forEach((r, i) => {
@@ -117,11 +117,11 @@ section("Opening");
   const items = [
     ["1", "The problem, proven: the claim tested, the pain map, UHNW pains and what they already pay", "4–7"],
     ["2", "What travellers resort to, and where every option fails", "8–10"],
-    ["3", "Unmet needs and breakthrough hypotheses, screened for novelty and moat", "11–13"],
-    ["4", "Can it win? Six forces, funnel, rivals, advantage, competences, position", "14–19"],
-    ["5", "Capturing value: value map, monetization and the trade-off interview guide", "20–22"],
-    ["6", "Validation, partners and investors, risks and questions", "23–26"],
-    ["", "Appendix: sources", "27"],
+    ["3", "Unmet needs and breakthrough hypotheses, screened for novelty and moat", "11–14"],
+    ["4", "Can it win? How to win, six forces, funnel, rivals, advantage, competences, position", "15–22"],
+    ["5", "Capturing value: value map, monetization, services and the trade-off interview guide", "23–26"],
+    ["6", "Validation (operational strategy), partners and investors, risks and questions", "27–30"],
+    ["", "Appendix: sources", "31"],
   ];
   items.forEach((it, i) => {
     const y = 1.95 + i * 0.62;
@@ -298,8 +298,21 @@ section("3 · Unmet needs and hypotheses");
   callout(s, "Only two ideas are both new to the market and hard to copy — and they reinforce each other.");
 }
 {
+  const s = content("3 · Unmet needs and hypotheses", "Six UHNW hypotheses: what must be true, and the cheapest test that could prove each one wrong",
+    "Novelty checks by web search (Oct 2026), summaries only; tests are our design and need no capital.");
+  table(s, ["#", "Hypothesis", "Pain removed, and how", "What must be true", "Zero-capital first test"], [
+    ["U1", { text: "Insured deposit protection", options: { bold: true, color: H.navy } }, "Deposit loss: money held in trust or insured across providers", "An insurer writes capacity; sellers offer it at checkout", "3 underwriter meetings; 1 letter of intent"],
+    ["U2", { text: "Solvency-and-legitimacy standard", options: { bold: true, color: H.navy } }, "Unknown supplier risk: independent audit and rating", "Suppliers disclose financials; buyers trust the badge", "10 suppliers pay an audit fee"],
+    ["U3", "Per-trip movement privacy", "Exposure: tail privacy, nominee bookings, data removal per trip", "Travellers pay beyond free FAA programmes", "5 paid privacy audits"],
+    ["U4", "Family-office risk office", "Fragmented security, medical and vetting", "Offices switch from incumbent security firms", "None: already served — dropped"],
+    ["U5", "Portable credential for nannies, drivers, chefs", "Unvetted household staff on the move", "Agencies and families accept one credential", "3 agencies agree to a pilot"],
+    ["U6", "Insured trip-outcome guarantee", "Trip not delivered as promised", "An insurer prices experience risk; buyers pay a premium", "10 trade-off interviews; 1 insurer conversation"],
+  ], { colW: [0.5, 2.6, 3.3, 3.1, 2.63], fs: 10.5, rowH: 0.62 });
+  callout(s, "U1 and U2 survive the screen; U3 becomes a module; U4 is served; U5 and U6 lack evidence of payment.");
+}
+{
   const s = content("3 · Unmet needs and hypotheses", "Shortlist, scored outside-in: counterparty assurance leads; the earlier curator concept fails the moat test",
-    "Our assessment. Criteria 1–5: pain severity × frequency, gap vs best alternative, evidence of willingness to pay, hard to copy. Moat gate: 3 or more. Founder fit and capital were not scored; they appear on page 18 as facts.");
+    "Our assessment. Criteria 1–5: pain severity × frequency, gap vs best alternative, evidence of willingness to pay, hard to copy. Moat gate: 3 or more. Founder fit and capital were not scored; they appear on page 21 as facts.");
   const g = (t) => ({ text: t, options: { align: "center" } });
   const pass = { text: "Pass", options: { align: "center", color: H.navy, bold: true } };
   const fail = { text: "Fail", options: { align: "center", color: H.red, bold: true } };
@@ -314,11 +327,24 @@ section("3 · Unmet needs and hypotheses");
     ["Itinerary audit / AI verification", g("3"), g("4"), g("2"), g("1"), g("10"), fail, "Out"],
     ["Rome–Santa Catarina curator", g("3"), g("1"), g("4"), g("1"), g("9"), fail, "Out"],
   ], { colW: [4.2, 0.95, 0.75, 1.15, 0.8, 1.05, 1.05, 2.18], fs: 10.5, rowH: 0.45 });
-  callout(s, "Even the leader scores 16/20 and rests on inferred willingness to pay — which is exactly what the tests on page 23 must prove.");
+  callout(s, "Even the leader scores 16/20 and rests on inferred willingness to pay — which is exactly what the tests on page 27 must prove.");
 }
 
 // ---------- SECTION 4 ----------
 section("4 · Can it win?");
+{
+  const s = content("4 · Can it win?", "How to win: clear buyers’ minimum requirements, then meet an unmet need better — judged by the value–cost wedge, not a label",
+    "Deneffe: to win, meet minimum requirements, then meet an important unmet need better, meet an existing need at lower cost, or remove what customers value below its cost. Generic labels prove nothing. Our assessment.");
+  card(s, 0.6, 1.9, 4.6, 4.2, "Minimum requirements buyers will check", "• Ratings that withstand legal challenge\n• Independence: no commissions from rated suppliers\n• Confidentiality and data security\n• Claims backed by a licensed insurer\n• A published, credible methodology\n\nStatus: none exists yet; each is built with a partner (counsel, insurer, methodology advisers).", { hs: 13, fs: 11.5 });
+  table(s, ["Route to win", "Applied to counterparty assurance", "Verdict"], [
+    ["Meet an important unmet need better", "Solvency and deposit safety that no alternative covers (best score 3–5)", { text: "Primary route", options: { bold: true, color: H.navy } }],
+    ["Meet an existing need at lower cost", "Replace part of the broker’s 10–20% vouching markup with a badge", "Secondary"],
+    ["Remove what customers value below its cost", "Drop per-deal lawyer and accountant checks on each provider", "Possible"],
+  ], { x: 5.4, y: 1.9, w: 7.33, colW: [2.3, 3.6, 1.43], fs: 10.5, rowH: 0.75 });
+  s.addText([{ text: "The wedge: ", options: { bold: true, color: H.navy } }, { text: "buyers’ willingness to pay is anchored on the deposit they could lose; our marginal cost per report or badge is analyst time, and claims sit with the insurer. Wide if the standard is adopted; zero if it is not." }],
+    { x: 5.4, y: 5.0, w: 7.33, h: 1.1, fontSize: 11.5, color: H.text, margin: 0, isTextBox: true });
+  callout(s, "We do not conclude with ‘differentiation’: the case stands or falls on that wedge.");
+}
 {
   const s = content("4 · Can it win?", "Six forces: a small market in heads but large in stakes, with no rival in solvency today — and barriers that only rise once we are in",
     "Private-charter market reports (2025); Knight Frank Wealth Report (713,626 UHNW people); Wheels Up, Inspirato, Exclusive Resorts disclosures; MYBA; ARGUS, Wyvern; Private Jet Card Comparisons. Forces read forward-looking, market size first (Deneffe).");
@@ -333,6 +359,20 @@ section("4 · Can it win?");
     ["6 · Rivalry", "Low now", "No one rates solvency; ARGUS, Wyvern and the comparison site could extend", "Rises if the model proves out"],
   ], { y: 2.4, colW: [2.0, 2.0, 5.1, 3.03], fs: 10.5, rowH: 0.52 });
   callout(s, "Attractive if we get in first: the barriers that protect an incumbent here are the ones we would build.");
+}
+{
+  const s = content("4 · Can it win?", "Six forces across the shortlist: assurance is the most attractive; the peer network faces the strongest substitutes",
+    "Our assessment, forward-looking; market evidence as on pages 7, 16 and the research files. Size of the peer-network market not measured.");
+  table(s, ["Force", "Counterparty assurance", "Verified peer network", "Outcome guarantee"], [
+    ["1 · Size and growth", "Medium: ~US$16bn charter; deposits US$100k–1M each", "Medium: paid networks at US$395–2,850 a year", "Large market, but a feature"],
+    ["2 · Substitutes", "Medium: optional escrow, brokers, lawyers", "High: forums, AI, advisors, paid networks", "High: insurance, card protection"],
+    ["3 · Entry barriers", "High once built: licence, standard, data", "Medium once dense", "Low: a contract clause"],
+    ["4 · Buyer power", "Medium–high", "Medium", "Medium"],
+    ["5 · Supplier power", "High at the start: insurers", "Medium: members are the content", "High: insurer and partners"],
+    ["6 · Rivalry", "Low now", "Medium", "Medium"],
+    [{ text: "Outlook", options: { bold: true } }, { text: "Medium–high", options: { bold: true, color: H.navy } }, { text: "Medium", options: { bold: true } }, { text: "Low on its own", options: { bold: true } }],
+  ], { colW: [2.2, 3.5, 3.3, 3.13], fs: 10.5, rowH: 0.55 });
+  callout(s, "Only assurance has barriers that rise with success — the reason it leads.");
 }
 {
   const s = content("4 · Can it win?", "Market funnel: the accessible slice is reached through banks, family offices and brokers — not direct",
@@ -444,13 +484,22 @@ section("5 · Capturing value");
     ["Price discrimination (third degree)", "Family offices and banks vs individuals; fenced by coverage depth and update frequency", "Fence with the product, never the price alone"],
     ["Share of premium", "Commission on deposit protection written by the insurer partner", "Needs a licensed partner"],
     ["Bundling", "Only at the point of sale: deposit plus protection at a broker’s or seller’s checkout", "No standalone consumer bundle"],
-  ], { colW: [3.0, 5.6, 3.53], fs: 10.5, rowH: 0.44, y: 1.85 });
-  table(s, ["Service", "Rivals offer it?", "Rule"], [
-    ["Public failure tracker", "No", "Give free: builds the list"],
-    ["Solvency report", "No one vets financials", "Value-price"],
-    ["Verified badge", "Safety badges only", "Value-price to suppliers"],
-  ], { colW: [3.0, 5.6, 3.53], fs: 10.5, rowH: 0.34, y: 4.85 });
-  callout(s, "What customers can give us for a perk: contracts and disclosures (data), early loss reports, referrals.", 6.3);
+    ["Peak-load pricing", "Higher report fees and premiums in peak booking seasons (Dec–Jan, Jul–Aug), when audit and insurer capacity is tight (hypothesis)", "Capacity is the insurer’s; agree peak terms up front"],
+  ], { colW: [3.0, 5.6, 3.53], fs: 10.5, rowH: 0.55, y: 1.85 });
+  callout(s, "Every mechanism needs the trade-off interviews first, to know where each segment’s ceiling sits.", 6.3);
+}
+{
+  const s = content("5 · Capturing value", "Value-added services: value-price what only we offer, match rivals who charge, give free what rivals give free",
+    "Deneffe, value-added services decision rule and the two-way menu; audit prices of existing safety programmes not published. Our hypotheses.");
+  table(s, ["Service", "Do rivals offer it?", "Rule", "Our price"], [
+    ["Solvency report", "No one vets financials", "Only we offer it: value-price", "Per report or subscription"],
+    ["Verified badge", "Safety auditors charge for audits", "A rival charges: match its price, add solvency", "Audit fee near safety-audit levels"],
+    ["Deposit protection", "Optional operator escrow, sometimes for a fee", "Only we offer cross-provider cover: value-price", "Share of premium"],
+    ["Public failure tracker", "Comparison sites inform for free", "Rivals give it free: give it free", "Free"],
+    ["Alerts on suppliers a client uses", "Brokers phone clients for free", "Give free; discount clients who need fewer manual checks", "Included"],
+  ], { colW: [2.6, 3.2, 3.8, 2.53], fs: 10.5, rowH: 0.5, y: 1.85 });
+  card(s, 0.6, 5.0, 12.13, 1.15, "Two-way menu: what customers could give us for a perk", "Supplier contracts and disclosures (our data) · early loss reports · referrals to peers and family offices · consent to use anonymised claim data · early renewals.", { hs: 12, fs: 11 });
+  callout(s, "Rule check: a perk must cost us less than the service it brings saves us.");
 }
 {
   const s = content("5 · Capturing value", "Trade-off interview guide: eight indifference questions — no direct ‘what would you pay?’",
@@ -477,7 +526,7 @@ section("5 · Capturing value");
 // ---------- SECTION 6 ----------
 section("6 · Validation, partners, risks");
 {
-  const s = content("6 · Validation, partners, risks", "Validation plan: six zero-capital tests with pass marks, feeding a go/no-go at day 90",
+  const s = content("6 · Validation, partners, risks", "Operational strategy: six zero-capital tests with pass marks turn the grand-strategy hypotheses into a go/no-go at day 90",
     "Our 90-day plan. Every pass mark is set before the test; missing the gate parks the idea.");
   table(s, ["#", "Hypothesis", "Test (no capital)", "Pass mark", "By"], [
     ["1", "Publishing ratings is legally defensible", "Counsel opinion; methodology draft", "Written opinion with conditions met", "Day 30"],
@@ -515,7 +564,7 @@ section("6 · Validation, partners, risks");
     ["6", "Evidence rests on search summaries", "High", "Medium", "Verify every figure used externally against its primary source"],
     ["7", "Market small in heads", "Medium", "Medium", "Extend from jets to yachts, villas and clubs; sell through banks"],
   ], { colW: [0.4, 3.9, 1.2, 1.1, 5.53], fs: 10.5, rowH: 0.52 });
-  callout(s, "Risks 1 and 3 decide the business; tests 1–3 on page 23 address them first.");
+  callout(s, "Risks 1 and 3 decide the business; tests 1–3 on page 27 address them first.");
 }
 {
   const s = content("For discussion", "Five questions for you, Francesco", null);

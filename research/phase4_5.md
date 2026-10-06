@@ -181,3 +181,31 @@ Ask questions 2 and 5 of people outside the target segment too (Deneffe: qualita
 - **E + F work as a linked test.** F is a declining market because AI improves.
 - **C ranks below all five** because operators already meet its needs (score 9).
 - **Inside-out note (facts only).** The founders' competences fit B best and fail D's time requirement. This is reported, not used in the ranking.
+
+---
+
+## Revision (UHNW scope): Phases 4-5 applied to the final shortlist
+
+**This revision supersedes the A-F shortlist above.** The final shortlist (`phase3_uhnw.md`) is:
+- **counterparty assurance for private travel**, the lead: a solvency-and-legitimacy standard, then insured deposit protection;
+- the verified peer network;
+- the insurer-underwritten outcome guarantee.
+
+The full Deneffe treatment lives in the deck (`deck/Private_Travel_Assurance_Strategy_Deck.pptx`, slides 15-27). In summary:
+
+- **How to win.**
+  - Minimum requirements: ratings that withstand legal challenge; independence; confidentiality; insurer-backed claims; a published method.
+  - Primary route: meet an important unmet need better. Secondary: replace part of the broker's 10-20% vouching markup.
+  - The wedge: buyers' willingness to pay is anchored on the deposit at risk; marginal cost is analyst time, and claims sit with the insurer.
+- **Six forces across the shortlist.** Outlook: assurance medium-high; peer network medium (strongest substitutes); guarantee low on its own.
+- **Funnel, rivals, advantage, competences, Strategic Position Analysis:**
+  - The lead is offensive (first-mover standard, insurer partner); the peer network is opportunistic.
+  - The guarantee folds into the lead; movement privacy becomes a module.
+  - The Rome-Santa Catarina curator: disinvest.
+- **Pricing:**
+  - Two-part pricing on both sides; third-degree price discrimination fenced by coverage depth.
+  - Share of premium on protection; bundling only at a partner's checkout.
+  - Peak-load pricing in peak seasons (hypothesis).
+  - Full value-added-services rule plus the two-way menu.
+  - 8 indifference questions (Trade-Off Method).
+- **Operational strategy:** six zero-capital tests with pass marks; go/no-go at day 90.
