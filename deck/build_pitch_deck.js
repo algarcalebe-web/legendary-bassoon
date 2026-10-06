@@ -114,100 +114,116 @@ section("Pitch");
   const s = pres.addSlide({ masterName: "DARK", sectionTitle: sec });
   s.addImage({ path: CREST, x: 0, y: 0, w: 5.0, h: 7.5 });
   s.addText("PITCH · OCTOBER 2026", { x: 5.6, y: 1.3, w: 7.1, h: 0.35, fontSize: 11, bold: true, color: H.gold, charSpacing: 3, margin: 0, isTextBox: true });
-  s.addText("The family mobility office", { x: 5.6, y: 1.8, w: 7.1, h: 1.4, fontSize: 38, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
-  s.addText("Trusted household staff who travel with the family — employed, insured and lawful in every country they go", { x: 5.6, y: 3.4, w: 7.0, h: 1.3, fontSize: 18, color: H.light, margin: 0, valign: "top", isTextBox: true });
-  s.addShape(pres.shapes.LINE, { x: 5.6, y: 5.2, w: 1.6, h: 0, line: { color: H.gold, width: 2 } });
-  s.addText("Otium Chigi Journeys · Confidential", { x: 5.6, y: 5.4, w: 7.0, h: 0.4, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
-  s.addNotes("Audience: pilot families, family offices, channel and rails partners, and early investors. The ask is pilots and partners, not capital: investment only after the day-90 gate.");
+  s.addText("One platform for exclusive journeys", { x: 5.6, y: 1.8, w: 7.1, h: 1.5, fontSize: 36, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
+  s.addText("Trips, private access, homes — and the staff who travel with the family, lawful in every country", { x: 5.6, y: 3.45, w: 7.0, h: 1.2, fontSize: 18, color: H.light, margin: 0, valign: "top", isTextBox: true });
+  s.addShape(pres.shapes.LINE, { x: 5.6, y: 5.2, w: 1.6, h: 0 , line: { color: H.gold, width: 2 } });
+  s.addText("Otium Chigi Journeys · Rome · Southern Italy · Santa Catarina · Confidential", { x: 5.6, y: 5.4, w: 7.1, h: 0.4, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
+  s.addNotes("Audience: regional partners, pilot families, family offices, suppliers and rails partners, and early investors. Ask: pilots and partners per region; capital only after the day-90 gate.");
 }
 // 2 PROBLEM
 {
-  const s = content("The problem", "Wealthy families move across borders — their trusted staff cannot follow them lawfully", "Morgan & Mallet, Beyond The Butler 2025/26 and agency pages (read 2026-10-06); GOV.UK Overseas Domestic Worker visa (2026); Home Office PQ55427 (Jun 2025); UAE Decree-Law 9/2022.");
-  const st = [["2.36%", "of one agency’s childcare candidates can work rotations; 4.82% travel regularly"], ["6 months", "maximum UK stay for a domestic worker — and 12 months’ prior work for the same employer is required"], ["AED 50k–200k", "UAE fine for illegally employing a domestic worker (about US$13.6–54.5k)"], ["25–40%", "travel premium families already pay staff to move with them"]];
+  const s = content("The problem", "A luxury journey is bought from a dozen vendors — and the people who travel with the family cannot follow lawfully", "Priceline (Jan 2024, n = 3,024); The Roman Guy and operator listings (Vatican); Morgan & Mallet, Beyond The Butler 2025/26; press commentary on OneFlight (Sep 2026).");
+  const st = [["16 hours", "to plan and book one trip — before any staff, access or paperwork"], ["9–23×", "the standard ticket for private Vatican access: exclusivity is bought piece by piece"], ["2.36%", "of one agency’s childcare candidates can work rotations that follow the family"], ["~US$150M", "of deposits at risk when a private-aviation provider paused flights (Sep 2026)"]];
   st.forEach((t, i) => {
     const x = 0.6 + i * 3.06;
     s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w: 2.95, h: 3.0, fill: { color: i === 0 ? H.navy : H.panel }, line: { color: i === 0 ? H.navy : H.line, width: 0.75 } });
     big(s, x + 0.2, 2.15, 2.6, t[0], t[1], { dark: i === 0, ns: 26, lh: 1.6 });
   });
-  s.addText("Every move creates an immigration, employment and liability question — and today the family answers it alone, trip by trip.", { x: 0.6, y: 5.25, w: 12.13, h: 0.8, fontSize: 15, bold: true, color: H.navy, margin: 0, isTextBox: true });
+  s.addText("Families stitch it together themselves — and carry the legal and financial risk at every border.", { x: 0.6, y: 5.25, w: 12.13, h: 0.8, fontSize: 15, bold: true, color: H.navy, margin: 0, isTextBox: true });
 }
 // 3 WHO
 {
-  const s = content("Who feels it", "Multi-home families and the family offices that run them: few in number, very high in stakes", "Altrata World Ultra Wealth Report 2026; Knight Frank Wealth Report 2026; Deloitte Family Office Landscape 2024; UBS Global Family Office Report 2024; Morgan & Mallet 2025/26.");
-  const st = [["557–714k", "ultra-high-net-worth people (US$30M+), about three homes each"], ["8,030 → 10,720", "single family offices, 2024 → 2030 (Deloitte)"], ["~47%", "of family offices offer no lifestyle services today (UBS)"], ["£55–110k", "a year for a travelling nanny in the UK; US$70–150k in the US"]];
+  const s = content("Who feels it", "Two sides: multi-home families who need it all to work, and suppliers who want qualified guests without paying 16–30% to platforms", "Altrata 2026; Knight Frank 2026; Deloitte Family Office Landscape 2024; UBS 2024; Airbnb host fee and Booking.com Preferred commission (Brazil, 2026); Direzione Hotel (Italy); BLTA 2025 via O Hoje (Aug 2026).");
+  const st = [["557–714k", "ultra-high-net-worth people (US$30M+), about three homes each"], ["8,030 → 10,720", "single family offices, 2024 → 2030 (Deloitte)"], ["16–30%", "what hotels and villas pay booking platforms: 16–18% in Brazil, up to 30% in Italy"], ["50%", "average occupancy at Brazil’s leading luxury hotels (BLTA 2025)"]];
   st.forEach((t, i) => big(s, 0.6 + i * 3.06, 2.0, 2.9, t[0], t[1], { ns: 24, lh: 1.2 }));
-  table(s, ["Customer", "The job they need done"], [
-    ["Multi-home family with a family office", "Staff every home and trip lawfully, without adding headcount or employer exposure"],
-    ["Family run by the principal or an assistant", "The same trusted people in each home — and no gap when someone quits or a border says no"],
-    ["Visiting family bringing its own staff", "Bring staff in lawfully; cover their days off"],
+  table(s, ["Side", "What they need"], [
+    ["Families and family offices", "One trusted place for the journey, the access and the people — lawful on every leg"],
+    ["Villas, hotels, hosts, access providers", "Qualified, high-spending guests in every season, paid only on completed stays"],
+    ["Household staff", "Steady, legal travelling work, with a record that follows them"],
   ], { y: 4.15, colW: [4.0, 8.13], fs: 11, rowH: 0.5 });
 }
-// 4 TODAY
+// 4 WORKAROUNDS
 {
-  const s = content("Today’s workarounds", "Families stitch together agencies, temps and payroll — no one employs travelling staff and clears every border", "raw/fmo_competitors.md (Oct 2026); agency fee schedules (2025–26); temp rate from one ad (weak); Nannytax and Deel/Remote pricing (2026-10-06).");
-  const cs = [["Placement agencies", "15–25% of salary, once", "Find the person; the family stays employer in every country"], ["Temp desks", "£300–400 a day (London)", "Short-notice cover, one city, no cross-border cover"], ["Household payroll", "£276–474 a year", "One country; no relief, no visas"], ["Corporate EOR", "US$599–699 a month", "Built for companies; domestic workers not found"]];
+  const s = content("Today’s workarounds", "Every vendor solves one piece — no one integrates the journey, the access, the people and the trust", "raw/alt_a–c.md and raw/fmo_competitors.md (Oct 2026); Stirling Access; agency fee schedules (2025–26); Travel Weekly (Aug 2025).");
+  const cs = [["Advisors and DMCs", "~US$350 fee; ~10–12% commission", "Design the trip; not the staff, the legal status or the data"], ["Concierge clubs", "£2k–25k a year", "Open doors; outside the family’s own journey and people"], ["Staff agencies", "15–25% of salary, once", "Place a person; the family stays employer everywhere"], ["Payroll and EOR", "£276–474 a year; US$599–699 a month", "One country, or built for companies"]];
   cs.forEach((c, i) => {
     const x = 0.6 + i * 3.06;
     s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w: 2.95, h: 3.4, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
-    s.addText([{ text: c[0], options: { bold: true, fontSize: 15, color: H.navy, breakLine: true } }, { text: c[1], options: { bold: true, fontSize: 13, color: H.goldDk, breakLine: true } }, { text: c[2], options: { fontSize: 12, color: H.text } }], { x: x + 0.2, y: 2.1, w: 2.55, h: 2.6, margin: 0, valign: "top", paraSpaceAfter: 8, isTextBox: true });
+    s.addText([{ text: c[0], options: { bold: true, fontSize: 15, color: H.navy, breakLine: true } }, { text: c[1], options: { bold: true, fontSize: 12, color: H.goldDk, breakLine: true } }, { text: c[2], options: { fontSize: 12, color: H.text } }], { x: x + 0.2, y: 2.1, w: 2.55, h: 2.6, margin: 0, valign: "top", paraSpaceAfter: 8, isTextBox: true });
     s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.2, y: 4.75, w: 2.55, h: 0.4, rectRadius: 0.08, fill: { color: H.low }, line: { color: H.low } });
-    s.addText("Does not travel with the family", { x: x + 0.2, y: 4.75, w: 2.55, h: 0.4, fontSize: 10, bold: true, color: H.red, align: "center", valign: "middle", margin: 0, isTextBox: true });
+    s.addText("One piece only", { x: x + 0.2, y: 4.75, w: 2.55, h: 0.4, fontSize: 10, bold: true, color: H.red, align: "center", valign: "middle", margin: 0, isTextBox: true });
   });
-  callout(s, "The closest rival, Morgan & Mallet, places staff and runs employer services in four countries — but runs no shared pool that rotates.", 5.6, 0.55);
+  callout(s, "The family is the only integrator today — and it pays every vendor separately.", 5.6, 0.55);
 }
 // 5 SOLUTION
 {
-  const s = darkSlide("Keep your nanny. Add guaranteed cover — lawful on every leg.", "The solution");
-  const p = [["Relief club", "An employed, vetted reliever your family has met, covering days off, holidays and gaps — guaranteed within 7 days, 72 hours or 24 hours"], ["Compliance coordination", "Counsel-led visas for each leg, a payroll check and liability and medical cover bound before travel — we coordinate, licensed partners advise"], ["Staff-owned record", "A portable, verified vetting record that follows the staff member — free to staff, accepted by employers"]];
+  const s = darkSlide("Otium Chigi Journeys: the journey, the access, the people and the trust — in one place", "The solution");
+  const p = [["Journey design + booking", "A three-minute questionnaire, three priced proposals in 24 hours, one price"], ["Access + hosting", "Held tables, private doors, crowd-smart timing and a local host in each region"], ["Staff + compliance", "Hire our vetted staff or manage your own — visas, payroll and insurance across borders"], ["Data + trust", "Preferences, residency days, health records, supplier vetting and deposit protection"]];
   p.forEach((t, i) => {
-    const x = 0.6 + i * 4.1;
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 2.2, w: 3.9, h: 3.6, fill: { color: "243672" }, line: { color: "243672" } });
-    s.addText(String(i + 1), { x: x + 0.25, y: 2.4, w: 0.8, h: 0.7, fontSize: 36, bold: true, color: H.gold, margin: 0, isTextBox: true });
-    s.addText([{ text: t[0], options: { bold: true, fontSize: 18, color: H.white, breakLine: true } }, { text: t[1], options: { fontSize: 13, color: H.light } }], { x: x + 0.25, y: 3.15, w: 3.4, h: 2.5, margin: 0, valign: "top", paraSpaceAfter: 8, isTextBox: true });
+    const x = 0.6 + i * 3.06;
+    const gold = i === 2;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 2.2, w: 2.95, h: 3.5, fill: { color: gold ? H.gold : "243672" }, line: { color: gold ? H.gold : "243672" } });
+    s.addText(String(i + 1), { x: x + 0.2, y: 2.35, w: 0.8, h: 0.7, fontSize: 34, bold: true, color: gold ? H.navy : H.gold, margin: 0, isTextBox: true });
+    s.addText([{ text: t[0], options: { bold: true, fontSize: 16, color: gold ? H.navy : H.white, breakLine: true } }, { text: t[1], options: { fontSize: 12, color: gold ? H.navy : H.light } }], { x: x + 0.2, y: 3.1, w: 2.55, h: 2.5, margin: 0, valign: "top", paraSpaceAfter: 8, isTextBox: true });
   });
-  s.addText("The family keeps employing its regular staff. We employ the relievers — so nothing changes for the people they already trust.", { x: 0.6, y: 6.1, w: 12.1, h: 0.6, fontSize: 13, italic: true, color: H.white, margin: 0, isTextBox: true });
+  s.addText("We start with module 3 — families use it even before suppliers join — then add the rest on the same family, the same people and the same data.", { x: 0.6, y: 6.0, w: 12.1, h: 0.7, fontSize: 13, italic: true, color: H.white, margin: 0, isTextBox: true });
 }
-// 6 HOW
+// 6 HOW IT WORKS (two-sided)
 {
-  const s = content("How it works", "One membership per position: we employ, clear, insure and cover — partners hold the licences", "Operating model in research/fmo_strategy.md §8. Partners named are candidates, not agreements.");
-  const st = [["1", "Join", "Membership per staff position; travel calendar shared"], ["2", "Meet", "A vetted reliever is introduced to the family"], ["3", "Clear", "Counsel clears each foreign leg in writing"], ["4", "Insure", "Liability and trip-medical cover bound before travel"], ["5", "Cover", "Relief arrives within the tier’s response time"]];
-  st.forEach((t, i) => {
-    const x = 0.6 + i * 2.45;
-    s.addShape(pres.shapes.OVAL, { x: x + 0.7, y: 2.0, w: 0.9, h: 0.9, fill: { color: H.navy }, line: { color: H.navy } });
-    s.addText(t[0], { x: x + 0.7, y: 2.0, w: 0.9, h: 0.9, fontSize: 22, bold: true, color: H.gold, align: "center", valign: "middle", margin: 0, isTextBox: true });
-    if (i < 4) s.addShape(pres.shapes.LINE, { x: x + 1.65, y: 2.45, w: 1.5, h: 0, line: { color: H.line, width: 1.5, endArrowType: "triangle" } });
-    s.addText([{ text: t[1], options: { bold: true, fontSize: 15, color: H.navy, breakLine: true } }, { text: t[2], options: { fontSize: 11.5, color: H.text } }], { x: x + 0.1, y: 3.05, w: 2.1, h: 1.3, align: "center", margin: 0, valign: "top", isTextBox: true });
-  });
-  table(s, ["We own", "Partners provide", "We never"], [
-    ["Relief scheduling, reliever contracts, welfare monitoring, the staff record", "Employer of record, insurance broker, immigration counsel, background-check rails", "Hold passports, give legal advice, or own homes, yachts or aircraft"],
-  ], { y: 4.6, colW: [4.04, 4.04, 4.05], fs: 11, rowH: 0.75 });
+  const s = content("How it works", "A two-sided platform that is useful from day one: families come for staff and compliance, suppliers follow the families", "Operating model and platform logic: research/fmo_strategy.md §8 and the strategy deck (platform economics). Partners named are candidates, not agreements.");
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 2.0, w: 3.4, h: 3.6, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addText([{ text: "Families", options: { bold: true, fontSize: 16, color: H.navy, breakLine: true } }, { text: "and family offices", options: { fontSize: 11, color: H.muted, breakLine: true } }, { text: "Membership per household; staff fee per position", options: { fontSize: 11.5, color: H.text } }], { x: 0.8, y: 2.15, w: 3.0, h: 3.3, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
+  s.addShape(pres.shapes.OVAL, { x: 4.85, y: 2.3, w: 3.6, h: 3.0, fill: { color: H.navy }, line: { color: H.navy } });
+  s.addText([{ text: "Otium Chigi Journeys", options: { bold: true, fontSize: 14, color: H.white, breakLine: true } }, { text: "design · access · staff · data", options: { fontSize: 11, color: H.gold } }], { x: 4.85, y: 2.3, w: 3.6, h: 3.0, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  s.addShape(pres.shapes.RECTANGLE, { x: 9.33, y: 2.0, w: 3.4, h: 3.6, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addText([{ text: "Suppliers", options: { bold: true, fontSize: 16, color: H.navy, breakLine: true } }, { text: "villas, hotels, hosts, access, staff", options: { fontSize: 11, color: H.muted, breakLine: true } }, { text: "Join free; pay a take rate only on completed bookings", options: { fontSize: 11.5, color: H.text } }], { x: 9.53, y: 2.15, w: 3.0, h: 3.3, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
+  s.addShape(pres.shapes.LINE, { x: 4.0, y: 3.8, w: 0.85, h: 0, line: { color: H.navy, width: 2, beginArrowType: "triangle", endArrowType: "triangle" } });
+  s.addShape(pres.shapes.LINE, { x: 8.45, y: 3.8, w: 0.88, h: 0, line: { color: H.navy, width: 2, beginArrowType: "triangle", endArrowType: "triangle" } });
+  s.addText("Rails partners — employer of record, insurance broker, immigration counsel, background checks — hold the licences; we never hold passports or give legal advice.", { x: 0.6, y: 5.8, w: 12.13, h: 0.6, fontSize: 12, italic: true, color: H.navy, margin: 0, isTextBox: true });
 }
 // 7 WHY NOW
 {
-  const s = content("Why now", "Wealth is moving, rules are tightening and family offices are multiplying", "Henley Private Wealth Migration Report 2025 (vendor projection); Home Office PQ55427 (Jun 2025); Gulf News on MOHRE actions (2022–26); Deloitte 2024; Altrata 2026.");
-  const st = [["142k → 165k", "millionaires projected to relocate in 2025 and 2026 (Henley; vendor estimate)"], ["Jun 2025", "UK Home Office says it will reconsider the domestic-worker visa route"], ["153", "UAE employers acted against for domestic-worker swaps; fines up to AED 50,000"], ["+4.9% a year", "growth in single family offices to 2030 (CALC from Deloitte)"]];
+  const s = content("Why now", "Wealth is moving, rules are tightening and family offices are multiplying", "Henley Private Wealth Migration Report 2025 (vendor projection); Home Office PQ55427 (Jun 2025); Gulf News on MOHRE actions (2022–26); Deloitte 2024; Banco Central via Economic News Brasil (Jan 2026).");
+  const st = [["142k → 165k", "millionaires projected to relocate in 2025 and 2026 (Henley; vendor estimate)"], ["Jun 2025", "UK Home Office says it will reconsider the domestic-worker visa route"], ["US$21.7bn", "spent abroad by Brazilians in 2025, up 10% — Italy their most-booked country"], ["+4.9% a year", "growth in single family offices to 2030 (CALC from Deloitte)"]];
   st.forEach((t, i) => {
     const x = 0.6 + (i % 2) * 6.12, y = 1.95 + Math.floor(i / 2) * 2.1;
     s.addShape(pres.shapes.RECTANGLE, { x, y, w: 6.0, h: 1.95, fill: { color: i === 1 ? H.navy : H.panel }, line: { color: i === 1 ? H.navy : H.line, width: 0.75 } });
     big(s, x + 0.25, y + 0.2, 5.5, t[0], t[1], { dark: i === 1, ns: 30, lh: 0.8 });
   });
 }
-// 8 BUSINESS MODEL
+// 8 ENVELOPMENT & COMPETITION
 {
-  const s = content("Business model", "A membership per staff position: a base, premiums for speed and reach, discounts for what families give us back", "research/fmo_strategy.md §5.6 and §6. Break-even fee and discount ceilings are CALC; fixed costs £90k a year (assumption).");
-  const col = (x, w, head, items, fill, hc, tc) => {
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w, h: 3.85, fill: { color: fill }, line: { color: fill } });
-    s.addText(head, { x: x + 0.2, y: 2.05, w: w - 0.4, h: 0.45, fontSize: 15, bold: true, color: hc, margin: 0, isTextBox: true });
-    s.addText(items.map((t, i) => ({ text: t, options: { bullet: true, breakLine: i < items.length - 1 } })), { x: x + 0.2, y: 2.6, w: w - 0.4, h: 3.1, fontSize: 12, color: tc, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
-  };
-  col(0.6, 3.95, "Base membership", ["Planned relief from an employed reliever", "Replacement guarantee", "Compliance coordination for cleared legs", "Staff-owned record"], H.navy, H.gold, H.white);
-  col(4.69, 3.95, "Premiums", ["Faster response: 72 h or 24 h", "Dedicated reliever", "Extra jurisdictions at partner cost", "Peak-season cover"], H.panel, H.navy, H.text);
-  col(8.78, 3.95, "Discounts", ["12-month travel calendar", "90 days’ notice", "Billing in advance", "Multi-year contract; referrals"], H.light, H.navy, H.text);
-  callout(s, "Break-even: £30.6–31.4k per position-year at 15 positions — the target for year 3 (CALC).", 6.0, 0.5);
+  const s = content("Competition", "We envelop single-function rivals by bundling them around the family’s own people and data", "Envelopment per the network-markets framework; raw/fmo_competitors.md and raw/alt_a–c.md (Oct 2026); our positioning assessment.");
+  const X0 = 1.2, Y0 = 1.95, W = 6.6, Hh = 4.1;
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W, h: Hh, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addShape(pres.shapes.LINE, { x: X0 + W / 2, y: Y0, w: 0, h: Hh, line: { color: H.line, width: 0.75, dashType: "dash" } });
+  s.addShape(pres.shapes.LINE, { x: X0, y: Y0 + Hh / 2, w: W, h: 0, line: { color: H.line, width: 0.75, dashType: "dash" } });
+  s.addText("Breadth of the journey covered →", { x: X0, y: Y0 + Hh + 0.05, w: W, h: 0.3, fontSize: 10.5, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
+  s.addText("People and legal status covered ↑", { x: 0.3, y: Y0 - 0.32, w: 4, h: 0.3, fontSize: 10.5, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const pts = [["Staff agencies", 0.18, 0.55, H.light, H.text], ["Payroll / EOR", 0.15, 0.3, H.light, H.text], ["Morgan & Mallet", 0.3, 0.72, H.mid, H.white], ["Concierge clubs", 0.55, 0.15, H.light, H.text], ["Advisors and DMCs", 0.78, 0.28, H.light, H.text], ["Booking platforms", 0.6, 0.42, H.light, H.text], ["Otium Chigi Journeys", 0.8, 0.85, H.navy, H.white]];
+  pts.forEach((p) => {
+    const cx = X0 + p[1] * W, cy = Y0 + (1 - p[2]) * Hh, w = p[0].length > 16 ? 1.95 : 1.6;
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx - w / 2, y: cy - 0.2, w, h: 0.4, rectRadius: 0.1, fill: { color: p[3] }, line: { color: H.white, width: 1 } });
+    s.addText(p[0], { x: cx - w / 2, y: cy - 0.2, w, h: 0.4, fontSize: 10, bold: true, color: p[4], align: "center", valign: "middle", margin: 0, isTextBox: true });
+  });
+  card(s, 8.3, 1.95, 4.43, 4.1, "Honest about envelopment", "Bigger platforms could do it to us: card issuers and banks, advisor networks, booking platforms.\n\nOur defence: partner with them — white-label staff and compliance — and stay where they cannot: the family’s own staff, legal status and private access.", { hs: 13, fs: 12, dark: true });
 }
-// 9 ECONOMICS (honest)
+// 9 BUSINESS MODEL
 {
-  const s = content("Unit economics", "The economics hinge on one number: what families pay for guaranteed, lawful cover — our 90-day test measures it", "research/fmo_strategy.md §5.3–5.5 (CALC, £ per position-year, 5 positions per reliever); temp rate from one ad (weak); assistant hours are an assumption.");
+  const s = content("Business model", "Three revenue lines on one family: a membership, a take rate on bookings and a fee per staff position", "Benchmarks: platform fees 16–30% (Brazil 2026; Italy, Direzione Hotel); merchant model from our earlier Southern Italy model; advisor commissions ~10–12%; agency fees 15–25%. Levels are assumptions until the trade-off interviews; staff break-even is CALC (research/fmo_strategy.md).");
+  const col = (x, w, head, big1, items, fill, hc, tc) => {
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w, h: 3.85, fill: { color: fill }, line: { color: fill } });
+    s.addText([{ text: head, options: { fontSize: 14, bold: true, color: hc, breakLine: true } }, { text: big1, options: { fontSize: 22, bold: true, color: tc } }], { x: x + 0.2, y: 2.05, w: w - 0.4, h: 1.1, margin: 0, valign: "top", isTextBox: true });
+    s.addText(items.map((t, i) => ({ text: t, options: { bullet: true, breakLine: i < items.length - 1 } })), { x: x + 0.2, y: 3.25, w: w - 0.4, h: 2.45, fontSize: 11.5, color: tc, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
+  };
+  col(0.6, 3.95, "Household membership", "Per family, per year", ["Fixed fee that captures surplus", "Access to all modules", "Set by trade-off interviews"], H.navy, H.gold, H.white);
+  col(4.69, 3.95, "Take rate on bookings", "10–15% (assumption)", ["Paid by suppliers, only on completed stays", "Below platforms’ 16–30%", "€2.4–3.6k on a €24k family trip (CALC)", "Or one price: 30% markup on net cost, VAT on the margin only"], H.panel, H.navy, H.text);
+  col(8.78, 3.95, "Staff + compliance", "Per position-year", ["Break-even £30.6–31.4k at 15 positions (CALC)", "Premiums for speed and reach", "Discounts for notice and calendars"], H.light, H.navy, H.navy);
+  callout(s, "Opposite seasons — Italy Apr–Oct, Santa Catarina Dec–Mar — keep the same staff and the same families active all year.", 6.0, 0.5);
+}
+// 10 UNIT ECONOMICS (honest)
+{
+  const s = content("Unit economics", "The wedge must pay first: what families pay for guaranteed, lawful staff cover is the number our 90-day test measures", "research/fmo_strategy.md §5.3–5.5 (CALC, £ per position-year, 5 positions per reliever); temp rate from one ad (weak); assistant hours are an assumption. Priced on London rates; Wave-1 rates measured in the 90-day test.");
   const unit = 0.24, x0 = 3.5;
   const bars = [["What families can save today", "Temps + assistant time", 14.25, "£11.5–17.0k", H.light, H.text], ["Our cost per position", "Reliever, employer, recruiting, capital", 25.0, "£24.6–25.4k", H.gold, H.text], ["Break-even fee, year 3", "15 positions incl. fixed costs", 31.0, "£30.6–31.4k", H.navy, H.white]];
   bars.forEach((b, i) => {
@@ -217,40 +233,24 @@ section("Pitch");
     s.addText(b[3], { x: x0 + 0.1, y: y + 0.12, w: 2.0, h: 0.56, fontSize: 13, bold: true, color: b[5], margin: 0, valign: "middle", isTextBox: true });
   });
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 5.15, w: 12.13, h: 0.95, fill: { color: H.navy }, line: { color: H.navy } });
-  s.addText("The value we must prove: £13.6–19.9k per position-year for the guarantee, continuity and lawful status — about what families already pay staff to travel (£16.5–23.6k).", { x: 0.8, y: 5.15, w: 11.8, h: 0.95, fontSize: 14, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
+  s.addText("The value we must prove: £13.6–19.9k per position-year for the guarantee, continuity and lawful status — about what families already pay staff to travel (£16.5–23.6k). Bookings and membership add revenue on top only once both sides are on.", { x: 0.8, y: 5.15, w: 11.8, h: 0.95, fontSize: 13, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
 }
-// 10 COMPETITION
+// 11 WAVES
 {
-  const s = content("Competition", "No one combines an employed rotating pool with cross-border compliance — the corner we take", "raw/fmo_competitors.md (Oct 2026); our positioning assessment.");
-  const X0 = 1.2, Y0 = 1.95, W = 6.6, Hh = 4.1;
-  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W, h: Hh, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
-  s.addShape(pres.shapes.LINE, { x: X0 + W / 2, y: Y0, w: 0, h: Hh, line: { color: H.line, width: 0.75, dashType: "dash" } });
-  s.addShape(pres.shapes.LINE, { x: X0, y: Y0 + Hh / 2, w: W, h: 0, line: { color: H.line, width: 0.75, dashType: "dash" } });
-  s.addText("Cross-border compliance →", { x: X0, y: Y0 + Hh + 0.05, w: W, h: 0.3, fontSize: 10.5, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
-  s.addText("Employed relief pool ↑", { x: 0.3, y: Y0 - 0.32, w: 3, h: 0.3, fontSize: 10.5, bold: true, color: H.muted, margin: 0, isTextBox: true });
-  const pts = [["Temp desks", 0.2, 0.62, H.light, H.text], ["Travel-nanny apps", 0.12, 0.35, H.light, H.text], ["Household payroll", 0.35, 0.12, H.light, H.text], ["Placement agencies", 0.45, 0.25, H.light, H.text], ["Morgan & Mallet", 0.72, 0.3, H.mid, H.white], ["Corporate EOR", 0.85, 0.08, H.light, H.text], ["Otium Chigi Journeys", 0.8, 0.82, H.navy, H.white]];
-  pts.forEach((p) => {
-    const cx = X0 + p[1] * W, cy = Y0 + (1 - p[2]) * Hh, w = p[0].length > 16 ? 1.9 : 1.6;
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: cx - w / 2, y: cy - 0.2, w, h: 0.4, rectRadius: 0.1, fill: { color: p[3] }, line: { color: H.white, width: 1 } });
-    s.addText(p[0], { x: cx - w / 2, y: cy - 0.2, w, h: 0.4, fontSize: 10, bold: true, color: p[4], align: "center", valign: "middle", margin: 0, isTextBox: true });
+  const s = content("Waves", "Three waves: Rome, Southern Italy and Santa Catarina first — opposite seasons, partners on the ground", "Euronews (Feb 2026: Capri); Made in Pompei (Feb 2025); The Roman Guy; Congresso em Foco (Jul 2026); NSC Total (Dec 2025); Civitatis via Brasilturis (Dec 2025). Triggers are assumptions.");
+  const w = [["Wave 1", "Rome · Southern Italy · Santa Catarina", ["Rome: private access at 9–23× the standard ticket", "Southern Italy: up to 50,000 day visitors a day on Capri; Pompeii capped at 20,000", "Santa Catarina: a third of Rio’s violent-death rate; seclusion by villa and boat", "Regional partner in each"], H.navy, H.white, H.gold], ["Wave 2", "Rest of Italy · Greece · Ibiza · the Alps", ["Trigger: Wave-1 staff wedge at economic profit ≥ 0", "Trigger: ≥ 20 live suppliers per Wave-1 region", "Summer islands and winter ski for the same families"], H.mid, H.white, H.white], ["Wave 3", "Global", ["Trigger: repeat families across ≥ 2 regions", "Partner-led; never own homes, yachts or aircraft"], H.light, H.navy, H.navy]];
+  w.forEach((t, i) => {
+    const x = 0.6 + i * 4.1;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.9, w: 3.95, h: 4.25, fill: { color: t[3] }, line: { color: t[3] } });
+    s.addText([{ text: t[0], options: { bold: true, fontSize: 22, color: t[5], breakLine: true } }, { text: t[1], options: { bold: true, fontSize: 13, color: t[4] } }], { x: x + 0.2, y: 2.0, w: 3.55, h: 1.1, margin: 0, valign: "top", isTextBox: true });
+    s.addText(t[2].map((b, k) => ({ text: b, options: { bullet: true, breakLine: k < t[2].length - 1 } })), { x: x + 0.2, y: 3.15, w: 3.55, h: 2.9, fontSize: 11, color: t[4], margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
   });
-  card(s, 8.3, 1.95, 4.43, 4.1, "Honest about the moat", "Morgan & Mallet could copy within 12–24 months (assumption) and has a lower cost base.\n\nOur answer is speed, owning the reliever contracts, and partnering where it pays — not a claim of a permanent moat.", { hs: 13, fs: 12, dark: true });
-}
-// 11 GO TO MARKET
-{
-  const s = content("Go-to-market", "London first, through the people families already trust — foreign legs only once counsel clears them", "research/fmo_strategy.md §2.2, §2.5, §11. Channels are candidates; London chosen because the evidence is densest there.");
-  table(s, ["Step", "What", "Why"], [
-    ["1 · Channel", "Family-office directories, private banks, multi-family offices, agencies with unfilled rota roles", "Trust ranks first in household hiring (72% of family offices, UBS 2025)"],
-    ["2 · Base city", "London; staff with UK work rights", "Densest evidence; UK route rules are known"],
-    ["3 · Cleared legs", "France and the UAE only after written counsel opinions", "No leg is sold before it is lawful"],
-    ["4 · References", "2–3 paid pilot families with deposits", "In an NDA market, references travel by word of mouth"],
-    ["5 · Expand", "More relievers and positions; then the staff record and a residency day-count ledger", "Each step has its own trigger"],
-  ], { colW: [1.9, 5.6, 4.63], fs: 11.5, rowH: 0.75 });
+  callout(s, "Go region by region: a region enters the next stage only when its own gates pass.");
 }
 // 12 ROADMAP
 {
-  const s = content("Roadmap", "Prove it in 90 days with no capital, pilot it with paying families, then scale to 15 positions", "research/fmo_strategy.md §8–9. Thresholds are assumptions; pass marks for the family test and paid pilots are derived from the economics.");
-  const ph = [["Days 0–90", "Validate", "9 tests, ~160 hours, no capital. Kill gates: lawful route and employer route. Family trade-off interviews (n = 12). 2 paid pilots signed", H.navy, H.white], ["Months 4–15", "Pilot", "1 reliever, 4–6 positions, 2–3 families; deposits cover the cash outlay", H.mid, H.white], ["Months 16–36", "Scale", "3 relievers, 15 positions; ≥ 68% utilisation; economic profit ≥ 0", H.light, H.navy]];
+  const s = content("Roadmap", "Prove the wedge in 90 days with no capital, pilot it with paying families in Wave 1, then add the other modules", "Strategy deck validation plan and research/fmo_strategy.md §8–9. Thresholds are assumptions; pass marks for the family test and paid pilots derive from the economics.");
+  const ph = [["Days 0–90", "Validate", "9 tests, ~160 hours, no capital. Kill gates: lawful route and employer route. Family trade-off interviews. Suppliers signed per region", H.navy, H.white], ["Months 4–15", "Pilot Wave 1", "Staff + compliance with 2–3 paying families per region; first suppliers live; deposits cover the cash outlay", H.mid, H.white], ["Months 16–36", "Add modules", "Journey design, booking and access on the same families; data layer; then Wave 2 on its triggers", H.light, H.navy]];
   ph.forEach((p, i) => {
     const x = 0.6 + i * 4.1;
     s.addShape(pres.shapes.RECTANGLE, { x, y: 2.0, w: 3.95, h: 3.6, fill: { color: p[3] }, line: { color: p[3] } });
@@ -259,26 +259,37 @@ section("Pitch");
   });
   callout(s, "Go only if every gate passes and the measured value makes economic profit positive — otherwise we stop with nothing lost.", 5.8, 0.5);
 }
+// 12b PARTNERS
+{
+  const s = content("Partners", "Partners on the ground: named targets in every Wave-1 region — prospects today, signed with free content for net rates", "Our earlier target lists for Rome, Southern Italy and Santa Catarina, and our Southern Italy supplier, partnership and pricing sheets (Sep 2026). Prospects, not agreements; verify licences, prices and MICHELIN stars before contracting.");
+  table(s, ["", "Rome", "Southern Italy", "Santa Catarina"], [
+    ["Stays", "Hotel de la Ville · Hotel Hassler · Six Senses Rome · Bulgari Hotel Roma", "Le Sirenuse · Il San Pietro di Positano · Monastero Santa Rosa · Capri Palace · Punta Tragara · direct villa owners", "Awasi Santa Catarina (Relais & Châteaux) · pousadas at Praia do Rosa · Jurerê houses"],
+    ["Access + dining", "Vatican before opening · Colosseum underground · palazzo dinners · La Pergola · Imàgo · Il Pagliaccio", "Pompeii archaeological park (early access) · Don Alfonso 1890 · Torre del Saracino · Zass · L’Olivo · George", "P12 Parador Internacional · Café de la Musique · whale watching at Praia do Rosa (Jul–Nov) · sailing the bay"],
+    ["Mobility", "Licensed NCC chauffeurs · a helicopter to the Amalfi Coast", "Muto Travel NCC · Hoverfly (Naples–Capri from ~€1,900) · Amalfi Coast Dream (yacht days from ~€4,500) · D-Marin marinas (warm contact)", "Chauffeurs · boats · a helicopter"],
+    ["Local care + chefs", "To source, same vetting standard", "Amalfi Sitters · International Sitters · licensed home-care agencies · Take a Chef (client price: nanny €247, companion €221 a day)", "To source, same vetting standard"],
+  ], { colW: [1.6, 3.25, 4.18, 3.1], fs: 9.5, rowH: 0.8 });
+  callout(s, "One warm channel today (D-Marin marinas); every other name is a target to sign before the pilot.", 5.75, 0.5);
+}
 // 13 TEAM
 {
-  const s = content("Team", "Two founders across Brazil and Rome — finance and pricing on one side, HNW clients and hospitality on the other", "Founders’ LinkedIn profiles and résumé (Oct 2026).");
-  const t = [["Calebe Garcia", "Santa Catarina, Brazil", ["10+ years in investment banking, corporate finance and strategy, incl. Advent International and Whirlpool", "MBA and Master of Finance (Hult)", "Portuguese, Spanish and English"]], ["Francesco Ficorilli", "Rome, Italy", ["Luxury real-estate advisor at Berkshire Hathaway HomeServices: historic palazzi and HNW clients", "Founder of Monster Burger and Monster Hospitality Group (12 years in hospitality); co-founder of GRAFF (B2B pricing)", "MBA and MS Finance (Hult); Italian and English"]]];
+  const s = content("Team", "A founder and two regional partner seats — one team across Rome, Southern Italy and Santa Catarina", "Founder profile (Oct 2026). Regional seats describe roles; partners to be confirmed.");
+  const t = [["Calebe Garcia", "Founder · Santa Catarina, Brazil", ["10+ years in investment banking, corporate finance and strategy, incl. Advent International and Whirlpool", "MBA and Master of Finance (Hult)", "Portuguese, Spanish and English"], H.navy, H.white, H.gold], ["Regional partner · Rome", "Partner seat", ["Private doors and HNW client relationships in Rome", "Hospitality operations and B2B pricing", "Italian and English"], H.panel, H.navy, H.goldDk], ["Regional partner · Southern Italy", "Partner seat · to be confirmed", ["Naples, Amalfi Coast and Capri supply on the ground", "Local hosts, boats, chefs and access", "Italian"], H.panel, H.navy, H.goldDk]];
   t.forEach((p, i) => {
-    const x = 0.6 + i * 6.12;
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w: 6.0, h: 3.3, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
-    s.addText([{ text: p[0], options: { fontSize: 20, bold: true, color: H.navy, breakLine: true } }, { text: p[1], options: { fontSize: 12, italic: true, color: H.goldDk } }], { x: x + 0.25, y: 2.1, w: 5.5, h: 0.85, margin: 0, isTextBox: true });
-    s.addText(p[2].map((b, k) => ({ text: b, options: { bullet: true, breakLine: k < p[2].length - 1 } })), { x: x + 0.25, y: 3.0, w: 5.5, h: 2.1, fontSize: 12, color: H.text, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
+    const x = 0.6 + i * 4.1;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w: 3.95, h: 3.3, fill: { color: p[3] }, line: { color: i === 0 ? H.navy : H.line, width: 0.75 } });
+    s.addText([{ text: p[0], options: { fontSize: 17, bold: true, color: p[4], breakLine: true } }, { text: p[1], options: { fontSize: 11, italic: true, color: p[5] } }], { x: x + 0.2, y: 2.1, w: 3.55, h: 0.9, margin: 0, isTextBox: true });
+    s.addText(p[2].map((b, k) => ({ text: b, options: { bullet: true, breakLine: k < p[2].length - 1 } })), { x: x + 0.2, y: 3.05, w: 3.55, h: 2.1, fontSize: 11.5, color: p[4], margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
   });
-  table(s, ["We hire", "We partner"], [["An operator to run relief scheduling and staff welfare", "Employer of record, insurance broker, immigration counsel, background-check rails"]], { y: 5.45, colW: [6.0, 6.13], fs: 11, rowH: 0.55 });
+  table(s, ["We hire", "We partner"], [["An operator to run relief scheduling, staff welfare and supplier onboarding", "Employer of record, insurance broker, immigration counsel, background-check rails"]], { y: 5.45, colW: [6.0, 6.13], fs: 11, rowH: 0.55 });
 }
 // 14 ASK
 {
-  const s = darkSlide("The ask: three pilot families, one channel, three partners — no capital until the gate passes", "The ask");
-  const a = [["2–3", "pilot families", "who pay a deposit for a London relief membership"], ["1", "vouching channel", "a family-office directory, private bank or multi-family office"], ["3", "rails partners", "employment or immigration counsel, an employer of record, an insurance broker"]];
+  const s = darkSlide("The ask: a partner, pilot families and suppliers in each Wave-1 region — no capital until the gate passes", "The ask");
+  const a = [["1", "partner per region", "Rome and Southern Italy, alongside Santa Catarina"], ["2–3", "pilot families per region", "who pay a deposit for staff + compliance"], ["20", "supplier letters per region", "from our named target lists; net rates for free content, paid only on stays"], ["3", "rails partners", "counsel, employer of record, insurance broker"]];
   a.forEach((t, i) => {
-    const x = 0.6 + i * 4.1;
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 2.2, w: 3.9, h: 3.0, fill: { color: "243672" }, line: { color: "243672" } });
-    s.addText([{ text: t[0], options: { fontSize: 44, bold: true, color: H.gold, breakLine: true } }, { text: t[1], options: { fontSize: 18, bold: true, color: H.white, breakLine: true } }, { text: t[2], options: { fontSize: 12.5, color: H.light } }], { x: x + 0.25, y: 2.35, w: 3.4, h: 2.7, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
+    const x = 0.6 + i * 3.06;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 2.2, w: 2.95, h: 3.0, fill: { color: "243672" }, line: { color: "243672" } });
+    s.addText([{ text: t[0], options: { fontSize: 40, bold: true, color: H.gold, breakLine: true } }, { text: t[1], options: { fontSize: 15, bold: true, color: H.white, breakLine: true } }, { text: t[2], options: { fontSize: 11.5, color: H.light } }], { x: x + 0.2, y: 2.35, w: 2.55, h: 2.7, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
   });
   s.addText("Investors: we talk after day 90, with measured demand, signed pilots and cleared routes in hand.", { x: 0.6, y: 5.5, w: 12.1, h: 0.5, fontSize: 14, italic: true, color: H.white, margin: 0, isTextBox: true });
   s.addText("Calebe Garcia · algar.calebe@gmail.com · +1 617 949 6729", { x: 0.6, y: 6.3, w: 12.1, h: 0.4, fontSize: 12, color: H.light, margin: 0, isTextBox: true });

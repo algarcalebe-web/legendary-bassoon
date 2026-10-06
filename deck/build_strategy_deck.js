@@ -111,23 +111,23 @@ section("Opening");
   const s = pres.addSlide({ masterName: "DARK", sectionTitle: sec });
   s.addImage({ path: CREST, x: 0, y: 0, w: 5.0, h: 7.5 });
   s.addText("OTIUM CHIGI JOURNEYS · STRATEGY DECK · OCTOBER 2026", { x: 5.6, y: 1.0, w: 7.1, h: 0.35, fontSize: 11, bold: true, color: H.gold, charSpacing: 3, margin: 0, isTextBox: true });
-  s.addText("UHNW families’ biggest unserved costs are the people and records that must cross borders with them — and the best way in does not pay yet on what we can measure", { x: 5.6, y: 1.5, w: 7.13, h: 2.7, fontSize: 24, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
-  s.addText("A problem-first study of affluent and ultra-high-net-worth leisure travel: the pains, what families resort to, about 35 opportunities screened outside-in, one wedge taken through a full strategy and pricing analysis, and a 90-day test that settles it", { x: 5.6, y: 4.35, w: 7.1, h: 1.3, fontSize: 13, color: H.light, margin: 0, valign: "top", isTextBox: true });
-  s.addText([{ text: "Calebe Garcia · prepared for Francesco Ficorilli", options: { breakLine: true } }, { text: "Discussion document · Confidential", options: { color: H.light } }], { x: 5.6, y: 6.0, w: 7.1, h: 0.7, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
-  s.addNotes("Governing thought first (Minto). The deck answers one question: should Otium Chigi Journeys launch a family mobility office? Founder fit was not used to rank options.");
+  s.addText("UHNW families buy every piece of a journey from a different vendor — an integrated platform can win, but only by entering through staff and enveloping the rest", { x: 5.6, y: 1.5, w: 7.13, h: 2.7, fontSize: 24, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
+  s.addText("A problem-first study of affluent and ultra-high-net-worth leisure travel: the pains, what families resort to, about 35 opportunities screened outside-in, a two-sided platform tested through its entry wedge, three waves, and a 90-day test that settles the first step", { x: 5.6, y: 4.35, w: 7.1, h: 1.3, fontSize: 13, color: H.light, margin: 0, valign: "top", isTextBox: true });
+  s.addText([{ text: "Calebe Garcia · Otium Chigi Journeys", options: { breakLine: true } }, { text: "Discussion document · Confidential", options: { color: H.light } }], { x: 5.6, y: 6.0, w: 7.1, h: 0.7, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
+  s.addNotes("Governing thought first (Minto). The deck answers one question: should we create a two-sided platform that integrates exclusive luxury travel for UHNW and affluent families? Founder fit was not used to rank options.");
 }
 
 // ---------- EXEC SUMMARY ----------
 {
-  const s = content("Executive summary", "Executive summary: the gap is real, the best wedge does not pay on measurable value, so we test one number before building", "pages that follow; every figure is dated and sourced there and in the research files.");
+  const s = content("Executive summary", "Executive summary: build the platform in waves — enter through staff, envelop the rest, and prove the wedge pays before scaling", "pages that follow; every figure is dated and sourced there and in the research files.");
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 1.82, w: 12.13, h: 0.62, fill: { color: H.navy }, line: { color: H.navy } });
-  s.addText("Answer: do not build yet. Validate in 90 days, with no capital at risk, whether families value guaranteed, lawful staff cover at £13.6–19.9k or more per position-year; build only if they do.", { x: 0.8, y: 1.82, w: 11.8, h: 0.62, fontSize: 12.5, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
+  s.addText("Answer: yes, but in waves. Enter through staff and compliance, which families use even before suppliers join; then envelop trip design, access and the data layer. First prove in 90 days, with no capital, that families value guaranteed, lawful staff cover at £13.6–19.9k+ per position-year.", { x: 0.8, y: 1.82, w: 11.8, h: 0.62, fontSize: 12.5, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
   const rows = [
     ["The problem is real but mostly served", "Planning takes 16 hours a trip (Priceline, Jan 2024, n = 3,024), yet luxury operators already solve it well; discovery calls last only 15–45 minutes."],
     ["The unserved layer crosses borders", "UHNW families buy staff, legal status, records and supplier trust from separate vendors. Only 2.36% of one agency’s childcare candidates can work rotations (Morgan & Mallet, 2025/26)."],
-    ["Best wedge: travelling staff with built-in compliance", "Top-scored theme among ~35 opportunities (19/25 outside-in). No one sells an employed rotating pool plus cross-border compliance; Morgan & Mallet is closest."],
-    ["It does not pay on measurable value", "Our cost floor is £24.6–25.4k per position-year against the family’s £11.5–17.0k ceiling: a wedge of −£7.6k to −£13.9k (CALC). Profit needs the guarantee valued at £13.6–19.9k+."],
-    ["So we test before we build", "Nine tests in 90 days and ~160 hours: two kill gates (lawful route, employer route), cover, trade-off interviews, and two paid pilots. GO only if all gates pass."],
+    ["Integration is the gap; staff is the way in", "No one integrates trips, access, staff and trust. Staff + compliance scored top among ~35 opportunities (19/25) and works with one side only — the platform’s entry wedge."],
+    ["The wedge must pay before the platform can", "On measurable value the staff wedge is −£7.6k to −£13.9k per position-year (CALC); profit needs the guarantee valued at £13.6–19.9k+. Bundled modules add take-rate revenue only once both sides are on."],
+    ["Wave 1: Rome, Southern Italy, Santa Catarina", "Opposite seasons keep staff and suppliers busy all year. Nine tests in 90 days and ~160 hours, two kill gates, no capital; GO region by region."],
   ];
   rows.forEach((r, i) => {
     const y = 2.58 + i * 0.73;
@@ -140,11 +140,11 @@ section("Opening");
 
 // ---------- SCQ ----------
 {
-  const s = content("Introduction", "Wealthy families pay to remove risk — but nothing that crosses borders with them is served", "Altrata WUWR 2026; Knight Frank 2026; PS and Heathrow Windsor pricing (2026); security price guides; agency fee schedules (2025–26); GOV.UK and Home Office PQ55427 (Jun 2025); UAE Decree-Law 9/2022.");
+  const s = content("Introduction", "Wealthy families pay to remove risk — but no one integrates what their journeys need", "Altrata WUWR 2026; Knight Frank 2026; PS and Heathrow Windsor pricing (2026); security price guides; agency fee schedules (2025–26); GOV.UK and Home Office PQ55427 (Jun 2025); UAE Decree-Law 9/2022.");
   const cols = [
-    ["Situation", "557–714k UHNW people (Altrata 2026; Knight Frank 2026), with about three homes each, live and travel across countries — and already pay heavily to remove risk: private airport suites US$3,550–4,850 a visit, close protection US$1,800–4,000 a day, agency fees of 15–25% of salary.", H.panel, H.navy, H.text],
-    ["Complication", "Trip planning is already served by advisors. What is not served is what must cross borders with the family — staff, their legal status, records, trust in suppliers — sold by separate vendors, while rules tighten: the UK domestic-worker visa route is under review (Jun 2025); the UAE fines illegal employment AED 50–200k.", H.panel, H.navy, H.text],
-    ["Question", "Should Otium Chigi Journeys launch a family mobility office?", H.navy, H.gold, H.white],
+    ["Situation", "557–714k UHNW people (Altrata 2026; Knight Frank 2026), with about three homes each, live and travel across countries — and already pay heavily to remove risk: private airport suites from US$3,550 a visit, close protection US$1,800–4,000 a day, agency fees of 15–25% of salary.", H.panel, H.navy, H.text],
+    ["Complication", "Each piece is sold by a different vendor — advisors design, concierges open doors, agencies place staff, payroll firms employ them — and none of it crosses borders with the family. Rules tighten: the UK domestic-worker visa route is under review (Jun 2025); the UAE fines illegal employment AED 50–200k.", H.panel, H.navy, H.text],
+    ["Question", "Should we create a two-sided platform that integrates exclusive luxury travel for UHNW and affluent families?", H.navy, H.gold, H.white],
   ];
   cols.forEach((c, i) => {
     const x = 0.6 + i * 4.1;
@@ -158,14 +158,14 @@ section("Opening");
 
 // ---------- ISSUE TREE ----------
 {
-  const s = content("Introduction", "Five questions decide it: the gap is real, but we cannot yet show we win or get paid", "Our issue analysis (key question in yes/no form, MECE branches, at most four levels); answers from the chapters that follow.");
+  const s = content("Introduction", "Five questions decide it: the gap is real, a platform can only win through a wedge, and the wedge must prove it pays", "Our issue analysis (key question in yes/no form, MECE branches, at most four levels); answers from the chapters that follow.");
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 3.15, w: 2.9, h: 1.5, fill: { color: H.navy }, line: { color: H.navy } });
-  s.addText("Should Otium Chigi Journeys launch a family mobility office?", { x: 0.75, y: 3.15, w: 2.6, h: 1.5, fontSize: 13, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
+  s.addText("Should we create a two-sided platform that integrates exclusive luxury travel for UHNW and affluent families?", { x: 0.75, y: 3.15, w: 2.6, h: 1.5, fontSize: 13, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
   const qs = [
-    ["1 · Is the pain real and paid for?", "Yes for the cross-border layer; planning pain is already served", "Yes", 0],
-    ["2 · Is there an unfilled gap?", "Yes: lawful cover from staff who can rotate (gap 3–5 of 10)", "Yes", 0],
-    ["3 · Can we win?", "No sustainable advantage; a 12–24 month lead at best", "Weak", 1],
-    ["4 · Does it pay?", "No: −£7.6k to −£13.9k per position-year (CALC)", "Not yet", 1],
+    ["1 · Is the pain real and paid for?", "Yes: families pay for staff, access and trust; planning is already served", "Yes", 0],
+    ["2 · Is there an unfilled gap?", "Yes: no one integrates staff, access and trust across borders", "Yes", 0],
+    ["3 · Can a platform win?", "Not head-on: winner-take-all fails; only via a wedge and envelopment", "Via wedge", 1],
+    ["4 · Does it pay?", "Not yet: the wedge is −£7.6k to −£13.9k per position-year (CALC)", "Not yet", 1],
     ["5 · Can we test it cheaply?", "Yes: 9 tests, 90 days, ~160 hours, no capital", "Yes", 0],
   ];
   s.addShape(pres.shapes.LINE, { x: 3.5, y: 3.9, w: 0.35, h: 0, line: { color: H.navy, width: 1.5 } });
@@ -242,7 +242,7 @@ section("1 · The problem");
   const s = content("1 · The problem", "What the pains already cost: UHNW travellers pay most for privacy, protection and someone to vouch for a supplier",
     "PS and travelextra (2026); Executive Traveller (Windsor Suite); security and protection price guides (2025–26); private-charter market reports (2025, two agree); broker and MYBA terms; PinnacleCare; Altrata World Ultra Wealth Report 2025 via Black Enterprise; K&R broker quotes. Figures from search summaries except PS and Windsor pages.");
   const stats = [
-    ["US$3,550–4,850", "per visit to a private airport suite (PS, LAX/ATL); Heathrow’s Windsor Suite from £3,812"],
+    ["US$3,550", "per visit to a private airport suite (PS, LAX/ATL), on top of US$4,850 a year; Heathrow’s Windsor Suite from £3,812"],
     ["US$1,800–4,000", "a day for high-end close protection in the US; £500–1,000 a day in the UK"],
     ["10–20%", "broker markup on a ~US$16bn private-charter market (2025) — partly payment to vouch"],
     ["15–20%", "broker commission on superyacht charters of €120k–700k+ a week"],
@@ -323,10 +323,23 @@ section("2 · Where to play");
   callout(s, "★ The two staff ideas fuse into one wedge: an employed rotating pool with the compliance layer built in.");
 }
 {
-  const s = content("2 · Where to play", "The wedge opens a platform only if it earns cash and trust first — each later module needs its own trigger", "research/fmo_strategy.md §8 (roadmap and triggers; thresholds are assumptions); research/opportunity_map.md §3 (platform thesis).");
+  const s = content("2 · Where to play", "The platform: one place where families get the journey, the access, the people and the trust — and suppliers get qualified guests", "Concept to be tested. Modules from research/opportunity_map.md and the owner’s earlier integrated-platform work; evidence on each module in chapters 1–4.");
+  s.addShape(pres.shapes.OVAL, { x: 5.1, y: 2.75, w: 3.1, h: 2.2, fill: { color: H.navy }, line: { color: H.navy } });
+  s.addText([{ text: "Otium Chigi", options: { bold: true, fontSize: 15, color: H.white, breakLine: true } }, { text: "Journeys platform", options: { fontSize: 12, color: H.gold } }], { x: 5.1, y: 2.75, w: 3.1, h: 2.2, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  const mods = [["1 · Journey design + booking", "Three-minute questionnaire, three priced proposals in 24 hours, one price and one payment", 1.3, 1.9], ["2 · Access + hosting", "Held MICHELIN tables, opening-time access, crowd-smart timing and a local host in each region", 8.7, 1.9], ["3 · Staff + compliance", "Hire our vetted staff or manage the family’s own: visas, payroll, insurance across borders", 1.3, 4.55], ["4 · Data + trust", "Preferences, residency days, health records, supplier vetting, deposit protection — and a crowd index from our own trips", 8.7, 4.55]];
+  mods.forEach((m) => {
+    s.addShape(pres.shapes.RECTANGLE, { x: m[2] - 0.7, y: m[3], w: 4.0, h: 1.3, fill: { color: m[0].startsWith("3") ? H.gold : H.panel }, line: { color: H.line, width: 0.75 } });
+    s.addText([{ text: m[0], options: { bold: true, fontSize: 12.5, color: H.navy, breakLine: true } }, { text: m[1], options: { fontSize: 10.5, color: H.text } }], { x: m[2] - 0.55, y: m[3] + 0.08, w: 3.7, h: 1.14, margin: 0, valign: "middle", isTextBox: true });
+  });
+  s.addText("Families and family offices", { x: 0.6, y: 3.6, w: 2.0, h: 0.5, fontSize: 10.5, bold: true, color: H.navy, margin: 0, isTextBox: true });
+  s.addText("Suppliers, staff and rails partners", { x: 10.8, y: 3.6, w: 1.93, h: 0.5, fontSize: 10.5, bold: true, color: H.navy, align: "right", margin: 0, isTextBox: true });
+  callout(s, "Module 3 (gold) is the wedge: families use it even before suppliers join — the platform’s answer to chicken-and-egg.");
+}
+{
+  const s = content("2 · Where to play", "Module order: the staff wedge first — each later module and wave needs its own trigger", "research/fmo_strategy.md §8 (roadmap and triggers; thresholds are assumptions); stages 1–2 priced on London rates, to be re-measured for Wave 1; research/opportunity_map.md §3 (platform thesis).");
   const st = [
     ["0", "Validate", "Days 0–90", "GO at day 90 (all gates pass)", H.navy],
-    ["1", "London relief club", "Months 4–15", "Paid pilot: 1 reliever, 4–6 positions; cleared foreign legs only", H.navy],
+    ["1", "Wave-1 relief club", "Months 4–15", "Paid pilot: 1 reliever, 4–6 positions; cleared foreign legs only", H.navy],
     ["2", "Scale the club", "Months 16–36", "3 relievers, 15 positions; ≥ 5 renewals, ≥ 68% utilisation, economic profit ≥ 0", H.mid],
     ["3", "Staff record", "Later", "≥ 3 agencies accept and pay; free to staff", H.light],
     ["4", "Residency day-count ledger", "Later", "Staff diaries for 20+ households and an adviser who signs off", H.light],
@@ -340,6 +353,21 @@ section("2 · Where to play");
       { x: x + 0.12, y: y + 0.1, w: 1.72, h: 3.6 - (5 - i) * 0.32, margin: 0, valign: "top", paraSpaceAfter: 4, isTextBox: true });
   });
   callout(s, "Platform thesis: one vault of people and records that moves with the family — but stages 3–5 stay hypotheses until stage 2 pays.");
+}
+{
+  const s = content("2 · Where to play", "Three waves: start where the partners are and the seasons are opposite — Rome, Southern Italy and the Santa Catarina coast", "Banco Central via Economic News Brasil (Jan 2026); Civitatis via Brasilturis (Dec 2025); Panrotas (Dec 2025); Euronews (Feb 2026: Trevi, Capri); Made in Pompei (Feb 2025); The Roman Guy; Congresso em Foco (Jul 2026); NSC Total (Dec 2025). Triggers are assumptions.");
+  const w = [
+    ["Wave 1 · Year 1", "Rome · Southern Italy (Naples, Amalfi Coast, Capri) · Santa Catarina coast", ["Rome: private Vatican access sells at 9–23× the standard ticket; up to 70,000 a day at the Trevi Fountain", "Southern Italy: up to 50,000 day visitors a day on Capri for 13–15,000 residents; Pompeii capped at 20,000 a day", "Santa Catarina: violent deaths 7.6 per 100,000 vs 22.6 in Rio; a Jurerê New Year week at R$166,909", "Opposite seasons: Italy Apr–Oct, Santa Catarina Dec–Mar — staff and suppliers work all year"], H.navy, H.white, H.gold],
+    ["Wave 2 · Trigger-led", "Rest of Italy · Mediterranean (Greece, Ibiza) · the Alps", ["Where: Florence, Venice, Como, Sicily, Sardinia · Athens and the islands · Ibiza · Cortina, St. Moritz, Zermatt, Courchevel", "Trigger: Wave-1 staff wedge at economic profit ≥ 0 (15 positions)", "Trigger: ≥ 20 suppliers live per Wave-1 region (assumption)", "Adds summer islands and winter ski: the same families, more of the year"], H.mid, H.white, H.white],
+    ["Wave 3 · Only if proven", "Global", ["Where: the Riviera, Portugal, Croatia, the Caribbean, the Maldives, Dubai, Aspen", "Trigger: repeat families across ≥ 2 regions and the data layer in use", "Partner-led, never asset-led: no owned homes, yachts or aircraft"], H.light, H.navy, H.navy],
+  ];
+  w.forEach((t, i) => {
+    const x = 0.6 + i * 4.1;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.9, w: 3.95, h: 4.25, fill: { color: t[3] }, line: { color: t[3] } });
+    s.addText([{ text: t[0], options: { bold: true, fontSize: 10.5, color: t[5], breakLine: true } }, { text: t[1], options: { bold: true, fontSize: 13, color: t[4] } }], { x: x + 0.2, y: 2.0, w: 3.55, h: 1.0, margin: 0, valign: "top", isTextBox: true });
+    s.addText(t[2].map((b, k) => ({ text: b, options: { bullet: true, breakLine: k < t[2].length - 1 } })), { x: x + 0.2, y: 3.05, w: 3.55, h: 3.0, fontSize: 10, color: t[4], margin: 0, valign: "top", paraSpaceAfter: 5, isTextBox: true });
+  });
+  callout(s, "Brazilians spent US$21.7bn abroad in 2025 and booked Italy most; 9.0M foreigners visited Brazil — Wave 1 links both directions.");
 }
 {
   const s = content("2 · Where to play", "Asset-heavy aggregators lose money or get absorbed; the asset-light advisor model wins",
@@ -369,7 +397,42 @@ section("2 · Where to play");
 // ---------- CHAPTER 3 ----------
 section("3 · Can it win?");
 {
-  const s = content("3 · Can it win?", "The job: keep every home and trip staffed by the same trusted people, lawfully, with no gap when someone quits or a border says no", SRCFMO + " §2.1–2.2; Morgan & Mallet Beyond The Butler 2025/26; Deloitte 2024; UBS 2024–25; Quay (n = 100 captains); Home Office (ODW visas).");
+  const s = content("3 · Can it win?", "Platform economics: a two-sided network with cheap multi-homing — scale alone will not lock it in, so the wedge must work with one side", "research/fmo_strategy.md §4.4; research/phase4_5.md; platform benchmarks: Airbnb host fee 16%, Booking.com Preferred 15–18% in Brazil (2026), ~18% and up to 30% for Italian hotels (Direzione Hotel); partner sign-up cost from our earlier Southern Italy model; advisor commission ~10–12%; broker markups 10–20%; agency fees 15–25%. Network test per the three winner-take-all conditions.");
+  table(s, ["Element", "Our platform"], [
+    ["Sides", "Demand: UHNW and affluent families, family offices, assistants · Supply: villas, hotels, access providers, hosts, chefs, boats, household staff · Rails: employer of record, insurers, counsel"],
+    ["Cross-side effects", "Positive: more vetted suppliers and staff raise value to families, and vice versa"],
+    ["Same-side effects", "Negative for families at peaks (scarce staff, exclusivity congestion); positive for staff (steadier work)"],
+    ["Multi-homing", "Cheap on both sides: families keep their advisors; suppliers sell on many channels at once"],
+    ["Winner-take-all test", { text: "Fails today: multi-homing is cheap, effects are moderate, and demand is highly differentiated", options: { color: H.red, bold: true } }],
+    ["Chicken-and-egg", "Single-player mode: staff + compliance is useful to a family with zero suppliers on the platform"],
+    ["Subsidy side", "Suppliers join free: a free drone and photo shoot (~€1,040 per partner) buys net rates and Privileges, and they pay only on completed bookings. Staff get benefits, steady contracts and a portable record"],
+    ["Marquee users", "A few reference families per region; landmark suppliers (palazzi, top villas, access providers)"],
+  ], { colW: [2.4, 9.73], fs: 10, rowH: 0.5 });
+  callout(s, "The platform logic holds only if the wedge creates the user base — then each added module raises switching costs.");
+}
+{
+  const s = content("3 · Can it win?", "Envelopment: we bundle what single-function rivals sell alone on a shared user base — and guard against bigger platforms doing it to us", "Envelopment as in the network-markets framework: a platform with an overlapping user base bundles another’s function. raw/fmo_competitors.md; raw/alt_a–c.md; raw/uhnw_structure.md (Oct 2026); The Data Appeal Company (Almawave acquisition).");
+  s.addText("We envelop", { x: 0.6, y: 1.85, w: 5.9, h: 0.35, fontSize: 14, bold: true, color: H.navy, margin: 0, isTextBox: true });
+  table(s, ["Single-function rival", "What we bundle on top"], [
+    ["Staff agencies (place once, 15–25%)", "Rotation, relief, visas and payroll in the same app"],
+    ["Temp desks (£300–400 a day)", "Guaranteed relief from staff the family has met"],
+    ["Household payroll (one country)", "Cross-border employer of record and cover"],
+    ["Concierge clubs (£2k–25k a year)", "Access booked inside the family’s own journey"],
+    ["Destination agencies, villa companies", "Design, booking and hosting with the family’s staff and data"],
+  ], { y: 2.25, w: 5.9, colW: [2.6, 3.3], fs: 9.5, rowH: 0.55 });
+  s.addText("They could envelop us", { x: 6.85, y: 1.85, w: 5.88, h: 0.35, fontSize: 14, bold: true, color: H.red, margin: 0, isTextBox: true });
+  table(s, ["Threat (overlapping users)", "Our defence"], [
+    ["Card issuers and private banks (Centurion; Capital One owns Velocity Black)", "Be their partner: white-label staff and compliance"],
+    ["Advisor networks (Virtuoso ~20,000 advisors; Fora 15,000)", "Sell through advisors, not around them"],
+    ["Booking platforms (Booking.com, Airbnb Luxe)", "Stay where they cannot: staff, legal status, private access"],
+    ["Morgan & Mallet (EOR in 4 countries)", "Own reliever contracts; partner where it pays"],
+    ["Concierge clubs (Quintessentially)", "Their clients’ staff and data are not on their platform"],
+    ["Travel-data groups (Almawave bought The Data Appeal Co., which bought 70% of Mabrian)", "Data only from our own journeys; sold to towns and hotels after two seasons"],
+  ], { x: 6.85, y: 2.25, w: 5.88, colW: [3.0, 2.88], fs: 9.5, rowH: 0.55 });
+  callout(s, "Our moat, if any, is the bundle around the family’s own people and data — no single-function rival holds both.");
+}
+{
+  const s = content("3 · Can it win?", "The wedge’s job: keep every home and trip staffed by the same trusted people, lawfully, with no gap when someone quits or a border says no", SRCFMO + " §2.1–2.2; Morgan & Mallet Beyond The Butler 2025/26; Deloitte 2024; UBS 2024–25; Quay (n = 100 captains); Home Office (ODW visas).");
   table(s, ["Customer", "Job to be done", "Spend evidence"], [
     ["S1 · Multi-home family with a single family office", "Staff every home and trip lawfully, without adding headcount or employer exposure", "~47% of family offices offer no lifestyle services (UBS 2024): a gap, not proof of spend"],
     ["S2 · Multi-home family run by the principal (PA or estate manager decides)", "The same trusted people in each home; no gap when someone quits or a border says no", "Travelling nanny £55–110k (UK), US$70–150k (US); agency fees 15–25%; temps £300–400 a day"],
@@ -476,7 +539,7 @@ section("3 · Can it win?");
   callout(s, "Welfare boundaries are not optional: trafficking indicators appear in 40% of post-2012 domestic-worker visa cases (Kalayaan, Jun 2024).");
 }
 {
-  const s = content("3 · Can it win?", "No sustainable advantage was found: at best a time-limited lead in one city, and the network test for winner-take-all fails", SRCFMO + " §4.3–4.4. Framework: two vehicles to an as-long-as-possible advantage; three winner-take-all conditions (Eisenmann, Parker & Van Alstyne, HBR 2006).");
+  const s = content("3 · Can it win?", "At the wedge, no advantage is sustainable and winner-take-all fails — the bundle around the family’s own people and data is the only path to one", SRCFMO + " §4.3–4.4. Framework: two vehicles to an as-long-as-possible advantage; three winner-take-all conditions (Eisenmann, Parker & Van Alstyne, HBR 2006).");
   table(s, ["Source", "Vehicle", "Sustainable?"], [
     ["Reliever contracts in one city", "Pre-emption (small market)", { text: "No: any corridor above ~12 positions supports several benches", options: { color: H.red } }],
     ["Reference families", "Pre-emption (reputation)", { text: "Weak: in an NDA market, clients cannot be named", options: { color: H.red } }],
@@ -538,7 +601,7 @@ section("4 · Does it pay?");
   callout(s, "No recurring intermediary fee was found anywhere — families pay staff, and agencies once.");
 }
 {
-  const s = content("4 · Does it pay?", "Value map: our floor sits £7.6–13.9k above the family’s alternative per position-year — only intangible value can close the gap", SRCFMO + " §5.3 (CALC, £ per position-year, 5 positions per reliever). Ceiling = next best alternative + measurable differences; floor = marginal cost incl. cost of capital on the payroll float. Assistant hours are an assumption.");
+  const s = content("4 · Does it pay?", "Value map: our floor sits £7.6–13.9k above the family’s alternative per position-year — only intangible value can close the gap", SRCFMO + " §5.3 (CALC, £ per position-year, 5 positions per reliever). Ceiling = next best alternative + measurable differences; floor = marginal cost incl. cost of capital on the payroll float. Assistant hours are an assumption. Priced on London rates, the only market with sourced staff prices; Wave-1 rates are measured in the 90-day tests.");
   const unit = 0.215, x0 = 3.3;
   const bars = [["Next best alternative", "30 temp days × £300–400", 0, 10.5, "9.0–12.0k", H.light, H.text], ["+ Assistant hours saved", "100 h × £25–50 (assumption)", 10.5, 3.75, "2.5–5.0k", H.mid, H.white], ["= Measurable ceiling", "What we can prove today", 0, 14.25, "11.5–17.0k", H.navy, H.white], ["Our floor (marginal cost)", "Reliever pay, EOR, recruiting, servicing, capital", 0, 25.0, "24.6–25.4k", H.gold, H.text], ["Wedge before intangibles", "Ceiling minus floor", 14.25, 10.75, "−7.6 to −13.9k", H.low, H.red], ["Break-even fee, year 3", "15 positions, £90k fixed costs", 0, 31.0, "30.6–31.4k", "8FA6C9", H.text]];
   bars.forEach((b, i) => {
@@ -551,7 +614,7 @@ section("4 · Does it pay?");
   callout(s, "Each extra relief day widens the gap: our day costs £475–479 before idle time, against £300–400 for a temp.");
 }
 {
-  const s = content("4 · Does it pay?", "Economic profit needs ~£31k per position-year at 15 positions — and the pilot year loses money at any fee below ~£36k", SRCFMO + " §5.3–5.5 (CALC). EVA = NOPAT − WACC × invested capital; fixed costs £90k a year (assumption); WACC 12% (assumption); billed in arrears (base case).");
+  const s = content("4 · Does it pay?", "Economic profit needs ~£31k per position-year at 15 positions — and the pilot year loses money at any fee below ~£36k", SRCFMO + " §5.3–5.5 (CALC). EVA = NOPAT − WACC × invested capital; fixed costs £90k a year (assumption); WACC 12% (assumption); billed in arrears (base case). Priced on London rates, the only market with sourced staff prices; Wave-1 rates are measured in the 90-day tests.");
   const unit = 0.15, x0 = 3.6;
   const bars = [["Floor · 4 positions per reliever", 30.6, "30.1–31.1k", H.light], ["Floor · 5 positions per reliever", 25.0, "24.6–25.4k", H.light], ["Floor · 6 positions per reliever", 21.3, "21.0–21.6k", H.light], ["Break-even fee · pilot (6 positions)", 36.3, "36.0–36.6k", H.navy], ["Break-even fee · year 3 (15 positions)", 31.0, "30.6–31.4k", H.navy], ["Measurable ceiling (family)", 14.25, "11.5–17.0k", H.gold]];
   bars.forEach((b, i) => {
@@ -595,6 +658,19 @@ section("4 · Does it pay?");
 
 // ---------- CHAPTER 5 ----------
 section("5 · What we do");
+{
+  const s = content("4 · Does it pay?", "Platform monetization: a household membership, a take rate on bookings and a fee per staff position — each module priced on its own value", "Benchmarks: platform fees 16–18% (Airbnb host-only; Booking.com Preferred from Jul 2026); advisor commissions ~10–12%; agency fees 15–25%. Trip size is an ASSUMPTION from the earlier deck’s reference trip (€24,300 for 8 nights, family of four, Rome). Merchant-model and care prices from our earlier Southern Italy model (Signature journey, family of four, 10 nights).");
+  table(s, ["Revenue line", "Value metric", "Level (to be measured)", "Mechanism"], [
+    ["Household membership", "Per family per year", "Fixed fee capturing surplus; set by trade-off interviews", "Two-part pricing: fixed fee"],
+    ["Bookings (design, stays, access)", "% of booking value, paid by suppliers", "10–15% (assumption), below platforms’ 16–30%", "Usage fee near marginal cost of service"],
+    ["Or: journeys at one price", "Markup on supplier net cost", "30% on net cost, VAT on the margin only (74-ter); ~17% contribution, client pays ~12% more than booking alone", "Merchant model: test against the take rate"],
+    ["Staff + compliance", "Per position-year", "Break-even £30.6–31.4k at 15 positions (CALC); local care from €221–247 a day", "Premiums and discounts per the services rule"],
+    ["Data + trust", "Included at first", "Free to staff; priced later to banks, offices, towns and hotels", "Subsidy side until used"],
+  ], { colW: [2.6, 2.6, 3.9, 3.03], fs: 9.5, rowH: 0.5 });
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 5.15, w: 12.13, h: 1.0, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addText([{ text: "Illustration (assumptions): ", options: { bold: true, color: H.navy } }, { text: "one €24,300 Rome family trip at a 10–15% take = €2.4–3.6k per trip (CALC). Bundle only if relative willingness to pay reverses across segments (family offices value compliance, principals value access); otherwise sell the base plus options. Peak-load: Italy Apr–Oct and Santa Catarina Dec–Mar fill the same staff and the same calendar." }], { x: 0.8, y: 5.15, w: 11.8, h: 1.0, fontSize: 10, color: H.text, margin: 0, valign: "middle", isTextBox: true });
+  callout(s, "Revenue per family rises with each module — but only after the staff wedge proves it pays on its own.");
+}
 {
   const s = content("5 · What we do", "Trade-off interviews: ten indifference questions price the guarantee, the control families give up and the staff’s reservation wage", SRCFMO + " §7. Protocol: easy opener; the respondent’s best alternative and its cost; the respondent states X (never anchored); iterate to catch non-linearity; face to face or assisted video. No direct willingness-to-pay questions.");
   const qs = [["Family · opener", "Your nanny with today’s uncovered weeks vs your nanny plus a named second carer you have met. X = annual amount added to B that makes them equal."], ["Family", "You pick each relief person vs we assign from a vetted pool after an introduction. X = fee reduction for the control lost."], ["Family", "Best-effort temp desk vs cover guaranteed within 72 h. X = fee difference; iterate at 24 h and 7 days."], ["Family", "You employ and hire counsel per trip vs our partner employs on every leg. X = fee difference."], ["Family", "Visa-free passports only, with a search of W weeks, vs a wider pool with visas handled. X = W, in money."], ["Family", "Pay on success vs monthly in advance plus a deposit. X = fee reduction that makes B acceptable."], ["Family", "Pay yearly for the worker vs buy them out after year 1. X = buyout amount."], ["Family", "Relief guaranteed except July–August and holidays vs all year. X = fee difference (peak value)."], ["Staff", "Permanent job with one family vs employed rotation, paid between assignments. X = pay in B."], ["Staff", "Current non-travel role vs 6 months of rota work abroad. X = extra pay; iterate at 3 and 9 months."]];
@@ -681,8 +757,19 @@ section("5 · What we do");
   callout(s, "Each fallback gets the same chain — novelty, strategy and pricing, economics — before any build.");
 }
 {
-  const s = content("For discussion", "Five questions for you, Francesco", null);
-  const qs = ["Among your HNW clients, who decides on household staff that travel — the principal, a PA or the family office?", "Could you open one vouching channel — a private bank, multi-family office or directory — for five qualified introductions?", "Do you know employment or immigration counsel who could give the lawful-route opinion (kill gate T4)?", "Which two or three families in your network would we approach first for a paid pilot?", "Do we commit ~160 hours over 90 days to the nine tests, with GO only if the gates pass?"];
+  const s = content("5 · What we do", "Wave-1 supply partners are named for every module — all prospects, one warm marina channel; a free shoot buys net rates", "Our earlier target lists for Rome, Southern Italy and Santa Catarina, and our Southern Italy supplier, partnership and pricing sheets (Sep 2026). Prospects, not agreements; verify licences, prices and MICHELIN stars before contracting.");
+  table(s, ["Module", "Rome", "Southern Italy", "Santa Catarina"], [
+    ["Stays", "Hotel de la Ville · Hotel Hassler · Six Senses Rome · Bulgari Hotel Roma", "Le Sirenuse · Il San Pietro di Positano · Monastero Santa Rosa · Capri Palace · Punta Tragara · direct villa owners", "Awasi Santa Catarina (Relais & Châteaux) · pousadas at Praia do Rosa · Jurerê houses"],
+    ["Access + dining", "Vatican before opening · Colosseum underground · palazzo dinners · La Pergola · Imàgo · Il Pagliaccio", "Pompeii archaeological park (early access) · Don Alfonso 1890 · Torre del Saracino · Zass · L’Olivo · George", "P12 Parador Internacional · Café de la Musique · whale watching at Praia do Rosa (Jul–Nov) · sailing the bay"],
+    ["Mobility", "Licensed NCC chauffeurs · a helicopter to the Amalfi Coast", "Muto Travel NCC · Hoverfly (Naples–Capri from ~€1,900) · Amalfi Coast Dream (yacht days from ~€4,500) · D-Marin marinas (warm contact)", "Chauffeurs · boats · a helicopter"],
+    ["Local care + chefs", "To source, same vetting standard", "Amalfi Sitters · International Sitters · licensed home-care agencies · Take a Chef (client price: nanny €247, companion €221 a day)", "To source, same vetting standard"],
+  ], { colW: [1.6, 3.25, 4.18, 3.1], fs: 9.5, rowH: 0.74 });
+  s.addText([{ text: "Across regions — ", options: { bold: true, color: H.navy } }, { text: "insurance and insolvency cover: Europ Assistance, Allianz Partners, AXA Partners, an organiser guarantee fund · demand: Virtuoso and Traveller Made advisors and private banks on a 10% referral; Brazilian, US and Gulf creators on hosted trips" }], { x: 0.6, y: 5.62, w: 12.13, h: 0.6, fontSize: 10, color: H.text, margin: 0, valign: "middle", isTextBox: true });
+  callout(s, "The hook for every supplier: free content and guests who spend, for net rates or 10–15% and Privileges — paid only on completed stays.");
+}
+{
+  const s = content("For discussion", "Questions for discussion", null);
+  const qs = ["Which Wave-1 region do you lead, and which of the named targets (page 38) would sign first?", "Among the families you know, who decides on household staff that travel — the principal, an assistant or the family office?", "Could you open one vouching channel — a private bank, multi-family office or directory?", "Do you know employment or immigration counsel who could give the lawful-route opinion (kill gate T4)?", "Do we commit ~160 hours over 90 days to the tests, with GO region by region only if the gates pass?"];
   qs.forEach((q, i) => {
     const y = 1.95 + i * 0.82;
     s.addShape(pres.shapes.OVAL, { x: 0.6, y: y + 0.05, w: 0.55, h: 0.55, fill: { color: H.navy }, line: { color: H.navy } });
@@ -691,7 +778,6 @@ section("5 · What we do");
   });
   s.addText("Calebe Garcia · algar.calebe@gmail.com · +1 617 949 6729", { x: 0.6, y: 6.4, w: 12.13, h: 0.4, fontSize: 12, color: H.muted, margin: 0, isTextBox: true });
 }
-
 // ---------- APPENDIX ----------
 section("Appendix");
 {
@@ -705,10 +791,10 @@ section("Appendix");
 }
 {
   const s = content("Appendix", "Sources", null);
-  const src = ["Priceline — two work days to plan a trip (Jan 2024)", "Expedia Group / Luth Research — Path to Purchase (2023)", "Park & Jang (2013); Nawijn et al. (2010)", "Greetwell AI Travel Survey (Aug 2026); Phocuswright (Mar 2026)", "Travel Weekly — advisors charging fees (Aug 2025)", "Flywire — luxury and ultra-luxury surveys (2025, 2026)", "SITA Baggage IT Insights 2026; Action Fraud via ATOL (2024)", "Court and press records: JetSuite, Verijet, Jet It, OneFlight", "FAA enforcement releases; The Watch Register (2024)", "PS and Heathrow Windsor Suite pricing (2026)", "Altrata World Ultra Wealth Report 2026; Knight Frank 2026", "Deloitte Family Office Landscape 2024; UBS GFO Report 2024–25", "Morgan & Mallet — Beyond The Butler 2025/26; agency pages", "Quay Group (2025); CrewPass pricing", "Deel, Remote, Nannytax, HomePay pricing (2026-10-06)", "GOV.UK ODW visa; Home Office PQ55427 (Jun 2025)", "UAE Decree-Law 9/2022; Gulf News (MOHRE actions)", "Kalayaan (Jun 2024); Hinduja case, Geneva (Jun 2024)", "Agency fee schedules (2025–26)", "Henley Private Wealth Migration Report (2025); HMRC", "Clinic price lists; Global Wellness Institute (2024)", "ICCT; Transport & Environment (aviation emissions)", "Deloitte family-office cyber (2024)", "Filings: Wheels Up, Volato, Inspirato, Accor/onefinestay, Fora", "Capgemini World Wealth Report 2025", "Frameworks: six forces, needs analysis, SPA, value pricing, Trade-Off Method", "Issue analysis course notes (IBC); Minto pyramid principle", "Ghemawat & Rivkin (2006); Eisenmann, Parker & Van Alstyne (2006)"];
+  const src = ["Priceline — two work days to plan a trip (Jan 2024)", "Expedia Group / Luth Research — Path to Purchase (2023)", "Park & Jang (2013); Nawijn et al. (2010)", "Greetwell AI Travel Survey (Aug 2026); Phocuswright (Mar 2026)", "Travel Weekly — advisors charging fees (Aug 2025)", "Flywire — luxury and ultra-luxury surveys (2025, 2026)", "SITA Baggage IT Insights 2026; Action Fraud via ATOL (2024)", "Court and press records: JetSuite, Verijet, Jet It, OneFlight", "FAA enforcement releases; The Watch Register (2024)", "PS and Heathrow Windsor Suite pricing (2026)", "Altrata World Ultra Wealth Report 2026; Knight Frank 2026", "Deloitte Family Office Landscape 2024; UBS GFO Report 2024–25", "Morgan & Mallet — Beyond The Butler 2025/26; agency pages", "Quay Group (2025); CrewPass pricing", "Deel, Remote, Nannytax, HomePay pricing (2026-10-06)", "GOV.UK ODW visa; Home Office PQ55427 (Jun 2025)", "UAE Decree-Law 9/2022; Gulf News (MOHRE actions)", "Kalayaan (Jun 2024); Hinduja case, Geneva (Jun 2024)", "Agency fee schedules (2025–26)", "Henley Private Wealth Migration Report (2025); HMRC", "Clinic price lists; Global Wellness Institute (2024)", "ICCT; Transport & Environment (aviation emissions)", "Deloitte family-office cyber (2024)", "Filings: Wheels Up, Volato, Inspirato, Accor/onefinestay, Fora", "Capgemini World Wealth Report 2025", "Frameworks: six forces, needs analysis, SPA, value pricing, Trade-Off Method", "Issue analysis course notes (IBC); Minto pyramid principle", "Ghemawat & Rivkin (2006); Eisenmann, Parker & Van Alstyne (2006)", "Our earlier Southern Italy research — supplier, partnership and pricing sheets (Sep 2026)", "Euronews — Capri caps tour groups (Feb 2026); Made in Pompei (Feb 2025)", "Direzione Hotel — Booking.com commissions for Italian hotels", "The Data Appeal Company — Almawave acquisition"];
   const half = Math.ceil(src.length / 2);
   [src.slice(0, half), src.slice(half)].forEach((col, c) => {
-    s.addText(col.map((t, i) => ({ text: (c * half + i + 1) + ". " + t, options: { breakLine: i < col.length - 1 } })), { x: 0.6 + c * 6.15, y: 1.85, w: 5.95, h: 4.95, fontSize: 10, color: H.text, margin: 0, valign: "top", paraSpaceAfter: 3, isTextBox: true });
+    s.addText(col.map((t, i) => ({ text: (c * half + i + 1) + ". " + t, options: { breakLine: i < col.length - 1 } })), { x: 0.6 + c * 6.15, y: 1.85, w: 5.95, h: 4.95, fontSize: 9, color: H.text, margin: 0, valign: "top", paraSpaceAfter: 3, isTextBox: true });
   });
   s.addText("Full tables with dates, samples, methods and evidence grades: research/ (sources.md, raw/, opportunity_map.md, fmo_strategy.md, frameworks and methods addenda).", { x: 0.6, y: 6.88, w: 11.4, h: 0.4, fontSize: 8.5, color: H.muted, margin: 0, isTextBox: true });
 }
