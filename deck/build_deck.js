@@ -50,15 +50,30 @@ function callout(s, text, y = 6.3, h = 0.48) {
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y, w: 12.13, h, fill: { color: H.call }, line: { color: H.call }, objectName: "callout" });
   s.addText(text, { x: 0.8, y, w: 11.8, h, fontSize: 13, bold: true, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
 }
-const hdr = (t) => ({ text: t, options: { bold: true, color: H.white, fill: { color: H.navy }, fontSize: 10.5, valign: "middle" } });
+const NONE = { type: "none" };
+const hdr = (t) => ({ text: t, options: { bold: true, color: H.navy, fontSize: 10.5, valign: "bottom", border: [NONE, NONE, { type: "solid", pt: 1.75, color: H.navy }, NONE] } });
 function table(s, header, rows, opts) {
   const data = [header.map(hdr)];
-  rows.forEach((r, i) => data.push(r.map((c) => {
-    const o = { fontSize: opts.fs || 10, color: H.text, valign: "middle", fill: { color: i % 2 ? H.panel : H.bg } };
+  rows.forEach((r, i) => data.push(r.map((c, ci) => {
+    const o = { fontSize: opts.fs || 10, color: H.text, valign: "middle", bold: ci === 0 && opts.boldFirst !== false && header[0] !== "#",
+      border: [NONE, NONE, { type: "solid", pt: i === rows.length - 1 ? 1 : 0.5, color: i === rows.length - 1 ? H.navy : H.line }, NONE] };
+    if (ci === 0 && header[0] !== "#") o.color = H.navy;
     if (typeof c === "object" && c !== null && c.text !== undefined) return { text: c.text, options: Object.assign(o, c.options || {}) };
     return { text: String(c), options: o };
   })));
-  s.addTable(data, { x: opts.x || 0.6, y: opts.y || 1.85, w: opts.w || 12.13, colW: opts.colW, border: { type: "solid", color: H.line, pt: 0.75 }, margin: [3, 5, 3, 5], rowH: opts.rowH, autoPage: false });
+  s.addTable(data, { x: opts.x || 0.6, y: opts.y || 1.85, w: opts.w || 12.13, colW: opts.colW, margin: [3, 6, 3, 6], rowH: opts.rowH, autoPage: false });
+}
+function rate(t) {
+  const l = t.toLowerCase();
+  let f = H.panel, c = H.text;
+  if (l.startsWith("high")) { f = H.navy; c = H.white; }
+  else if (l.startsWith("medium–high") || l.startsWith("medium-high")) { f = H.mid; c = H.white; }
+  else if (l.startsWith("medium")) { f = H.light; }
+  return { text: t, options: { fill: { color: f }, color: c } };
+}
+function num(s, x, y, d, n, fill, col) {
+  s.addShape(pres.shapes.OVAL, { x: x - d / 2, y: y - d / 2, w: d, h: d, fill: { color: fill || H.navy }, line: { color: H.white, width: 1 } });
+  s.addText(String(n), { x: x - d / 2, y: y - d / 2, w: d, h: d, fontSize: d > 0.4 ? 12 : 10, bold: true, color: col || H.white, align: "center", valign: "middle", margin: 0, isTextBox: true });
 }
 function heat(v) {
   if (v === null) return { text: "–", options: { align: "center" } };
@@ -152,19 +167,25 @@ section("1 · The problem, proven");
 }
 {
   const s = content("1 · The problem, proven", "The pain map: the frequent pains are mild and already served; the severe ones are rare",
-    "Priceline (Jan 2024); Expedia/Luth (2023); Wyndham/APCO (2017); Park & Jang, Tourism Management (2013); Greetwell AI Travel Survey (Aug 2026, vendor); ACI Europe open letter (1 Jul 2026); Travel Weekly (Aug 2025); Fora; SITA Baggage IT Insights 2026; Action Fraud via ATOL (2024); insurer survey via eGlobal Travel Media (Feb 2025). Ranking: our assessment.");
-  table(s, ["#", "Stage", "Pain", "Best evidence", "Frequency", "Severity"], [
-    ["1", "Research", "Research load", "16 h per trip; 141 pages viewed before booking", "High", "Low–med"],
-    ["2", "Choosing", "Choice overload, regret", "67% report ‘information overload’ (2017); >22 options raises the odds of choosing nothing", "Med–high", "Med"],
-    ["3", "Research", "AI planners get it wrong", "55% of 485 AI users met a bad recommendation; ~1 in 6 a place that does not exist (vendor)", "Med", "Med"],
-    ["4", "Before / during", "Border friction", "EES waits of up to 5 hours at peak (industry letter, Jul 2026)", "Seasonal", "Med"],
-    ["5", "Planning", "Stress and couple conflict", "33–47% find planning stressful (weak samples)", "Minority", "Med"],
-    ["6", "Design / booking", "Advisor fees", "55% of US advisors charge planning fees; average ~US$350", "Med", "Low–med"],
-    ["7", "During", "Baggage and delay", "Mishandled bags cost airlines US$6.3bn in 2025, US$260 each", "Low", "High"],
-    ["8", "Booking", "Fraud and hidden fees", "UK holiday fraud £11.2M in 2024, £1,844 per victim", "Very low", "High"],
-    ["9", "During", "Health and safety worry", "37% name a medical emergency as their top concern", "Med", "Med"],
-  ], { colW: [0.4, 1.5, 2.3, 5.53, 1.2, 1.2], fs: 10.5, rowH: 0.43 });
-  callout(s, "Most of these pains hit everyone, rich or not — and luxury operators already solve the first six well.");
+    "Priceline (Jan 2024); Expedia/Luth (2023); Wyndham/APCO (2017); Park & Jang, Tourism Management (2013); Greetwell AI Travel Survey (Aug 2026, vendor); ACI Europe open letter (1 Jul 2026); Travel Weekly (Aug 2025); Fora; SITA Baggage IT Insights 2026; Action Fraud via ATOL (2024); insurer survey via eGlobal Travel Media (Feb 2025). Positions: our assessment.");
+  const X0 = 1.3, Y0 = 1.9, W = 5.9, Hh = 3.9;
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W, h: Hh, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W * 0.45, h: Hh / 3, fill: { color: "E3E9F3" }, line: { color: "E3E9F3" } });
+  s.addText("Rare but costly", { x: X0 + 0.1, y: Y0 + 0.06, w: 2.4, h: 0.3, fontSize: 9.5, italic: true, color: H.navy, margin: 0, isTextBox: true });
+  s.addText("Frequent but mild — and served", { x: X0 + W - 3.1, y: Y0 + Hh - 0.36, w: 3.0, h: 0.3, fontSize: 9.5, italic: true, color: H.navy, align: "right", margin: 0, isTextBox: true });
+  ["Very low", "Low", "Medium", "Med–high", "High"].forEach((t, i) => s.addText(t, { x: X0 + (i / 5) * W, y: Y0 + Hh + 0.05, w: W / 5, h: 0.28, fontSize: 9, color: H.muted, align: "center", margin: 0, isTextBox: true }));
+  s.addText("Frequency →", { x: X0, y: Y0 + Hh + 0.32, w: W, h: 0.28, fontSize: 10, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
+  ["Low–med", "Medium", "High"].forEach((t, i) => s.addText(t, { x: 0.55, y: Y0 + Hh - ((i + 0.5) / 3) * Hh - 0.15, w: 0.7, h: 0.3, fontSize: 9, color: H.muted, align: "right", margin: 0, isTextBox: true }));
+  s.addText("Severity ↑", { x: 0.45, y: Y0 - 0.32, w: 1.2, h: 0.28, fontSize: 10, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const pts = [[1, 4.6, 1], [2, 3.7, 2], [3, 3.05, 2.3], [4, 2.3, 2.1], [5, 1.8, 1.75], [6, 2.9, 1], [7, 1.6, 3], [8, 0.7, 3], [9, 2.95, 1.7]];
+  pts.forEach((p) => num(s, X0 + (p[1] / 5) * W, Y0 + Hh - ((p[2] - 0.5) / 3) * Hh, 0.42, p[0], p[2] === 3 ? H.goldDk : H.navy));
+  const list = [["Research load", "16 h per trip; 141 pages before booking"], ["Choice overload, regret", "67% ‘information overload’; >22 options → no choice"], ["AI planners get it wrong", "55% of 485 AI users met a bad recommendation"], ["Border friction", "EES waits up to 5 h at peak (Jul 2026)"], ["Stress, couple conflict", "33–47% find planning stressful (weak)"], ["Advisor fees", "55% of US advisors charge; average ~US$350"], ["Baggage and delay", "US$6.3bn cost in 2025; US$260 per bag"], ["Fraud, hidden fees", "UK £11.2M lost in 2024; £1,844 per victim"], ["Health and safety worry", "37% name a medical emergency first"]];
+  list.forEach((l, i) => {
+    const y = 1.9 + i * 0.47;
+    num(s, 7.75, y + 0.2, 0.32, i + 1, i === 6 || i === 7 ? H.goldDk : H.navy);
+    s.addText([{ text: l[0] + "  ", options: { bold: true, color: H.navy } }, { text: l[1], options: { color: H.text } }], { x: 8.05, y, w: 4.68, h: 0.42, fontSize: 10, margin: 0, valign: "middle", isTextBox: true });
+  });
+  callout(s, "Most of these pains hit everyone, rich or not — and luxury operators already solve the frequent ones well.");
 }
 {
   const s = content("1 · The problem, proven", "For ultra-high-net-worth travellers the evidenced pains are solvency, legitimacy, privacy and security — not planning",
@@ -245,37 +266,49 @@ section("2 · What they resort to");
 {
   const s = content("2 · What they resort to", "Asset-heavy aggregators lose money or get absorbed; the asset-light advisor model wins",
     "Company filings and press: Vista/XO, Wheels Up FY2025, Volato H1 2026, Jet It (Dec 2025), Joby–Blade (2025), Accor–onefinestay (2016, Jun 2026 exit), Inspirato (Feb 2026), Fora Series D (Jul 2026). Search summaries; verify before external use.");
-  table(s, ["Company", "Model", "Outcome"], [
-    ["JetSmarter → Vista / XO", "Membership flights", "Absorbed; Vista reported ~US$436M of net losses over four years"],
-    ["Wheels Up", "Membership plus fleet", "Net loss US$82.3M in FY2025; active users −40% in Q1 2025"],
-    ["Volato", "Fractional ownership and jet card", "Revenue −96% to US$2M in H1 2026; card programme closed"],
-    ["Jet It", "Fractional", "Chapter 7 liquidation, December 2025"],
-    ["Blade (passenger arm)", "Urban air mobility", "Sold to Joby for US$90M plus up to US$35M"],
-    ["onefinestay", "Managed luxury homes", "Bought by Accor for ~US$169M (2016); stops new bookings in Paris, New York and Los Angeles (Jun 2026)"],
-    ["Inspirato", "Destination club", "Sold for ~US$59M of equity (closed Feb 2026)"],
-    [{ text: "Fora", options: { bold: true } }, { text: "Asset-light advisors", options: { bold: true } }, { text: "US$1bn valuation; 15,000 advisors (Jul 2026)", options: { bold: true, color: H.navy } }],
-  ], { colW: [2.8, 3.0, 6.33], fs: 11, rowH: 0.47 });
+  const cs = [
+    ["JetSmarter → Vista/XO", "Membership flights", "Absorbed; Vista ~US$436M net losses over four years", 0],
+    ["Wheels Up", "Membership plus fleet", "FY2025 net loss US$82.3M; active users −40% in Q1 2025", 0],
+    ["Volato", "Fractional and jet card", "Revenue −96% to US$2M in H1 2026; card closed", 0],
+    ["Jet It", "Fractional", "Chapter 7 liquidation, December 2025", 0],
+    ["Blade (passenger)", "Urban air mobility", "Sold to Joby for US$90M plus up to US$35M", 0],
+    ["onefinestay", "Managed luxury homes", "Bought for ~US$169M (2016); exits Paris, New York, LA (2026)", 0],
+    ["Inspirato", "Destination club", "Sold for ~US$59M of equity (Feb 2026)", 0],
+    ["Fora", "Asset-light advisors", "US$1bn valuation; 15,000 advisors (Jul 2026)", 1],
+  ];
+  cs.forEach((c, i) => {
+    const x = 0.6 + (i % 4) * 3.06, y = 1.9 + Math.floor(i / 4) * 2.15, w = 2.95, h = 2.0, win = c[3] === 1;
+    s.addShape(pres.shapes.RECTANGLE, { x, y, w, h, fill: { color: win ? H.navy : H.panel }, line: { color: win ? H.navy : H.line, width: 0.75 } });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: x + 0.15, y: y + 0.15, w: 1.25, h: 0.3, rectRadius: 0.08, fill: { color: win ? H.gold : H.low }, line: { color: win ? H.gold : H.low } });
+    s.addText(win ? "Winning" : "Lost or absorbed", { x: x + 0.15, y: y + 0.15, w: 1.25, h: 0.3, fontSize: 8.5, bold: true, color: win ? H.navy : H.red, align: "center", valign: "middle", margin: 0, isTextBox: true });
+    s.addText([{ text: c[0], options: { bold: true, fontSize: 13, color: win ? H.white : H.navy, breakLine: true } }, { text: c[1], options: { fontSize: 9.5, italic: true, color: win ? H.light : H.muted, breakLine: true } }, { text: c[2], options: { fontSize: 10.5, color: win ? H.white : H.text } }],
+      { x: x + 0.15, y: y + 0.55, w: w - 0.3, h: h - 0.65, margin: 0, valign: "top", paraSpaceAfter: 3, isTextBox: true });
+  });
   callout(s, "Lesson: own trust and data, never aircraft, homes or inventory.");
 }
-
 // ---------- SECTION 3 ----------
 section("3 · Unmet needs and hypotheses");
 {
   const s = content("3 · Unmet needs and hypotheses", "Unmet needs: two UHNW needs score high on importance, low on every alternative — and carry visible money at stake",
-    "Our assessment (1–10) from Phases 1–3; Private Jet Card Comparisons survey (n = 594); FAA LADD/PIA (PIA: 74 enrolled, Nov 2020); price sources as on page 7. An unmet need counts only with evidence that people pay.");
-  const yes = { text: "Yes", options: { bold: true, color: H.white, fill: { color: H.navy }, align: "center" } };
-  const part = { text: "Partly", options: { bold: true, align: "center", fill: { color: H.light } } };
-  const no = { text: "No: served", options: { align: "center", color: H.muted } };
-  table(s, ["Need", "Importance", "Best alternative (score)", "Evidence people pay", "Unmet?"], [
-    ["Deposits safe from provider failure", heat(9), "Optional operator escrow; yacht stakeholder accounts only (3)", "Deposits US$100k–1M; 35.8% call stability ‘critical’, 44.1% ‘important but hard to know’", yes],
-    ["Supplier legitimate, solvent, safely crewed", heat(9), "Safety audits, aviation only (5)", "Operators pay for audits; buyers pay brokers 10–20% partly to vouch", yes],
-    ["Movement privacy end to end", heat(8), "Free FAA programmes; data-removal firms (4)", "Private suites US$3,550–4,850 a visit", part],
-    ["Physical security of people and valuables", heat(8), "Security firms, close protection (7)", "US$1,800–4,000 a day", no],
-    ["Medical continuity abroad", heat(8), "Concierge medicine, rescue (8)", "US$15–55k a year", no],
-    ["Trip delivered as promised", heat(7), "HNW policies cover loss, not experience (3)", "None found", part],
-    ["Access to sold-out experiences", heat(7), "Concierge clubs, resale (7)", "Tables US$350–1,700", no],
-    ["Recommendations from true peers", heat(6), "Paid membership networks (6)", "US$395–2,850 a year", part],
-  ], { colW: [3.0, 1.1, 3.1, 3.73, 1.2], fs: 10, rowH: 0.47 });
+    "Our assessment (1–10) from Phases 1–3; Private Jet Card Comparisons survey (n = 594); price sources as on page 7. An unmet need counts only with evidence that people pay.");
+  const X0 = 1.3, Y0 = 1.95, W = 6.6, Hh = 3.85, xmin = 1, xmax = 10, ymin = 5, ymax = 10;
+  const px = (v) => X0 + ((v - xmin) / (xmax - xmin)) * W, py = (v) => Y0 + Hh - ((v - ymin) / (ymax - ymin)) * Hh;
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W, h: Hh, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: px(5.5) - X0, h: py(7.5) - Y0, fill: { color: "E3E9F3" }, line: { color: H.mid, width: 1, dashType: "dash" } });
+  s.addText("Unmet zone: important, poorly served", { x: X0 + 0.1, y: Y0 + 0.06, w: 3.0, h: 0.3, fontSize: 9.5, bold: true, italic: true, color: H.navy, margin: 0, isTextBox: true });
+  [2, 4, 6, 8, 10].forEach((v) => s.addText(String(v), { x: px(v) - 0.2, y: Y0 + Hh + 0.04, w: 0.4, h: 0.25, fontSize: 9, color: H.muted, align: "center", margin: 0, isTextBox: true }));
+  s.addText("How well the best alternative meets it (1–10) →", { x: X0, y: Y0 + Hh + 0.3, w: W, h: 0.28, fontSize: 10, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
+  [6, 7, 8, 9, 10].forEach((v) => s.addText(String(v), { x: X0 - 0.45, y: py(v) - 0.13, w: 0.35, h: 0.26, fontSize: 9, color: H.muted, align: "right", margin: 0, isTextBox: true }));
+  s.addText("Importance ↑", { x: 0.45, y: Y0 - 0.32, w: 1.3, h: 0.28, fontSize: 10, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const pts = [["Deposit safety", 3, 9, 1], ["Supplier solvency, legitimacy", 5, 9, 1], ["Movement privacy", 4, 8, 2], ["Physical security", 7, 8, 0, 0], ["Medical continuity", 8.6, 8.6, 0, 1], ["Trip as promised", 3, 7, 2], ["Sold-out access", 7, 7, 0], ["Peer recommendations", 6, 6, 2]];
+  pts.forEach((p) => {
+    const f = p[3] === 1 ? H.navy : p[3] === 2 ? H.mid : H.light;
+    s.addShape(pres.shapes.OVAL, { x: px(p[1]) - 0.14, y: py(p[2]) - 0.14, w: 0.28, h: 0.28, fill: { color: f }, line: { color: H.white, width: 1 } });
+    if (p[4]) s.addText(p[0], { x: px(p[1]) - 2.48, y: py(p[2]) - 0.15, w: 2.3, h: 0.3, fontSize: 9.5, color: H.navy, align: "right", margin: 0, isTextBox: true });
+    else s.addText(p[0], { x: px(p[1]) + 0.18, y: py(p[2]) - 0.15, w: 2.3, h: 0.3, fontSize: 9.5, bold: p[3] === 1, color: H.navy, margin: 0, isTextBox: true });
+  });
+  card(s, 8.4, 1.95, 4.33, 1.85, "Deposit safety · unmet", "Deposits of US$100k–1M; 35.8% of jet-card buyers call provider stability ‘critical’, 44.1% ‘important but hard to know’. Best alternative: optional escrow (3).", { hs: 12, fs: 10.5, dark: true });
+  card(s, 8.4, 3.95, 4.33, 1.85, "Supplier solvency · unmet", "Safety audits cover aviation only and ignore finances (5). Buyers already pay brokers 10–20% partly to vouch for suppliers.", { hs: 12, fs: 10.5 });
   callout(s, "Unmet and paid for: deposit safety and supplier solvency. Everything else is served or lacks evidence of payment.");
 }
 {
@@ -313,23 +346,27 @@ section("3 · Unmet needs and hypotheses");
 {
   const s = content("3 · Unmet needs and hypotheses", "Shortlist, scored outside-in: counterparty assurance leads; the earlier curator concept fails the moat test",
     "Our assessment. Criteria 1–5: pain severity × frequency, gap vs best alternative, evidence of willingness to pay, hard to copy. Moat gate: 3 or more. Founder fit and capital were not scored; they appear on page 21 as facts.");
-  const g = (t) => ({ text: t, options: { align: "center" } });
-  const pass = { text: "Pass", options: { align: "center", color: H.navy, bold: true } };
-  const fail = { text: "Fail", options: { align: "center", color: H.red, bold: true } };
-  const lead = (t) => ({ text: t, options: { bold: true, color: H.white, fill: { color: H.navy }, align: "center" } });
-  table(s, ["Option", "Severity", "Gap", "WTP evidence", "Moat", "Total / 20", "Moat gate", "Result"], [
-    [{ text: "Counterparty assurance (standard + deposit protection)", options: { bold: true, color: H.navy } }, g("4"), g("5"), g("3"), g("4"), lead("16"), pass, { text: "Lead", options: { bold: true, color: H.navy } }],
-    ["Verified peer network", g("3"), g("3"), g("4"), g("3"), g("13"), pass, "Shortlist"],
-    ["Insurer-underwritten outcome guarantee", g("3"), g("4"), g("2"), g("3"), g("12"), pass, "Shortlist; fold into lead"],
-    ["Movement privacy per trip", g("3"), g("3"), g("4"), g("2"), g("12"), fail, "Module of the lead"],
-    ["Family-office risk office", g("3"), g("2"), g("4"), g("3"), g("12"), pass, "Out: already served"],
-    ["Pay-per-trip family-office desk", g("3"), g("3"), g("4"), g("2"), g("12"), fail, "Out"],
-    ["Itinerary audit / AI verification", g("3"), g("4"), g("2"), g("1"), g("10"), fail, "Out"],
-    ["Rome–Santa Catarina curator", g("3"), g("1"), g("4"), g("1"), g("9"), fail, "Out"],
-  ], { colW: [4.2, 0.95, 0.75, 1.15, 0.8, 1.05, 1.05, 2.18], fs: 10.5, rowH: 0.45 });
+  const cols = [H.navy, H.mid, H.light, H.gold], names = ["Severity", "Gap", "WTP evidence", "Moat"];
+  names.forEach((n, i) => {
+    s.addShape(pres.shapes.RECTANGLE, { x: 4.4 + i * 1.6, y: 1.85, w: 0.22, h: 0.22, fill: { color: cols[i] }, line: { color: cols[i] } });
+    s.addText(n, { x: 4.7 + i * 1.6, y: 1.8, w: 1.3, h: 0.3, fontSize: 10, color: H.text, margin: 0, isTextBox: true });
+  });
+  s.addText("Total / 20", { x: 10.95, y: 1.8, w: 0.8, h: 0.3, fontSize: 9.5, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  s.addText("Moat gate", { x: 11.85, y: 1.8, w: 0.9, h: 0.3, fontSize: 9.5, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const rows = [["Counterparty assurance (standard + deposit protection)", [4, 5, 3, 4], 1], ["Verified peer network", [3, 3, 4, 3], 1], ["Insurer-underwritten outcome guarantee", [3, 4, 2, 3], 1], ["Movement privacy per trip", [3, 3, 4, 2], 0], ["Family-office risk office (already served)", [3, 2, 4, 3], 1], ["Pay-per-trip family-office desk", [3, 3, 4, 2], 0], ["Itinerary audit / AI verification", [3, 4, 2, 1], 0], ["Rome–Santa Catarina curator", [3, 1, 4, 1], 0]];
+  const unit = 0.32;
+  rows.forEach((r, i) => {
+    const y = 2.3 + i * 0.49, lead = i === 0;
+    s.addText(r[0], { x: 0.6, y, w: 3.7, h: 0.38, fontSize: 10.5, bold: lead, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
+    let x = 4.4;
+    r[1].forEach((v, k) => { s.addShape(pres.shapes.RECTANGLE, { x, y: y + 0.04, w: v * unit, h: 0.3, fill: { color: cols[k] }, line: { color: H.bg, width: 0.5 } }); x += v * unit; });
+    const tot = r[1].reduce((a, b) => a + b, 0);
+    s.addText(String(tot), { x: x + 0.08, y, w: 0.6, h: 0.38, fontSize: 12, bold: true, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: 11.9, y: y + 0.05, w: 0.75, h: 0.28, rectRadius: 0.08, fill: { color: r[2] ? H.navy : H.low }, line: { color: r[2] ? H.navy : H.low } });
+    s.addText(r[2] ? "Pass" : "Fail", { x: 11.9, y: y + 0.05, w: 0.75, h: 0.28, fontSize: 9.5, bold: true, color: r[2] ? H.white : H.red, align: "center", valign: "middle", margin: 0, isTextBox: true });
+  });
   callout(s, "Even the leader scores 16/20 and rests on inferred willingness to pay — which is exactly what the tests on page 27 must prove.");
 }
-
 // ---------- SECTION 4 ----------
 section("4 · Can it win?");
 {
@@ -351,12 +388,12 @@ section("4 · Can it win?");
   s.addText([{ text: "Market defined: ", options: { bold: true, color: H.navy } }, { text: "assurance on prepaid private-travel spend — jet cards and memberships, charter, yacht charter, villa and club deposits — for UHNW families, family offices and private banks." }],
     { x: 0.6, y: 1.8, w: 12.13, h: 0.5, fontSize: 12, color: H.text, margin: 0, isTextBox: true });
   table(s, ["Force", "Pressure on margins", "Evidence", "Looking ahead"], [
-    ["1 · Size and growth", "Medium", "~US$16bn charter (2025); 713,626 UHNW people; thousands of card and club members (Wheels Up 6,166 active; Inspirato 10,700)", "Grows with every new failure in the news"],
-    ["2 · Substitutes", "Medium", "Optional operator escrow; yacht stakeholder accounts; broker vouching; lawyers", "Escrow spreads, but stays operator by operator"],
-    ["3 · Entry barriers", "Low today, high once built", "Coverholder licence, insurer capacity, rating reputation, loss data", "First mover sets the standard"],
-    ["4 · Buyer power", "Medium–high", "Few, sophisticated family offices and banks", "Lower once the standard is adopted"],
-    ["5 · Supplier power", "High at the start", "Insurers hold capacity; operators may refuse audits", "Falls as buyers ask for the badge"],
-    ["6 · Rivalry", "Low now", "No one rates solvency; ARGUS, Wyvern and the comparison site could extend", "Rises if the model proves out"],
+    ["1 · Size and growth", rate("Medium"), "~US$16bn charter (2025); 713,626 UHNW people; thousands of card and club members (Wheels Up 6,166 active; Inspirato 10,700)", "Grows with every new failure in the news"],
+    ["2 · Substitutes", rate("Medium"), "Optional operator escrow; yacht stakeholder accounts; broker vouching; lawyers", "Escrow spreads, but stays operator by operator"],
+    ["3 · Entry barriers", rate("Low today, high once built"), "Coverholder licence, insurer capacity, rating reputation, loss data", "First mover sets the standard"],
+    ["4 · Buyer power", rate("Medium–high"), "Few, sophisticated family offices and banks", "Lower once the standard is adopted"],
+    ["5 · Supplier power", rate("High at the start"), "Insurers hold capacity; operators may refuse audits", "Falls as buyers ask for the badge"],
+    ["6 · Rivalry", rate("Low now"), "No one rates solvency; ARGUS, Wyvern and the comparison site could extend", "Rises if the model proves out"],
   ], { y: 2.4, colW: [2.0, 2.0, 5.1, 3.03], fs: 10.5, rowH: 0.52 });
   callout(s, "Attractive if we get in first: the barriers that protect an incumbent here are the ones we would build.");
 }
@@ -364,12 +401,12 @@ section("4 · Can it win?");
   const s = content("4 · Can it win?", "Six forces across the shortlist: assurance is the most attractive; the peer network faces the strongest substitutes",
     "Our assessment, forward-looking; market evidence as on pages 7, 16 and the research files. Size of the peer-network market not measured.");
   table(s, ["Force", "Counterparty assurance", "Verified peer network", "Outcome guarantee"], [
-    ["1 · Size and growth", "Medium: ~US$16bn charter; deposits US$100k–1M each", "Medium: paid networks at US$395–2,850 a year", "Large market, but a feature"],
-    ["2 · Substitutes", "Medium: optional escrow, brokers, lawyers", "High: forums, AI, advisors, paid networks", "High: insurance, card protection"],
-    ["3 · Entry barriers", "High once built: licence, standard, data", "Medium once dense", "Low: a contract clause"],
-    ["4 · Buyer power", "Medium–high", "Medium", "Medium"],
-    ["5 · Supplier power", "High at the start: insurers", "Medium: members are the content", "High: insurer and partners"],
-    ["6 · Rivalry", "Low now", "Medium", "Medium"],
+    ["1 · Size and growth", rate("Medium: ~US$16bn charter; deposits US$100k–1M each"), rate("Medium: paid networks at US$395–2,850 a year"), rate("Large market, but a feature")],
+    ["2 · Substitutes", rate("Medium: optional escrow, brokers, lawyers"), rate("High: forums, AI, advisors, paid networks"), rate("High: insurance, card protection")],
+    ["3 · Entry barriers", rate("High once built: licence, standard, data"), rate("Medium once dense"), rate("Low: a contract clause")],
+    ["4 · Buyer power", rate("Medium–high"), rate("Medium"), rate("Medium")],
+    ["5 · Supplier power", rate("High at the start: insurers"), rate("Medium: members are the content"), rate("High: insurer and partners")],
+    ["6 · Rivalry", rate("Low now"), rate("Medium"), rate("Medium")],
     [{ text: "Outlook", options: { bold: true } }, { text: "Medium–high", options: { bold: true, color: H.navy } }, { text: "Medium", options: { bold: true } }, { text: "Low on its own", options: { bold: true } }],
   ], { colW: [2.2, 3.5, 3.3, 3.13], fs: 10.5, rowH: 0.55 });
   callout(s, "Only assurance has barriers that rise with success — the reason it leads.");
@@ -420,15 +457,21 @@ section("4 · Can it win?");
 {
   const s = content("4 · Can it win?", "Competences: credit analysis and pricing are strengths; auditing, licensing and defensible ratings must be partnered",
     "Our assessment; LinkedIn profiles and résumé (Oct 2026). Base: needed to stay in business · Key: differentiating today · Pacing: could differentiate tomorrow. Reported as facts; not used in the ranking.");
-  table(s, ["We know how to…", "Type", "Our position", "Evidence or route"], [
-    ["analyse private-company financials and credit risk", "Key", { text: "Favourable", options: { bold: true, color: H.navy } }, "Calebe: 10+ years in investment banking, corporate finance and private equity (Advent International)"],
-    ["price risk and B2B offers", "Key", { text: "Favourable", options: { bold: true, color: H.navy } }, "Francesco: co-founder of GRAFF (B2B pricing); Calebe: corporate finance"],
-    ["serve HNW clients discreetly", "Base", "Competitive average", "Francesco: luxury real estate for HNW clients; 12 years in hospitality"],
-    ["audit aviation, yacht and villa operations", "Key", { text: "Less than favourable", options: { color: H.red } }, "Partner with existing auditors"],
-    ["distribute insurance under a licence", "Base", { text: "Less than favourable", options: { color: H.red } }, "Via a Lloyd’s coverholder or managing general agent"],
-    ["publish ratings that withstand legal challenge", "Key", { text: "Less than favourable", options: { color: H.red } }, "Counsel and rating-methodology advisers"],
-    ["earn the trust of buyers who have never heard of us", "Pacing", { text: "Less than favourable", options: { color: H.red } }, "Reference partners; a public failure tracker"],
-  ], { colW: [3.6, 0.9, 1.9, 5.73], fs: 10.5, rowH: 0.5 });
+  const heads = [["We know how to…", 0.6, 4.2], ["Type", 4.9, 0.8], ["Our position", 5.8, 2.3], ["Evidence or route", 8.3, 4.43]];
+  heads.forEach((h) => s.addText(h[0], { x: h[1], y: 1.85, w: h[2], h: 0.3, fontSize: 10.5, bold: true, color: H.navy, margin: 0, isTextBox: true }));
+  s.addShape(pres.shapes.LINE, { x: 0.6, y: 2.18, w: 12.13, h: 0, line: { color: H.navy, width: 1.75 } });
+  s.addText("Less than fav. → Clear leader", { x: 5.8, y: 2.2, w: 2.4, h: 0.22, fontSize: 8, italic: true, color: H.muted, margin: 0, isTextBox: true });
+  const rows = [["analyse private-company financials and credit risk", "Key", 3, "Calebe: 10+ years in investment banking, corporate finance and private equity (Advent International)"], ["price risk and B2B offers", "Key", 3, "Francesco: co-founder of GRAFF (B2B pricing); Calebe: corporate finance"], ["serve HNW clients discreetly", "Base", 2, "Francesco: luxury real estate for HNW clients; 12 years in hospitality"], ["audit aviation, yacht and villa operations", "Key", 1, "Partner with existing auditors"], ["distribute insurance under a licence", "Base", 1, "Via a Lloyd’s coverholder or managing general agent"], ["publish ratings that withstand legal challenge", "Key", 1, "Counsel and rating-methodology advisers"], ["earn the trust of buyers who have never heard of us", "Pacing", 1, "Reference partners; a public failure tracker"]];
+  const lab = ["", "Less than favourable", "Competitive average", "Favourable", "Clear leader"];
+  rows.forEach((r, i) => {
+    const y = 2.45 + i * 0.53;
+    s.addText(r[0], { x: 0.6, y, w: 4.2, h: 0.48, fontSize: 10.5, bold: true, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
+    s.addText(r[1], { x: 4.9, y, w: 0.8, h: 0.48, fontSize: 10.5, color: H.text, margin: 0, valign: "middle", isTextBox: true });
+    for (let k = 1; k <= 4; k++) s.addShape(pres.shapes.OVAL, { x: 5.8 + (k - 1) * 0.3, y: y + 0.15, w: 0.18, h: 0.18, fill: { color: k <= r[2] ? (r[2] === 1 ? H.red : H.navy) : H.bg }, line: { color: r[2] === 1 && k <= r[2] ? H.red : H.navy, width: 0.75 } });
+    s.addText(lab[r[2]], { x: 7.05, y, w: 1.2, h: 0.48, fontSize: 9, color: r[2] === 1 ? H.red : H.navy, margin: 0, valign: "middle", isTextBox: true });
+    s.addText(r[3], { x: 8.3, y, w: 4.43, h: 0.48, fontSize: 10, color: H.text, margin: 0, valign: "middle", isTextBox: true });
+    s.addShape(pres.shapes.LINE, { x: 0.6, y: y + 0.5, w: 12.13, h: 0, line: { color: H.line, width: 0.5 } });
+  });
   callout(s, "Time is the hard constraint: about one hour a day each fits research and partner work, not round-the-clock service.");
 }
 {
@@ -527,15 +570,22 @@ section("5 · Capturing value");
 section("6 · Validation, partners, risks");
 {
   const s = content("6 · Validation, partners, risks", "Operational strategy: six zero-capital tests with pass marks turn the grand-strategy hypotheses into a go/no-go at day 90",
-    "Our 90-day plan. Every pass mark is set before the test; missing the gate parks the idea.");
-  table(s, ["#", "Hypothesis", "Test (no capital)", "Pass mark", "By"], [
-    ["1", "Publishing ratings is legally defensible", "Counsel opinion; methodology draft", "Written opinion with conditions met", "Day 30"],
-    ["2", "Buyers value solvency information", "Free public failure tracker; 10 trade-off interviews with family offices, banks and assistants", "200 subscribers; median indifference above US$500 a report", "Day 45"],
-    ["3", "Buyers pay for a report before committing", "One paid due-diligence pilot, then offer to the list", "3 paid reports", "Day 90"],
-    ["4", "Suppliers pay for a badge", "Approach 30 operators, brokers and villa companies", "10 sign up and pay an audit fee", "Day 90"],
-    ["5", "An insurer will write deposit protection", "Lloyd’s Lab application; 3 underwriter meetings", "1 letter of intent or term sheet", "Day 90"],
-    ["6", "A verified peer network gets used (option B)", "30-member verified pilot", "30% of members post", "Day 90"],
-  ], { colW: [0.4, 3.0, 4.0, 3.3, 1.43], fs: 10.5, rowH: 0.6 });
+    "Our 90-day plan. Every pass mark is set before the test; missing the gate parks the idea. Dark bars: tests that decide the go/no-go.");
+  const T0 = 4.3, TW = 4.55, dx = (d) => T0 + (d / 90) * TW;
+  s.addText("Hypothesis and test", { x: 0.6, y: 1.85, w: 3.6, h: 0.3, fontSize: 10.5, bold: true, color: H.navy, margin: 0, isTextBox: true });
+  s.addText("Pass mark", { x: 9.45, y: 1.85, w: 3.28, h: 0.3, fontSize: 10.5, bold: true, color: H.navy, margin: 0, isTextBox: true });
+  [0, 30, 60, 90].forEach((d) => s.addText("Day " + d, { x: dx(d) - 0.4, y: 1.85, w: 0.8, h: 0.3, fontSize: 9.5, bold: true, color: H.navy, align: "center", margin: 0, isTextBox: true }));
+  s.addShape(pres.shapes.LINE, { x: 0.6, y: 2.18, w: 12.13, h: 0, line: { color: H.navy, width: 1.75 } });
+  [30, 60].forEach((d) => s.addShape(pres.shapes.LINE, { x: dx(d), y: 2.2, w: 0, h: 3.85, line: { color: H.line, width: 0.75, dashType: "dash" } }));
+  s.addShape(pres.shapes.LINE, { x: dx(90), y: 2.2, w: 0, h: 3.85, line: { color: H.gold, width: 2.25 } });
+  s.addText("Go / no-go", { x: dx(90) - 1.05, y: 5.85, w: 1.0, h: 0.25, fontSize: 9, bold: true, color: H.goldDk, align: "right", margin: 0, isTextBox: true });
+  const rows = [["Publishing ratings is legally defensible", "Counsel opinion; methodology draft", 0, 30, "Written opinion, conditions met", 1], ["Buyers value solvency information", "Free failure tracker; 10 trade-off interviews", 0, 45, "200 subscribers; median indifference > US$500", 0], ["Buyers pay before committing", "One paid due-diligence pilot", 30, 90, "3 paid reports", 1], ["Suppliers pay for a badge", "Approach 30 operators, brokers, villa companies", 15, 90, "10 sign up and pay an audit fee", 1], ["An insurer writes deposit protection", "Lloyd’s Lab application; 3 underwriter meetings", 15, 90, "1 letter of intent or term sheet", 1], ["A verified peer network gets used", "30-member verified pilot (option B)", 30, 90, "30% of members post", 0]];
+  rows.forEach((r, i) => {
+    const y = 2.3 + i * 0.62;
+    s.addText([{ text: (i + 1) + " · " + r[0], options: { bold: true, color: H.navy, breakLine: true } }, { text: r[1], options: { color: H.muted, fontSize: 9.5 } }], { x: 0.6, y, w: 3.6, h: 0.55, fontSize: 10.5, margin: 0, valign: "middle", isTextBox: true });
+    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: dx(r[2]), y: y + 0.14, w: dx(r[3]) - dx(r[2]), h: 0.27, rectRadius: 0.06, fill: { color: r[5] ? H.navy : H.mid }, line: { color: r[5] ? H.navy : H.mid } });
+    s.addText(r[4], { x: 9.45, y, w: 3.28, h: 0.55, fontSize: 10.5, color: H.text, margin: 0, valign: "middle", isTextBox: true });
+  });
   callout(s, "Go if tests 1, 3, 4 and 5 pass; park the idea with no capital lost if they do not.");
 }
 {
@@ -554,17 +604,27 @@ section("6 · Validation, partners, risks");
 }
 {
   const s = content("6 · Validation, partners, risks", "Risks: the biggest is that nobody pays for assurance before a loss",
-    "Our assessment; likelihood and impact scored high, medium or low.");
-  table(s, ["#", "Risk", "Likelihood", "Impact", "Mitigation"], [
-    ["1", "Nobody pays for assurance before a loss", "High", "High", "Sell inside partner transactions; the public tracker keeps losses visible"],
-    ["2", "Safety auditors or the comparison site add solvency", "Medium", "High", "Partner with them before they build it"],
-    ["3", "Legal action over published ratings", "Medium", "High", "Counsel first; publish positive badges before any negative ratings"],
-    ["4", "No access to private suppliers’ financials", "High", "Medium", "Disclosure as the condition of the badge"],
-    ["5", "No insurer writes capacity", "Medium", "High", "Start with escrow partners; Lloyd’s Lab route"],
-    ["6", "Evidence rests on search summaries", "High", "Medium", "Verify every figure used externally against its primary source"],
-    ["7", "Market small in heads", "Medium", "Medium", "Extend from jets to yachts, villas and clubs; sell through banks"],
-  ], { colW: [0.4, 3.9, 1.2, 1.1, 5.53], fs: 10.5, rowH: 0.52 });
-  callout(s, "Risks 1 and 3 decide the business; tests 1–3 on page 27 address them first.");
+    "Our assessment; likelihood and impact scored low, medium or high.");
+  const X0 = 1.3, Y0 = 1.95, W = 4.2, Hh = 3.6, cw = W / 3, ch = Hh / 3;
+  for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) {
+    const sev = a + b; const f = sev >= 4 ? "C9D5EA" : sev === 3 ? "E3E9F3" : H.panel;
+    s.addShape(pres.shapes.RECTANGLE, { x: X0 + a * cw, y: Y0 + (2 - b) * ch, w: cw, h: ch, fill: { color: f }, line: { color: H.white, width: 2 } });
+  }
+  ["Low", "Medium", "High"].forEach((t, i) => {
+    s.addText(t, { x: X0 + i * cw, y: Y0 + Hh + 0.04, w: cw, h: 0.26, fontSize: 9, color: H.muted, align: "center", margin: 0, isTextBox: true });
+    s.addText(t, { x: 0.55, y: Y0 + (2 - i) * ch + ch / 2 - 0.13, w: 0.7, h: 0.26, fontSize: 9, color: H.muted, align: "right", margin: 0, isTextBox: true });
+  });
+  s.addText("Likelihood →", { x: X0, y: Y0 + Hh + 0.3, w: W, h: 0.26, fontSize: 10, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
+  s.addText("Impact ↑", { x: 0.45, y: Y0 - 0.32, w: 1.2, h: 0.28, fontSize: 10, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const pos = { 1: [2, 2, 0, 0], 2: [1, 2, -0.35, -0.3], 3: [1, 2, 0.35, -0.3], 5: [1, 2, 0, 0.32], 4: [2, 1, -0.3, 0], 6: [2, 1, 0.3, 0], 7: [1, 1, 0, 0] };
+  Object.keys(pos).forEach((k) => { const p = pos[k]; num(s, X0 + p[0] * cw + cw / 2 + p[2], Y0 + (2 - p[1]) * ch + ch / 2 + p[3], 0.4, k, +k === 1 || +k === 3 ? H.goldDk : H.navy); });
+  const rs = [["Nobody pays for assurance before a loss", "Sell inside partner transactions; the public tracker keeps losses visible"], ["Safety auditors or the comparison site add solvency", "Partner with them before they build it"], ["Legal action over published ratings", "Counsel first; publish positive badges before any negative ratings"], ["No access to private suppliers’ financials", "Disclosure as the condition of the badge"], ["No insurer writes capacity", "Start with escrow partners; Lloyd’s Lab route"], ["Evidence rests on search summaries", "Verify every external figure against its primary source"], ["Market small in heads", "Extend from jets to yachts, villas and clubs; sell through banks"]];
+  rs.forEach((r, i) => {
+    const y = 1.9 + i * 0.6;
+    num(s, 6.2, y + 0.25, 0.34, i + 1, i === 0 || i === 2 ? H.goldDk : H.navy);
+    s.addText([{ text: r[0], options: { bold: true, color: H.navy, breakLine: true } }, { text: r[1], options: { color: H.text } }], { x: 6.5, y, w: 6.23, h: 0.55, fontSize: 10.5, margin: 0, valign: "middle", isTextBox: true });
+  });
+  callout(s, "Risks 1 and 3 (gold) decide the business; tests 1–3 on page 27 address them first.");
 }
 {
   const s = content("For discussion", "Five questions for you, Francesco", null);
