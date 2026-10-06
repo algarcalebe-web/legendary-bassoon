@@ -240,3 +240,25 @@ Compiled 2026-10-06. Method caveat: WebFetch was blocked by the egress proxy for
 | quote | context | date | URL |
 |---|---|---|---|
 | (none captured verbatim; page fetches blocked, search returned only paraphrased summaries) | n/a | n/a | n/a |
+
+## brief appendix (supplied by Calebe in the brief, "verified Oct 5-6 2026"; not re-checked by us)
+| claim | figure | date | source | URL |
+|---|---|---|---|---|
+| Time to plan and book one trip | 16 hours (two work days); 47% say less planning time would reduce stress; 3,024 US adults | Jan 2024 | Priceline | https://press.priceline.com/new-priceline-research-finds-average-traveler-spends-two-full-work-days-to-plan-and-book-trips/ |
+| Advisors charging planning fees | 55%, up from 44% | Aug 2025 | Travel Weekly | https://www.travelweekly.com/Travel-News/Travel-Agent-Issues/More-than-half-of-US-advisors-now-charge-fees |
+| US luxury travellers (500+) | 92% say experts are the only way to a truly luxury trip; 97% advisors best for personalisation; 93% luxury = access; 79% plan to spend more in 2026 | Jan 2026 | Flywire (vendor) | https://www.hospitalitynet.org/news/4130594/luxury-travelers-prioritize-exclusivity-over-extravagance-plan-higher-spend-in-2026-flywire-survey-reveals |
+| Ultra-luxury travellers | 95% easy payment matters; 72% worry about payment security; 91% more loyal to brands with easy payment | Mar 2025 | Flywire (vendor) | https://www.globenewswire.com/news-release/2025/03/31/3052306/0/en/Cash-Rich-Ultra-Luxury-Travelers-Boost-Spend-Seek-Wellness-in-2025-Flywire-Survey-Reveals.html |
+| AI use for trips | 56% of US travellers, up from 33% in H1 2025 | Mar 2026 | Phocuswright | https://www.phocuswright.com/Travel-Research/Research-Updates/2026/The-fastest-shift-in-travel-behavior-just-became-the-default |
+| Vatican after hours, small group | from US$643.45 pp vs US$46.16 standard | n/d | The Roman Guy | https://theromanguy.com/tours/italy/vatican/vatican-after-hours-small-group-tour |
+| Armoured luxury transfer, Rio | from R$1,000 per trip, about 10x a taxi | Oct 2025 | SBT News | https://sbtnews.sbt.com.br/noticia/brasil/rio-de-janeiro-ganha-servico-de-transporte-de-luxo-com-carros-blindados-e-motoristas-bilingues-1 |
+| Resold restaurant tables | US$2,100+ | Jun 2025 | Nevada Current | https://nevadacurrent.com/2025/06/30/black-market-dining-reservations-sell-for-thousands-states-want-to-stop-that/ |
+| Concierge club membership | GBP 2k-25k a year | n/d | Stirling Access | https://stirlingaccess.com/compare/quintessentially/review |
+| Jurere mansion, New Year week | R$166,909 for 30 Dec-4 Jan | Dec 2025 | NSC Total | https://www.nsctotal.com.br/?p=7746974 |
+| Trevi Fountain | EUR 2 to approach since Feb 2026; up to 70,000 people/day | Feb 2026 | Euronews | https://euronews.com/travel/2026/02/02/rome-tourists-will-have-to-pay-to-get-up-close-to-the-trevi-fountain-next-year |
+| Brazil platform fees | Airbnb host-only 16%; Booking.com Preferred Partner 15% to 18% from Jul 2026, CADE complaint | 2026 | Hostfully; Brasilturis | https://www.hostfully.com/pt-br/blog/taxas-do-anfitriao-no-airbnb-a-taxa-exclusiva-do-anfitriao-de-155-explicada-2026/ ; https://brasilturis.com.br/2026/06/24/entidades-acionam-cade-contra-aumento-de-comissao-da-booking-com/ |
+| Brazilian luxury hotels (BLTA 2025) | R$3.34bn revenue; ADR R$3,109; 50% occupancy; 70% guests Brazilian; tour-operator clients 38% N. American, 36% European | Aug 2026 | O Hoje | https://ohoje.com/2026/08/27/turismo-de-luxo-movimenta-r-334-bilhoes-no-brasil-veja-destinos-preferidos/ |
+| Brazil outbound spend 2025 | US$21.7bn, +10% | Jan 2026 | Economic News Brasil (BCB) | https://economicnewsbrasil.com.br/2026/01/26/gastos-brasileiros-exterior-maior-nivel-2014/ |
+| Brazil USD millionaires | 386k | Jun 2026 | InfoMoney / UBS | https://www.infomoney.com.br/?p=3393301 |
+| Foreign visitors to Brazil 2025 | 9.0M, record | Dec 2025 | Panrotas | https://www.panrotas.com.br/destinos/pesquisas-e-estatisticas/2025/12/brasil-chega-a-recorde-de-9-milhoes-de-turistas-estrangeiros-em-2025_224556.html |
+| US advisory Brazil | Level 2 (Sep 2026) | Sep 2026 | Destination.com | https://www.destination.com/news/state-dept-raises-brazil-level-2-travel-advisory |
+| Violent deaths per 100k, 2025 | Santa Catarina 7.6; Rio 22.6; Brazil 19.1 | Jul 2026 | Congresso em Foco | https://www.congressoemfoco.com.br/noticia/120720/mortes-violentas-chegam-ao-menor-patamar-em-14-anos-veja-mapa |
