@@ -78,3 +78,17 @@ Zero capital is a **pass/fail filter** (a brief constraint), not a score. **Foun
 2. **Two shortlisted options combine naturally.** The audit (#6) finds failure points; the guarantee (#2+3) prices the residual risk. They are scored separately because they could be sold separately.
 3. **Unexplained gap, not yet a hypothesis.** 84% of affluent travellers say an advisor beats internet research, but advisors handled only 17% of past trips (Harris/Preferred 2025, snippet). Why (cost, trust, finding the right advisor) is unknown. It belongs in the interviews before anything is built on it.
 4. **Willingness to pay for risk-shift (#2+3, #9) is inferred** from adjacent spending (insurance, rescue, deposit losses), not observed.
+
+## 5. Alternative routes: same needs, different payer (added; **novelty and WTP not yet checked**)
+
+Most shortlisted options sell to the traveller, who has a free substitute. These variants sell to a party that already pays to keep affluent travellers happy. Each would usually widen the WTP-cost wedge and scale beyond founder time. Capability and capital limits are noted but not used to exclude.
+
+| Route | Builds on | Who pays | Why it could be more profitable | Main risk | Capital/licence note |
+|---|---|---|---|---|---|
+| R1 Verification layer sold to AI planners and advisor networks (closures, border timing, insurance gaps checked automatically) | F | AI planners (Mindtrip, Layla), advisor networks (Fora 15,000 advisors) | Turns the forward threat to F (better AI) into the customer; per-check or licence revenue at scale | Planners build it in-house | Software build; capital-light if partnered |
+| R2 Trip-outcome cover underwritten by an insurer, distributed through advisors | E | Traveller via advisor; insurer carries the risk | Moves refund risk off our balance sheet; commission on premium; fits the risk-shift gap (N3) | Insurer appetite; regulation | Needs an insurer partner and broker/MGA status |
+| R3 Provider-solvency ratings sold to private banks, wealth managers and family offices as a subscription | B | Banks and offices advising HNW clients | One buyer covers many clients; reputation builds faster through institutions | Liability; data access | Capital-light |
+| R4 Verified-peer reviews as a white-label layer for advisor networks or premium cards | A | Networks or card issuers wanting trust signals | Skips the cold start by borrowing their members | Envelopment: the host copies it | Capital-light |
+| R5 Escrow via a licensed partner (e.g. Felloh-type trust accounts) for villa and DMC payments | #8 (previously failed the zero-capital filter) | Providers wanting to win trust; travellers (72% of ultra-luxury travellers worry about payment security, Flywire Mar 2025) | Float and fee per transaction | Partner terms; adoption | Licence held by partner |
+
+Next step if pursued: one helper pass on novelty and WTP for R1-R5 (about 25 searches), then re-score them in section 3.
