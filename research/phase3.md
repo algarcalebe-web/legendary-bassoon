@@ -43,24 +43,38 @@ Copy-protection key: **Pre** = pre-emption (reputation, relationships, exclusive
 | 16 | **Success-fee advisor**: paid as a share of verified savings or perk value vs best public price (P6, N3) | PARTLY: DreamCheaper 20% of savings (mass market); luxury version not found | None | Savings are provable at luxury price points | 5 trips priced against public rates |
 | C | **Existing concept: Rome-Santa Catarina curator** (planning fee + 10-18% partner commission) | EXISTS in form: advisors, DMCs, Black Tomato | None; the earlier deck itself says "every piece can be copied" | Brazilians pay a planning fee; long-haul guests consider Santa Catarina | Earlier deck's pilot (5 partners per side, 20-30 interviews) |
 
-## 3. Shortlist
+## 3. Shortlist (outside-in, revised)
 
-Criteria scored 1-5 (5 = best). Replicability: 5 = hardest to copy.
+**Method.** The ranking uses only customer-side criteria, each scored 1-5:
+- **pain severity and frequency** (Phase 1 ranking);
+- **gap** (importance minus the best alternative's performance, Phase 2 matrix);
+- **evidence of willingness to pay** (revealed spending);
+- **hard to copy.**
 
-| Option | Pain severity | Evidence of WTP | Hard to copy | Zero-capital feasibility | Founder fit | Total /25 | Verdict |
-|---|---|---|---|---|---|---|---|
-| **14 Property-scouting trips** | 2 | 4 | 3 | 5 | 5 | **19** | Shortlist. Best economics; narrow pain |
-| **13 Opposite-season home exchange** | 2 | 3 | 4 | 5 | 5 | **19** | Shortlist. Only real network effect; chicken-and-egg risk |
-| **9 Counterparty-risk ratings** | 3 | 2 | 3 | 5 | 5 | **18** | Shortlist. Real gap; WTP and legal risk unproven |
-| **2+3 Outcome-guaranteed trip** (refundable fee + partner swap) | 4 | 2 | 2 | 3 | 3 | **14** | Shortlist as the only true risk-shift idea; low score is the honest one |
-| C Existing curator | 3 | 4 | 1 | 5 | 5 | 18 | Benchmark. Scores on fit and WTP, fails on copyability |
-| 5 Palazzo access | 2 | 5 | 2 | 5 | 5 | 19 | Not new to market. Use as a component of 13/14, not a business |
-| 10 Family-office desk | 3 | 4 | 2 | 4 | 2 | 15 | Out. Capacity: 1 hr/day can't run a desk |
-| 6 / 7 / 15 / 16 | 2-3 | 2-3 | 1-4 | 4-5 | 2-4 | 14-16 | Out. Easy to copy, or crowded |
-| 1 / 4 / 8 / 11 / 12 | 1-3 | 1-3 | 1-2 | 2-5 | 2-4 | 9-14 | Out |
+Zero capital is a **pass/fail filter** (a brief constraint), not a score. **Founder fit is excluded from the ranking.** It appears only in the Phase 4 competence analysis. An earlier version scored fit and zero capital; it ranked #14 and #13 top on fit alone and has been replaced.
 
-## 4. Caveats that could change the shortlist
-1. **Fit is doing the work.** Options 13, 14 and 9 score high on founder fit and zero capital, not on pain severity. That is inside-out drift in an outside-in project. Phase 4 must test whether customers want them, not whether we can do them.
-2. **Option 14 is borderline in scope.** It is leisure travel as a funnel to a property purchase, and it depends on whether Francesco's brokerage allows it (unknown).
-3. **Option 9** has legal exposure (published ratings of named firms) and depends on obtaining private-company financials.
-4. **Willingness to pay for the risk-shift needs (N3, N4) is inferred** from adjacent spending (insurance, rescue memberships, deposit losses). It is not observed directly.
+| # | Option | Severity x frequency | Gap | WTP evidence | Hard to copy | **Total /20** | Zero capital | Result |
+|---|---|---|---|---|---|---|---|---|
+| 15 | Wealth-verified peer recommendation network | 4 (P1-P3: research load, choice overload, unreliable info) | 3 (AI 2; reviews 4; Indagare partly) | 3 (Indagare US$395-2,850/yr) | 4 (network, if dense) | **14** | Pass | **Shortlist** |
+| 9 | Counterparty-risk ratings of travel providers | 2 (rare, very costly) | 5 (nobody vets financials) | 2 (losses real; no paid rating seen) | 3 (reputation) | **12** | Pass | **Shortlist** |
+| 10 | Pay-per-trip family-office travel desk | 3 | 3 (Campden 2025: low satisfaction; UBS 2025: ~47% offer no lifestyle services) | 4 (retainers US$50k-500k) | 2 | **12** | Pass | **Shortlist** |
+| 2+3 | Outcome guarantee (refundable fee + partner swap) | 3 (risk pattern; regret; on-trip failure) | 4 (not found) | 2 (adjacent: insurance, rescue) | 2 | **11** | Pass (refunds contingent) | **Shortlist** |
+| 6 | Pre-mortem audit of DIY/AI itineraries | 4 (56% use AI; 55% met a bad recommendation) | 4 (AI scores 2; luxury multi-country audit not found) | 2 (audits sell at US$99-200) | 1 | **11** | Pass | **Shortlist** |
+| 3 | Partner swap guarantee alone | 3 | 3 | 2 | 3 | 11 | Pass | Merged into 2+3 |
+| 7 | Brazil-Europe entry concierge | 3 | 3 | 3 (US$121-146) | 1 | 10 | Pass | Out |
+| 5 | Private palazzo access | 2 | 1 (served, crowded) | 5 | 2 | 10 | Pass | Out (not new) |
+| 14 | Property-scouting trips funded by commission | 1 (no ranked travel pain) | 2 | 4 | 3 | 10 | Pass | **Out** (previously ranked on fit) |
+| 13 | Opposite-season home exchange | 1 | 2 | 3 | 3 | 9 | Pass | **Out** (previously ranked on fit) |
+| C | Existing Rome-Santa Catarina curator | 3 | 1 (operators score 9) | 4 | 1 | 9 | Pass | Benchmark |
+| 8 | Escrow bookings | 2 | 3 | 1 | 2 | 8 | **Fail** (needs licence) | Out |
+| 11 | Trip tender | 3 | 1 (Zicasso exists) | 3 | 1 | 8 | Pass | Out |
+| 12 | Off-peak perk exchange | 1 | 2 | 3 | 1 | 7 | Pass | Out |
+| 16 | Success-fee advisor | 2 | 2 | 2 | 1 | 7 | Pass | Out |
+| 1 | Zero-questionnaire brief | 2 (interview pain contradicted) | 1 | 1 | 1 | 5 | Pass | Out |
+| 4 | Preference passport | 2 | 1 | 1 | 1 | 5 | Pass | Out |
+
+## 4. Caveats
+1. **Nothing scores high.** The best option scores 14/20. Willingness-to-pay evidence is the weakest criterion across the board (no option above 4).
+2. **Two shortlisted options combine naturally.** The audit (#6) finds failure points; the guarantee (#2+3) prices the residual risk. They are scored separately because they could be sold separately.
+3. **Unexplained gap, not yet a hypothesis.** 84% of affluent travellers say an advisor beats internet research, but advisors handled only 17% of past trips (Harris/Preferred 2025, snippet). Why (cost, trust, finding the right advisor) is unknown. It belongs in the interviews before anything is built on it.
+4. **Willingness to pay for risk-shift (#2+3, #9) is inferred** from adjacent spending (insurance, rescue, deposit losses), not observed.
