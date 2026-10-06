@@ -1,0 +1,14 @@
+# Verified v2 (checked 2026-10-06)
+
+| item | primary figure | date | URL | sample & method | status |
+|---|---|---|---|---|---|
+| 1 SITA Baggage IT Insights 2026 (2025 data) | Total cost of mishandled bags $6.3bn (about 15% of airline industry profit in 2025); $260 average per mishandled bag (replaces older $150 figure); mishandling "down 20%"; transfers caused 39% of mishandling in 2025; passenger volume +4%. Per-bag split: delayed $245 ($170 ops + $75 comp), damaged $255, lost $635 (lost = 2.6x delayed). Annual totals: 2023 $6.9bn?, 2024 $7.9bn, 2025 $6.3bn (chart labels read 3.1, 3.6, 1.9, 2, 5.5, 6.9, 7.9, 6.3 for 2007, 2019-2025). | 2026 (page copyright 2026; exact release date not on page) | https://www.sita.aero/resources/surveys-reports/sita-baggage-it-insights/ | SITA WorldTracer-based industry benchmark; cost model described as "transparent, data-driven"; sample size and method detail are in the gated report, not on the page. | CHANGED/PARTIAL: cost and total confirmed on page. The absolute mishandled rate per 1,000 bags is NOT on the public page (only "down 20%"). Needs the gated PDF. |
+| 2 Eurocontrol summer 2025 overview, arrival punctuality % | not retrieved | n/a | https://www.eurocontrol.int/publications/series/eurocontrol-european-aviation-overview (series index is JS-paginated; guessed slugs return 404; sitemap has no "summer" hit) | n/a | BLOCKED (not found). Only 2026 weekly overviews (weeks 31-39) were reachable. |
+| 3 ACI Europe EES open letter, 1 Jul 2026 | not retrieved | n/a | https://www.aci-europe.org/industry-topics/industry-topics/26-border-control.html (listing loads dynamically; letters page returns 403) | n/a | BLOCKED (not found) |
+| 4 Expedia Path to Purchase 2023 PDF (303/524 min, 141/277 pages) | not retrieved | n/a | https://www.hawaiitourismauthority.org/media/13501/expedia-report-path-to-purchase-2023.pdf returns HTTP 404 | n/a | BLOCKED (link dead; need alternate host or Expedia Media Solutions copy) |
+| 5 Greetwell AI Travel Survey 2026 | not retrieved | n/a | https://www.greetwell.com/us/guides/ai-travel-survey-2026 returns 404; greetwell.com sitemap lists no such guide | n/a | BLOCKED (URL does not exist as given; claim unverified) |
+| 6 US DOT ATCR (Dec 2025 and newer) | not retrieved | n/a | https://www.transportation.gov/sites/dot.gov/files/2026-01/December%202025%20ATCR.pdf 403 via curl AND via Playwright Chromium; air-travel-consumer-reports index 403 | n/a | BLOCKED |
+| 7 Wyndham Vacation Ready 2017 press release: 67% argued | not retrieved | n/a | wyndhamdestinations.com newsroom pages load but no 2017 release link found in static HTML | n/a | BLOCKED (not found) |
+| 8 Press quotes | see quotes_v3.md | | | | PARTIAL: only advisor voices, no first-person traveller quotes found |
+
+Notes: WebFetch not used. Reddit/FlyerTalk/Trustpilot skipped. Row 1 2023 figure: chart label order is ambiguous; treat only 2024 $7.9bn and 2025 $6.3bn as read with confidence.
