@@ -16,9 +16,10 @@ const THEME = {
 const H = { navy: "1B2A5C", gold: "C9A24B", goldDk: "8C6D23", bg: "FDFDFC", panel: "F6F7FA", call: "EEF1F7",
   text: "222222", muted: "6B6B6B", line: "D0D4DC", mid: "5B8DB8", light: "B7C6DE", low: "F3D9C9", white: "FFFFFF", red: "A23B2A" };
 
+const CREST = "deck/assets/crest_cover.jpeg", CREST2 = "deck/assets/crest_illustrated.jpeg", SHIELD = "deck/assets/shield.png";
 const pres = new pptxgen();
 pres.layout = "LAYOUT_WIDE"; // 13.333 x 7.5
-pres.title = "Family mobility office: strategy deck";
+pres.title = "Otium Chigi Journeys: strategy deck";
 pres.author = "Calebe Garcia";
 pres.theme = { headFontFace: THEME.headFontFace, bodyFontFace: THEME.bodyFontFace };
 const C = pres.SchemeColor;
@@ -28,9 +29,11 @@ pres.defineSlideMaster({
   title: "CONTENT",
   background: { color: H.bg },
   objects: [
-    { placeholder: { options: { name: "kicker", type: "body", x: 0.6, y: 0.32, w: 12.1, h: 0.3, fontSize: 10, bold: true, color: C.accent4, charSpacing: 2, margin: 0, valign: "middle", align: "left" }, text: "" } },
+    { placeholder: { options: { name: "kicker", type: "body", x: 0.6, y: 0.32, w: 10.0, h: 0.3, fontSize: 10, bold: true, color: C.accent4, charSpacing: 2, margin: 0, valign: "middle", align: "left" }, text: "" } },
     { placeholder: { options: { name: "title", type: "title", x: 0.6, y: 0.62, w: 12.1, h: 0.95, fontSize: 22, bold: true, color: C.text2, margin: 0, valign: "top", align: "left" }, text: "" } },
     { line: { x: 0.6, y: 1.62, w: 12.13, h: 0, line: { color: H.line, width: 1 } } },
+    { image: { x: 10.75, y: 0.1, w: 0.24, h: 0.43, path: SHIELD } },
+    { text: { text: "OTIUM CHIGI", options: { x: 11.05, y: 0.16, w: 2.0, h: 0.3, fontFace: "Cambria", fontSize: 12, bold: true, color: "1B2A5C", charSpacing: 2, align: "left", valign: "middle", margin: 0 } } },
   ],
   slideNumber: { x: 12.25, y: 7.0, w: 0.5, h: 0.3, fontSize: 9, color: H.muted, align: "right" },
 });
@@ -90,8 +93,8 @@ function card(s, x, y, w, h, head, body, opt = {}) {
   s.addText(runs, { x: x + 0.15, y: y + 0.1, w: w - 0.3, h: h - 0.2, valign: "top", margin: 0, paraSpaceAfter: 4, isTextBox: true });
 }
 
-// ===== family mobility office deck (Minto pyramid) =====
-const SRCFMO = "research/fmo_strategy.md (Deneffe chain, adversarially reviewed and fact-checked, Oct 2026)";
+// ===== the family mobility office deck (Minto pyramid) =====
+const SRCFMO = "research/fmo_strategy.md (strategy and pricing analysis, adversarially reviewed and fact-checked, Oct 2026)";
 function chip(s, x, y, w, t, dark, warn) {
   const f = warn ? H.low : dark ? H.navy : H.light, c = warn ? H.red : dark ? H.white : H.navy;
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.3, rectRadius: 0.08, fill: { color: f }, line: { color: f } });
@@ -106,16 +109,12 @@ function diamond(s, cx, cy, d, fill, label, lc) {
 section("Opening");
 {
   const s = pres.addSlide({ masterName: "DARK", sectionTitle: sec });
-  s.addShape(pres.shapes.RECTANGLE, { x: 0, y: 0, w: 4.4, h: 7.5, fill: { color: "14213F" }, line: { color: "14213F" } });
-  s.addText([{ text: "WORKING TITLE", options: { fontSize: 11, bold: true, color: H.gold, charSpacing: 3, breakLine: true } },
-    { text: "Family Mobility Office", options: { fontSize: 26, bold: true, color: H.white, breakLine: true } },
-    { text: "Name to be decided", options: { fontSize: 12, italic: true, color: H.light } }],
-    { x: 0.5, y: 2.8, w: 3.6, h: 1.8, margin: 0, valign: "top", isTextBox: true });
-  s.addText("STRATEGY DECK · OCTOBER 2026", { x: 5.0, y: 1.0, w: 7.6, h: 0.35, fontSize: 11, bold: true, color: H.gold, charSpacing: 3, margin: 0, isTextBox: true });
-  s.addText("UHNW families’ biggest unserved costs are the people and records that must cross borders with them — and the best way in does not pay yet on what we can measure", { x: 5.0, y: 1.5, w: 7.7, h: 2.6, fontSize: 25, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
-  s.addText("A problem-first study of affluent and ultra-high-net-worth leisure travel: the pains, what families resort to, about 35 opportunities screened outside-in, one wedge taken through the full Deneffe strategy and pricing chain, and a 90-day test that settles it", { x: 5.0, y: 4.3, w: 7.6, h: 1.1, fontSize: 13, color: H.light, margin: 0, valign: "top", isTextBox: true });
-  s.addText([{ text: "Calebe Garcia · prepared for Francesco Ficorilli", options: { breakLine: true } }, { text: "Discussion document · Confidential", options: { color: H.light } }], { x: 5.0, y: 6.0, w: 7.6, h: 0.7, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
-  s.addNotes("Governing thought first (Minto). The deck answers one question: should we build a family mobility office, and what must be true for it to earn economic profit? Founder fit was not used to rank options.");
+  s.addImage({ path: CREST, x: 0, y: 0, w: 5.0, h: 7.5 });
+  s.addText("OTIUM CHIGI JOURNEYS · STRATEGY DECK · OCTOBER 2026", { x: 5.6, y: 1.0, w: 7.1, h: 0.35, fontSize: 11, bold: true, color: H.gold, charSpacing: 3, margin: 0, isTextBox: true });
+  s.addText("UHNW families’ biggest unserved costs are the people and records that must cross borders with them — and the best way in does not pay yet on what we can measure", { x: 5.6, y: 1.5, w: 7.13, h: 2.7, fontSize: 24, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
+  s.addText("A problem-first study of affluent and ultra-high-net-worth leisure travel: the pains, what families resort to, about 35 opportunities screened outside-in, one wedge taken through a full strategy and pricing analysis, and a 90-day test that settles it", { x: 5.6, y: 4.35, w: 7.1, h: 1.3, fontSize: 13, color: H.light, margin: 0, valign: "top", isTextBox: true });
+  s.addText([{ text: "Calebe Garcia · prepared for Francesco Ficorilli", options: { breakLine: true } }, { text: "Discussion document · Confidential", options: { color: H.light } }], { x: 5.6, y: 6.0, w: 7.1, h: 0.7, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
+  s.addNotes("Governing thought first (Minto). The deck answers one question: should Otium Chigi Journeys launch a family mobility office? Founder fit was not used to rank options.");
 }
 
 // ---------- EXEC SUMMARY ----------
@@ -141,11 +140,11 @@ section("Opening");
 
 // ---------- SCQ ----------
 {
-  const s = content("Introduction", "Situation, complication, question: wealthy families already pay to remove risk — but what follows them across borders is served by no one", "Altrata WUWR 2026; Knight Frank 2026; PS and Heathrow Windsor pricing (2026); security price guides; agency fee schedules (2025–26); GOV.UK and Home Office PQ55427 (Jun 2025); UAE Decree-Law 9/2022.");
+  const s = content("Introduction", "Wealthy families pay to remove risk — but nothing that crosses borders with them is served", "Altrata WUWR 2026; Knight Frank 2026; PS and Heathrow Windsor pricing (2026); security price guides; agency fee schedules (2025–26); GOV.UK and Home Office PQ55427 (Jun 2025); UAE Decree-Law 9/2022.");
   const cols = [
     ["Situation", "557–714k UHNW people (Altrata 2026; Knight Frank 2026), with about three homes each, live and travel across countries — and already pay heavily to remove risk: private airport suites US$3,550–4,850 a visit, close protection US$1,800–4,000 a day, agency fees of 15–25% of salary.", H.panel, H.navy, H.text],
     ["Complication", "Trip planning is already served by advisors. What is not served is what must cross borders with the family — staff, their legal status, records, trust in suppliers — sold by separate vendors, while rules tighten: the UK domestic-worker visa route is under review (Jun 2025); the UAE fines illegal employment AED 50–200k.", H.panel, H.navy, H.text],
-    ["Question", "Should we build a family mobility office — and what must be true for it to earn economic profit?", H.navy, H.gold, H.white],
+    ["Question", "Should Otium Chigi Journeys launch a family mobility office?", H.navy, H.gold, H.white],
   ];
   cols.forEach((c, i) => {
     const x = 0.6 + i * 4.1;
@@ -159,15 +158,15 @@ section("Opening");
 
 // ---------- ISSUE TREE ----------
 {
-  const s = content("Introduction", "Issue tree: five yes/no questions decide it — the gap is real, but we cannot yet show we win or get paid", "Our issue analysis (key question in yes/no form, MECE branches, at most four levels); answers from the chapters that follow.");
+  const s = content("Introduction", "Five questions decide it: the gap is real, but we cannot yet show we win or get paid", "Our issue analysis (key question in yes/no form, MECE branches, at most four levels); answers from the chapters that follow.");
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 3.15, w: 2.9, h: 1.5, fill: { color: H.navy }, line: { color: H.navy } });
-  s.addText("Should we build a family mobility office that earns economic profit?", { x: 0.75, y: 3.15, w: 2.6, h: 1.5, fontSize: 13, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
+  s.addText("Should Otium Chigi Journeys launch a family mobility office?", { x: 0.75, y: 3.15, w: 2.6, h: 1.5, fontSize: 13, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
   const qs = [
-    ["1 · Do families have a real pain they already pay to remove?", "Yes for the cross-border layer; planning pain is already served", "Yes", 0],
-    ["2 · Is there a gap no alternative fills?", "Yes: lawful cover from staff who can rotate (gap 3–5 of 10)", "Yes", 0],
-    ["3 · Can we win and hold a position against rivals?", "No sustainable advantage; a 12–24 month lead at best", "Weak", 1],
-    ["4 · Does it pay on what we can measure?", "No: −£7.6k to −£13.9k per position-year (CALC)", "Not yet", 1],
-    ["5 · Can we find out cheaply before committing?", "Yes: 9 tests, 90 days, ~160 hours, no capital", "Yes", 0],
+    ["1 · Is the pain real and paid for?", "Yes for the cross-border layer; planning pain is already served", "Yes", 0],
+    ["2 · Is there an unfilled gap?", "Yes: lawful cover from staff who can rotate (gap 3–5 of 10)", "Yes", 0],
+    ["3 · Can we win?", "No sustainable advantage; a 12–24 month lead at best", "Weak", 1],
+    ["4 · Does it pay?", "No: −£7.6k to −£13.9k per position-year (CALC)", "Not yet", 1],
+    ["5 · Can we test it cheaply?", "Yes: 9 tests, 90 days, ~160 hours, no capital", "Yes", 0],
   ];
   s.addShape(pres.shapes.LINE, { x: 3.5, y: 3.9, w: 0.35, h: 0, line: { color: H.navy, width: 1.5 } });
   s.addShape(pres.shapes.LINE, { x: 3.85, y: 2.2, w: 0, h: 3.6, line: { color: H.navy, width: 1.5 } });
@@ -394,7 +393,7 @@ section("3 · Can it win?");
   callout(s, "Forecast average profitability: low to medium — position, not industry, must carry the case.");
 }
 {
-  const s = content("3 · Can it win?", "Entry funnel: the accessible market is zero today — it opens only when the legal, employer and cover gates pass", SRCFMO + " §2.4–2.5; Deloitte 2024 (single family offices by region; 34% want more third-party providers); Home Office (ODW visas, 2022). Entry definitions per Deneffe market-entry approach.");
+  const s = content("3 · Can it win?", "Entry funnel: the accessible market is zero today — it opens only when the legal, employer and cover gates pass", SRCFMO + " §2.4–2.5; Deloitte 2024 (single family offices by region; 34% want more third-party providers); Home Office (ODW visas, 2022). Entry definitions per the market-entry framework.");
   const steps = [
     ["Total", "Not found. Proxies: 2,310 single family offices in Europe and the Middle East (CALC, Deloitte); 18–20k UK domestic-worker visas a year", 7.0, H.light, H.text],
     ["Potential", "Not found. Deloitte’s 34% of family offices seeking more third-party providers is a general signal only", 5.8, H.mid, H.white],
@@ -477,7 +476,7 @@ section("3 · Can it win?");
   callout(s, "Welfare boundaries are not optional: trafficking indicators appear in 40% of post-2012 domestic-worker visa cases (Kalayaan, Jun 2024).");
 }
 {
-  const s = content("3 · Can it win?", "No sustainable advantage was found: at best a time-limited lead in one city, and the network test for winner-take-all fails", SRCFMO + " §4.3–4.4. Deneffe: two vehicles to an as-long-as-possible advantage; three winner-take-all conditions (Eisenmann, Parker & Van Alstyne, HBR 2006).");
+  const s = content("3 · Can it win?", "No sustainable advantage was found: at best a time-limited lead in one city, and the network test for winner-take-all fails", SRCFMO + " §4.3–4.4. Framework: two vehicles to an as-long-as-possible advantage; three winner-take-all conditions (Eisenmann, Parker & Van Alstyne, HBR 2006).");
   table(s, ["Source", "Vehicle", "Sustainable?"], [
     ["Reliever contracts in one city", "Pre-emption (small market)", { text: "No: any corridor above ~12 positions supports several benches", options: { color: H.red } }],
     ["Reference families", "Pre-emption (reputation)", { text: "Weak: in an NDA market, clients cannot be named", options: { color: H.red } }],
@@ -679,11 +678,11 @@ section("5 · What we do");
     ["Distribution", "Family-office directories, private banks, multi-family offices", "The channel may own the client"],
   ], { w: 7.6, colW: [1.8, 3.3, 2.5], fs: 9.5, rowH: 0.62 });
   card(s, 8.45, 1.85, 4.28, 4.3, "Fallback candidates (scores /25)", "Post-retreat health continuity · 19\nPhysician-led year at home after any longevity clinic; retreats €7–40k a week.\n\nCounterparty assurance · 19\nSolvency standard + insured deposits for private travel; OneFlight put ~US$150M at risk (Sep 2026).\n\nResidency day-count ledger · 18\nAdviser-signed day counts; lowest capital; data moat.", { hs: 12, fs: 10, dark: true });
-  callout(s, "Each fallback gets the same chain — novelty, Deneffe, economics — before any build.");
+  callout(s, "Each fallback gets the same chain — novelty, strategy and pricing, economics — before any build.");
 }
 {
   const s = content("For discussion", "Five questions for you, Francesco", null);
-  const qs = ["Among your HNW clients, who decides on household staff that travel — the principal, a PA or the family office?", "Could you open one vouching channel — a private bank, multi-family office or directory — for five qualified introductions?", "Do you know employment or immigration counsel who could give the lawful-route opinion (kill gate T4)?", "Keep the Otium Chigi name, or adopt a neutral one for a staffing-and-compliance business?", "Do we commit ~160 hours over 90 days to the nine tests, with GO only if the gates pass?"];
+  const qs = ["Among your HNW clients, who decides on household staff that travel — the principal, a PA or the family office?", "Could you open one vouching channel — a private bank, multi-family office or directory — for five qualified introductions?", "Do you know employment or immigration counsel who could give the lawful-route opinion (kill gate T4)?", "Which two or three families in your network would we approach first for a paid pilot?", "Do we commit ~160 hours over 90 days to the nine tests, with GO only if the gates pass?"];
   qs.forEach((q, i) => {
     const y = 1.95 + i * 0.82;
     s.addShape(pres.shapes.OVAL, { x: 0.6, y: y + 0.05, w: 0.55, h: 0.55, fill: { color: H.navy }, line: { color: H.navy } });
@@ -696,8 +695,17 @@ section("5 · What we do");
 // ---------- APPENDIX ----------
 section("Appendix");
 {
+  const s = content("Appendix", "The name and the crest", "Treccani and Villa Farnesina (Accademia dei Lincei) on Agostino Chigi; Cicero, Pro Sestio 98. Crests: our own designs, adapted from the Chigi arms.");
+  s.addImage({ path: CREST2, x: 0.6, y: 1.85, w: 4.3, h: 4.3 });
+  const b = [["Agostino Chigi, ‘il Magnifico’", "Siena 1466 – Rome 1520. Banker to popes Alexander VI and Julius II and holder of the papal alum monopoly: one of the richest men of his age."], ["A villa built for otium", "His villa on the Tiber, built by Peruzzi from 1506 and frescoed by Raphael, is today the Villa Farnesina."], ["Otium cum dignitate", "Romans set negotium, business (‘not-leisure’), against otium: dignified, productive time for thought, the arts and nature. Cicero’s phrase, in the Pro Sestio, names the leisure earned by those who serve."], ["Why it fits", "Our families live in negotium. We keep the people and the paperwork behind their otium running, wherever they are."]];
+  b.forEach((t, i) => {
+    const y = 1.85 + i * 1.08;
+    s.addText([{ text: t[0], options: { bold: true, fontSize: 13, color: H.navy, breakLine: true } }, { text: t[1], options: { fontSize: 11, color: H.text } }], { x: 5.3, y, w: 7.43, h: 1.0, margin: 0, valign: "top", paraSpaceAfter: 3, isTextBox: true });
+  });
+}
+{
   const s = content("Appendix", "Sources", null);
-  const src = ["Priceline — two work days to plan a trip (Jan 2024)", "Expedia Group / Luth Research — Path to Purchase (2023)", "Park & Jang (2013); Nawijn et al. (2010)", "Greetwell AI Travel Survey (Aug 2026); Phocuswright (Mar 2026)", "Travel Weekly — advisors charging fees (Aug 2025)", "Flywire — luxury and ultra-luxury surveys (2025, 2026)", "SITA Baggage IT Insights 2026; Action Fraud via ATOL (2024)", "Court and press records: JetSuite, Verijet, Jet It, OneFlight", "FAA enforcement releases; The Watch Register (2024)", "PS and Heathrow Windsor Suite pricing (2026)", "Altrata World Ultra Wealth Report 2026; Knight Frank 2026", "Deloitte Family Office Landscape 2024; UBS GFO Report 2024–25", "Morgan & Mallet — Beyond The Butler 2025/26; agency pages", "Quay Group (2025); CrewPass pricing", "Deel, Remote, Nannytax, HomePay pricing (2026-10-06)", "GOV.UK ODW visa; Home Office PQ55427 (Jun 2025)", "UAE Decree-Law 9/2022; Gulf News (MOHRE actions)", "Kalayaan (Jun 2024); Hinduja case, Geneva (Jun 2024)", "Agency fee schedules (2025–26)", "Henley Private Wealth Migration Report (2025); HMRC", "Clinic price lists; Global Wellness Institute (2024)", "ICCT; Transport & Environment (aviation emissions)", "Deloitte family-office cyber (2024)", "Filings: Wheels Up, Volato, Inspirato, Accor/onefinestay, Fora", "Capgemini World Wealth Report 2025", "Deneffe & Vantrappen, Fad-Free Strategy (2020); Hult decks (2023–25)", "Issue analysis course notes (IBC); Minto pyramid principle", "Ghemawat & Rivkin (2006); Eisenmann, Parker & Van Alstyne (2006)"];
+  const src = ["Priceline — two work days to plan a trip (Jan 2024)", "Expedia Group / Luth Research — Path to Purchase (2023)", "Park & Jang (2013); Nawijn et al. (2010)", "Greetwell AI Travel Survey (Aug 2026); Phocuswright (Mar 2026)", "Travel Weekly — advisors charging fees (Aug 2025)", "Flywire — luxury and ultra-luxury surveys (2025, 2026)", "SITA Baggage IT Insights 2026; Action Fraud via ATOL (2024)", "Court and press records: JetSuite, Verijet, Jet It, OneFlight", "FAA enforcement releases; The Watch Register (2024)", "PS and Heathrow Windsor Suite pricing (2026)", "Altrata World Ultra Wealth Report 2026; Knight Frank 2026", "Deloitte Family Office Landscape 2024; UBS GFO Report 2024–25", "Morgan & Mallet — Beyond The Butler 2025/26; agency pages", "Quay Group (2025); CrewPass pricing", "Deel, Remote, Nannytax, HomePay pricing (2026-10-06)", "GOV.UK ODW visa; Home Office PQ55427 (Jun 2025)", "UAE Decree-Law 9/2022; Gulf News (MOHRE actions)", "Kalayaan (Jun 2024); Hinduja case, Geneva (Jun 2024)", "Agency fee schedules (2025–26)", "Henley Private Wealth Migration Report (2025); HMRC", "Clinic price lists; Global Wellness Institute (2024)", "ICCT; Transport & Environment (aviation emissions)", "Deloitte family-office cyber (2024)", "Filings: Wheels Up, Volato, Inspirato, Accor/onefinestay, Fora", "Capgemini World Wealth Report 2025", "Frameworks: six forces, needs analysis, SPA, value pricing, Trade-Off Method", "Issue analysis course notes (IBC); Minto pyramid principle", "Ghemawat & Rivkin (2006); Eisenmann, Parker & Van Alstyne (2006)"];
   const half = Math.ceil(src.length / 2);
   [src.slice(0, half), src.slice(half)].forEach((col, c) => {
     s.addText(col.map((t, i) => ({ text: (c * half + i + 1) + ". " + t, options: { breakLine: i < col.length - 1 } })), { x: 0.6 + c * 6.15, y: 1.85, w: 5.95, h: 4.95, fontSize: 10, color: H.text, margin: 0, valign: "top", paraSpaceAfter: 3, isTextBox: true });
