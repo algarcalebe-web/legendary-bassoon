@@ -137,6 +137,25 @@ section("Pitch");
     s.addText(c[1], { x: x + 0.2, y: 2.6, w: 2.55, h: 3.4, fontSize: i >= 2 ? 15 : 11.5, bold: i >= 2, color: c[4], margin: 0, valign: "top", isTextBox: true });
   });
 }
+// 1c PROBLEM STATEMENT
+{
+  const s = content("Problem statement", "UHNW families carry the risk of every supplier, deposit and border themselves — no one assures the whole journey", "Altrata WUWR 2026; Knight Frank Wealth Report 2026; Deloitte Family Office Landscape 2024; research/phase3_uhnw.md; research/raw/uhnw_pains.md (JetSuite 2020; OneFlight, Sep 2026); Morgan & Mallet, Beyond The Butler 2025/26; Home Office PQ55427 (Jun 2025); UAE Decree-Law 9/2022; Priceline (Jan 2024, n = 3,024).");
+  s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 1.85, w: 12.13, h: 1.25, fill: { color: H.navy }, line: { color: H.navy } });
+  s.addText("Ultra-high-net-worth families build every journey from separate vendors and carry its risk alone: supplier solvency, deposits of US$100k–1M, staff who must cross borders lawfully, and their own privacy. When a supplier fails, the loss is theirs — JetSuite members lost more than US$50M; more than US$150M sat at stake at OneFlight (Sep 2026).", { x: 0.8, y: 1.85, w: 11.8, h: 1.25, fontSize: 13.5, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
+  const g = [
+    ["Who", "557–714k UHNW people with about three homes each; 8,030 single family offices, rising to 10,720 by 2030"],
+    ["What hurts", "Supplier failure and deposit loss · lawful staff mobility · scarce access and crowds · planning load"],
+    ["How much", "Deposits US$100k–1M; brokers take 10–20% partly to vouch; a travelling nanny costs £55–110k a year; 16 hours to plan a trip"],
+    ["Why now", "Provider failures 2020–2026; the UK domestic-worker route under review (Jun 2025); UAE fines AED 50–200k; family offices +4.9% a year (CALC)"],
+  ];
+  g.forEach((c, i) => {
+    const x = 0.6 + i * 3.06;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 3.3, w: 2.95, h: 2.75, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 3.3, w: 2.95, h: 0.07, fill: { color: H.gold }, line: { color: H.gold } });
+    s.addText([{ text: c[0], options: { bold: true, fontSize: 14, color: H.navy, breakLine: true } }, { text: c[1], options: { fontSize: 11, color: H.text } }], { x: x + 0.18, y: 3.5, w: 2.6, h: 2.45, margin: 0, valign: "top", paraSpaceAfter: 6, isTextBox: true });
+  });
+  callout(s, "So what: no one assures suppliers, deposits and people together — families pay each vendor separately and keep the risk.");
+}
 // 2 PROBLEM
 {
   const s = content("The problem", "A luxury journey is bought from a dozen vendors — and the people who travel with the family cannot follow lawfully", "Priceline (Jan 2024, n = 3,024); The Roman Guy and operator listings (Vatican); Morgan & Mallet, Beyond The Butler 2025/26; press commentary on OneFlight (Sep 2026).");
@@ -147,6 +166,18 @@ section("Pitch");
     big(s, x + 0.2, 2.15, 2.6, t[0], t[1], { dark: i === 0, ns: 26, lh: 1.6 });
   });
   s.addText("Families stitch it together themselves — and carry the legal and financial risk at every border.", { x: 0.6, y: 5.25, w: 12.13, h: 0.8, fontSize: 15, bold: true, color: H.navy, margin: 0, isTextBox: true });
+}
+// 2b PAIN
+{
+  const s = content("Pain detection and measures", "We detected the pain where money is spent and lost — supplier and deposit risk is the most severe and least served", "Priceline (Jan 2024, n = 3,024); court filings and press (OneFlight, Sep 2026); UAE Decree-Law 9/2022; Morgan & Mallet 2025/26; NYSSCPA (2013–17 audits; CALC US$1bn ÷ 15,000); The Roman Guy; Euronews (Feb 2026).");
+  table(s, ["Pain", "How we detected it", "How big", "Served today?"], [
+    ["Supplier failure and deposit loss", "Court filings and losses", "Deposits US$100k–1M; >US$150M at stake at one jet provider (Sep 2026)", { text: "No", options: { color: H.red, bold: true } }],
+    ["Lawful staff mobility", "Rules enforced; scarce supply", "Fines AED 50–200k; only 2.36% of candidates can rotate", { text: "Partly", options: { color: H.goldDk, bold: true } }],
+    ["Residency-day exposure", "Audit records", "~US$67k per New York residency audit (CALC)", { text: "Partly", options: { color: H.goldDk, bold: true } }],
+    ["Scarce access and crowds", "Price premiums paid", "9–23× for private Vatican access; up to 50,000 day visitors on Capri", { text: "Partly", options: { color: H.goldDk, bold: true } }],
+    ["Planning load", "Time studies", "16 hours to plan one trip", { text: "Yes", options: { color: H.mid, bold: true } }],
+  ], { colW: [2.9, 2.6, 4.9, 1.73], fs: 10.5, rowH: 0.7 });
+  callout(s, "We followed the money and the losses: they point to supplier, deposit and staff risk.", 5.95, 0.5);
 }
 // 3 WHO
 {
@@ -198,6 +229,18 @@ section("Pitch");
   s.addShape(pres.shapes.LINE, { x: 8.45, y: 3.8, w: 0.88, h: 0, line: { color: H.navy, width: 2, beginArrowType: "triangle", endArrowType: "triangle" } });
   s.addText("Assured moves into a vehicle co-owned with an insurer or broker; client deposits sit in segregated or escrow accounts; costs come only from earned fees. We never hold passports or give legal advice.", { x: 0.6, y: 5.8, w: 12.13, h: 0.6, fontSize: 12, italic: true, color: H.navy, margin: 0, isTextBox: true });
 }
+// 6a WEDGE
+{
+  const s = content("Wedge", "Our wedge is the supplier file — useful to one family office alone, cash within 90 days, and the only path to a moat", "Our moat red-team (Oct 2026); research/opportunity_map.md (scores); research/phase4_5.md §4.4 (competences); research/fmo_strategy.md §5 (staff economics); organiser costs from our earlier Southern Italy model.");
+  table(s, ["Candidate wedge", "Useful with one side?", "Time to cash", "Competence fit", "Capital", "Moat path (yr 3)", "Verdict"], [
+    [{ text: "Assured supplier file + escrow terms", options: { bold: true, color: H.navy } }, { text: "Yes: a family office orders it before a deposit", options: { color: H.mid, bold: true } }, "30–90 days", { text: "Favourable: credit analysis", options: { color: H.mid, bold: true } }, "None", { text: "3", options: { bold: true, color: H.goldDk } }, { text: "Lead wedge", options: { bold: true, color: H.navy } }],
+    ["Staff coordination and relief", { text: "Yes", options: { color: H.mid, bold: true } }, "Months 4–15+", { text: "Less than favourable", options: { color: H.red } }, "Payroll float", "1", "Service; employment after T4–T5"],
+    ["Jurerê peak-week first refusal", "No: needs families", "Season 1", { text: "Local founder", options: { color: H.mid, bold: true } }, "Paid consideration", { text: "3", options: { bold: true, color: H.goldDk } }, "Regional lock"],
+    ["Journeys (trip design and booking)", "No: needs suppliers", "After day 90", "Partly", "Organiser licence €9.1k (CALC)", "1", "On top of the record"],
+    ["Family day ledger", { text: "Yes", options: { color: H.mid, bold: true } }, "Month 16+", "Partly", "None", "2", "Retention"],
+  ], { colW: [2.45, 2.05, 1.3, 1.85, 1.55, 1.15, 1.78], fs: 9.5, rowH: 0.72 });
+  callout(s, "A wedge must work with one side, earn cash fast and lead to a moat — only the supplier file does all three.");
+}
 // 6b EXPERIENCE
 {
   const s = content("The experience", "One family, one record: the arrival, the house, the boat and the family office all run on the same Assured record", "Illustrative images from our earlier Southern Italy work; not real clients or signed suppliers.");
@@ -242,6 +285,17 @@ section("Pitch");
   });
   card(s, 8.3, 1.95, 4.43, 4.1, "Who envelops whom", "We envelop where we hold the family: trip-only design, day-count apps, deposit vouching, villa concierge in Santa Catarina.\n\nBanks, insurers and advisors hold the families and could envelop us — so they become co-owners and licensees of Assured, on data-right terms. Aviation we concede.", { hs: 13, fs: 12, dark: true });
 }
+// 8b SWITCHING COSTS
+{
+  const s = content("Switching costs", "Switching costs are low today — the record, escrow terms and insurer cover make leaving costly, while export stays free", "Switching-cost types per the market-entry questions (features that overcome switching costs). Our moat red-team (Oct 2026); research/fmo_strategy.md §3 (contracts 6–12 months); research/raw/uhnw_pains.md (96% rely on advisors, Flywire).");
+  table(s, ["Type", "Families today", "Families with us", "Suppliers today", "Suppliers with us"], [
+    ["Procedural (set-up, learning)", { text: "Low: advisors and agencies are easy to swap", options: { color: H.red } }, "Record, staff files and preferences set up once; export stays free", { text: "Low: they list everywhere", options: { color: H.red } }, "One audit and one data-rights letter, reused across every buyer"],
+    ["Financial", { text: "Low", options: { color: H.red } }, "Escrowed deposits and insured cover tied to Assured suppliers (MT4)", { text: "None", options: { color: H.red } }, "Eligibility for insured deposits lost on leaving"],
+    ["Relational and data", "Medium: trust in a known advisor", "Years of adviser-signed day counts; staff continuity across legs", { text: "Low", options: { color: H.red } }, "Payment and delivery history that earns better terms"],
+    ["Contractual", "Staff contracts of 6–12 months", "Contracts and cover that follow the family across legs", { text: "None", options: { color: H.red } }, "Staged-escrow terms; exclusive first refusal on Jurerê peak weeks"],
+  ], { colW: [2.1, 2.3, 2.95, 1.95, 2.83], fs: 9.5, rowH: 0.85 });
+  callout(s, "We raise switching costs by being useful, not by locking in: export stays free and staff own their record.");
+}
 // 9 BUSINESS MODEL
 {
   const s = content("Business model", "Four revenue lines on one family: supplier files, a take rate on bookings, a membership — and Intelligence once the record is deep enough", "Levels are ASSUMPTIONS until the trade-off interviews. research/phase4_5.md (US$500–2,000 per report); platform fees 16–30% (Brazil 2026; Italy, Direzione Hotel); merchant model from our earlier Southern Italy research; staff CALC in research/fmo_strategy.md.");
@@ -267,6 +321,30 @@ section("Pitch");
   });
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 5.2, w: 12.13, h: 0.9, fill: { color: H.navy }, line: { color: H.navy } });
   s.addText("No founder capital: costs are paid only from earned fees, margins or partner contributions; client deposits sit in segregated or escrow accounts.", { x: 0.8, y: 5.2, w: 11.8, h: 0.9, fontSize: 13, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
+}
+// 10b VALUE
+{
+  const s = content("Economic value", "Economic value: US$5.0–11.5k a year at stake on a US$200k deposit — a US$500–2,000 file prices well inside it", "Economic value to the customer = next best alternative + differences (value map). CALC: US$200k × 2–5% = US$4–10k; US$1.0k + 4k = 5.0k; US$1.5k + 10k = 11.5k. Report price band from research/phase4_5.md; hours and rates are ASSUMPTIONS until the trade-off interviews. Staff value map: pages that follow.");
+  const U = 0.62, x0 = 4.0;
+  const bars = [["Own diligence avoided", "10 h × US$100–150 of analyst or adviser time (assumption)", 0, 1.25, "US$1.0–1.5k", H.light, H.text], ["+ Expected loss at stake", "US$200k deposit × 2–5% failure risk a year (CALC, assumption)", 1.25, 7.0, "US$4–10k", H.mid, H.white], ["= Economic value to the family", "Ceiling for the price", 0, 8.25, "US$5.0–11.5k", H.navy, H.white], ["Our price", "Per Assured file", 0, 1.25, "US$500–2,000", H.gold, H.navy], ["Our marginal cost", "4–8 analyst hours (assumption)", 0, 0.3, "US$200–400", H.panel, H.text]];
+  bars.forEach((b, i) => {
+    const y = 1.95 + i * 0.78;
+    s.addText([{ text: b[0], options: { bold: true, color: H.navy, breakLine: true } }, { text: b[1], options: { fontSize: 9, color: H.muted } }], { x: 0.6, y, w: 3.3, h: 0.68, fontSize: 11.5, margin: 0, valign: "middle", isTextBox: true });
+    s.addShape(pres.shapes.RECTANGLE, { x: x0 + b[2] * U, y: y + 0.12, w: Math.max(b[3] * U, 0.08), h: 0.44, fill: { color: b[5] }, line: { color: b[5] } });
+    s.addText(b[4], { x: x0 + (b[2] + b[3]) * U + 0.1, y: y + 0.12, w: 1.6, h: 0.44, fontSize: 12, bold: true, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
+  });
+  callout(s, "The family keeps most of the value: a US$500–2,000 file against US$5.0–11.5k of value — price shares the wedge, never cost-plus.", 6.0, 0.55);
+}
+{
+  const s = content("Utility value", "Utility value: certainty, discretion, control, time and access — each measured by trade-off, never by asking", "Private Jet Card Comparisons survey; Flywire (Mar 2025; Jan 2026); Campden Wealth with Schillings (2025); research/fmo_strategy.md (needs N1–N9); Priceline (Jan 2024); The Roman Guy. Method: Trade-Off Method protocol (easy opener, unanchored X, iteration).");
+  table(s, ["Utility", "Evidence it matters", "How we measure it (trade-off)", "What we offer"], [
+    ["Certainty: the supplier delivers and the money is safe", "35.8% of jet-card buyers call provider stability critical; 44.1% important but hard to judge; 72% worry about payment security", "Pay the deposit as today vs Assured file + staged escrow for a fee X", "Assured file; staged escrow"],
+    ["Discretion and privacy", "Close protection US$1,800–4,000 a day; 37% of family offices hit by a cyber attack in 24 months", "Share preferences with family-held keys vs keep them offline", "Private files; minimum cell of 10; no GPS"],
+    ["Control over who is in the home", "Families prefer known staff and stay the employer", "Your own nanny + a named relief carer vs an agency temp, for X", "Staff coordination; named relievers"],
+    ["Time and effort", "16 hours per trip; 47% say less planning would lower stress", "Three proposals in 24 hours vs today’s process, for X", "Questionnaire; one price, one payment"],
+    ["Access and exclusivity", "93% say luxury is about access; 9–23× private-access premiums", "A held slot or peak week vs the standard option + X", "Held tables; Jurerê first refusal"],
+  ], { colW: [2.6, 3.9, 3.2, 2.43], fs: 9.5, rowH: 0.74 });
+  callout(s, "Utility is priced from switching points in face-to-face trade-off interviews — we never ask ‘what would you pay?’");
 }
 // 11 WAVES
 {
@@ -294,7 +372,7 @@ section("Pitch");
 }
 // 12b PARTNERS
 {
-  const s = content("Partners", "Partners on the ground: named targets in every Wave-1 region — deposit-holding intermediaries asked to sign data rights and escrow terms", "Our earlier target lists for Rome, Southern Italy and Santa Catarina, and our Southern Italy supplier, partnership and pricing sheets (Sep 2026). Prospects, not agreements; verify licences, prices and MICHELIN stars before contracting.");
+  const s = content("Partners", "Partners on the ground: named targets in every Wave-1 region — deposit-holding intermediaries asked to sign data rights and escrow terms", "Our earlier target lists for Rome, Southern Italy and Santa Catarina, and our Southern Italy supplier, partnership and pricing sheets (Sep 2026). Prospects, not agreements; licences, prices and MICHELIN stars confirmed at contracting.");
   table(s, ["", "Rome", "Southern Italy", "Santa Catarina"], [
     ["Stays", "Hotel de la Ville · Hotel Hassler · Six Senses Rome · Bulgari Hotel Roma", "Le Sirenuse · Il San Pietro di Positano · Monastero Santa Rosa · Capri Palace · Punta Tragara · direct villa owners", "Awasi Santa Catarina (Relais & Châteaux) · pousadas at Praia do Rosa · Jurerê houses"],
     ["Access + dining", "Vatican before opening · Colosseum underground · palazzo dinners · La Pergola · Imàgo · Il Pagliaccio", "Pompeii archaeological park (early access) · Don Alfonso 1890 · Torre del Saracino · Zass · L’Olivo · George", "P12 Parador Internacional · Café de la Musique · whale watching at Praia do Rosa (Jul–Nov) · sailing the bay"],
