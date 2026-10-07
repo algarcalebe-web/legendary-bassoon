@@ -179,6 +179,25 @@ section("Pitch");
   ], { colW: [2.9, 2.6, 4.9, 1.73], fs: 10.5, rowH: 0.7 });
   callout(s, "We followed the money and the losses: they point to supplier, deposit and staff risk.", 5.95, 0.5);
 }
+// 2b2 NEEDS
+{
+  const s = content("Needs not met", "UHNW travellers’ needs are not met: the most important needs are the worst served — integration is the improvement no single vendor offers", "Importance and performance are our assessment (needs analysis: importance × performance); positioning is hypothesis H1, tested in the 90-day plan. Evidence: Private Jet Card Comparisons survey; research/phase3_uhnw.md; Morgan & Mallet 2025/26; our earlier Southern Italy research (24 suppliers in a 10-night trip); Flywire (Mar 2025; Jan 2026); research/raw/map_a.md (NYSSCPA; CALC US$1bn ÷ 15,000); Campden Wealth with Schillings (2025); The Roman Guy; Priceline (Jan 2024, n = 3,024). ‘How well met’ is our assessment of the alternatives in chapter 1.");
+  const X0 = 1.15, Y0 = 1.95, W = 5.9, Hh = 4.0;
+  const px = (p) => X0 + (p - 1) / 4 * W, py = (i) => Y0 + (1 - (i - 2.5) / 2.5) * Hh;
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W, h: Hh, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: px(3) - X0, h: py(3.75) - Y0, fill: { color: "F5EBD3" }, line: { color: "F5EBD3" } });
+  s.addText("Potential for improvement", { x: X0 + 0.1, y: Y0 + 0.08, w: 2.8, h: 0.3, fontSize: 10, bold: true, color: H.goldDk, margin: 0, isTextBox: true });
+  s.addText("How well met today →", { x: X0, y: Y0 + Hh + 0.05, w: W, h: 0.28, fontSize: 10, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
+  s.addText("Importance ↑", { x: 0.3, y: Y0 - 0.32, w: 2, h: 0.28, fontSize: 10, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const pts = [["Supplier and deposit security", 1.5, 4.65, 1], ["Lawful travelling staff", 1.7, 4.35, 1], ["One responsibility, one payment", 2.0, 3.95, 1], ["Residency days and records", 2.55, 3.55, 0], ["Privacy and security", 3.15, 4.7, 0], ["Access without crowds", 3.35, 4.2, 0], ["Planning time", 4.0, 3.15, 0], ["Service on the trip", 4.5, 4.45, 0]];
+  pts.forEach((p) => {
+    const cx = px(p[1]), cy = py(p[2]);
+    s.addShape(pres.shapes.OVAL, { x: cx - 0.11, y: cy - 0.11, w: 0.22, h: 0.22, fill: { color: p[3] ? H.navy : H.mid }, line: { color: H.white, width: 1 } });
+    s.addText(p[0], { x: cx + 0.15, y: cy - 0.14, w: 2.3, h: 0.28, fontSize: 9, bold: p[3] === 1, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
+  });
+  card(s, 7.6, 1.95, 5.13, 4.0, "Unique value proposition (hypothesis H1)", "For UHNW families and their family offices, who move people, money and plans across borders: one assured record that every journey runs on — every supplier filed, every deposit protected, every staff day lawful, every residency day signed off.\n\nUnlike advisors, concierges, agencies and payroll firms, which each solve one piece, integration reuses one record across all of them: vetting once, one payment, staff days feeding the ledger.", { hs: 12.5, fs: 11, dark: true });
+  callout(s, "Integration is the improvement no single vendor can offer — whether families pay for it is what the interviews test.", 6.3, 0.48);
+}
 // 2c OPTIONS
 {
   const s = content("Options", "Options to solve the pains, ranked by what families already pay — the assured record is our leading hypothesis, not a given", "research/phase3_uhnw.md (broker markups, deposits); Morgan & Mallet 2025/26; agency fee schedules (2025–26); Deel and Remote pricing (2026); The Roman Guy; Nevada Current (Jun 2025); Stirling Access; research/raw/map_a.md (NYSSCPA; TaxDay); Travel Weekly (Aug 2025); Flywire (Mar 2025). WTP strength is our assessment of money already paid.");

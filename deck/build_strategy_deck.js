@@ -160,7 +160,7 @@ section("Opening");
   s.addShape(pres.shapes.RECTANGLE, { x: 0.6, y: 1.82, w: 12.13, h: 0.7, fill: { color: H.navy }, line: { color: H.navy } });
   s.addText("Leading hypothesis (to prove): build the platform as the assured record journeys run on — supplier files and escrow deposit terms first, staff as a service until its gates pass. Moat 1/5 today; a narrow 3 by year 3 only if the interview and sales tests pass.", { x: 0.8, y: 1.82, w: 11.8, h: 0.7, fontSize: 12, bold: true, color: H.white, margin: 0, valign: "middle", isTextBox: true });
   const rows = [
-    ["Trips alone are copied; the risk layer is open", "The curator concept scored 11/25 with moat 1. No one offers a cross-category solvency standard or insured deposit cover; aviation audits cover safety only."],
+    ["UHNW needs go unmet where risk crosses borders", "Three of eight needs are poorly met and three partly: supplier and deposit security, travelling staff, one point of responsibility. Planning (16 hours a trip) is one need, and the best served."],
     ["The wedge moves from staff to assurance", "Staff loses £7.6–13.9k per position-year (CALC) and no Wave-1 leg is cleared. Supplier files use our credit-analysis competence and work with zero suppliers on the platform."],
     ["Moat: 1 today, a narrow 3 by year 3 at best", "Only a co-owned Assured standard, insurer exclusivity and Santa Catarina pre-emption can reach 3. Staff, licences, the ledger and crowd data stay at 1–2."],
     ["We envelop our families; bigger players co-own", "We envelop member families’ trips, day counts and deposit vouching. Banks, insurers and advisors hold the families, so they become co-owners and licensees, on data-right terms."],
@@ -203,20 +203,37 @@ section("Opening");
 // ---------- CHAPTER 1 ----------
 section("1 · The problem");
 {
-  const s = content("1 · The problem", "The core claim, tested: planning costs real time, but the ‘long interview’ is a myth and the pain is already served",
-    "Priceline (Jan 2024, n = 3,024); Expedia Group/Luth Research Path to Purchase (2023); KAYAK, Skyscanner (samples not stated); vendor process pages: Zicasso, Aracari, Forest Travel, Black Tomato, Travelweek (Jul 2026); Nawijn et al., Applied Research in Quality of Life (2010).");
-  const cols = [
-    ["Supported", H.navy, true, "16 hours to plan and book one trip; 47% say less planning would cut stress (Priceline, n = 3,024).\n\n303 minutes with travel content and 141 pages viewed in the 45 days before booking (Expedia/Luth 2023).\n\n33–47% find planning stressful (KAYAK, Skyscanner)."],
-    ["Contradicted", H.panel, false, "Discovery calls last 15–45 minutes.\n\nEnquiry forms hold 10–12 fields.\n\nFirst proposals arrive in 24 hours to 2 weeks, with 2–3 revision rounds.\n\nAll vendor statements: the interview is short, not long."],
-    ["Not yet measured", H.panel, false, "No survey measures planning time, stress or regret for HNW or UHNW travellers.\n\nCounter-evidence: anticipation is the happiest phase of a holiday (Nawijn 2010, n = 1,530).\n\nNo verified first-person quotes were obtainable (forums block automated access)."],
-  ];
-  cols.forEach((c, i) => {
-    const x = 0.6 + i * 4.1;
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.9, w: 3.93, h: 4.2, fill: { color: c[1] }, line: { color: c[2] ? H.navy : H.line, width: 0.75 } });
-    s.addText(c[0], { x: x + 0.2, y: 2.0, w: 3.5, h: 0.45, fontSize: 16, bold: true, color: c[2] ? H.gold : H.navy, margin: 0, isTextBox: true });
-    s.addText(c[3], { x: x + 0.2, y: 2.5, w: 3.55, h: 3.5, fontSize: 11.5, color: c[2] ? H.white : H.text, margin: 0, valign: "top", isTextBox: true });
+  const s = content("1 · The problem", "The core claim, tested: UHNW travellers’ needs are not met — three of eight needs are poorly met and three partly; planning is only one, and the best served", "Private Jet Card Comparisons survey; research/phase3_uhnw.md; Morgan & Mallet 2025/26; our earlier Southern Italy research (24 suppliers in a 10-night trip); Flywire (Mar 2025; Jan 2026); research/raw/map_a.md (NYSSCPA; CALC US$1bn ÷ 15,000); Campden Wealth with Schillings (2025); The Roman Guy; Priceline (Jan 2024, n = 3,024). ‘How well met’ is our assessment of the alternatives in chapter 1.");
+  const met = (t, c) => ({ text: t, options: { color: c, bold: true } });
+  table(s, ["Need", "How important (evidence)", "How well met today", "Potential"], [
+    ["Supplier and deposit security", "35.8% of jet-card buyers call provider stability critical; deposits US$100k–1M", met("Poorly — audits cover aviation safety only", H.red), met("Large", H.navy)],
+    ["Lawful staff who travel with the family", "Travelling nanny £55–110k a year; only 2.36% of candidates can rotate", met("Poorly — agencies place once; payroll is one-country", H.red), met("Large", H.navy)],
+    ["One point of responsibility, one payment", "20+ suppliers in a 10-night trip; 95% value easy payment; 72% worry about security", met("Poorly — the family integrates", H.red), met("Large", H.navy)],
+    ["Residency days and records", "~US$67k per New York residency audit (CALC)", met("Partly — self-reported apps", H.goldDk), met("Medium", H.navy)],
+    ["Privacy and security", "Close protection US$1,800–4,000 a day; 37% of family offices hit by a cyber attack", met("Partly — security firms", H.goldDk), met("Medium", H.navy)],
+    ["Access without crowds", "93% say luxury is about access; 9–23× private-access premiums", met("Partly — bought piece by piece", H.goldDk), met("Medium", H.navy)],
+    ["Planning time", "16 hours to plan a trip; 47% say less planning would lower stress", met("Well — advisors and operators", H.mid), met("Small", H.muted)],
+    ["Service quality on the trip", "Luxury hotels and operators compete on it", met("Well", H.mid), met("Small", H.muted)],
+  ], { colW: [3.0, 4.55, 3.1, 1.48], fs: 9, rowH: 0.46 });
+  callout(s, "Supported: needs go unmet where risk crosses suppliers and borders — and no one integrates them. Planning is one need, and the best served.");
+}
+{
+  const s = content("1 · The problem", "Potential for improvement: the most important needs are the worst met — integration is the value proposition no single vendor offers", "Importance and performance are our assessment from the evidence on the previous page (needs analysis: importance × performance). Positioning is hypothesis H1, tested in the 90-day plan.");
+  const X0 = 1.15, Y0 = 1.95, W = 5.9, Hh = 4.0;
+  const px = (p) => X0 + (p - 1) / 4 * W, py = (i) => Y0 + (1 - (i - 2.5) / 2.5) * Hh;
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: W, h: Hh, fill: { color: H.panel }, line: { color: H.line, width: 0.75 } });
+  s.addShape(pres.shapes.RECTANGLE, { x: X0, y: Y0, w: px(3) - X0, h: py(3.75) - Y0, fill: { color: "F5EBD3" }, line: { color: "F5EBD3" } });
+  s.addText("Potential for improvement", { x: X0 + 0.1, y: Y0 + 0.08, w: 2.8, h: 0.3, fontSize: 10, bold: true, color: H.goldDk, margin: 0, isTextBox: true });
+  s.addText("How well met today →", { x: X0, y: Y0 + Hh + 0.05, w: W, h: 0.28, fontSize: 10, bold: true, color: H.muted, align: "center", margin: 0, isTextBox: true });
+  s.addText("Importance ↑", { x: 0.3, y: Y0 - 0.32, w: 2, h: 0.28, fontSize: 10, bold: true, color: H.muted, margin: 0, isTextBox: true });
+  const pts = [["Supplier and deposit security", 1.5, 4.65, 1], ["Lawful travelling staff", 1.7, 4.35, 1], ["One responsibility, one payment", 2.0, 3.95, 1], ["Residency days and records", 2.55, 3.55, 0], ["Privacy and security", 3.15, 4.7, 0], ["Access without crowds", 3.35, 4.2, 0], ["Planning time", 4.0, 3.15, 0], ["Service on the trip", 4.5, 4.45, 0]];
+  pts.forEach((p) => {
+    const cx = px(p[1]), cy = py(p[2]);
+    s.addShape(pres.shapes.OVAL, { x: cx - 0.11, y: cy - 0.11, w: 0.22, h: 0.22, fill: { color: p[3] ? H.navy : H.mid }, line: { color: H.white, width: 1 } });
+    s.addText(p[0], { x: cx + 0.15, y: cy - 0.14, w: 2.3, h: 0.28, fontSize: 9, bold: p[3] === 1, color: H.navy, margin: 0, valign: "middle", isTextBox: true });
   });
-  callout(s, "Verdict: partly true for travellers in general, not yet measured for the affluent — and the planning pain is one they already pay advisors to remove.");
+  card(s, 7.6, 1.95, 5.13, 4.0, "Unique value proposition (hypothesis H1)", "For UHNW families and their family offices, who move people, money and plans across borders: one assured record that every journey runs on — every supplier filed, every deposit protected, every staff day lawful, every residency day signed off.\n\nUnlike advisors, concierges, agencies and payroll firms, which each solve one piece, integration reuses one record across all of them: vetting once, one payment, staff days feeding the ledger.", { hs: 12.5, fs: 11, dark: true });
+  callout(s, "Integration is the improvement no single vendor can offer — whether families pay for it is what the interviews test.", 6.3, 0.48);
 }
 
 {
