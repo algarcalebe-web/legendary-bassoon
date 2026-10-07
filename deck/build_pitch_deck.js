@@ -115,20 +115,20 @@ section("Pitch");
   const s = pres.addSlide({ masterName: "DARK", sectionTitle: sec });
   s.addImage({ path: CREST, x: 0, y: 0, w: 5.0, h: 7.5 });
   s.addText("PITCH · OCTOBER 2026", { x: 5.6, y: 1.3, w: 7.1, h: 0.35, fontSize: 11, bold: true, color: H.gold, charSpacing: 3, margin: 0, isTextBox: true });
-  s.addText("One platform for exclusive journeys", { x: 5.6, y: 1.8, w: 7.1, h: 1.5, fontSize: 36, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
-  s.addText("Trips, private access and staff — run on one assured record of every supplier, deposit and day", { x: 5.6, y: 3.45, w: 7.0, h: 1.2, fontSize: 18, color: H.light, margin: 0, valign: "top", isTextBox: true });
+  s.addText("Wealthy families pay to take the risk out of their journeys — and still carry it alone", { x: 5.6, y: 1.8, w: 7.1, h: 1.7, fontSize: 30, bold: true, color: H.white, margin: 0, valign: "top", isTextBox: true });
+  s.addText("Every supplier, deposit, border and member of staff is theirs to manage. Should a two-sided platform take it off them? A hypothesis we test in 90 days.", { x: 5.6, y: 3.6, w: 7.0, h: 1.2, fontSize: 18, color: H.light, margin: 0, valign: "top", isTextBox: true });
   s.addShape(pres.shapes.LINE, { x: 5.6, y: 5.2, w: 1.6, h: 0 , line: { color: H.gold, width: 2 } });
   s.addText("Otium Chigi Journeys · Rome · Southern Italy · Santa Catarina · Confidential", { x: 5.6, y: 5.4, w: 7.1, h: 0.4, fontSize: 12, color: H.white, margin: 0, isTextBox: true });
   s.addNotes("Audience: regional partners, pilot families, family offices, suppliers and rails partners, and early investors. Ask: pilots and partners per region; capital only after the day-90 gate.");
 }
 // 1b SCQ
 {
-  const s = content("Situation · Complication · Question", "Should we build it? Yes — as the assured record journeys run on. The moat is designed, not built, and four day-90 tests decide it", "Altrata 2026; Knight Frank 2026; Deloitte 2024; Henley 2025 (vendor projection); research/phase3_uhnw.md; research/opportunity_map.md; research/raw/uhnw_pains.md (OneFlight: press commentary, US private aviation).");
+  const s = content("Situation · Complication · Question", "Families pay to remove risk from their journeys — yet still carry it alone. Should we build a platform that takes it off them?", "Altrata 2026; Knight Frank 2026; Deloitte 2024; Henley 2025 (vendor projection); research/phase3_uhnw.md; research/opportunity_map.md; research/raw/uhnw_pains.md (OneFlight: press commentary, US private aviation).");
   const cols = [
     ["Situation", "557–714k UHNW people with about three homes each; single family offices 8,030 → 10,720 by 2030; 142k → 165k millionaires relocating. They already pay to remove risk: brokers take 10–20% partly to vouch; deposits run US$100k–1M.", H.panel, H.navy, H.text],
     ["Complication", "Trips alone are copied (a curator scored 11/25, moat 1). No one assures suppliers and deposits across categories: audits cover aviation safety only, while >US$150M sat at risk at one jet provider (Sep 2026).", H.panel, H.navy, H.text],
     ["Question", "Should we create a two-sided platform that integrates exclusive luxury travel for UHNW and affluent families?", H.navy, H.gold, H.white],
-    ["Answer", "Yes — as the assured record journeys run on, co-owned so others license it. Moat 1/5 today; a narrow 3 by year 3 if four day-90 tests pass.", H.gold, H.navy, H.navy],
+    ["How we answer", "Map the pains and what families already pay, compare the options, and test the leading hypothesis in interviews and real sales before we build.", H.gold, H.navy, H.navy],
   ];
   cols.forEach((c, i) => {
     const x = 0.6 + i * 3.06;
@@ -179,6 +179,19 @@ section("Pitch");
   ], { colW: [2.9, 2.6, 4.9, 1.73], fs: 10.5, rowH: 0.7 });
   callout(s, "We followed the money and the losses: they point to supplier, deposit and staff risk.", 5.95, 0.5);
 }
+// 2c OPTIONS
+{
+  const s = content("Options", "Options to solve the pains, ranked by what families already pay — the assured record is our leading hypothesis, not a given", "research/phase3_uhnw.md (broker markups, deposits); Morgan & Mallet 2025/26; agency fee schedules (2025–26); Deel and Remote pricing (2026); The Roman Guy; Nevada Current (Jun 2025); Stirling Access; research/raw/map_a.md (NYSSCPA; TaxDay); Travel Weekly (Aug 2025); Flywire (Mar 2025). WTP strength is our assessment of money already paid.");
+  table(s, ["Pain", "Options that could solve it", "What families already pay (WTP evidence)", "WTP", "Hypothesis"], [
+    ["Supplier failure and deposit loss", "Assured supplier files · staged escrow on deposits · insured deposit protection", "Brokers take 10–20% partly to vouch; deposits US$100k–1M at stake", { text: "Inferred", options: { color: H.goldDk, bold: true } }, { text: "H1 · lead", options: { color: H.navy, bold: true } }],
+    ["Lawful staff mobility", "Compliance coordination for the family’s own staff · employed relief pool · agency referral", "Travelling nanny £55–110k a year; agency fees 15–25%; EOR US$599–699 a month", { text: "Strong for staff", options: { color: H.mid, bold: true } }, "H2"],
+    ["Scarce access and crowds", "Held tables and opening-time slots · exclusive peak-week houses · crowd-smart timing", "9–23× private-access premiums; resold tables above US$2,100; concierge clubs £2k–25k a year", { text: "Strong", options: { color: H.mid, bold: true } }, "H3"],
+    ["Residency-day exposure", "Adviser-signed day ledger · day-count apps", "~US$67k per New York residency audit (CALC); TaxDay US$9.99 a month", { text: "Low today", options: { color: H.red, bold: true } }, "H4"],
+    ["Planning load", "Questionnaire with three proposals in 24 hours · advisors", "55% of US advisors charge fees, ~US$350 a trip", { text: "Served", options: { color: H.muted, bold: true } }, "H5"],
+    ["Payment friction", "One price, one payment, across every supplier", "95% say easy payment matters; 72% worry about security", { text: "Medium", options: { color: H.goldDk, bold: true } }, "H5"],
+  ], { colW: [2.1, 3.6, 3.75, 1.3, 1.38], fs: 9.5, rowH: 0.64 });
+  callout(s, "The assured record is one option among these — our leading hypothesis, to be proven or rejected in interviews before we build.");
+}
 // 3 WHO
 {
   const s = content("Who feels it", "Two sides: multi-home families who need it all to work, and suppliers who want qualified guests without paying 16–30% to platforms", "Altrata 2026; Knight Frank 2026; Deloitte Family Office Landscape 2024; UBS 2024; Airbnb host fee and Booking.com Preferred commission (Brazil, 2026); Direzione Hotel (Italy); BLTA 2025 via O Hoje (Aug 2026).");
@@ -205,7 +218,7 @@ section("Pitch");
 }
 // 5 SOLUTION
 {
-  const s = darkSlide("Four modules and an Intelligence engine run on one Assured record", "The solution");
+  const s = darkSlide("Proposed solution (our leading hypothesis): four modules and an Intelligence engine on one Assured record", "The proposed solution");
   const p = [["Journey design + booking", "Three priced proposals in 24 hours, one price, one payment"], ["Access + hosting", "Held tables, private doors, a local host; first refusal on Jurerê peak weeks"], ["Staff + compliance", "Our vetted staff or the family’s own — counsel-led coordination across borders"], ["Data + trust", "Private supplier files and escrow deposit terms; an adviser-signed day ledger"], ["Intelligence", "Sells only what the record sees — never personal data"]];
   p.forEach((t, i) => {
     const x = 0.6 + i * 2.45;
@@ -231,7 +244,7 @@ section("Pitch");
 }
 // 6a WEDGE
 {
-  const s = content("Wedge", "Our wedge is the supplier file — useful to one family office alone, cash within 90 days, and the only path to a moat", "Our moat red-team (Oct 2026); research/opportunity_map.md (scores); research/phase4_5.md §4.4 (competences); research/fmo_strategy.md §5 (staff economics); organiser costs from our earlier Southern Italy model.");
+  const s = content("Wedge", "Proposed wedge: the supplier file — useful to one family office alone, cash within 90 days, a path to a moat; to be proven in interviews", "Our moat red-team (Oct 2026); research/opportunity_map.md (scores); research/phase4_5.md §4.4 (competences); research/fmo_strategy.md §5 (staff economics); organiser costs from our earlier Southern Italy model.");
   table(s, ["Candidate wedge", "Useful with one side?", "Time to cash", "Competence fit", "Capital", "Moat path (yr 3)", "Verdict"], [
     [{ text: "Assured supplier file + escrow terms", options: { bold: true, color: H.navy } }, { text: "Yes: a family office orders it before a deposit", options: { color: H.mid, bold: true } }, "30–90 days", { text: "Favourable: credit analysis", options: { color: H.mid, bold: true } }, "None", { text: "3", options: { bold: true, color: H.goldDk } }, { text: "Lead wedge", options: { bold: true, color: H.navy } }],
     ["Staff coordination and relief", { text: "Yes", options: { color: H.mid, bold: true } }, "Months 4–15+", { text: "Less than favourable", options: { color: H.red } }, "Payroll float", "1", "Service; employment after T4–T5"],
@@ -380,6 +393,30 @@ section("Pitch");
     ["Local care + chefs", "To source, same vetting standard", "Amalfi Sitters · International Sitters · licensed home-care agencies · Take a Chef (client price: nanny €247, companion €221 a day)", "To source, same vetting standard"],
   ], { colW: [1.6, 3.25, 4.18, 3.1], fs: 9.5, rowH: 0.72 });
   callout(s, "One warm channel today (D-Marin marinas); every other name is a prospect, not an agreement — Le Collectionist is invited in as an Assured supplier.", 6.05, 0.6);
+}
+// 12c HYPOTHESES
+{
+  const s = content("Hypotheses", "What we prove in 90 days: each hypothesis has a pass mark set in advance, tested by interviews and real sales", "Trade-Off Method protocol (easy opener, unanchored X, iteration); our moat red-team (Oct 2026); research/fmo_strategy.md §9 (T1); pass marks are ASSUMPTIONS set before the interviews.");
+  table(s, ["Hypothesis", "What must be true", "Interview or test", "Pass mark", "By"], [
+    [{ text: "H1 · Assured record (lead)", options: { bold: true, color: H.navy } }, "Family offices pay for a supplier file and escrow terms before a deposit", "Trade-off interviews with family offices; 5 files offered for sale (MT2)", "≥ 3 of 5 files sell", "Day 90"],
+    ["H1b · Suppliers accept", "Deposit-holding suppliers sign data rights and escrow terms", "10 supplier meetings per region (MT1)", "≥ 5 of 10 sign; most refuse a rival", "Day 60"],
+    ["H1c · A co-owner exists", "An insurer or broker makes the mark a condition of cover", "Insurer and broker meetings (MT4, MT5)", "Signed term sheet, or ≥ 3 of 5 licensees", "Day 90"],
+    ["H2 · Staff coordination", "Families value lawful, guaranteed staff cover above its cost", "Trade-off interviews: own nanny + named relief vs agency temp (T1)", "Value ≥ £13.6–19.9k per position-year", "Day 90"],
+    ["H3 · Access and peak weeks", "Owners grant exclusive first refusal; families pay for held slots", "5 Jurerê owners; held-slot trade-off question", "≥ 3 of 5 sign", "Day 60"],
+    ["H4–H5 · Ledger, journeys", "An adviser relies on our day ledger; families buy the bundle", "One tax adviser (MT3); bundle trade-off (T1)", "Written reliance; bundle valued above parts", "Day 90"],
+  ], { colW: [2.35, 3.3, 3.35, 2.2, 0.93], fs: 9.5, rowH: 0.64 });
+  callout(s, "We never ask ‘what would you pay?’ — every hypothesis is tested by switching points or by a real sale.");
+}
+// 12d CONCLUSION
+{
+  const s = content("Conclusion", "Conclusion: trips alone are copied — a platform can hold a moat only as the assured record its journeys run on", "Chapters 1–5 of this deck; research/moat_intelligence.md.");
+  const b = [["What we conclude", "Trips alone are copied. A platform for UHNW families can hold a moat only as the assured record its journeys run on — supplier files, escrow deposit terms and the family’s own record — co-owned so bigger players license it rather than envelop it.", H.navy, H.gold, H.white], ["What must be true", "Family offices pay for files before a deposit (H1); suppliers sign data rights and escrow terms (H1b); an insurer or broker co-owns the standard (H1c). Moat 1/5 today; a narrow 3 by year 3 if these pass.", H.panel, H.navy, H.text], ["What we do next", "Interviews and real sales in 90 days, ~161 hours, no capital. GO region by region only if the tests pass; otherwise stop, or keep files as a service.", H.panel, H.navy, H.text]];
+  b.forEach((c, i) => {
+    const x = 0.6 + i * 4.1;
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.95, w: 3.95, h: 4.1, fill: { color: c[2] }, line: { color: c[2] === H.navy ? H.navy : H.line, width: 0.75 } });
+    s.addText([{ text: c[0], options: { bold: true, fontSize: 16, color: c[3], breakLine: true } }, { text: c[1], options: { fontSize: 12.5, color: c[4] } }], { x: x + 0.25, y: 2.1, w: 3.45, h: 3.8, margin: 0, valign: "top", paraSpaceAfter: 10, isTextBox: true });
+  });
+  callout(s, "A hypothesis, not a verdict: the interviews decide.");
 }
 // 13 TEAM
 {
