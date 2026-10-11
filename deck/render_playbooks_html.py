@@ -30,6 +30,23 @@ if PF:
         + "</div>" for ph in PF["phases"])
 nav = "".join(f'<a href="#{e(p["id"])}">{e(p["title"])}</a>' for p in P)
 
+
+def fwblock(p):
+    f = p.get("frameworks")
+    if not f: return '<p class="legend">Strategy framework analysis is being written for this stream.</p>'
+    li = lambda xs: "<ul>" + "".join(f"<li>{e(x)}</li>" for x in xs) + "</ul>"
+    vd = table(["Value driver", "Type", "Quantified"], [[v["driver"], v["kind"], v["quantified"]] for v in f["value_drivers"]])
+    wt = table(["Segment", "Willingness to pay", "Basis"], [[w["segment"], w["wtp"], w["basis"]] for w in f["wtp"]])
+    va = table(["Alternative", "Why we win", "Where we lose"], [[a["alternative"], a["why_we_win"], a["where_we_lose"]] for a in f["vs_alternatives"]])
+    df = table(["Defensive mechanism", "Strength (1-5)"], [[d["mechanism"], d["strength_1to5"]] for d in f["defensibility"]])
+    return f"""<div class="fw"><h3 class="fwh">Strategy frameworks</h3>
+<div class="grid2"><div><h4>Unmet needs</h4>{li(f["unmet_needs"])}</div><div><h4>Unserved segments</h4>{li(f["unserved_segments"])}</div></div>
+<h4>Economic value to the customer (EVC)</h4><p>{e(f["evc"])}</p>{vd}
+<div class="grid2"><div><h4>Willingness to pay</h4>{wt}<p><strong>How to validate:</strong> {e(f["wtp_validation"])}</p></div><div><h4>Pricing</h4><p>{e(f["pricing"])}</p><h4>Wedge</h4><p>{e(f["wedge"])}</p></div></div>
+<h4>Positioning</h4><p class="lede">{e(f["positioning"])}</p>{va}
+<div class="grid2"><div><h4>Switching costs in (barriers to buying)</h4><p>{e(f["switching_in"])}</p><h4>Switching costs out (lock-in)</h4><p>{e(f["switching_out"])}</p></div><div><h4>Defensibility</h4>{df}<h4>Envelopment and network effects</h4><p>{e(f["envelopment"])}</p></div></div>
+<p><strong>Verdict:</strong> {e(f["verdict"])}</p></div>"""
+
 def pb(p):
     sc = table(["Month", "Conservative", "Base", "Strong"], [[f"Month {s['month']}", s["conservative"], s["base"], s["strong"]] for s in p["scenarios"]])
     steps = table(["When", "Action", "Tool", "Output"], [[s["when"], s["action"], s["tool"], s["output"]] for s in p["build_steps"]])
@@ -49,6 +66,7 @@ def pb(p):
 <p class="lede">{e(p["thesis"])}</p>
 <div class="grid2"><div><h4>Who buys</h4><p>{e(p["buyer"]["who"])}</p><h4>Where they are</h4><p>{e(p["buyer"]["where"])}</p><h4>When they buy</h4><p>{e(p["buyer"]["trigger"])}</p></div>
 <div><h4>How value is extracted</h4><p>{e(p["value_extraction"])}</p><h4>Unit economics</h4><p class="mono">{e(p["unit_economics"])}</p><h4>Tools per month</h4><p>{e(p["tools_cost_monthly"])}</p></div></div>
+{fwblock(p)}
 <h4>Product ladder</h4>{offer}
 <h4>Build it, step by step</h4>{steps}
 <h4>Traffic engine</h4>{traffic}
@@ -94,6 +112,7 @@ th,td{{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vert
 .track{{position:relative;height:18px;background:var(--sunk);border-radius:4px}}.track i{{position:absolute;left:0;top:0;bottom:0;border-radius:4px}}
 .track .s{{background:var(--brass);opacity:.35}}.track .b{{background:var(--accent);opacity:.65}}.track .c{{background:var(--accent)}}
 .track .floor{{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}}.bv{{font-family:var(--mono);text-align:right}}
+.fw{{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px 18px 16px;margin-top:16px}}.fwh{{font:600 20px/1.2 var(--display);margin:14px 0 0;color:var(--accent)}}
 .legend{{font-size:12.5px;color:var(--muted)}}details{{margin-top:12px}}summary{{cursor:pointer;color:var(--muted);font-size:13px}}
 @media (max-width:860px){{.wrap{{grid-template-columns:1fr}}nav{{position:static;max-height:none;grid-auto-flow:column;overflow-x:auto}}nav .nh{{display:none}}}}
 </style>
@@ -101,7 +120,7 @@ th,td{{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vert
 <nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><div class="nh">Playbooks</div>{nav}</nav>
 <main>
 <header><div class="eyebrow">Operating playbooks · October 2026</div><h1>Calebe Revenue Playbooks</h1>
-<p class="lede">{len(P)+len(PEND)} revenue streams you can run at the same time, each with the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling.</p></header>
+<p class="lede">{len(P)+len(PEND)} revenue streams you can run at the same time, each with a strategy analysis (unmet needs, economic value, willingness to pay, pricing, wedge, positioning, switching costs, defensibility) plus the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling.</p></header>
 {PORT}
 {"".join(pb(p) for p in P)}
 <p class="legend">Figures labelled SOURCED, CALC or ASSUMPTION as the agents reported them. No income is guaranteed; not tax or legal advice.</p>

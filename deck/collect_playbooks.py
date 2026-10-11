@@ -3,7 +3,7 @@ import json, sys, glob
 W = '/root/.claude/projects/-home-user-legendary-bassoon/fdf86186-d2b5-5fda-b68d-796c8730fe71/subagents/workflows/'
 RUNS = ['wf_90aeb2df-2ad', 'wf_4a57cc01-2f9', 'wf_portfolio']
 ORDER = ['pro-firm-pricing','ai-product-pricing','ai-roi-kit','ai-risk-valuation','sustainability-premium','green-export-value','br-tax-reform','yt-finance','course-library','model-templates','travel-stack','b2b-referrals','job-board','directory','hours-anchor','async-reviews','eu-ai-literacy','deal-channel','vc-scout','paid-ads-affiliate']
-pb, fx, portfolio = {}, {}, None
+pb, fx, fw, portfolio = {}, {}, {}, None
 for run in RUNS:
     for f in glob.glob(W + run + '*/journal.jsonl'):
         rows = [json.loads(l) for l in open(f)]
@@ -17,6 +17,7 @@ for run in RUNS:
             l = lab.get(r.get('key'), '')
             if l.startswith('pb:'): pb[l[3:]] = v
             elif l.startswith('fix:'): fx[l[4:]] = v
+            elif l.startswith('fw:'): fw[l[3:]] = v
             elif l == 'portfolio': portfolio = v
 out = []
 for i in ORDER:
@@ -26,6 +27,7 @@ for i in ORDER:
             p.update(fx[i].get('corrected') or {}); p['verify_issues'] = fx[i].get('issues', [])
         else:
             p['verify_issues'] = None
+        if i in fw: p['frameworks'] = fw[i]
         out.append(p)
 json.dump({'playbooks': out, 'portfolio': portfolio, 'pending': [i for i in ORDER if i not in pb]}, open(sys.argv[1], 'w'), ensure_ascii=False)
-print(len(out), 'done;', sum(1 for p in out if p['verify_issues'] is not None), 'verified; portfolio', bool(portfolio))
+print(len(out), 'playbooks;', sum(1 for p in out if 'frameworks' in p), 'with frameworks; portfolio', bool(portfolio))
