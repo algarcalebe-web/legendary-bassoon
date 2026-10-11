@@ -1,0 +1,39 @@
+<title>Calebe Revenue Playbooks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: operator's manual. Sticky stream index on wide screens; portfolio first, then one deep section per stream. */
+:root{--bg:#f5f7f6;--surface:#fff;--sunk:#e9eeec;--fg:#14211d;--muted:#55645f;--line:#d3dcd8;--accent:#0d6655;--brass:#8a5a00;--soft:#d8ece6;
+--display:"Newsreader",Georgia,serif;--body:"Public Sans","Segoe UI",system-ui,sans-serif;--mono:"JetBrains Mono",ui-monospace,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1715;--surface:#16211e;--sunk:#1c2a26;--fg:#e4ece9;--muted:#9db0aa;--line:#2b3b36;--accent:#5cc2a8;--brass:#e0b45a;--soft:#163a32;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1715;--surface:#16211e;--sunk:#1c2a26;--fg:#e4ece9;--muted:#9db0aa;--line:#2b3b36;--accent:#5cc2a8;--brass:#e0b45a;--soft:#163a32;color-scheme:dark}
+*{box-sizing:border-box}body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body);margin:0}a{color:var(--accent)}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);align-self:start;max-height:100vh;overflow:auto;padding-block:8px;display:grid;gap:2px}
+nav a{text-decoration:none;color:var(--muted);font-size:13px;padding:5px 8px;border-radius:6px}nav a:hover{background:var(--sunk);color:var(--fg)}nav .nh{font:700 11px var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:10px 8px 4px}
+main{min-width:0}h1{font:600 clamp(30px,4.5vw,44px)/1.1 var(--display);margin:.2em 0 .3em;text-wrap:balance}h2{font:600 28px/1.2 var(--display);margin:4px 0 8px;text-wrap:balance}h3{font:600 17px/1.3 var(--body);margin:0 0 6px}
+h4{font:700 11.5px/1 var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:20px 0 8px}
+.eyebrow{font:600 12px/1.3 var(--body);letter-spacing:.08em;text-transform:uppercase;color:var(--brass)}
+.lede{font-size:16.5px;max-width:75ch}p{max-width:80ch}.mono{font:13px/1.55 var(--mono);white-space:pre-wrap}
+section{padding-block:28px;border-bottom:1px solid var(--line);scroll-margin-top:12px}
+.tw{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--sunk)}td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:8px 28px}.grid2>div{min-width:0}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.chip{display:inline-block;font-size:12.5px;padding:3px 9px;border-radius:999px;background:var(--soft);text-decoration:none;margin:2px}
+.bars{display:grid;gap:8px;max-width:760px}.bar{display:grid;grid-template-columns:44px 1fr 90px;gap:10px;align-items:center;font-size:13px}
+.track{position:relative;height:18px;background:var(--sunk);border-radius:4px}.track i{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
+.track .s{background:var(--brass);opacity:.35}.track .b{background:var(--accent);opacity:.65}.track .c{background:var(--accent)}
+.track .floor{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}.bv{font-family:var(--mono);text-align:right}
+.legend{font-size:12.5px;color:var(--muted)}details{margin-top:12px}summary{cursor:pointer;color:var(--muted);font-size:13px}
+@media (max-width:860px){.wrap{grid-template-columns:1fr}nav{position:static;max-height:none;grid-auto-flow:column;overflow-x:auto}nav .nh{display:none}}
+</style>
+<div class="wrap">
+<nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><div class="nh">Playbooks</div></nav>
+<main>
+<header><div class="eyebrow">Operating playbooks · October 2026</div><h1>Calebe Revenue Playbooks</h1>
+<p class="lede">20 revenue streams you can run at the same time, each with the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling. Every playbook was checked by a skeptic agent; corrections are listed under each one.</p></header>
+<section id="portfolio"><h2>The stack plan</h2><p class="lede">Being built: the stack plan is assembled after all playbooks finish. 0 of 20 playbooks are ready below; still running: pro-firm-pricing, ai-product-pricing, ai-roi-kit, ai-risk-valuation, sustainability-premium, green-export-value, br-tax-reform, yt-finance, course-library, model-templates, travel-stack, b2b-referrals, job-board, directory, hours-anchor, async-reviews, eu-ai-literacy, deal-channel, vc-scout, paid-ads-affiliate.</p></section>
+
+<p class="legend">Figures labelled SOURCED, CALC or ASSUMPTION as the agents reported them. No income is guaranteed; not tax or legal advice.</p>
+</main></div>
