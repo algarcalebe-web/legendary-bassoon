@@ -8,7 +8,7 @@ const { applyTheme } = require("/root/.claude/skills/synced/70c9b129-32db-469b-8
 const OUT = process.argv[2] || "Calebe_Income_Atlas.pptx";
 const html = fs.readFileSync(path.join(__dirname, "../research/income_atlas.html"), "utf8");
 const js = html.split("<script>")[1].split("const PIL=")[0];
-const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF,AUTO,PATHS,DIY};")();
+const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF,AUTO,PATHS,DIY,FRONT};")();
 const byId = Object.fromEntries(D.C.map(c => [c.id, c]));
 
 const THEME = {
@@ -188,6 +188,33 @@ section("Answer");
     T(s, f[1], { x: x + 0.25, y: y + 1.2, w: gw - 0.5, h: 1.1, fontSize: 14 });
   });
   s.addNotes("Other AI-data platforms advertise US$15–65/h for finance work (micro1 US$30–65, Outlier US$30–40, Alignerr US$15–60). Every income probability is a judgment; earnings base rates were NONE FOUND for almost every route. Faceless costs conversion because NDA work cannot be shown.");
+}
+
+// ---------- AI frontier ----------
+section("AI frontier");
+slide("SECTION", "Get ahead of the AI shift", { kicker: "AI FRONTIER", body: "Gaps AI disruption is opening now, where demand is forming faster than supply and your pricing, finance and engineering background is the edge." });
+{
+  const s = slide("CONTENT", "Four AI-created gaps to build products for first");
+  const top = [[0, "Biggest gap, strongest edge"], [2, "Every AI budget now needs a business case"], [3, "Novel: few price AI substitution into valuations"], [6, "Every Brazilian SME must reprice to 2033 (BRL)"]];
+  const cw = (CW - 0.3) / 2, ch = 2.55;
+  top.forEach((t, i) => {
+    const r = D.FRONT[t[0]];
+    const x = M + (i % 2) * (cw + 0.3), y = 1.45 + Math.floor(i / 2) * (ch + 0.3);
+    box(s, x, y, cw, ch, i === 0 ? C.text2 : C.background2, "frontier " + (i + 1));
+    const dark = i === 0;
+    T(s, r[0], { x: x + 0.25, y: y + 0.2, w: cw - 0.5, h: 0.6, fontFace: "Cambria", fontSize: 17, bold: true, color: dark ? C.background1 : C.text2, fit: "shrink" });
+    T(s, t[1], { x: x + 0.25, y: y + 0.82, w: cw - 0.5, h: 0.3, fontSize: 12, bold: true, color: C.accent2 });
+    T(s, "Why now: " + r[1], { x: x + 0.25, y: y + 1.15, w: cw - 0.5, h: 0.6, fontSize: 12, color: dark ? C.accent6 : C.text1, fit: "shrink" });
+    T(s, "Product: " + r[3], { x: x + 0.25, y: y + 1.8, w: cw - 0.5, h: 0.6, fontSize: 12, bold: true, color: dark ? C.background1 : C.text1, fit: "shrink" });
+  });
+  s.addNotes("Thesis from news and regulation, not a researched market estimate. MIT NANDA 95% figure is from press summaries of the 2025 report. Brazil tax reform: IBS/CBS phase-in 2026–2033. AI unit-economics product overlaps Deneffe's segment: written consent first.");
+}
+{
+  const s = slide("CONTENT", "Fourteen AI-created gaps, scored for you");
+  const rows = [[th("Gap"), th("Who pays"), th("Automatic product"), th("Window and risk"), th("Fit")]];
+  D.FRONT.forEach(r => rows.push([{ text: r[0], options: { bold: true } }, r[2], r[3], r[5], { text: r[6], options: { bold: true, color: parseFloat(r[6]) >= 4 ? HEX.accent1 : HEX.dk1 } }]));
+  s.addTable(rows, tableOpts({ y: 1.35, colW: [3.3, 2.5, 3.4, 2.2, 0.83], fontSize: 9.5, rowH: 0.36, margin: [0.02, 0.06, 0.02, 0.06] }));
+  s.addNotes(D.FRONT.map(r => r[0] + " | Why now: " + r[1] + " | Who pays: " + r[2] + " | Product: " + r[3] + " | Edge: " + r[4] + " | Window: " + r[5] + " | Fit " + r[6]).join("\n") + "\nAgentic commerce: OpenAI in-chat checkout stalled, about 30 Shopify merchants live by March 2026 (secondary). Watch, don't build yet.");
 }
 
 // ---------- 4. Section: Opportunities ----------
