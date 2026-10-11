@@ -8,7 +8,7 @@ const { applyTheme } = require("/root/.claude/skills/synced/70c9b129-32db-469b-8
 const OUT = process.argv[2] || "Calebe_Income_Atlas.pptx";
 const html = fs.readFileSync(path.join(__dirname, "../research/income_atlas.html"), "utf8");
 const js = html.split("<script>")[1].split("const PIL=")[0];
-const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER};")();
+const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF};")();
 const byId = Object.fromEntries(D.C.map(c => [c.id, c]));
 
 const THEME = {
@@ -304,8 +304,8 @@ tierSlide("test", "Test cheaply: free or low-cost bets with kill rules");
 section("Stack");
 slide("SECTION", "Stack automatic streams on one body of work", { kicker: "STACK STREAMS", body: "One framework sells five ways: a course, a template, a bundle, a translation and a review. No single stream reaches US$10k; together they add to the hours leg and keep paying when the hours stop." });
 {
-  const s = slide("CONTENT", "Seven streams add ≈US$3.7k a month in the base case");
-  const names = ["Mini-courses", "Models and templates", "Toolkit bundles", "Itineraries EN/PT/ES", "Affiliate links", "Async reviews", "1-1 sessions"];
+  const s = slide("CONTENT", "Eight streams add ≈US$4k a month in the base case");
+  const names = ["Mini-courses", "Models and templates", "Toolkit bundles", "Itineraries EN/PT/ES", "Faceless YouTube", "Affiliate links", "Async reviews", "1-1 sessions"];
   const num = v => Number(String(v).replace(/,/g, ""));
   s.addChart(pres.charts.BAR, [
     { name: "Low", labels: names, values: D.STREAMS.map(r => num(r[3])) },
@@ -320,7 +320,7 @@ slide("SECTION", "Stack automatic streams on one body of work", { kicker: "STACK
     showTitle: true, title: "Net US$ per month at month 24 (ASSUMPTION)", titleFontSize: 13, titleColor: HEX.dk2, titleFontFace: "+mn-lt",
   });
   const tx = 8.85, tw = W - M - tx;
-  const K = [["US$2.4k", "Automated layer, base case (first five streams)"], ["US$3.7k", "All seven streams, base case; US$0.3–10k range"], ["<5–10%", "Odds the stack alone reaches US$10k within 24 months"]];
+  const K = [["US$2.7k", "Automated layer, base case (first six streams)"], ["US$4.0k", "All eight streams, base case; US$0.3–12k range"], ["<5–10%", "Odds the stack alone reaches US$10k within 24 months"]];
   K.forEach((k, i) => {
     const y = 1.45 + i * 1.8;
     box(s, tx, y, tw, 1.6, i === 1 ? C.text2 : C.background2, "stack stat " + i);
@@ -357,6 +357,25 @@ slide("SECTION", "Stack automatic streams on one body of work", { kicker: "STACK
     "Every template links to its course; every course sells the bundle and a review.",
     "Test 2–3 courses first: under 20 sales in 90 days → stop adding.",
   ].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: tx + 0.25, y: 2.2, w: tw - 0.5, h: 4.3, fontSize: 13, paraSpaceAfter: 6, fit: "shrink" });
+}
+
+{
+  const s = slide("CONTENT", "Influencer models: most are real, the timelines are not");
+  const rows = [[th("Model"), th("Real path?"), th("Evidence"), th("Bends"), th("Fit")]];
+  D.INF.forEach((r, i) => rows.push([{ text: r[0], options: { bold: true } }, r[1], r[3], r[4], { text: r[5], options: { bold: true, color: i === 0 ? HEX.accent1 : (r[5] === "0/5" ? HEX.accent5 : HEX.dk1) } }]));
+  s.addTable(rows, tableOpts({ y: 1.4, colW: [3.3, 1.35, 5.0, 1.75, 0.83], fontSize: 10.5, rowH: 0.42, margin: [0.03, 0.08, 0.03, 0.08] }));
+  s.addNotes(D.INF.map(r => r[0] + ": real path " + r[1] + ". What works: " + r[2] + ". Evidence: " + r[3] + ". Bends: " + r[4] + ". Fit " + r[5] + ". Scam signals: " + r[6]).join("\n"));
+}
+{
+  const s = slide("CONTENT", "The influencer model that fits you: a faceless finance channel");
+  const cw = (CW - 0.3) / 2;
+  box(s, M, 1.5, cw, 5.2, C.text2, "youtube fit");
+  T(s, "Why it fits", { x: M + 0.25, y: 1.7, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.background1 });
+  T(s, ["Finance pays among the highest YouTube rates: ≈US$12–25 per 1,000 views (modelled).", "Voice-over, screen and slides only: your models, valuations and pricing teardowns.", "It is the free traffic the course library lacks: every video links to a course, template and bundle.", "Ads alone need ≈500–800k views a month for US$10k; with course sales, far fewer.", "Only ≈2.6% of channels are monetized; plan 12–24 months."].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: M + 0.25, y: 2.2, w: cw - 0.5, h: 4.3, fontSize: 13.5, color: C.background1, paraSpaceAfter: 8, fit: "shrink" });
+  const x2 = M + cw + 0.3;
+  box(s, x2, 1.5, cw, 5.2, C.background2, "scam signals");
+  T(s, "Real path or scam", { x: x2 + 0.25, y: 1.7, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.text2 });
+  T(s, ["Real: shows costs, failure rates, months to profit. Scam: \"US$10k in 30 days\", revenue screenshots.", "Real: you sell to customers. Scam: the buyers are other students.", "Real: works without the guru's community. Scam: endless inner-circle upsells.", "Avoid: forex or crypto signals, copy-trading, betting systems, MLM, trading bots."].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: x2 + 0.25, y: 2.2, w: cw - 0.5, h: 4.3, fontSize: 13.5, paraSpaceAfter: 8, fit: "shrink" });
 }
 
 // ---------- 13. Section: Plans ----------
