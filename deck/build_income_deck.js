@@ -8,7 +8,7 @@ const { applyTheme } = require("/root/.claude/skills/synced/70c9b129-32db-469b-8
 const OUT = process.argv[2] || "Calebe_Income_Atlas.pptx";
 const html = fs.readFileSync(path.join(__dirname, "../research/income_atlas.html"), "utf8");
 const js = html.split("<script>")[1].split("const PIL=")[0];
-const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF,AUTO};")();
+const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF,AUTO,PATHS,DIY};")();
 const byId = Object.fromEntries(D.C.map(c => [c.id, c]));
 
 const THEME = {
@@ -421,6 +421,28 @@ slide("SECTION", "Stack automatic streams on one body of work", { kicker: "STACK
   box(s, x2, 1.5, cw, 5.2, C.text2, "risks");
   T(s, "What they leave out", { x: x2 + 0.25, y: 1.7, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.background1 });
   T(s, ["You pay for ad tests first: plan US$300–1,500 (ASSUMPTION), which bends zero capital.", "Google suspends affiliate ad accounts for policy breaches.", "Many offers are supplements with refunds that claw back commissions.", "Related courses have Reclame Aqui complaints about hidden costs and broken guarantees.", "Verdict: real but ad-funded, fit 2/5. Better with your own finance or travel offers."].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: x2 + 0.25, y: 2.2, w: cw - 0.5, h: 4.3, fontSize: 14, color: C.background1, paraSpaceAfter: 8, fit: "shrink" });
+}
+
+D.PATHS.forEach((g, gi) => {
+  const titles = ["Arbitrage, tax gaps and incentives that raise your take", "Sustainability value you can sell", "Pathways from your startup and finance background"];
+  const s = slide("CONTENT", titles[gi]);
+  const rows = [[th("Pathway"), th("How it works"), th("How it pays"), th("Fit")]];
+  g[1].forEach(r => rows.push([{ text: r[0], options: { bold: true } }, r[1], r[2], { text: r[4], options: { bold: true, color: parseFloat(r[4]) >= 4 ? HEX.accent1 : HEX.dk1 } }]));
+  const n = g[1].length, rh = n > 10 ? 0.42 : 0.62;
+  s.addTable(rows, tableOpts({ y: 1.4, colW: [2.9, 6.1, 2.4, 0.83], fontSize: n > 10 ? 10.5 : 12, rowH: rh, margin: [0.03, 0.08, 0.03, 0.08] }));
+  s.addNotes(g[1].map(r => r[0] + ": " + r[1] + " | Pays: " + r[2] + " | Evidence: " + r[3] + " | Fit " + r[4]).join("\n") + "\nLines marked UNVERIFIED are recalled, not retrieved. Not tax or legal advice.");
+});
+{
+  const s = slide("CONTENT", "Do it yourself: no paid courses, US$0–50 a month");
+  const cw = (CW - 0.9) / 4, ch = 2.5;
+  D.DIY.forEach((d, i) => {
+    const x = M + (i % 4) * (cw + 0.3), y = 1.45 + Math.floor(i / 4) * (ch + 0.25);
+    box(s, x, y, cw, ch, i === 0 ? C.text2 : C.background2, "diy " + (i + 1));
+    const dark = i === 0;
+    T(s, d[0], { x: x + 0.2, y: y + 0.15, w: cw - 0.4, h: 0.55, fontSize: 13.5, bold: true, color: dark ? C.background1 : C.text2, fit: "shrink" });
+    T(s, d[1], { x: x + 0.2, y: y + 0.72, w: cw - 0.4, h: ch - 0.85, fontSize: 10.5, color: dark ? C.accent6 : C.text1, fit: "shrink" });
+  });
+  s.addNotes("Free learning: Google Skillshop, Ahrefs Academy, HubSpot Academy, Meta Blueprint, and each affiliate programme's help centre. Only paid-ad tests need cash: US$300–600.");
 }
 
 // ---------- 13. Section: Plans ----------

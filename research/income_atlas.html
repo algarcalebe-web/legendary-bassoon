@@ -126,7 +126,7 @@ html{scroll-behavior:smooth}
 </header>
 
 <nav class="bar" aria-label="Sections"><div class="wrap">
-  <a href="#answer">The answer</a><a href="#opportunities">Opportunities</a><a href="#stack">Stack streams</a><a href="#courses">Course library</a><a href="#auto">Automatic ideas</a><a href="#influencer">Influencer models</a><a href="#plans">Plans</a><a href="#choose">Choose your path</a><a href="#start">First 30 days</a><a href="#brazil">Brazil setup</a><a href="#avoid">Avoid</a><a href="#method">Evidence</a>
+  <a href="#answer">The answer</a><a href="#opportunities">Opportunities</a><a href="#stack">Stack streams</a><a href="#courses">Course library</a><a href="#pathways">All pathways</a><a href="#diy">DIY playbook</a><a href="#auto">Automatic ideas</a><a href="#influencer">Influencer models</a><a href="#plans">Plans</a><a href="#choose">Choose your path</a><a href="#start">First 30 days</a><a href="#brazil">Brazil setup</a><a href="#avoid">Avoid</a><a href="#method">Evidence</a>
 </div></nav>
 
 <main class="wrap">
@@ -215,6 +215,24 @@ html{scroll-behavior:smooth}
       <li>Languages: English, Portuguese and Spanish, translated with AI and checked by you; trip plans the same.</li>
     </ul></div>
   </div>
+</section>
+
+<section id="pathways">
+  <h2>All pathways: arbitrage, incentives, sustainability, startups</h2>
+  <p class="sub">Everything discussed, in one place, beyond the opportunity cards: price and tax gaps you can exploit, public incentives that create paying demand, sustainability value, and routes that use your startup and finance background. Fit is for you (1–5). Lines marked UNVERIFIED are recalled, not retrieved; confirm before acting. None of this is tax or legal advice.</p>
+  <div id="pathgroups"></div>
+</section>
+
+<section id="diy">
+  <h2>Do-it-yourself playbook</h2>
+  <p class="sub">No paid courses. Each step uses free official documentation. Real cost: US$0–50 a month, except paid-ad tests.</p>
+  <div class="box" style="margin-bottom:16px"><h3 style="margin-bottom:10px">Free places to learn</h3><ul>
+    <li>Google Ads: Google Skillshop courses and certifications (skillshop.withgoogle.com).</li>
+    <li>SEO and content: Ahrefs Academy and HubSpot Academy, both free.</li>
+    <li>Meta ads: Meta Blueprint, free.</li>
+    <li>Every affiliate programme's own help centre explains its rules and payouts.</li>
+  </ul></div>
+  <div class="cols2" id="diylist"></div>
 </section>
 
 <section id="auto">
@@ -403,6 +421,50 @@ const AUTO=[
  ["Avoid","MLM and recruitment-based 'affiliate' schemes","Income from recruiting","Excluded","n/a","n/a","n/a","No","0/5"],
  ["Avoid","Bandwidth-sharing, survey and 'watch ads' apps","Cents","Not worth the time","5/5","None","USD","Tiny","0/5"],
  ["Avoid","Matched betting and betting systems sold as income","Bookmaker promotions","Accounts limited quickly","2/5","Capital","BRL","Weak","0/5"],
+];
+const PATHS=[
+ ["Arbitrage, tax gaps and incentives",[
+  ["Service-export tax structure","Earn USD through a CNPJ: PIS/COFINS exempt with FX inflow, ISS often not due, Simples Anexo III via Fator R instead of up to 27.5% as an individual","Raises net on every hours or product route","Secondary; confirm with a contador","5/5"],
+  ["Currency arbitrage","Earn USD/EUR, spend BRL: US$10k ≈ R$52k a month","Applies to every USD route","USD/BRL ≈5.22 (Sep 2026)","5/5"],
+  ["Labour-cost arbitrage","Brazilian analysts at ≈US$12–22/h deliver to clients paying US$60+/h under your brand","Margin per hour; pay per task after client deposit","Skeptic: about US$888 net per seat; a body shop","2/5"],
+  ["Purchasing-power pricing","Price digital products by country; sell in BRL, USD and EUR editions","More buyers at the same margin","Standard practice","4/5"],
+  ["Platform-fee arbitrage","Find buyers on Udemy or Etsy, then sell bundles direct","Keep 90–97% instead of 37–88%","Platform terms","4/5"],
+  ["SC TTD 409 import incentive","Effective ICMS ≈0.6–2.6% for importers with an SC base; serve importers or a trading company","Advisory or trading margin","Secondary; ICMS phases down 2029–2032","2/5"],
+  ["EU–Mercosur agreement","Tariff cuts open EU buyers for SC exporters; matchmaking or export-readiness advisory","Fees or commissions","Provisional application per earlier research; UNVERIFIED","3/5"],
+  ["US 25% tariff on Brazil and its exemptions","Help exporters check exemptions or shift to EU buyers","Advisory fees","Section 301 tariff July 2026 per earlier research; UNVERIFIED","2/5"],
+  ["Lei do Bem R&D tax incentive","Help SC tech companies claim R&D deductions; success fees are common in this market","10–20% of the benefit (UNVERIFIED)","Recalled; needs outreach and BRL","3/5"],
+  ["FINEP, BNDES and Embrapii innovation funding","Prepare financial plans and business cases for applications","Fixed or success fee","Recalled; BRL","2/5"],
+  ["EU grants (EIC, Eurostars)","Commercial and financial sections for applicants","Fixed fee; success fees restricted","EIC ≈6.6% funded; free EIC coaching","2/5"],
+  ["Chinese credit lines via BNDES","Financing advisory for importers of Chinese equipment","Fees","Pasted summary; UNVERIFIED","1/5"],
+ ]],
+ ["Sustainability value",[
+  ["Sustainability pricing course and toolkit","Value metrics and green premium pricing for founders and SMEs","Per sale; links to courses","Fits 'doing well by doing good'","4/5"],
+  ["Green premium pricing advisory","Price sustainable products on customer value, not cost","Fixed-fee projects","Overlaps Deneffe: written consent first","3/5"],
+  ["EU CBAM and CSRD data support for exporters","Emissions data and reporting for Brazilian exporters of steel, aluminium, cement and fertiliser into the EU","Project fees","CBAM definitive phase from 2026 (recalled, UNVERIFIED)","3/5"],
+  ["Green capex and carbon-price financial models","Templates with carbon-price scenarios, payback and NPV for transition projects","Per sale","No earnings data","3/5"],
+  ["Carbon-credit project brokerage","Connect project owners with buyers under Brazil's regulated market (Law 15.042/2024)","Commission","Recalled; voluntary market has fraud risk","2/5"],
+  ["Free energy market (ACL) brokerage","Move SC companies to the free market","Commission, BRL","≈43% of Brazil's electricity already traded there (secondary)","2/5"],
+  ["Solar installer lead generation","Sell qualified leads to installers","Per lead, BRL","Rates NONE FOUND","2/5"],
+ ]],
+ ["Startups and your background",[
+  ["VC scout programmes","Refer promising startups you meet (Venture Café, Hult Prize network) to funds","Finder fee or share of carry (UNVERIFIED amounts)","Real programmes exist; selective","3/5"],
+  ["Advisor equity","Pricing and finance advisor to early startups for equity","Median pre-seed advisor grant ≈0.21–0.24% (Carta via GrowthMentor)","Illiquid for years","2/5"],
+  ["Pitch-deck and model reviews","Async written review for founders","US$290–490 per review","See price ladder","4/5"],
+  ["Fractional pricing or FP&A","Recurring part-time role for funded startups","US$3–12k a month fractional benchmarks","Hours; bends faceless","3/5"],
+  ["Startup financial-model templates","Investor-ready 3-statement and SaaS models","US$49–149 per model","See Opportunities","3/5"],
+  ["Accelerator and university workshops","Paid sessions on pricing, funding and valuation","Per session","Mostly unpaid or small","2/5"],
+  ["Angel syndicate lead","Lead deals for other investors","Carry on exits","Needs capital, network, long horizon","1/5"],
+ ]],
+];
+const DIY=[
+ ["Travel commissions in your itineraries","Sign up with GetYourGuide, Viator, Booking (or Stay22), SafetyWing, an eSIM and a car-hire programme. Put 10–30 links in each itinerary, publish free versions as pages and Pinterest pins, sell premium versions."],
+ ["B2B referral payouts","Join Deel through PartnerStack (US$1,500 per paying customer), then Wise and HubSpot. Write pages and videos on what founders search: hiring a contractor in Brazil, Deel vs Remote."],
+ ["Niche job board","WordPress with the free WP Job Manager plugin, or Notion with Super (≈US$12/month). Seed with listings that link to original posts. Charge US$99 for featured posts via a Stripe or PayPal link. Grow through LinkedIn groups, Reddit and a free newsletter."],
+ ["Affiliate offers with paid ads","Check that Digistore24 or ClickBank pays Brazil residents. Pick a low-refund digital offer you understand. Build a one-page review on Carrd or WordPress (domain ≈US$10/year). Read Google Ads affiliate policy. Spend US$10–20 a day; stop a campaign at 2× commission spent without a sale; scale above 1.3× return. Budget US$300–600."],
+ ["Telegram or WhatsApp deal channel","Join Shopee, Amazon BR and Mercado Livre affiliate programmes. Automate posting with the free tier of n8n or Make: pull deals, add your link, post."],
+ ["Mini-courses","Record with OBS (free), build slides in Canva or Google Slides, publish on Udemy (free) and Gumroad's starter plan."],
+ ["Faceless finance channel","Voice-over on slides and screen recordings with OBS; edit in DaVinci Resolve (free). Link every video to a course, template or affiliate tool."],
+ ["Company and payouts","One contador hour: CNPJ in Simples, Anexo III via Fator R, export invoicing. Open Wise Business or Payoneer. Sign W-8BEN."],
 ];
 const TIERS=[
  {key:"start",label:"Start now",why:"The only routes with a realistic chance of reaching US$10k within 12 months at 40 h/week. All of them bend passivity: they are paid hours."},
@@ -726,6 +788,8 @@ document.getElementById('autofilters').innerHTML=AUTOCATS.map((c,i)=>'<button cl
 function drawAuto(cat){document.getElementById('autotable').innerHTML=AUTO.filter(r=>cat==='All'||r[0]===cat).map(r=>'<tr><td><strong>'+esc(r[1])+'</strong><br><span class="meta">'+esc(r[0])+'</span></td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td><td class="num">'+r[4]+'</td><td>'+esc(r[5])+'</td><td>'+r[6]+'</td><td>'+esc(r[7])+'</td><td class="num">'+r[8]+'</td></tr>').join('');}
 drawAuto('All');
 document.querySelectorAll('.autochip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.autochip').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));drawAuto(b.dataset.c);}));
+document.getElementById('pathgroups').innerHTML=PATHS.map(g=>'<h3 style="margin:20px 0 10px">'+esc(g[0])+'</h3><div class="tablewrap"><table><thead><tr><th>Pathway</th><th>How it works</th><th>How it pays</th><th>Evidence</th><th>Fit</th></tr></thead><tbody>'+g[1].map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td><td class="num">'+r[4]+'</td></tr>').join('')+'</tbody></table></div>').join('');
+document.getElementById('diylist').innerHTML=DIY.map(d=>'<div class="box"><h3 style="margin-bottom:8px">'+esc(d[0])+'</h3><p style="margin:0;font-size:14px">'+esc(d[1])+'</p></div>').join('');
 document.getElementById('inftable').innerHTML=INF.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td><td>'+esc(r[4])+'</td><td class="num">'+r[5]+'</td><td>'+esc(r[6])+'</td></tr>').join('');
 document.getElementById('guide').innerHTML=GUIDE.map(g=>'<div><p>If: '+esc(g[0])+'</p><p>'+esc(g[1])+'</p></div>').join('');
 let saved={};try{saved=JSON.parse(localStorage.getItem('atlas-checks')||'{}')}catch(e){}
