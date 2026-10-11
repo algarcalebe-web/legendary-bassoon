@@ -120,7 +120,7 @@ function oppCard(s, c, x, y, w, h) {
 function notesFor(c) {
   return [c.title, "How it works: " + c.how, "Who pays: " + c.pays, "Arithmetic: " + c.math.replace(/\n/g, "; "), "Evidence: " + c.evidence,
     c.start && c.start.length ? "First steps: " + c.start.join("; ") : "", c.kill ? "Kill rule: " + c.kill : "", "Risks: " + c.risks,
-    "Brazil: " + c.br, "Deneffe/Mercor: " + c.conflict, "Links: " + c.links.map(l => l[0] + " " + l[1] + " (" + l[2] + ")").join("; ")].filter(Boolean).join("\n");
+    "Brazil: " + c.br, "Links: " + c.links.map(l => l[0] + " " + l[1] + " (" + l[2] + ")").join("; ")].filter(Boolean).join("\n");
 }
 function tierSlide(key, title) {
   const cs = D.C.filter(c => c.tier === key && c.id !== "courses");
@@ -178,7 +178,7 @@ section("Answer");
     ["−21.9%", "Fiverr active buyers in Q2 2026; Upwork volume −4%. Marketplaces are shrinking"],
     ["<3%", "of applicants accepted by Toptal; skeptics give a Toptal route 3–6% by month 12"],
     ["3 / 5", "the best skeptic-checked fit; skeptics cut most proposer ratings by 1–2 points"],
-    ["2 contracts", "Deneffe and Mercor, unread. Either could block an hours route or a pricing offer"],
+    ["≈95%", "of company GenAI pilots showed no measurable return (MIT NANDA, via press): the opening for AI ROI products"],
   ];
   const gw = (CW - 0.6) / 3, gh = 2.45;
   F.forEach((f, i) => {
@@ -187,7 +187,7 @@ section("Answer");
     T(s, f[0], { x: x + 0.25, y: y + 0.3, w: gw - 0.5, h: 0.8, fontFace: "Cambria", fontSize: 34, bold: true, color: i === 5 ? C.accent5 : C.accent1, fit: "shrink" });
     T(s, f[1], { x: x + 0.25, y: y + 1.2, w: gw - 0.5, h: 1.1, fontSize: 14 });
   });
-  s.addNotes("Other AI-data platforms advertise US$15–65/h for finance work (micro1 US$30–65, Outlier US$30–40, Alignerr US$15–60). Every income probability is a judgment; earnings base rates were NONE FOUND for almost every route. Faceless costs conversion because NDA work cannot be shown.");
+  s.addNotes("Other AI-data platforms advertise US$15–65/h for finance work (micro1 US$30–65, Outlier US$30–40, Alignerr US$15–60). Every income probability is a judgment; earnings base rates were NONE FOUND for almost every route. Faceless costs conversion: without a visible name, trust comes from public samples.");
 }
 
 // ---------- AI frontier ----------
@@ -207,7 +207,7 @@ slide("SECTION", "Get ahead of the AI shift", { kicker: "AI FRONTIER", body: "Ga
     T(s, "Why now: " + r[1], { x: x + 0.25, y: y + 1.15, w: cw - 0.5, h: 0.6, fontSize: 12, color: dark ? C.accent6 : C.text1, fit: "shrink" });
     T(s, "Product: " + r[3], { x: x + 0.25, y: y + 1.8, w: cw - 0.5, h: 0.6, fontSize: 12, bold: true, color: dark ? C.background1 : C.text1, fit: "shrink" });
   });
-  s.addNotes("Thesis from news and regulation, not a researched market estimate. MIT NANDA 95% figure is from press summaries of the 2025 report. Brazil tax reform: IBS/CBS phase-in 2026–2033. AI unit-economics product overlaps Deneffe's segment: written consent first.");
+  s.addNotes("Thesis from news and regulation, not a researched market estimate. MIT NANDA 95% figure is from press summaries of the 2025 report. Brazil tax reform: IBS/CBS phase-in 2026–2033. ");
 }
 {
   const s = slide("CONTENT", "Fourteen AI-created gaps, scored for you");
@@ -367,7 +367,7 @@ slide("SECTION", "Stack automatic streams on one body of work", { kicker: "STACK
     const items = t[1].length > 6 ? t[1].slice(0, 5).concat(["+ " + (t[1].length - 5) + " more in the atlas"]) : t[1];
     T(s, items.map((c, j) => ({ text: c, options: { bullet: true, breakLine: j < items.length - 1 } })), { x: x + 0.2, y: y + 0.6, w: cw - 0.4, h: ch - 0.75, fontSize: 11.5, color: dark ? C.background1 : C.text1, paraSpaceAfter: 2, fit: "shrink" });
   });
-  s.addNotes("Each course ships with a template or model so it sells as a course, a toolkit and a bundle. All material original: no Harvard cases, Hult or university slides, CFA Institute content or CFA mark. Personal-finance courses teach methods, never specific securities (CVM). Pricing courses use public examples; ask Deneffe in writing first. Course earnings for this niche: NONE FOUND in the research.");
+  s.addNotes("Each course ships with a template or model so it sells as a course, a toolkit and a bundle. All material original: no Harvard cases, Hult or university slides, CFA Institute content or CFA mark. Personal-finance courses teach methods, never specific securities (CVM). Course earnings for this niche: NONE FOUND in the research.");
 }
 {
   const s = slide("CONTENT", "Price ladder: free lesson to 1-1, in three languages");
@@ -515,7 +515,7 @@ slide("SECTION", "Four ways to spend the 40 hours", { kicker: "PLANS", body: "Ea
   });
   const tx = 8.55, tw = W - M - tx;
   T(s, "Checkpoints", { x: tx, y: 1.5, w: tw, h: 0.45, fontSize: 17, bold: true, color: C.text2 });
-  const G = [["Day 30", "Contracts read; 2+ platforms active or 3+ interviews"], ["Day 60", "No engagement at US$60/h net → drop premium targets"], ["Month 4", "No signed anchor → a US$3–5k filler income, not US$10k"], ["Day 90", "<40 billed hours in 30 days → off track"]];
+  const G = [["Day 30", "Payout tested; 2+ platforms active or 3+ interviews"], ["Day 60", "No engagement at US$60/h net → drop premium targets"], ["Month 4", "No signed anchor → a US$3–5k filler income, not US$10k"], ["Day 90", "<40 billed hours in 30 days → off track"]];
   G.forEach((g, i) => {
     const y = 2.1 + i * 1.12;
     box(s, tx, y, tw, 0.95, i === 2 ? C.text2 : C.background2, "gate " + g[0]);
@@ -540,7 +540,7 @@ slide("SECTION", "Four ways to spend the 40 hours", { kicker: "PLANS", body: "Ea
 // ---------- 17. First 30 days ----------
 section("Start");
 {
-  const s = slide("CONTENT", "First 30 days: contracts and payout before any hours");
+  const s = slide("CONTENT", "First 30 days: company and payout before any hours");
   const cw = (CW - 0.9) / 4;
   D.WEEKS.forEach((w, i) => {
     const x = M + i * (cw + 0.3), y = 1.5;
@@ -611,10 +611,10 @@ section("Start");
 
 // ---------- 21. Close ----------
 {
-  const s = slide("TITLE_DARK", "Two actions before any hours", {
+  const s = slide("TITLE_DARK", "Two actions this week", {
     kicker: "NEXT",
     body: [
-      { text: "1. Read the Deneffe and Mercor agreements and any moonlighting clause. Ask Deneffe in writing before any pricing offer.", options: { breakLine: true } },
+      { text: "1. Set up payouts: open Wise Business or Payoneer, sign W-8BEN, test one transfer.", options: { breakLine: true } },
       { text: " ", options: { breakLine: true } },
       { text: "2. Book one hour with a contador: company type, Simples annex, export invoicing, IOF and Lei 15.270/2025." },
     ],
