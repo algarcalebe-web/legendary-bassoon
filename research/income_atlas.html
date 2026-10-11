@@ -1,0 +1,532 @@
+<title>Calebe Income Atlas</title>
+<meta name="description" content="Ranked income opportunities toward US$10k/month, with odds, entry links, plans and a 30-day start.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: ledger-style reference book. Sticky section bar, summary first, then filterable opportunity cards that expand into detail. */
+:root{
+  --bg:#f5f7f6; --surface:#ffffff; --sunk:#e9eeec; --fg:#14211d; --muted:#55645f; --line:#d3dcd8;
+  --accent:#0d6655; --accent-soft:#d8ece6; --brass:#8a5a00; --brass-soft:#f6e8c9;
+  --good:#1d7a3e; --good-soft:#dcf0e2; --warn:#9a5b00; --warn-soft:#fbecd0; --bad:#a3312b; --bad-soft:#f7dcd9;
+  --display:"Newsreader","Iowan Old Style",Georgia,serif;
+  --body:"Public Sans","Segoe UI",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1715; --surface:#16211e; --sunk:#1c2a26; --fg:#e4ece9; --muted:#9db0aa; --line:#2b3b36;
+  --accent:#5cc2a8; --accent-soft:#163a32; --brass:#e0b45a; --brass-soft:#3a2e14;
+  --good:#6fcf8e; --good-soft:#163323; --warn:#e7b25a; --warn-soft:#3a2b12; --bad:#f08a80; --bad-soft:#3d1a18; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1715; --surface:#16211e; --sunk:#1c2a26; --fg:#e4ece9; --muted:#9db0aa; --line:#2b3b36;
+  --accent:#5cc2a8; --accent-soft:#163a32; --brass:#e0b45a; --brass-soft:#3a2e14;
+  --good:#6fcf8e; --good-soft:#163323; --warn:#e7b25a; --warn-soft:#3a2b12; --bad:#f08a80; --bad-soft:#3d1a18; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body);margin:0}
+a{color:var(--accent)} a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+header.top{padding-block:36px 20px}
+.eyebrow{font:600 12px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+h1{font:600 clamp(30px,5vw,46px)/1.1 var(--display);margin:.35em 0 .3em;text-wrap:balance}
+h2{font:600 28px/1.2 var(--display);margin:0 0 6px;text-wrap:balance}
+h3{font:600 17px/1.35 var(--body);margin:0;text-wrap:balance}
+.lede{max-width:68ch;font-size:17px;color:var(--fg)}
+.meta{color:var(--muted);font-size:13px}
+nav.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.bar .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav.bar a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:13px;padding:7px 11px;border-radius:6px}
+nav.bar a:hover{background:var(--sunk);color:var(--fg)}
+section{padding-block:40px 8px;scroll-margin-top:60px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 20px}
+.answer{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:22px 24px;display:grid;gap:14px}
+.answer p{margin:0;max-width:72ch}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kpi{background:var(--sunk);border-radius:8px;padding:12px 14px}
+.kpi b{display:block;font:600 22px/1.2 var(--mono);font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--muted)}
+ol.truths{margin:0;padding-left:1.3em;display:grid;gap:8px;max-width:78ch}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.filters .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:999px;padding:5px 12px;font:600 13px var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.tier{margin-bottom:28px}
+.tierhead{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;border-bottom:2px solid var(--fg);padding-bottom:6px;margin-bottom:12px}
+.tierhead h3{font:600 21px/1.2 var(--display)}
+.tierhead p{margin:0;color:var(--muted);font-size:14px;flex:1 1 320px}
+.cards{display:grid;gap:10px}
+details.card{background:var(--surface);border:1px solid var(--line);border-radius:10px}
+details.card[open]{border-color:var(--accent)}
+details.card>summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:8px 16px;align-items:start}
+details.card>summary::-webkit-details-marker{display:none}
+.ctitle{min-width:0}
+.ctitle p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font:600 11.5px/1 var(--body);padding:4px 8px;border-radius:4px;background:var(--sunk);color:var(--muted)}
+.tag.bent{background:var(--brass-soft);color:var(--brass)}
+.tag.none{background:var(--good-soft);color:var(--good)}
+.tag.chk{background:var(--accent-soft);color:var(--accent)}
+.stats{display:grid;grid-template-columns:repeat(3,auto);gap:2px 14px;text-align:right;font-size:12px;color:var(--muted)}
+.stats b{display:block;font:600 14px/1.3 var(--mono);color:var(--fg);font-variant-numeric:tabular-nums}
+.pips{display:inline-flex;gap:3px;vertical-align:middle}
+.pips i{width:8px;height:8px;border-radius:2px;background:var(--line)}
+.pips i.on{background:var(--accent)}
+.cbody{padding:4px 16px 18px;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px 24px}
+.cbody .full{grid-column:1/-1}
+.field h4{margin:12px 0 4px;font:700 11.5px/1 var(--body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.field p,.field li{margin:0;font-size:14px}
+.field ul,.field ol{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.math{font:13px/1.55 var(--mono);background:var(--sunk);padding:10px 12px;border-radius:6px;white-space:pre-wrap;overflow-x:auto}
+.links a{word-break:break-word}
+.links small{color:var(--muted)}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:10px;align-content:start}
+.plan.rec{border:2px solid var(--accent)}
+.plan .badge{justify-self:start;font:700 11px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:4px;background:var(--accent);color:var(--bg)}
+.plan .badge.alt{background:var(--sunk);color:var(--muted)}
+.legs{display:grid;gap:6px}
+.leg{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:center;font-size:14px}
+.leg b{font:600 13px var(--mono);text-align:right}
+.bar40{height:10px;border-radius:5px;background:var(--sunk);display:flex;overflow:hidden}
+.bar40 span{height:100%}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.tablewrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.weeks{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.week{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.week h3{margin-bottom:8px}
+.week ul{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+.week li{display:grid;grid-template-columns:20px 1fr;gap:8px;font-size:14px}
+.week input{margin-top:4px;accent-color:var(--accent)}
+.status{font:700 11px/1 var(--body);padding:3px 7px;border-radius:4px;white-space:nowrap}
+.s-sourced{background:var(--good-soft);color:var(--good)} .s-secondary{background:var(--warn-soft);color:var(--warn)} .s-unverified{background:var(--bad-soft);color:var(--bad)}
+.cols2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.box ul{margin:0;padding-left:1.2em;display:grid;gap:6px;font-size:14px}
+.guide{display:grid;gap:8px}
+.guide div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.guide div p{margin:0;font-size:14px}
+.guide div p:first-child{font-weight:600}
+footer{color:var(--muted);font-size:13px;padding-top:30px}
+@media (max-width:640px){
+  details.card>summary{grid-template-columns:1fr}
+  .stats{text-align:left;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .guide div{grid-template-columns:1fr;gap:4px}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+
+<header class="wrap top">
+  <div class="eyebrow">Income research · 11 October 2026 · Santa Catarina, Brazil</div>
+  <h1>Calebe Income Atlas</h1>
+  <p class="lede">Ranked ways to add US$10,000 a month of new income in USD or EUR, using 40 hours a week. Each opportunity shows the odds, the entry links, what you give up, and the first steps.</p>
+  <p class="meta">Built from 4 research runs, about 80 research and synthesis agents and 55 adversarial skeptic checks. Deneffe and Mercor income are excluded throughout. They count as credentials only.</p>
+</header>
+
+<nav class="bar" aria-label="Sections"><div class="wrap">
+  <a href="#answer">The answer</a><a href="#opportunities">Opportunities</a><a href="#plans">Plans</a><a href="#choose">Choose your path</a><a href="#start">First 30 days</a><a href="#brazil">Brazil setup</a><a href="#avoid">Avoid</a><a href="#method">Evidence</a>
+</div></nav>
+
+<main class="wrap">
+
+<section id="answer">
+  <h2>The answer</h2>
+  <div class="answer">
+    <p><strong>No route reaches US$10k a month while staying faceless, inbound-only, zero-capital and passive.</strong> Across 55 skeptic checks, nothing passed with all five pillars intact. No source showed anyone earning US$10k a month that way.</p>
+    <p><strong>What does work is bending one pillar: passivity.</strong> If you accept 34–40 active hours a week, an hours stack can reach US$10k. The stack is one anchor client or contract at US$80–85/h plus 2–3 AI-data platforms as filler. Applying to posted jobs and passing private ID or video checks come with it. The likelier result is US$4–8k net by month 12.</p>
+    <p><strong>The passive ideas (templates, itineraries, apps, data, SEO) are side assets, not the path to US$10k.</strong> Each needs roughly 130–1,000 sales a month and 24–54 months.</p>
+    <div class="kpis">
+      <div class="kpi"><b>15–25%</b><span>Plan A: holds US$10k net for 3 months within 12 months (judgment)</span></div>
+      <div class="kpi"><b>US$4–8k</b><span>Plan A's likelier net per month by month 12</span></div>
+      <div class="kpi"><b>US$11.6–13.6k</b><span>gross needed to net US$10k after Brazilian tax and FX (CALC)</span></div>
+      <div class="kpi"><b>&lt;5%</b><span>US$10k by month 12 from any passive or faceless route alone</span></div>
+    </div>
+  </div>
+  <h3 style="margin:24px 0 10px">Uncomfortable truths</h3>
+  <ol class="truths">
+    <li>No single relaxed pillar produced a strong fit (4–5 out of 5). The best skeptic-checked option scored 3 out of 5, and skeptics cut most proposer ratings by 1–2 points.</li>
+    <li>Mercor's finance and private-equity listings at about US$100/h list 13 countries, and Brazil is not one of them. The Brazil-named finance listing pays US$80/h. Other AI-data platforms advertise US$15–65/h for finance (micro1 US$30–65, Outlier US$30–40, Alignerr US$15–60).</li>
+    <li>Marketplaces are shrinking. In Q2 2026 Upwork's gross services volume fell 4% and Fiverr's active buyers fell 21.9%. AI is cutting the price of commodity models and slides.</li>
+    <li>Toptal accepts under 3% of applicants. Skeptics put a Toptal-led route at 3–6% by month 12. Apply anyway: it costs nothing.</li>
+    <li>Faceless costs conversion. Your NDA work can't be shown, so trust has to come from public sample models you build from public or synthetic data.</li>
+    <li>Your contracts could block any of this. The Deneffe and Mercor agreements, and any employment moonlighting clause, are unread. Pricing offers overlap Deneffe the most. Valuation, modelling and FP&amp;A are safer.</li>
+    <li>Every income probability in this atlas is a judgment, not data. Earnings base rates were NONE FOUND for almost every route.</li>
+  </ol>
+</section>
+
+<section id="opportunities">
+  <h2>Opportunities</h2>
+  <p class="sub">Grouped by what to do with each. Tap a card for how it works, the arithmetic, entry links, first steps, Brazil notes and conflicts. Filter by the pillar each one bends.</p>
+  <div class="filters" role="group" aria-label="Filter by pillar bent">
+    <span class="lbl">Pillar bent</span>
+    <button class="chip" data-f="all" aria-pressed="true">All</button>
+    <button class="chip" data-f="none" aria-pressed="false">None</button>
+    <button class="chip" data-f="passivity" aria-pressed="false">Passivity</button>
+    <button class="chip" data-f="outreach" aria-pressed="false">Outreach</button>
+    <button class="chip" data-f="faceless" aria-pressed="false">Faceless</button>
+    <button class="chip" data-f="capital" aria-pressed="false">Capital</button>
+    <button class="chip" data-f="speed" aria-pressed="false">Speed</button>
+  </div>
+  <div id="tiers"></div>
+</section>
+
+<section id="plans">
+  <h2>Plans</h2>
+  <p class="sub">Each plan combines opportunities within 40 hours a week. Net means after platform fees, Brazilian tax and FX (CALC), using the tax factors from the pillar run: Simples about 86% kept, PF carnê-leão about 73% kept.</p>
+  <div class="plans" id="planlist"></div>
+</section>
+
+<section id="choose">
+  <h2>Choose your path</h2>
+  <p class="sub">Your pillars decide the plan. Pick the row that matches what you are willing to change.</p>
+  <div class="guide" id="guide"></div>
+</section>
+
+<section id="start">
+  <h2>First 30 days</h2>
+  <p class="sub">Plan A, in order. Contracts and payout come first because either can kill a route. The checkboxes are saved in this browser only.</p>
+  <div class="weeks" id="weeks"></div>
+</section>
+
+<section id="brazil">
+  <h2>Brazil setup</h2>
+  <p class="sub">Confirm every line with a contador before the first invoice. Status shows how well each line is sourced.</p>
+  <div class="tablewrap"><table><thead><tr><th>Topic</th><th>What the research found</th><th>Status</th></tr></thead><tbody id="brtable"></tbody></table></div>
+</section>
+
+<section id="avoid">
+  <h2>Avoid</h2>
+  <p class="sub">Researched and rejected, with the reason.</p>
+  <div class="tablewrap"><table><thead><tr><th>Idea</th><th>Why not</th></tr></thead><tbody id="rejtable"></tbody></table></div>
+</section>
+
+<section id="method">
+  <h2>Evidence</h2>
+  <div class="cols2">
+    <div class="box"><h3 style="margin-bottom:10px">Base rates</h3><ul id="baserates"></ul></div>
+    <div class="box"><h3 style="margin-bottom:10px">How this was built and its limits</h3><ul>
+      <li>Four runs: broad faceless routes (8 categories, 34 agents), EU grant-funded startups (4 angles, 17 agents), US early-stage startups (3 angles, 13 agents), and a pillar panel testing each relaxed constraint (15 agents).</li>
+      <li>55 adversarial skeptic checks re-tested the top options. Where a skeptic checked an option, this atlas uses the skeptic's numbers. Those cards are tagged "Skeptic-checked".</li>
+      <li>WebFetch was blocked for most sites, so figures come from search-result summaries and are SECONDARY. Many skeptics lost their search budget mid-run, so Brazil eligibility for most platforms other than Mercor and Upwork is UNVERIFIED.</li>
+      <li>Labels: CALC = arithmetic on stated inputs. ASSUMPTION = a planning input or judgment. UNVERIFIED = recalled, not retrieved. Links marked "recalled" were not opened.</li>
+      <li>Full run outputs are in the repository under <code>research/</code>, and the four run journals are kept with this session.</li>
+    </ul></div>
+  </div>
+  <div class="box" style="margin-top:16px"><h3 style="margin-bottom:10px">Open questions to settle before committing hours</h3><ul id="openq"></ul></div>
+</section>
+
+<footer>No income is guaranteed. This is research for planning, not financial, tax or legal advice.</footer>
+</main>
+
+<script>
+const TIERS=[
+ {key:"start",label:"Start now",why:"The only routes with a realistic chance of reaching US$10k within 12 months at 40 h/week. All of them bend passivity: they are paid hours."},
+ {key:"build",label:"Build alongside",why:"Assets and higher-ticket offers that compound next to an hours route. Weak on their own within 12 months."},
+ {key:"test",label:"Test cheaply",why:"Free or cheap experiments. Run each one against its kill rule."},
+ {key:"long",label:"Long shots",why:"The math closes only with top-percentile outcomes or 24+ months. Pick these only if one fits a strong personal interest."}
+];
+const C=[
+{id:"hours-stack",tier:"start",title:"Anchor + filler hours stack",bent:"passivity",also:"Applying to posted jobs; private ID or video checks",cat:"Hourly contracts",plaus:3,pass:1,odds12:"15–25% (3 months ≥ US$10k)",odds24:"≈35%",m12:"US$4–8k/mo",first:"3–6 weeks",hours:"34–40 h/wk",chk:true,
+ one:"One fixed-hours anchor client or contract at US$80–85/h for 20–26 h/week, plus 2–3 AI-data platforms other than Mercor as 8–14 h/week of filler.",
+ how:"The filler platforms pay first, within weeks of passing assessments. The anchor comes from a long Upwork or Contra contract, a vetted-marketplace placement or a PJ contract with a US company, and takes 6–16 weeks. Gate: if no anchor is signed by month 4, the plan becomes a US$3–5k filler income.",
+ pays:"Anchor: US/EU B2B SaaS, AI or PE-backed companies needing modelling, valuation or FP&A, paid via Upwork, Contra, Deel, Remote or Wise. Filler: AI labs and data vendors paying hourly.",
+ math:"Anchor 26 h × 4.33 × US$80 = US$9,006 gross × 0.86 = US$7,745\nFiller  8 h × 4.33 × US$75 = US$2,598 gross × 0.73 = US$1,896\nTotal ≈ US$9,642 net (4% short)\nAnchor at US$85 → US$8,230 + 1,896 = US$10,126\nSkeptic stress case (anchor US$65, filler US$100 for 14 h) ≈ US$9.27k; at a US$50 filler rate ≈ US$7.05k (CALC)",
+ evidence:"Mercor finance listings US$80–120/h; the Brazil listing is US$80/h. Upwork financial modelers' median is US$25–65/h. Toptal finance is US$100–200/h per vendor blogs. Non-Mercor finance rates found: US$15–65/h. Skeptic verdict: moderate, 3/5, 8–14 months, 25–30% within 12 months only if an anchor of US$80+/h lands.",
+ start:["Read the Deneffe and Mercor agreements and any employment moonlighting clause","Check Brazil eligibility and payout on each AI-data platform before taking assessments","Take assessments on 3–5 platforms (Alignerr, micro1, Handshake AI, Outlier, DataAnnotation)","Build an ID-verified Upwork profile with three sanitised sample models; send 5 proposals a day to payment-verified clients at US$60/h or more","Apply to Toptal Finance and open a Contra profile in parallel"],
+ kill:"Day 60: no engagement at US$60/h net or more → drop premium targets. Day 90: fewer than 40 billed hours in the trailing 30 days → not on track for US$10k.",
+ risks:"Hours are never guaranteed and the work runs in pools. It is a second job with no compounding. It may collide with your US-Eastern-hours work and its moonlighting clause.",
+ br:"Upwork pays BRL to a Brazilian bank at US$0.99 per withdrawal (retrieved). Mercor pays Brazil via Wise. Other platforms' eligibility is UNVERIFIED. Use a CNPJ in Simples for the anchor. Filler earned as an individual (PF) can be taxed up to 27.5%.",
+ conflict:"High if the anchor does pricing work in Deneffe's segments. Keep to valuation, modelling and FP&A. Hours on other AI labs may conflict with Mercor terms: read them first.",
+ links:[["Upwork: hire financial modelers (rates)","https://www.upwork.com/hire/financial-modelers/cost/","retrieved"],["Upwork BRL withdrawal","https://support.upwork.com/hc/en-us/articles/211063888","retrieved"],["Contra fees (0% freelancer commission)","https://help.contra.com/en/articles/9322934-fees-overview","retrieved"],["Alignerr","https://www.alignerr.com/","recalled"],["micro1","https://www.micro1.ai/","recalled"],["Handshake AI","https://joinhandshake.com/","recalled"],["Outlier","https://outlier.ai/","recalled"],["DataAnnotation","https://www.dataannotation.tech/","recalled"],["Mercor supported countries","https://talent.docs.mercor.com/policies/supported-countries","retrieved"]]},
+{id:"vetted",tier:"start",title:"Senior analyst seat via Toptal, Catalant, Braintrust or Contra",bent:"faceless",also:"Also outreach (applications) and passivity",cat:"Vetted marketplace",plaus:2.5,pass:1,odds12:"12–20%",odds24:"Toptal alone 8–12%",m12:"US$3–7k/mo",first:"Month 3–7",hours:"20–30 h/wk",chk:true,
+ one:"A real-name, ID-verified profile on gated marketplaces that route valuation, modelling, FP&A and pricing-analytics work to vetted experts. Nothing is public beyond the profile.",
+ how:"You pass the screening (Toptal includes a live interview and a test project), then wait to be matched. The client pays the platform, and the platform pays you net of its margin. This is the premium version of the anchor leg in Plan A.",
+ pays:"Mid-market and PE-backed companies, funds, boutique consultancies and fractional-CFO shops renting senior analyst capacity.",
+ math:"Client US$130/h − 25% take = US$97.5/h\nAt 12% Brazil leakage: 117 h/month ≈ 27 h/wk for US$10k net\nTarget gross US$10.64–12.20k depending on leakage 6–18% (CALC)",
+ evidence:"Toptal finance client rates US$150–300+/h (third-party). Catalant ex-consulting starters US$150–200/h with a 20–30% take and net-60 payment. Contra charges 0% commission. Malt takes 10% but doesn't list Brazil. Toptal says it accepts under 3% of applicants. Toptal cites a Glassdoor average of US$100,150 a year for US finance experts, about US$8.3k a month gross, below the ≈US$12.8k gross needed (CALC). Skeptic: moderate, 2.5/5; 9–15 months for the minority who get there.",
+ start:["Apply to Toptal Finance (free)","Create Catalant and Braintrust profiles","Prepare three public sample models as proof (DCF with football field, SaaS 3-statement, LBO)"],
+ kill:"No match or interview by month 4 → treat as a lottery ticket and keep the hours on Plan A's Upwork and Contra route.",
+ risks:"Acceptance under 3%. Matching can take months. Engagements can end at 2–4 weeks' notice. Catalant reviewers report slow payment and a 12-month non-circumvention clause.",
+ br:"Toptal pays USD by wire or its Pay Portal (one source reports a US$1,000 minimum and US$25–50 wire costs, UNVERIFIED). Brazilian accounting firms publish Toptal tax guides, which suggests Brazil-based talent exists.",
+ conflict:"A pricing engagement for a Deneffe client's competitor risks the NDA or non-compete.",
+ links:[["Toptal Finance","https://www.toptal.com/finance/freelance","retrieved"],["Toptal apply","https://www.toptal.com/talent/apply","recalled"],["Catalant","https://gocatalant.com","recalled"],["Braintrust","https://www.usebraintrust.com","recalled"],["Toptal tax in Brazil (PT)","https://www.contabilidadezen.com.br/blog/toptal-como-funciona-tributacao-2026/","retrieved"],["Malt fees","https://help.malt.com/hc/en-150/articles/29539691425938-Fees-at-Malt","retrieved"]]},
+{id:"ai-data",tier:"start",title:"Finance expert work on AI-data platforms (not Mercor)",bent:"passivity",also:"Private ID and recorded-video checks",cat:"AI-data expert",plaus:2,pass:1,odds12:"8–15% alone",odds24:"n/a",m12:"US$1.5–5k/mo supplement",first:"2–6 weeks",hours:"8–14 h/wk as filler",chk:true,
+ one:"Authoring and grading finance, valuation and engineering tasks for AI labs on platforms other than Mercor. This is the fastest cash, and the filler leg of Plan A.",
+ how:"Sign up, pass unpaid assessments, then take assigned projects paid hourly or per task. Run 2–3 platforms at once to smooth the gaps between projects.",
+ pays:"AI labs, through the platform.",
+ math:"Net per hour = rate × 0.87 (13% friction, ASSUMPTION)\nUS$110/h → 104 h/month (24 h/wk)\nUS$75/h → 153 h/month (35 h/wk)\nUS$50/h → 230 h/month: not feasible (CALC)",
+ evidence:"micro1 IB Expert US$30–65/h; Outlier finance US$30–40/h; Handshake AI US$75–110/h but US-focused; Alignerr US$15–60/h; DataAnnotation US$25–50/h (vendor boards, SECONDARY). Average active Mercor contractor ≈ US$1.5–4k a month (CALC from company payout claims). Skeptic: weak alone, 2/5.",
+ start:["Read each platform's supported-countries and payout page and drop those that exclude Brazil","Confirm that the Mercor agreement allows outside AI-data work","Take the assessments for finance and engineering expert tracks"],
+ kill:"No paid project within 6 weeks on any platform → stop taking assessments.",
+ risks:"Pool risk: Mercor has about 30,000 weekly-active of 100,000+ connected contractors. Projects pause or end without appeal. Rates sit below what US$10k needs.",
+ br:"Only Mercor (via Wise) is confirmed for Brazil. All others are UNVERIFIED.",
+ conflict:"These hours compete with Mercor capacity, and lab-confidentiality clauses may apply.",
+ links:[["Alignerr","https://www.alignerr.com/","recalled"],["micro1","https://www.micro1.ai/","recalled"],["Handshake AI","https://joinhandshake.com/","recalled"],["Outlier","https://outlier.ai/","recalled"],["Mercor Brazil finance listing (reference rate)","https://work.mercor.com/jobs/list_AAABntv-wlOj2fXi7_hA8YAU/portuguese-brazilian-finance-professional","retrieved"]]},
+{id:"pj-role",tier:"start",title:"Senior pricing or GTM-finance PJ contract with a US SaaS or AI company",bent:"passivity",also:"Live video interviews (a face cost)",cat:"Contract role",plaus:2.5,pass:1,odds12:"25–35% chance of a qualifying offer (ASSUMPTION)",odds24:"n/a",m12:"US$7–10k/mo if hired",first:"8–16 weeks",hours:"40 h/wk",chk:false,
+ one:"A full-time contractor role, paid in USD through Deel or Remote, at US$11.5k gross a month or more.",
+ how:"Apply to posted senior pricing, monetization or GTM-finance roles that hire in LatAm. Only lead or manager level reaches the target. Analyst roles pay about US$2.5–6k a month (ASSUMPTION).",
+ pays:"Series B+ SaaS and AI companies, PE-backed software firms.",
+ math:"US$11,500 gross × 0.87 ≈ US$10,005 net\nUS$8k gross → ≈ US$6,960 net (fails)\nUS$9.5k gross → ≈ US$8,265 net (CALC)",
+ evidence:"Brazil-resident pay bands: NONE FOUND (the search budget ran out). Researcher-only, UNVERIFIED. Capped at 2.5.",
+ start:["Search Wellfound, Himalayas and We Work Remotely for pricing, monetization and GTM-finance roles open to LatAm","Ask for contractor (PJ) terms or a higher USD figure"],
+ kill:"Treat as parallel applications. Stop if nothing reaches a final round by month 4.",
+ risks:"This route is the most likely to fail the additional-income test. It is a full-time role on US Eastern hours, and exclusivity clauses could end Deneffe work.",
+ br:"Invoice from a CNPJ via Deel or Remote into Wise. CLT/EOR adds payroll taxes.",
+ conflict:"Highest of all routes: a pricing role sits in Deneffe's field.",
+ links:[["Wellfound jobs","https://wellfound.com/jobs","recalled"],["Himalayas jobs","https://himalayas.app/jobs","recalled"],["We Work Remotely","https://weworkremotely.com/","recalled"],["Deel","https://www.deel.com/","recalled"]]},
+
+{id:"fixed-fee",tier:"build",title:"Fixed-fee finance deliverables under a studio brand",bent:"none",also:"Upwork requires a face photo and ID",cat:"Productized service",plaus:2,pass:1.5,odds12:"5–10% (one month at US$10k)",odds24:"20–25%",m12:"US$1–4k/mo",first:"6–14 weeks",hours:"15–37 h/wk",chk:true,
+ one:"Investor-ready 3-statement model with valuation and dilution, a sell-side pack (teaser, CIM-lite, normalised financials) and model reviews, sold as fixed-scope listings with no calls.",
+ how:"List 3 SKUs on Upwork Project Catalog, Fiverr and Contra. Launch at US$300–900 to get reviews, then climb the price ladder. Subcontract only after repeat orders.",
+ pays:"Seed-funded founders, search funds, business brokers and lower-mid-market advisers.",
+ math:"Services case: 9 projects × US$1,365 avg × 0.85 = US$10,442; 9 × 15 h × 1.2 = 162 h (37 h/wk)\nBase case month 12: 4 projects × US$1,100 → US$3,740 net (CALC)",
+ evidence:"Upwork's price guide: DCF or valuation model US$3–6k, M&A or LBO model US$5–10k+. Most posted modelling jobs pay US$100–800, and Fiverr startup models run US$35–350. Contra lists an investor-ready model from US$1,500–2,000. The US and broad skeptics rated this weak (2/5).",
+ start:["Build 3 public sample models from synthetic or public data","Publish 3 listings at launch prices","Write a one-page methodology note as proof of expertise"],
+ kill:"Fewer than 3 inquiries in the first 8 weeks live, or fewer than 3 paid orders and 2 reviews by day 90 → stop adding hours.",
+ risks:"Starting with zero reviews. AI-built models set a low price anchor. Buyers must send confidential financials to an unnamed vendor.",
+ br:"Upwork BRL payout (retrieved). Fiverr to Brazil not confirmed on a primary page. In the US, credentialed preparers must sign valuation conclusions, so supply models, not signed opinions.",
+ conflict:"Low for valuation and modelling. Keep any pricing or unit-economics tab generic.",
+ links:[["Upwork financial-modeling jobs","https://www.upwork.com/freelance-jobs/financial-modeling/","retrieved"],["Contra example listing","https://contra.com/s/6FL2obk2-investor-ready-financial-model","retrieved"],["Deal Memo pricing (competitor)","https://dealmemo.com/pricing","retrieved"]]},
+{id:"linkedin-pricing",tier:"build",title:"Named pricing practice: Diagnostic (≈US$3k) and Sprint (≈US$8k)",bent:"faceless",also:"Real name on text-only LinkedIn; inbound scoping calls",cat:"Productized service",plaus:2,pass:1,odds12:"5–8%",odds24:"18–25%",m12:"US$0–3k/mo",first:"4–9 months",hours:"≈20 h/wk",chk:true,
+ one:"Written, fixed-fee pricing work sold to post-revenue B2B SaaS and AI companies through your own text posts and inbound calls. This is the second leg of Plan B.",
+ how:"Write 2–3 text posts a week on public pricing teardowns and take inbound scoping calls only. One diagnostic plus about half a sprint a month gets to roughly US$6.2k net.",
+ pays:"Founders, CFOs and heads of product or growth at seed to Series C companies.",
+ math:"1 diagnostic US$3,000 + 0.55 sprint US$4,400 = US$7,400 gross × 0.97 × 0.87 ≈ US$6,245 net (CALC)",
+ evidence:"Vendor price anchors only: entry offers US$1,500–5,000, core US$5,000–25,000. Earnings and time-to-first-client for named solo pricing consultants: NONE FOUND. Skeptic: moderate, 2/5, 24–30 months median.",
+ start:["Ask Deneffe in writing for consent or a carve-out first","Publish teardowns of public pricing pages, never client work"],
+ kill:"No paid inbound by month 9 → stop.",
+ risks:"The audience starts at zero, buyers have free AI audits, and income is lumpy.",
+ br:"Direct B2B invoices from a CNPJ, paid by Stripe or Wise.",
+ conflict:"HIGH. This is Deneffe's exact segment (usage-based pricing for B2B AI/SaaS). Don't launch without written consent.",
+ links:[["Price anchors (vendor)","https://echai.ventures/startingup/from/consulting-success","retrieved"],["Offer ladder example","https://www.upgrow.io/fractional-cfo-client-acquisition-digital-marketing/","retrieved"]]},
+{id:"templates",tier:"build",title:"Finance, valuation and pricing template library",bent:"speed",also:"Faceless storefront kept",cat:"Product catalog",plaus:2,pass:3,odds12:"<5%",odds24:"2–3% (US$10k)",m12:"US$0.1–0.8k/mo",first:"4–12 weeks",hours:"6–10 h/wk",chk:true,
+ one:"Original Excel and Google Sheets models (DCF with football field, LBO, M&A, SaaS 3-statement, pricing and value-metric tools) sold on eFinancialModels, Etsy and Payhip. Its real job is proof and lead generation for the service routes.",
+ how:"Ship 10–15 SKUs, measure sales per SKU for 60–90 days, then expand only what sells. A US$149–299 valuation-range pack doubles as a tripwire into custom work.",
+ pays:"Founders, finance students, small-business owners, analysts and consultants.",
+ math:"≈130 sales/month on a mixed ladder ≈ US$10.2k platform-net\n≈455–460 sales/month after refunds and tax at the 252-SKU skeptic case (CALC)",
+ evidence:"Prices: SaaS models US$10–49, e-commerce 3-statement US$79, Startup Virtue US$149, eFinancialModels bundle US$289. Pretty Arrow made ≈US$10.4k gross a month after 29k sales and two years, using email and Facebook ads. Gumroad 2020: 0.39% of creators made US$100k. Skeptic: weak, 2/5, 36–54 months if ever.",
+ start:["Confirm Etsy Payments supports a Brazilian seller (go/no-go)","Build 5 models from your MBA and MFin toolkit, all original","Submit 2 to eFinancialModels (vendor keeps 70%)"],
+ kill:"Under 0.5 sales per SKU per month at day 90 → stop adding SKUs.",
+ risks:"Free and AI-generated templates set the price anchor. Etsy ranking is a black box. Payout to Brazil is UNVERIFIED for Gumroad and Lemon Squeezy.",
+ br:"Etsy pays via Payoneer to a Brazilian bank. eFinancialModels pays via PayPal or Wise. Leave MEI once sales pass about R$6,750 a month.",
+ conflict:"Never reuse Mercor tasks or Deneffe frameworks. No coursework, Harvard cases or CFA Institute material, and no CFA mark in product names.",
+ links:[["eFinancialModels vendor registration","https://www.efinancialmodels.com/vendor-registration/","retrieved"],["Etsy payouts via Payoneer","https://help.etsy.com/hc/articles/16999319005207","retrieved"],["Pretty Arrow case","https://www.starterstory.com/stories/pretty-arrow","retrieved"]]},
+{id:"itineraries",tier:"build",title:"Travel itinerary and route-playbook shop",bent:"speed",also:"Faceless kept",cat:"Product catalog",plaus:1.5,pass:4,odds12:"<3%",odds24:"<5%",m12:"US$0–0.5k/mo",first:"2–6 weeks",hours:"≤6 h/wk",chk:true,
+ one:"Your hour-by-hour trip plans (Aruba, Quintana Roo, the multi-country Europe master route) sold as downloads, with an optional async custom edition at US$149–299.",
+ how:"Repack each plan in about 6 hours, remove personal names and bookings, and list on Etsy and Payhip with Pinterest pins. The Europe route-optimisation playbook (US$39–79) is the strongest item.",
+ pays:"Couples, honeymooners and families planning anniversary, honeymoon and multi-country trips.",
+ math:"US$12 item nets ≈ US$10.41 on Etsy → ≈ 961 sales/month for US$10k\nUS$15 average with ads → ≈ 1,180 orders/month (CALC)",
+ evidence:"Itinerary earnings: NONE FOUND. The best tracked Gumroad travel item made about US$720 lifetime. Only 24 of 2,291 tracked Gumroad products show sales counts. Free AI itineraries are the main substitute.",
+ start:["Ship 3 itineraries plus the Europe master route as the test set","Strip all personal data from the source plans"],
+ kill:"Fewer than 5 sales in 90 days → stop.",
+ risks:"No demand data, volatile Pinterest and Etsy rankings, and seasonality.",
+ br:"Etsy via Payoneer. Portuguese editions on Hotmart or Kiwify earn BRL, which misses the USD goal.",
+ conflict:"None, once personal data is removed.",
+ links:[["Etsy sell","https://www.etsy.com/sell","recalled"],["Travel-guide selling data","https://www.inkfluenceai.com/how-to-sell-travel-guides","retrieved"],["Etsy seller income 2026","https://www.listifyai.net/blog/how-much-do-etsy-sellers-make-2026","retrieved"]]},
+
+{id:"grant-teardown",tier:"test",title:"Async pricing and financial-plan teardown for grant applicants and SaaS founders",bent:"none",also:"Marketplace profile",cat:"Productized service",plaus:2,pass:1,odds12:"3–8% (niche alone)",odds24:"n/a",m12:"US$1–4k/mo",first:"4–10 weeks",hours:"10–25 h/wk",chk:true,
+ one:"A written review of an EIC, Eurostars or SaaS pricing section, revenue model and financial plan, sold on Fiverr and Upwork at an intro price of US$400–600.",
+ how:"Position it as finance-grade consistency checking (revenue model, willingness-to-pay evidence, financials), not grant writing. Use a free calculator and a public teardown as proof.",
+ pays:"Founders preparing EIC, Eurostars or national bids, and post-revenue SaaS founders.",
+ math:"Teardown-only revenue can't reach US$10k inside 40 h at evidenced prices. Hourly ceiling: 30 h × US$75 × 4.33 ≈ US$9.7k before fees (CALC).",
+ evidence:"EIC October 2025: 923 full applications, 61 funded (6.6%). The EIC offers 3 days of free coaching and calls the need for a consultant \"manifestly untrue\". Fiverr EIC plans start at about US$400. Upwork grant writers charge US$35, 60 or 125 per hour. Skeptic: weak, 2/5.",
+ start:["Publish one listing at US$400–600","Build one free willingness-to-pay calculator as proof"],
+ kill:"No order within 8 weeks live → stop.",
+ risks:"A tiny buyer pool, free official help and no track record.",
+ br:"Upwork BRL payout. Fiverr not confirmed for Brazil.",
+ conflict:"Pricing-led offers overlap Deneffe. Lead with finance consistency.",
+ links:[["EIC Accelerator 2025 cut-off","https://eic.ec.europa.eu/news/strong-interest-eic-accelerator-funding-923-companies-applying-final-2025-cut-2025-10-17_en","retrieved"],["EIC Board on consultants","https://eic.ec.europa.eu/news/eic-board-observations-use-consultants-eic-applications-2025-02-28_en","retrieved"],["Upwork grant-writer rates","https://www.upwork.com/hire/grant-writers/cost/","retrieved"]]},
+{id:"ai-pricing-sprint",tier:"test",title:"AI-monetisation sprint for AI-native B2B vendors",bent:"outreach",also:"Up to 10 personalised messages a day; real name in emails",cat:"Productized service",plaus:2.5,pass:1.5,odds12:"20–25% (proposer, UNVERIFIED)",odds24:"n/a",m12:"US$2–6k/mo",first:"2–4 months",hours:"≈28 h/wk",chk:false,
+ one:"A fixed-fee usage-based and outcome-based pricing design plus an AI-ROI business case (≈US$4,500), converting into retainers. This is the highest-value skill gap in the AI transition.",
+ how:"Send up to 10 personalised messages a day to Series A–C AI vendors with a public teardown attached. That gives about 1–3 meetings a month at reply rates of 2–3.4%.",
+ pays:"Finance, product or revenue leaders at AI-native B2B vendors.",
+ math:"1.5 sprints × US$4,365 + 2 retainers × US$2,000 ≈ US$10,548 net of fees (CALC)",
+ evidence:"Vendor-biased rate guides: solo AI consultants US$150–350/h, retainers US$2–10k. Not skeptic-checked.",
+ start:["Get written Deneffe consent first: without it, don't start"],
+ kill:"No meeting from 200 sends → stop.",
+ risks:"Deneffe conflict is the highest-severity risk. Free AI audits compete.",
+ br:"Direct B2B invoicing from a CNPJ.",
+ conflict:"HIGH: Deneffe's core segment.",
+ links:[["Freelance AI consultant rates","https://ruul.io/blog/freelance-ai-consultant-rates","retrieved"]]},
+{id:"ad-desk",tier:"test",title:"Ad-fed model and valuation desk with a Brazilian analyst bench",bent:"capital",also:"US$1.5–1.8k at risk",cat:"Productized service",plaus:2,pass:2,odds12:"<5%",odds24:"10–15%",m12:"US$1–3k/mo",first:"1–2 months",hours:"25–35 h/wk",chk:true,
+ one:"Search ads drive founders to a fixed-price model-and-valuation pack (≈US$1,900). Analysts are paid per task only after the client's deposit, with an upsell to model-upkeep retainers.",
+ how:"Spend US$1,000 on ads, US$500 on samples and US$300 on the site over 3 months. Contractors are paid per task from client deposits.",
+ pays:"Pre-seed and seed founders, search funds and small advisers.",
+ math:"Proposer steady state: US$30.6k revenue → US$10.6k net\nSkeptic after ad taxes, IOF and realistic Simples: below US$10k; 24–36 months or never (CALC)",
+ evidence:"ROAS and customer-acquisition cost for finance templates and models: NONE FOUND. Skeptic: weak, 2/5.",
+ start:["Run a US$300 test only after organic listings show conversion"],
+ kill:"Cost per sale above first-order contribution after US$1,000 → stop.",
+ risks:"Capital buys visibility, not credibility. New Brazilian ad accounts may be restricted.",
+ br:"Stripe Brazil needs a BRL account under CPF or CNPJ. Wise Business for USD receipts.",
+ conflict:"Avoid pricing-led packs.",
+ links:[["Google Ads","https://ads.google.com/","recalled"]]},
+{id:"expert-calls",tier:"test",title:"Expert-network calls",bent:"faceless",also:"Real name and employment history",cat:"Expert network",plaus:1,pass:1,odds12:"≈0% as main income",odds24:"n/a",m12:"US$0–1.5k/mo",first:"1–3 months",hours:"2–6 h/wk",chk:true,
+ one:"Paid one-hour calls through GLG, AlphaSights, Guidepoint, Third Bridge or Arbolus. Registering is free, so treat it as a lottery ticket.",
+ how:"Register, then accept calls when matched.",
+ pays:"Consultancies, funds and corporates.",
+ math:"US$10k would need 25–50 paid calls a month; the typical expert gets 2–8 (CALC)",
+ evidence:"Woozle survey (n=1,368): 65% of experts earn under US$400 per call, most commonly US$100–199.",
+ start:["Register on 2–3 networks"],
+ kill:"None needed: it's free.",
+ risks:"Compliance: no confidential client information.",
+ br:"Payout rails vary; Brazil support is NONE FOUND for most.",
+ conflict:"Decline any call that touches Deneffe or Mercor clients.",
+ links:[["Expert pay survey","https://www.newsfilecorp.com/release/276948/31-of-Expert-Network-Calls-Include-Experts-Who-Say-They-Werent-Fully-Qualified-Landmark-Woozle-Research-Study-Finds","retrieved"],["Arbolus expert pay","https://arbolus.com/resources/how-much-do-expert-networks-pay","retrieved"]]},
+
+{id:"whitelabel",tier:"long",title:"White-label back office for brokers, CPA advisory and fractional CFOs",bent:"outreach",also:"Named emails; security questionnaires",cat:"White-label",plaus:2,pass:2,odds12:"≈2%",odds24:"5–8%",m12:"US$0–2k/mo",first:"2–8 months",hours:"15–30 h/wk",chk:true,
+ one:"CIMs, teasers, normalised financials and recurring FP&A or KPI packs delivered under the client firm's brand.",
+ how:"List to a bounded set of brokers and CPA firms; trial packs lead to retainers.",
+ pays:"Business brokers, CPA firms with advisory practices, fractional-CFO shops.",
+ math:"16 accounts × US$1,000 → ≈ US$9.46k net after fees, tax, bench and acquisition (skeptic CALC)",
+ evidence:"White-label price cards: NONE FOUND. Skeptic: weak, 2/5, 36–60+ months.",
+ start:[],kill:"",risks:"Partners want named contacts. Offshore BPOs already sell at low prices.",br:"Direct invoicing from a CNPJ.",conflict:"Low for Deneffe.",
+ links:[["Brokers on outsourcing CIMs","https://searchfunder.com/post/business-brokers-how-do-you-make-your-cims-and-materials","retrieved"],["Competitor white-label offer","https://www.meruaccounting.com/what-we-do/white-label-accounting-solutions/","retrieved"]]},
+{id:"apps",tier:"long",title:"Shopify or Atlassian finance app",bent:"speed",also:"Build time",cat:"Software",plaus:2,pass:2,odds12:"<5%",odds24:"n/a",m12:"US$0–0.5k/mo",first:"8–24 weeks",hours:"20–30 h/wk early",chk:true,
+ one:"A margin, landed-cost or budget-versus-actual app sold in an app store that has built-in search traffic.",
+ how:"Ship an MVP and earn reviews. Revenue is recurring per merchant or per site.",
+ pays:"Shopify merchants; Jira and Confluence teams.",
+ math:"Shopify: ≈515 merchants at US$20 or ≈103 at US$100. Atlassian: 400 sites at US$25 (CALC)",
+ evidence:"Indie SaaS: 6.1% of revenue-reporting bootstrapped startups reach US$10k MRR (upper bound; median ≈ US$145).",
+ start:[],kill:"",risks:"Review-driven ranking. Brazil payout and withholding are unconfirmed.",br:"Get Atlassian's answer on Brazil EFT and withholding in writing.",conflict:"Low.",
+ links:[["Shopify revenue share","https://shopify.dev/docs/apps/launch/distribution/revenue-share","retrieved"],["Atlassian payments FAQ","https://developer.atlassian.com/market/faqs/pricing-payment-billing","retrieved"],["Indie SaaS revenue data","https://bigideasdb.com/state-of-indie-saas-revenue-2026","retrieved"]]},
+{id:"data",tier:"long",title:"Data products: Brazil power-market and CADE deal trackers, SEC valuation datasets",bent:"speed",also:"Faceless kept",cat:"Data product",plaus:1.5,pass:2.5,odds12:"<3%",odds24:"n/a",m12:"US$0–0.3k/mo",first:"10–24 weeks",hours:"10–20 h/wk",chk:true,
+ one:"Curated subscriptions or datasets built from public Brazilian and US filings.",
+ how:"Validate data depth, then sell subscriptions or one-off datasets.",
+ pays:"Foreign investors, consultancies, energy traders.",
+ math:"≈160 accounts (power) or 70–75 customers at ≈US$1,890 ACV (deal tracker); ≈105 dataset sales at US$110 (CALC)",
+ evidence:"Free official dashboards compete. Buyer pool is thin.",
+ start:[],kill:"",risks:"Trust in an anonymous vendor. CVM Resolution 20 exposure if it reads as securities research.",br:"Payout rails unconfirmed.",conflict:"Low.",
+ links:[["ONS open data","https://dados.ons.org.br/","recalled"],["CADE","https://www.gov.br/cade/pt-br","recalled"]]},
+{id:"seo",tier:"long",title:"SEO and affiliate hubs, free finance tools",bent:"speed",also:"Faceless kept",cat:"Content and SEO",plaus:1.5,pass:3,odds12:"≈0%",odds24:"<10%",m12:"US$0–0.1k/mo",first:"20–52 weeks",hours:"15–25 h/wk",chk:true,
+ one:"A B2B finance-software comparison hub, a Portuguese and Spanish \"receive dollars\" hub, or free calculators monetised with ads and affiliates.",
+ how:"Publish pages, rank, then earn commissions or ad revenue.",
+ pays:"Affiliate programmes and ad networks.",
+ math:"32–127k high-intent visits a month, or 250–500k sessions at an assumed RPM of US$20–40 (CALC)",
+ evidence:"Google core updates and AI Overviews erode traffic to calculators.",
+ start:[],kill:"",risks:"Heavy-tailed outcomes; most sites fail.",br:"Impact and PartnerStack payouts to Brazil UNVERIFIED.",conflict:"None.",
+ links:[["Time to rank","https://ahrefs.com/blog/how-long-does-it-take-to-rank/","retrieved"]]},
+{id:"brokerage",tier:"long",title:"Sourcing agent and commission brokerage",bent:"outreach",also:"Two-sided outreach, factory visits, BRL",cat:"Brokerage",plaus:1.5,pass:1,odds12:"5–8%",odds24:"n/a",m12:"US$0–2k/mo",first:"4–9 months",hours:"30–38 h/wk",chk:false,
+ one:"Covers Chilean blueberries to Asia, sourcing for foreign buyers of Santa Catarina goods, importer services around SC's TTD 409 ICMS incentive, industrial and HVAC representation, and free-energy-market brokerage.",
+ how:"Find buyers and producers, broker an order, and get paid a commission after delivery or payment.",
+ pays:"Foreign buyers (USD) or Brazilian producers (BRL).",
+ math:"7% × US$50,000 order = US$3,500, so ≈3 orders a month for US$10k (ASSUMPTION)",
+ evidence:"Commission rates: NONE FOUND for every brokerage tested. TTD 409 is real: deferred import ICMS plus a presumed credit for an effective 0.6–2.6% (one blog says ≈1.4%). It requires an SC establishment, and ICMS phases down from 2029 to 2032 (secondary).",
+ start:[],kill:"",risks:"Buyers bypass the agent after the first order. Commercial representation law 4.886/65 requires registration. 6–18 month cycles.",br:"Mostly BRL, which misses the USD goal.",conflict:"None.",
+ links:[["TTD 409 guide (PT)","https://www.meucontadoronline.com.br/blog/ttd-409/","retrieved"],["Chilean blueberry exports","https://www.freshplaza.com/asia/article/9872972/chilean-blueberry-exports-rise-2-7-as-new-varieties-gain-share/","retrieved"]]}
+];
+const PLANS=[
+ {id:"A",rec:true,name:"Plan A: hours first",bent:"Passivity (plus applying and private ID checks)",legs:[["hours-stack","Anchor contract",26],["ai-data","AI-data filler",8],["templates","Catalog test (gated)",6]],
+  math:"Anchor 26 h at US$80–85/h ≈ US$7.7–8.2k net, plus filler 8 h at US$75/h ≈ US$1.9k net. Total ≈ US$9.6–10.1k net (CALC). Catalog adds under US$0.8k by month 12.",
+  ramp:[["M1–2","0–1.5k"],["M3–5","3–5k"],["M6–9","6–9k"],["M10–12","8–10k if the anchor lands"]],
+  odds:"15–25% to hold US$10k net for 3 months within 12 months; ≈35% within 24. The likelier outcome is US$4–8k net.",
+  gates:["Month 4: no signed anchor → the plan becomes a US$3–5k filler income","Day 90: under 0.5 catalog sales per SKU per month → stop the catalog"]},
+ {id:"B",rec:false,name:"Plan B: hours bridge plus a named pricing practice",bent:"Passivity and faceless (needs Deneffe consent)",legs:[["vetted","Hourly bridge",12],["linkedin-pricing","Pricing practice: delivery",12],["linkedin-pricing","Text posts",7],["fixed-fee","Admin and proposals",2]],
+  math:"Months 18–24: bridge 12 h × US$85 ≈ US$3.8k net, plus 1 diagnostic and 0.55 sprints ≈ US$6.2k net. Total ≈ US$10.0k (CALC).",
+  ramp:[["M1–4","2–5k (bridge only)"],["M4–9","First inbound calls"],["M12–18","+2–6k from the practice"],["M18–24","≈10k target mix"]],
+  odds:"5–10% by month 12; 15–25% by month 24.",
+  gates:["Written Deneffe consent before any public pricing content","Month 9: no paid inbound → drop the practice and return to Plan A"]},
+ {id:"C",rec:false,name:"Plan C: hours plus a slow catalog",bent:"Passivity and speed",legs:[["hours-stack","Smaller anchor",18],["ai-data","AI-data filler",8],["templates","Template and itinerary catalog",10],["fixed-fee","Admin",4]],
+  math:"Months 30–36: anchor ≈ US$5.0k + filler ≈ US$1.9k + 165 SKUs at 1 sale each ≈ US$3.6k. Total ≈ US$10.6k net (CALC).",
+  ramp:[["M1–6","Hours leg 3–5k"],["M6–9","5–7k"],["M12","Catalog under 0.8k"],["M30","Catalog reaches 165 SKUs"]],
+  odds:"≈10% to reach US$10k net by month 36. The hours leg alone at US$5–7k is the likelier result.",
+  gates:["Day 90 and month 12: catalog under US$1k a month → stop building SKUs"]}
+];
+const GUIDE=[
+ ["You will work 34–40 active hours a week as a second job","Plan A. This is the best odds the research found."],
+ ["You will also put your real name on LinkedIn, and Deneffe consents in writing","Plan B. Slower, but builds an asset."],
+ ["You want some compounding asset and can wait 2–3 years","Plan C."],
+ ["You keep every pillar: faceless, inbound-only, zero capital, passive","Expect US$0–2k a month by month 12. Run only the template and itinerary tests. US$10k under 5%."],
+ ["You can risk US$1.5–2k","The ad-fed desk test, only after organic listings convert. Capital buys visibility, not credibility."],
+ ["You want commission or brokerage deals","Not recommended. They need two-sided outreach and face-to-face selling, mostly pay in BRL, and no commission data was found."]
+];
+const WEEKS=[
+ ["Days 1–3: clear the blockers",["Read the Deneffe and Mercor agreements and any employment contract: moonlighting, exclusivity, IP, non-compete, non-solicit","Confirm which 40 hours are actually free of your US-Eastern-hours work","Ask Deneffe in writing for consent or a carve-out before any pricing offer","Book one hour with a contador: ME in Simples, CNAE, Anexo III or V and Fator R, export NFS-e, IOF, Lei 15.270/2025"]],
+ ["Week 1: plumbing and proof",["Open Wise Business or Payoneer; sign W-8BEN","Check Brazil eligibility and payout on Alignerr, micro1, Handshake AI, DataAnnotation, Outlier, Toptal, Catalant and Etsy Payments","Build three sanitised samples from public or synthetic data: DCF with football field, SaaS 3-statement with unit economics, LBO"]],
+ ["Weeks 2–3: apply",["Take the AI-data platform assessments","Apply to Toptal Finance; open Contra and Catalant profiles","Build an ID-verified Upwork profile; 5 proposals a day to payment-verified clients at US$60/h or more","Register on 2–3 expert networks (free)"]],
+ ["Week 4: test and gate",["Only if Etsy payout to Brazil is confirmed, ship 10–15 catalog SKUs at no more than 6 h/week","Log hours, rates, replies and wins weekly","Day-30 gate: contracts read; at least 2 platforms active or at least 3 interviews"]]
+];
+const BR=[
+ ["Company type","MEI can't be used for consulting, and its cap of about R$81k a year would be exceeded in under 2 months. Use an ME or SLU in Simples Nacional: Anexo III if payroll is at least 28% of revenue (Fator R), otherwise Anexo V from 15.5%.","secondary"],
+ ["Export-of-services tax","PIS/COFINS are exempt with a foreign-currency inflow. ISS doesn't apply when the result is used abroad (municipality-dependent). IRPJ and CSLL still apply.","secondary"],
+ ["IOF on receipts","0% on FX receipts for service exports. 0.38% if funds are kept abroad and brought in later. One 2026 blog says 0.38%, so confirm with your bank.","unverified"],
+ ["Income as an individual (PF)","Carnê-leão runs up to 27.5% marginal, which makes AI-data filler income worth about 73% of gross.","secondary"],
+ ["Lei 15.270/2025 and minimum tax","Possible extra tax near R$50k/month in dividends and a R$600k minimum tax. Effects UNVERIFIED; get a written contador opinion.","unverified"],
+ ["Gross needed for US$10k net","US$11.6–13.6k gross, depending on annex, FX and payout costs (CALC).","sourced"],
+ ["Upwork payout","Direct to a Brazilian bank in BRL, US$0.99 per withdrawal; the account name must match.","sourced"],
+ ["Mercor payout","Brazil supported via Wise.","sourced"],
+ ["Etsy payout","Via Payoneer to a Brazilian bank (about 1% receive plus 1.4% withdrawal, plus Etsy FX of 2.5%).","secondary"],
+ ["Gumroad, Lemon Squeezy, Polar","Payout to Brazil not confirmed; Gumroad doesn't pay via Wise or Payoneer. PayPal is the fallback, at about a 3.5% FX spread.","unverified"],
+ ["US paperwork","W-8BEN or W-8BEN-E. Services performed in Brazil are generally foreign-source with no US withholding, per one blog. Brazil and the US have no income-tax treaty.","unverified"],
+ ["Regulated activities","CVM Resolution 20: don't publish research on specific securities. In the US, sell valuation models, not signed valuation opinions. Commercial representation requires registration under Law 4.886/65.","secondary"]
+];
+const REJ=[
+ ["Paid newsletter under your name","Median creator earns ≈US$4k a year; US$10k needs ≈550 paid and 10,000+ free subscribers."],
+ ["Hotmart or Kiwify courses and planilhas in Portuguese","BRL revenue misses the USD goal. FGV found full-time Hotmart producers average ≈R$11,959 a month (≈US$2.3k)."],
+ ["KDP ebooks","30% US withholding with no treaty, thin unit economics, no finance-book earnings found."],
+ ["PT-BR expert-capacity vendor","Needs sales calls, SOC 2-style security and a US$26–40k working-capital float."],
+ ["Independent equity research (Smartkarma-style)","CVM Resolution 20 accreditation required; earnings NONE FOUND."],
+ ["Notion, Canva, slide, prompt and agent-skill packs","Commodity pricing; no earnings found."],
+ ["Paid MCP servers, RapidAPI-style Brazil data APIs","Weakest evidence, free substitutes, PayPal-only payouts on RapidAPI."],
+ ["Chrome extensions, WordPress plugins","≈1,200 subscribers or 135k installs needed (CALC)."],
+ ["Amazon Associates review sites","≈208k visits a month needed; Amazon.com.br pays BRL."],
+ ["M&A seller-lead site, build-to-flip sites, US permit datasets","Unproven buyer demand, lumpy returns, privacy-law exposure."],
+ ["Pseudonymous Brazil macro or credit newsletter","CVM Resolution 20 exposure; ≈550 subscribers at US$250 needed."],
+ ["PT-BR dubbing and subtitling studio","Needs ≈770 finished minutes a month at US$25/min; rates compress toward US$12/min."],
+ ["Influencer, guru, MLM, forex or crypto signals, dropshipping, trading robots","Excluded by your own rules."]
+];
+const BASE=[
+ "Upwork Q2 2026: gross services volume US$966.4M (−4%), active clients −4%, workforce cut ≈24%. Fiverr Q2 2026: revenue −10%, active buyers −21.9%.",
+ "Upwork financial modelers: median US$25–65/h. Fiverr modelling gigs from US$30–125.",
+ "Fiverr seller income: mean ≈US$104 a month, median ≈US$60 (one 2026 guide, not Fiverr data).",
+ "Gumroad 2020: median creator ≈US$70 a year; 0.39% of creators made US$100k.",
+ "Etsy: median active shop earns £100–250 a month gross (UK-focused, 2026).",
+ "Indie SaaS: 6.1% of revenue-reporting bootstrapped startups reach US$10k MRR (upper bound; median ≈US$145).",
+ "Mercor: ≈30,000 weekly-active contractors; average ≈US$1.5–4k a month each (CALC from payout claims).",
+ "Expert networks: 65% of experts earn under US$400 per call (vendor survey, n=1,368).",
+ "EIC Accelerator October 2025: 923 full applications, 61 funded (6.6%). Carta Q2 2026: pre-seed instruments −22% year on year."
+];
+const OPENQ=[
+ "What do the Deneffe and Mercor agreements, and any employment contract, allow?",
+ "Which AI-data platforms (Alignerr, micro1, Handshake AI, Outlier, Turing, DataAnnotation) pay Brazil residents, and at what finance rates?",
+ "Does Etsy Payments accept a Brazilian seller or PJ bank account?",
+ "What are Brazil-resident pay bands for senior pricing and FP&A contractor roles at US companies?",
+ "How does Lei 15.270/2025 affect a Simples company billing about R$60k a month?"
+];
+
+const PIL={none:"No pillar bent",passivity:"Bends passivity",outreach:"Bends outreach",faceless:"Bends faceless",capital:"Bends capital",speed:"Bends speed"};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pips=n=>{let h='<span class="pips" aria-label="'+n+' of 5">';for(let i=1;i<=5;i++)h+='<i class="'+(n>=i-0.25?'on':'')+'"></i>';return h+'</span>';};
+const byId=Object.fromEntries(C.map(c=>[c.id,c]));
+function card(c){
+ const list=a=>a&&a.length?'<ul>'+a.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'<p>Not planned.</p>';
+ const f=(t,b,cls)=>b?'<div class="field '+(cls||'')+'"><h4>'+t+'</h4>'+b+'</div>':'';
+ return '<details class="card" data-bent="'+c.bent+'" id="'+c.id+'"><summary><div class="ctitle"><h3>'+esc(c.title)+'</h3><p>'+esc(c.one)+'</p><div class="tags"><span class="tag '+(c.bent==='none'?'none':'bent')+'">'+PIL[c.bent]+'</span><span class="tag">'+esc(c.cat)+'</span>'+(c.chk?'<span class="tag chk">Skeptic-checked</span>':'<span class="tag">Researcher only</span>')+'</div></div>'+
+ '<div class="stats"><div>Fit<b>'+pips(c.plaus)+' '+c.plaus+'</b></div><div>US$10k in 12 mo<b>'+esc(c.odds12)+'</b></div><div>Likely by mo 12<b>'+esc(c.m12)+'</b></div><div>First money<b>'+esc(c.first)+'</b></div><div>Hours<b>'+esc(c.hours)+'</b></div><div>Passivity<b>'+c.pass+' / 5</b></div></div></summary>'+
+ '<div class="cbody">'+f('How it works','<p>'+esc(c.how)+'</p>')+f('Who pays','<p>'+esc(c.pays)+'</p>')+f('What you give up','<p>'+esc(PIL[c.bent]+'. '+c.also)+'</p>')+f('Evidence','<p>'+esc(c.evidence)+'</p>')+
+ f('Arithmetic to US$10k','<div class="math">'+esc(c.math)+'</div>','full')+
+ (c.start&&c.start.length?f('First steps',list(c.start)):'')+(c.kill?f('Kill rule','<p>'+esc(c.kill)+'</p>'):'')+f('Key risks','<p>'+esc(c.risks)+'</p>')+f('Brazil payout and tax','<p>'+esc(c.br)+'</p>')+f('Deneffe and Mercor conflict','<p>'+esc(c.conflict)+'</p>')+
+ f('Entry links and sources','<ul class="links">'+c.links.map(l=>'<li><a href="'+esc(l[1])+'" target="_blank" rel="noopener">'+esc(l[0])+'</a> <small>('+l[2]+')</small></li>').join('')+'</ul>','full')+'</div></details>';
+}
+document.getElementById('tiers').innerHTML=TIERS.map(t=>{const cs=C.filter(c=>c.tier===t.key);return '<div class="tier" data-tier="'+t.key+'"><div class="tierhead"><h3>'+t.label+' <span class="meta">('+cs.length+')</span></h3><p>'+t.why+'</p></div><div class="cards">'+cs.map(card).join('')+'</div></div>';}).join('');
+const COLORS=['var(--accent)','var(--brass)','var(--muted)','var(--line)'];
+document.getElementById('planlist').innerHTML=PLANS.map(p=>{const tot=p.legs.reduce((a,l)=>a+l[2],0);
+ return '<article class="plan'+(p.rec?' rec':'')+'"><span class="badge'+(p.rec?'':' alt')+'">'+(p.rec?'Recommended':'Alternative')+'</span><h3>'+esc(p.name)+'</h3><p class="meta" style="margin:0">Bends: '+esc(p.bent)+'</p>'+
+ '<div class="bar40" aria-label="'+tot+' of 40 hours">'+p.legs.map((l,i)=>'<span style="width:'+(l[2]/40*100)+'%;background:'+COLORS[i%4]+'"></span>').join('')+'</div>'+
+ '<div class="legs">'+p.legs.map(l=>'<div class="leg"><b>'+l[2]+' h</b><span><a href="#'+l[0]+'">'+esc(l[1])+'</a></span></div>').join('')+'<div class="leg"><b>'+tot+' h</b><span class="meta">of 40 h a week</span></div></div>'+
+ '<p style="margin:0;font-size:14px">'+esc(p.math)+'</p><div class="tablewrap"><table><thead><tr><th>Period</th><th>Net US$/month</th></tr></thead><tbody>'+p.ramp.map(r=>'<tr><td>'+r[0]+'</td><td class="num">'+esc(r[1])+'</td></tr>').join('')+'</tbody></table></div>'+
+ '<p style="margin:0;font-size:14px"><strong>Odds:</strong> '+esc(p.odds)+'</p><ul style="margin:0;padding-left:1.2em;font-size:14px">'+p.gates.map(g=>'<li>'+esc(g)+'</li>').join('')+'</ul></article>';}).join('');
+document.getElementById('guide').innerHTML=GUIDE.map(g=>'<div><p>If: '+esc(g[0])+'</p><p>'+esc(g[1])+'</p></div>').join('');
+let saved={};try{saved=JSON.parse(localStorage.getItem('atlas-checks')||'{}')}catch(e){}
+document.getElementById('weeks').innerHTML=WEEKS.map((w,i)=>'<div class="week"><h3>'+esc(w[0])+'</h3><ul>'+w[1].map((a,j)=>{const id='w'+i+'_'+j;return '<li><input type="checkbox" id="'+id+'"'+(saved[id]?' checked':'')+'><label for="'+id+'">'+esc(a)+'</label></li>'}).join('')+'</ul></div>').join('');
+document.getElementById('weeks').addEventListener('change',e=>{if(e.target.type!=='checkbox')return;saved[e.target.id]=e.target.checked;try{localStorage.setItem('atlas-checks',JSON.stringify(saved))}catch(err){}});
+document.getElementById('brtable').innerHTML=BR.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td><span class="status s-'+r[2]+'">'+r[2]+'</span></td></tr>').join('');
+document.getElementById('rejtable').innerHTML=REJ.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td></tr>').join('');
+document.getElementById('baserates').innerHTML=BASE.map(b=>'<li>'+esc(b)+'</li>').join('');
+document.getElementById('openq').innerHTML=OPENQ.map(b=>'<li>'+esc(b)+'</li>').join('');
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));const f=b.dataset.f;
+ document.querySelectorAll('details.card').forEach(d=>{d.hidden=!(f==='all'||d.dataset.bent===f)});
+ document.querySelectorAll('.tier').forEach(t=>{t.hidden=!t.querySelector('details.card:not([hidden])')});}));
+if(location.hash){const el=document.getElementById(location.hash.slice(1));if(el&&el.tagName==='DETAILS')el.open=true;}
+</script>
