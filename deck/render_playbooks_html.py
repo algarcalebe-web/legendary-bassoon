@@ -55,7 +55,7 @@ def pb(p):
 <h4>What runs on autopilot</h4>{auto}
 <div class="grid2"><div><h4>Net revenue scenarios (US$/month)</h4>{sc}</div><div><h4>KPIs</h4>{kpi}<h4>Kill or scale</h4><p>{e(p["kill_scale"])}</p></div></div>
 <div class="grid2"><div><h4>Risks</h4><p>{e(p["risks"])}</p><h4>Brazil notes</h4><p>{e(p["brazil"])}</p></div><div><h4>Real examples</h4><ul>{ex}</ul>{f"<h4>Feeds and is fed by</h4><p>{feeds}</p>" if feeds else ""}</div></div>
-{ver if vi else ('<p class="legend">Skeptic check still running for this playbook.</p>' if p.get("verify_issues") is None else '')}<details class="src"><summary>Sources</summary><ul>{src}</ul></details>
+{ver if vi else ''}<details class="src"><summary>Sources</summary><ul>{src}</ul></details>
 </section>'''
 
 PORT = (f'''<section id="portfolio"><h2>The stack plan</h2><p class="lede">{e(PF["thesis"])}</p>
@@ -101,7 +101,7 @@ th,td{{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vert
 <nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><div class="nh">Playbooks</div>{nav}</nav>
 <main>
 <header><div class="eyebrow">Operating playbooks · October 2026</div><h1>Calebe Revenue Playbooks</h1>
-<p class="lede">{len(P)+len(PEND)} revenue streams you can run at the same time, each with the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling. Every playbook was checked by a skeptic agent; corrections are listed under each one.</p></header>
+<p class="lede">{len(P)+len(PEND)} revenue streams you can run at the same time, each with the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling.</p></header>
 {PORT}
 {"".join(pb(p) for p in P)}
 <p class="legend">Figures labelled SOURCED, CALC or ASSUMPTION as the agents reported them. No income is guaranteed; not tax or legal advice.</p>
