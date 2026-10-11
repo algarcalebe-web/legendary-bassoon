@@ -126,7 +126,7 @@ html{scroll-behavior:smooth}
 </header>
 
 <nav class="bar" aria-label="Sections"><div class="wrap">
-  <a href="#answer">The answer</a><a href="#opportunities">Opportunities</a><a href="#stack">Stack streams</a><a href="#courses">Course library</a><a href="#influencer">Influencer models</a><a href="#plans">Plans</a><a href="#choose">Choose your path</a><a href="#start">First 30 days</a><a href="#brazil">Brazil setup</a><a href="#avoid">Avoid</a><a href="#method">Evidence</a>
+  <a href="#answer">The answer</a><a href="#opportunities">Opportunities</a><a href="#stack">Stack streams</a><a href="#courses">Course library</a><a href="#auto">Automatic ideas</a><a href="#influencer">Influencer models</a><a href="#plans">Plans</a><a href="#choose">Choose your path</a><a href="#start">First 30 days</a><a href="#brazil">Brazil setup</a><a href="#avoid">Avoid</a><a href="#method">Evidence</a>
 </div></nav>
 
 <main class="wrap">
@@ -136,6 +136,7 @@ html{scroll-behavior:smooth}
   <div class="answer">
     <p><strong>No route reaches US$10k a month while staying faceless, inbound-only, zero-capital and passive.</strong> Across 55 skeptic checks, nothing passed with all five pillars intact. No source showed anyone earning US$10k a month that way.</p>
     <p><strong>What does work is bending one pillar: passivity.</strong> If you accept 34–40 active hours a week, an hours stack can reach US$10k. The stack is one anchor client or contract at US$80–85/h plus 2–3 AI-data platforms as filler. Applying to posted jobs and passing private ID or video checks come with it. The likelier result is US$4–8k net by month 12.</p>
+    <p><strong>Commissions and matchmaking are real but ride on traffic you own.</strong> The strongest automatic ideas for you are a travel affiliate layer inside your itineraries, B2B referral bounties (Deel pays US$1,500 per paying customer), and a niche job board connecting employers with LatAm finance talent. See Automatic ideas.</p>
     <p><strong>Combine streams.</strong> No single automatic stream reaches US$10k, but several running together (mini-courses, model templates, a faceless finance YouTube channel, itineraries in three languages, affiliate links, optional 1-1 sessions) can add US$1.5–5k a month by month 24 on top of the hours leg, and keep paying when the hours stop. See Plan D.</p>
     <p><strong>The passive ideas (templates, itineraries, apps, data, SEO) are side assets, not the path to US$10k on their own.</strong> Each needs roughly 130–1,000 sales a month and 24–54 months.</p>
     <div class="kpis">
@@ -214,6 +215,33 @@ html{scroll-behavior:smooth}
       <li>Languages: English, Portuguese and Spanish, translated with AI and checked by you; trip plans the same.</li>
     </ul></div>
   </div>
+</section>
+
+<section id="auto">
+  <h2>Automatic and commission ideas</h2>
+  <p class="sub">An extensive sweep of ideas that pay without you trading hours once they run: commissions, referrals, matchmaking between buyers and sellers, royalties, and automated channels. Commission income is real, but it is paid on traffic or relationships you own. The automation starts after the audience exists. Rates are from programme pages and vendor blogs (SECONDARY) unless marked; check each dashboard before building.</p>
+  <div class="cols2">
+    <div class="box"><h3 style="margin-bottom:10px">Six that fit you best</h3><ol style="margin:0;padding-left:1.2em;display:grid;gap:8px;font-size:14px">
+      <li><strong>Travel affiliate layer inside your itineraries and channel.</strong> GetYourGuide and Viator ≈8% per booked tour, SafetyWing 10% recurring on travel insurance, Booking.com shares part of its commission. Every itinerary you already wrote has 10–30 bookable links.</li>
+      <li><strong>B2B referral bounties inside finance content.</strong> Deel pays US$500 per sales-qualified referral plus US$1,000 per paying customer (official affiliate page). 7 paying customers a month ≈ US$10.5k.</li>
+      <li><strong>Niche job board: connect employers with talent.</strong> Example: remote finance, pricing and FP&amp;A jobs open to LatAm. Employers pay ≈US$99–299 per post. Japan Dev reported ≈US$60k a month; RanchWork ≈US$7.4k (self-reported).</li>
+      <li><strong>Paid directory or marketplace.</strong> Vetted startup consultants, grant writers, or Santa Catarina suppliers for foreign buyers. Listing and featured fees; commission on matches later.</li>
+      <li><strong>Talent and client referral bonuses.</strong> Refer clients or talent to Toptal, Braintrust and similar networks that pay referral bonuses (amounts UNVERIFIED).</li>
+      <li><strong>Brazil deal channels (BRL).</strong> Telegram and WhatsApp promotion channels with Amazon, Shopee and Mercado Livre affiliate links posted by bots. Shopee pays ≈5–14% by category (vendor blog). Paid in BRL.</li>
+    </ol></div>
+    <div class="box"><h3 style="margin-bottom:10px">"Sistema Dólar Automático" and similar courses</h3><ul>
+      <li>What they usually teach: affiliate marketing for foreign offers (ClickBank, Digistore24, BuyGoods), paid in dollars, promoted with Google or YouTube ads to US and European buyers.</li>
+      <li>The model is real. Commissions on those platforms are often 50–75% per sale, so one sale can pay US$50–150.</li>
+      <li>"Automatic" only after you find a campaign where ad cost per sale is below the commission. Until then you pay for ads: plan US$300–1,500 of tests (ASSUMPTION), which bends zero capital.</li>
+      <li>Risks: Google suspends affiliate ad accounts for policy breaches; many offers are supplements and health products with refunds and weak quality; refunds claw back commissions.</li>
+      <li>No Reclame Aqui page for that exact product name came up; related courses ("Vendedor Automático", "Protocolo Venda em Dólar") have complaints about hidden costs and broken guarantees.</li>
+      <li>Verdict: a real but ad-funded gamble, fit 2/5. Better with your own finance or travel offers than with supplements.</li>
+    </ul></div>
+  </div>
+  <div class="filters" role="group" aria-label="Filter ideas" style="margin-top:20px">
+    <span class="lbl">Category</span><span id="autofilters"></span>
+  </div>
+  <div class="tablewrap"><table><thead><tr><th>Idea</th><th>How it pays</th><th>Rate or evidence</th><th>Automatic</th><th>Bends</th><th>Paid in</th><th>Real path</th><th>Fit</th></tr></thead><tbody id="autotable"></tbody></table></div>
 </section>
 
 <section id="influencer">
@@ -323,6 +351,58 @@ const INF=[
  ["Paid newsletter or Beehiiv ad network","Yes, slow","Niche authority and list growth","Substack median ≈US$4k/yr","Speed, faceless","2/5","Paid growth hacks without content"],
  ["Clipping and short-form creator funds","Yes, tiny","Volume of views; pays cents per 1,000","Payouts low; NONE FOUND for sustained income","None","1/5","\"Get paid to post\" apps"],
  ["Forex, crypto signals, copy-trading, betting systems, MLM, trading bots","No","Not a business; mostly the seller earns from you","Excluded by your rules; CVM exposure","n/a","0/5","Guaranteed returns, recruitment, lifestyle proof"],
+];
+const AUTO=[
+ ["Commission and referral","Travel affiliates in itineraries (GetYourGuide, Viator, Booking, SafetyWing, eSIM, car hire)","% of each booking from your links","Tours ≈8%; SafetyWing 10% recurring; Booking shares part of its fee","5/5","Speed","USD/EUR","Yes","5/5"],
+ ["Commission and referral","B2B HR and payroll referrals (Deel, Remote, Oyster)","Bounty per paying customer","Deel US$500 per qualified lead + US$1,000 per customer (official)","4/5","Speed","USD","Yes","4/5"],
+ ["Commission and referral","Fintech referrals (Wise, Payoneer, business banking)","Bounty per active user","Wise referral terms updated Mar 2026; amounts not found","4/5","Speed","USD/GBP","Yes","3/5"],
+ ["Commission and referral","SaaS affiliate links inside templates and courses (HubSpot, Pipedrive, Notion, accounting tools)","Recurring % for 12+ months","HubSpot ≈30% recurring; Pipedrive 20–30% (unverified)","5/5","Speed","USD","Yes","4/5"],
+ ["Commission and referral","Course affiliate for others' products (Hotmart, Kiwify, Udemy)","30–70% of course price","Common Hotmart rates; paid in BRL for Brazilian products","4/5","Speed","BRL/USD","Yes","3/5"],
+ ["Commission and referral","International affiliate offers with paid ads (ClickBank, Digistore24), the 'dólar automático' model","50–75% per sale","Real; needs ad budget; account-ban risk","4/5 once profitable","Capital","USD","Yes, risky","2/5"],
+ ["Commission and referral","Talent referral bonuses (refer engineers or analysts to Toptal, Turing, Braintrust)","Bonus per placed person","Programmes exist; amounts UNVERIFIED","3/5","Outreach","USD","Yes","3/5"],
+ ["Commission and referral","Recruitment finder fees for Brazilian talent placed at US firms","15–25% of first-year salary (agency norm)","Typical agency fee; needs client relationships","2/5","Outreach","USD","Yes","2/5"],
+ ["Commission and referral","Amazon Associates storefront or comparison pages","1–10% by category","Low rates; Amazon.com.br pays BRL","4/5","Speed","USD/BRL","Yes, small","2/5"],
+ ["Commission and referral","Web hosting, VPN and AI-tool affiliates","US$50–200 per sale or recurring %","Crowded SEO niches","5/5","Speed","USD","Yes","2/5"],
+ ["Commission and referral","Shopify, Wix or Webflow partner referrals","Recurring share of plans","Shopify bounties up to US$150 (unverified)","4/5","Speed","USD","Yes","2/5"],
+ ["Commission and referral","Sports-betting and casino affiliates","Revenue share on player losses","Legal in Brazil but earns from users' losses","5/5","None","BRL","Legal, harmful","0/5"],
+ ["Matchmaking","Niche job board (remote finance, pricing, FP&A jobs open to LatAm)","Employers pay per post","US$99–299 per post; Japan Dev ≈US$60k/mo, RanchWork ≈US$7.4k/mo (self-reported)","4/5","Speed","USD","Yes","4/5"],
+ ["Matchmaking","Paid directory of vetted startup consultants or grant writers","Listing and featured fees","Directory pricing advice only; NONE FOUND for earnings","4/5","Speed","EUR/USD","Yes","3/5"],
+ ["Matchmaking","Supplier directory: Santa Catarina manufacturers for foreign buyers","Listing fees from suppliers; later commission","Commission rates NONE FOUND","3/5","Speed, outreach","USD/BRL","Yes","3/5"],
+ ["Matchmaking","Expert matching: founders to vetted consultants","10–20% of engagement","Platform norm; needs both sides","3/5","Outreach","USD","Yes","3/5"],
+ ["Matchmaking","Business-for-sale listings (SMBs, websites)","Listing fees or success fee","Finder-fee rules vary by country","3/5","Outreach","USD","Yes","2/5"],
+ ["Matchmaking","Sourcing agent or commodity brokerage (blueberries, SC goods, TTD 409 importers)","Commission per order","NONE FOUND for rates","1/5","Outreach","USD/BRL","Yes, hard","1/5"],
+ ["Matchmaking","Travel host agency: earn supplier commissions on hotels and tours you book for clients","10–15% supplier commissions (industry norm)","Needs CADASTUR in Brazil; clients needed","2/5","Outreach","USD/BRL","Yes","3/5"],
+ ["Matchmaking","Airbnb co-hosting on the Santa Catarina coast","15–25% of booking revenue","Local cleaner needed; BRL","3/5","Faceless","BRL","Yes","2/5"],
+ ["Travel monetisation","Itineraries and route playbooks in EN/PT/ES","Per download","Best tracked travel item ≈US$720 lifetime","5/5","Speed","USD","Yes, small","3/5"],
+ ["Travel monetisation","Stock photos and video from 50+ countries (Adobe Stock, Shutterstock)","Royalty per download","Cents to ≈US$1 per download (secondary)","5/5","None","USD","Yes, tiny","2/5"],
+ ["Travel monetisation","License itineraries to travel agencies and tour operators (white-label)","Licence fee per itinerary","NONE FOUND","4/5","Outreach","USD/EUR","Yes","3/5"],
+ ["Travel monetisation","Travel map and trip-planning templates (Notion, Sheets)","Per download","Travel templates US$0–45","5/5","Speed","USD","Yes, small","2/5"],
+ ["Digital assets and royalties","Mini-course library (EN/ES/PT)","Per sale; Udemy 37% organic","See Course library section","4/5","Speed","USD","Yes","4/5"],
+ ["Digital assets and royalties","Finance and valuation model templates","Per sale","See Opportunities","4/5","Speed","USD","Yes","3/5"],
+ ["Digital assets and royalties","n8n, Make or Zapier automation templates for finance teams","Per template","Small marketplaces; NONE FOUND for earnings","4/5","Speed","USD","Yes, small","2/5"],
+ ["Digital assets and royalties","Licence your frameworks to bootcamps, universities and accelerators","Annual licence","NONE FOUND","4/5","Outreach","USD/EUR","Yes","3/5"],
+ ["Digital assets and royalties","Datasets for AI training (travel text, finance tasks you own)","Licence fee","Emerging; check Mercor IP terms","4/5","Speed","USD","Uncertain","2/5"],
+ ["Digital assets and royalties","Print on demand (designs)","Royalty per item","Earnings NONE FOUND","5/5","Speed","USD","Yes, small","1/5"],
+ ["Digital assets and royalties","KDP ebooks and low-content books","Royalty","30% US withholding; thin","5/5","Speed","USD","Weak","1/5"],
+ ["Content and media","Faceless finance-education YouTube","Ads + funnel","Finance RPM ≈US$12–25 (modelled)","4/5","Speed","USD","Yes","4/5"],
+ ["Content and media","Newsletter with sponsorships (Beehiiv ad network)","Sponsors per send","Substack median ≈US$4k/yr","4/5","Speed","USD","Yes, slow","2/5"],
+ ["Content and media","Comparison and calculator sites (SEO)","Ads and affiliate","AI Overviews cut traffic","4/5","Speed","USD","Weak","2/5"],
+ ["Content and media","Pinterest travel boards to itinerary pages","Affiliate and sales","No data","4/5","Speed","USD","Yes, small","3/5"],
+ ["Content and media","Short-form clipping programmes","Per 1,000 views","Cents per 1,000","3/5","None","USD","Tiny","1/5"],
+ ["Brazil-market automation (BRL)","Telegram and WhatsApp deal channels with affiliate bots","% of each sale","Shopee ≈5–14% by category (vendor blog)","5/5","Speed","BRL","Yes","3/5"],
+ ["Brazil-market automation (BRL)","Mercado Livre and Shopee affiliate pages","% of each sale","Rates not confirmed","4/5","Speed","BRL","Yes","2/5"],
+ ["Brazil-market automation (BRL)","Portuguese courses and planilhas on Hotmart","Per sale","Full-time producers ≈R$11,959/mo average (FGV)","4/5","Speed","BRL","Yes","3/5"],
+ ["Brazil-market automation (BRL)","Lead generation for solar or HVAC installers (pay per lead)","Per qualified lead","NONE FOUND for rates","4/5","Speed","BRL","Yes","2/5"],
+ ["Arbitrage and capital","Dropshipping and TikTok Shop","Product margin","≈10–20% of stores reach sustained profit","3/5","Capital","USD/BRL","Yes, risky","2/5"],
+ ["Arbitrage and capital","Amazon FBA and online arbitrage","Product margin","Inventory US$3–10k+","3/5","Capital","USD","Yes","1/5"],
+ ["Arbitrage and capital","Buy and grow small websites or apps (Flippa, Acquire)","Profit + resale","Purchase price typically 2–4x annual profit","4/5","Capital","USD","Yes","2/5"],
+ ["Arbitrage and capital","Domain flipping and parking","Resale and parking ads","Low hit rate","4/5","Capital","USD","Weak","1/5"],
+ ["Arbitrage and capital","Rental arbitrage (lease and re-let on Airbnb)","Rent spread","Lease risk; BRL","3/5","Capital","BRL","Yes, risky","1/5"],
+ ["Arbitrage and capital","Dividend and interest income","Yield on capital","Needs capital first; not an income source now","5/5","Capital","Any","Yes","1/5"],
+ ["Avoid","Forex or crypto signals, copy-trading, trading bots","Seller earns from subscribers","Excluded","n/a","n/a","n/a","No","0/5"],
+ ["Avoid","MLM and recruitment-based 'affiliate' schemes","Income from recruiting","Excluded","n/a","n/a","n/a","No","0/5"],
+ ["Avoid","Bandwidth-sharing, survey and 'watch ads' apps","Cents","Not worth the time","5/5","None","USD","Tiny","0/5"],
+ ["Avoid","Matched betting and betting systems sold as income","Bookmaker promotions","Accounts limited quickly","2/5","Capital","BRL","Weak","0/5"],
 ];
 const TIERS=[
  {key:"start",label:"Start now",why:"The only routes with a realistic chance of reaching US$10k within 12 months at 40 h/week. All of them bend passivity: they are paid hours."},
@@ -641,6 +721,11 @@ document.getElementById('planlist').innerHTML=PLANS.map(p=>{const tot=p.legs.red
 document.getElementById('streamtable').innerHTML=STREAMS.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td class="num">'+r[2]+'</td><td class="num">US$'+r[3]+'</td><td class="num">US$'+r[4]+'</td><td class="num">US$'+r[5]+'</td><td>'+esc(r[6])+'</td></tr>').join('')+'<tr><td><strong>Automated layer (first six rows)</strong></td><td></td><td></td><td class="num">US$300</td><td class="num">US$2,700</td><td class="num">US$8,500</td><td></td></tr><tr><td><strong>All streams</strong></td><td></td><td></td><td class="num">US$300</td><td class="num">US$4,000</td><td class="num">US$12,000</td><td></td></tr>';
 document.getElementById('tracks').innerHTML=TRACKS.map(t=>'<div class="box"><h3 style="margin-bottom:10px">'+esc(t[0])+'</h3><ul>'+t[1].map(c=>'<li>'+esc(c)+'</li>').join('')+'</ul></div>').join('');
 document.getElementById('ladder').innerHTML=LADDER.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td class="num">'+esc(r[2])+'</td><td>'+esc(r[3])+'</td></tr>').join('');
+const AUTOCATS=['All',...new Set(AUTO.map(r=>r[0]))];
+document.getElementById('autofilters').innerHTML=AUTOCATS.map((c,i)=>'<button class="chip autochip" data-c="'+esc(c)+'" aria-pressed="'+(i===0)+'">'+esc(c)+'</button>').join(' ');
+function drawAuto(cat){document.getElementById('autotable').innerHTML=AUTO.filter(r=>cat==='All'||r[0]===cat).map(r=>'<tr><td><strong>'+esc(r[1])+'</strong><br><span class="meta">'+esc(r[0])+'</span></td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td><td class="num">'+r[4]+'</td><td>'+esc(r[5])+'</td><td>'+r[6]+'</td><td>'+esc(r[7])+'</td><td class="num">'+r[8]+'</td></tr>').join('');}
+drawAuto('All');
+document.querySelectorAll('.autochip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.autochip').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));drawAuto(b.dataset.c);}));
 document.getElementById('inftable').innerHTML=INF.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td><td>'+esc(r[3])+'</td><td>'+esc(r[4])+'</td><td class="num">'+r[5]+'</td><td>'+esc(r[6])+'</td></tr>').join('');
 document.getElementById('guide').innerHTML=GUIDE.map(g=>'<div><p>If: '+esc(g[0])+'</p><p>'+esc(g[1])+'</p></div>').join('');
 let saved={};try{saved=JSON.parse(localStorage.getItem('atlas-checks')||'{}')}catch(e){}
@@ -650,7 +735,7 @@ document.getElementById('brtable').innerHTML=BR.map(r=>'<tr><td><strong>'+esc(r[
 document.getElementById('rejtable').innerHTML=REJ.map(r=>'<tr><td><strong>'+esc(r[0])+'</strong></td><td>'+esc(r[1])+'</td></tr>').join('');
 document.getElementById('baserates').innerHTML=BASE.map(b=>'<li>'+esc(b)+'</li>').join('');
 document.getElementById('openq').innerHTML=OPENQ.map(b=>'<li>'+esc(b)+'</li>').join('');
-document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));const f=b.dataset.f;
+document.querySelectorAll('.chip:not(.autochip)').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.chip:not(.autochip)').forEach(x=>x.setAttribute('aria-pressed',x===b?'true':'false'));const f=b.dataset.f;
  document.querySelectorAll('details.card').forEach(d=>{d.hidden=!(f==='all'||d.dataset.bent===f)});
  document.querySelectorAll('.tier').forEach(t=>{t.hidden=!t.querySelector('details.card:not([hidden])')});}));
 if(location.hash){const el=document.getElementById(location.hash.slice(1));if(el&&el.tagName==='DETAILS')el.open=true;}

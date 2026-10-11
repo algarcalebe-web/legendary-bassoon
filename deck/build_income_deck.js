@@ -8,7 +8,7 @@ const { applyTheme } = require("/root/.claude/skills/synced/70c9b129-32db-469b-8
 const OUT = process.argv[2] || "Calebe_Income_Atlas.pptx";
 const html = fs.readFileSync(path.join(__dirname, "../research/income_atlas.html"), "utf8");
 const js = html.split("<script>")[1].split("const PIL=")[0];
-const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF};")();
+const D = new Function(js + "; return {TIERS,C,PLANS,GUIDE,WEEKS,BR,REJ,BASE,OPENQ,STREAMS,TRACKS,LADDER,INF,AUTO};")();
 const byId = Object.fromEntries(D.C.map(c => [c.id, c]));
 
 const THEME = {
@@ -376,6 +376,51 @@ slide("SECTION", "Stack automatic streams on one body of work", { kicker: "STACK
   box(s, x2, 1.5, cw, 5.2, C.background2, "scam signals");
   T(s, "Real path or scam", { x: x2 + 0.25, y: 1.7, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.text2 });
   T(s, ["Real: shows costs, failure rates, months to profit. Scam: \"US$10k in 30 days\", revenue screenshots.", "Real: you sell to customers. Scam: the buyers are other students.", "Real: works without the guru's community. Scam: endless inner-circle upsells.", "Avoid: forex or crypto signals, copy-trading, betting systems, MLM, trading bots."].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: x2 + 0.25, y: 2.2, w: cw - 0.5, h: 4.3, fontSize: 13.5, paraSpaceAfter: 8, fit: "shrink" });
+}
+
+{
+  const s = slide("CONTENT", "Fifty automatic and commission ideas, by category");
+  const cats = [...new Set(D.AUTO.map(r => r[0]))];
+  const rows = [[th("Category"), th("Ideas"), th("Best fit for you"), th("Fit"), th("Paid in")]];
+  cats.forEach(c => {
+    const xs = D.AUTO.filter(r => r[0] === c);
+    const best = xs.slice().sort((a, b) => parseFloat(b[8]) - parseFloat(a[8]))[0];
+    rows.push([{ text: c, options: { bold: true } }, String(xs.length), best[1], { text: best[8], options: { bold: true, color: parseFloat(best[8]) >= 4 ? HEX.accent1 : HEX.dk1 } }, best[6]]);
+  });
+  s.addTable(rows, tableOpts({ y: 1.5, colW: [2.9, 0.8, 6.3, 0.8, 1.43], fontSize: 12.5, rowH: 0.5 }));
+  T(s, "Commission income is real, but it is paid on traffic or relationships you own. Automation starts after the audience exists.", { x: M, y: 6.35, w: CW, h: 0.4, fontSize: 13, bold: true, color: C.accent2 });
+  s.addNotes(D.AUTO.map(r => r[0] + " | " + r[1] + " | " + r[2] + " | " + r[3] + " | automatic " + r[4] + " | bends " + r[5] + " | " + r[6] + " | real: " + r[7] + " | fit " + r[8]).join("\n"));
+}
+{
+  const s = slide("CONTENT", "Six automatic ideas that fit you best");
+  const P = [
+    ["Travel affiliate layer", "Links in every itinerary and video: tours ≈8% (GetYourGuide, Viator), SafetyWing 10% recurring, Booking commission share."],
+    ["B2B referral bounties", "Deel pays US$500 per qualified lead + US$1,000 per paying customer. 7 customers a month ≈ US$10.5k."],
+    ["Niche job board", "Remote finance, pricing and FP&A jobs open to LatAm. Employers pay US$99–299 per post; Japan Dev ≈US$60k/mo."],
+    ["Paid directory", "Vetted startup consultants, grant writers or SC suppliers. Listing and featured fees, then match commissions."],
+    ["SaaS affiliates in your products", "HubSpot ≈30% recurring, Pipedrive 20–30% inside templates and courses (unverified)."],
+    ["Brazil deal channels (BRL)", "Telegram and WhatsApp bots posting Shopee, Amazon and Mercado Livre deals: ≈5–14% per sale."],
+  ];
+  const cw = (CW - 0.6) / 3, ch = 2.5;
+  P.forEach((p, i) => {
+    const x = M + (i % 3) * (cw + 0.3), y = 1.5 + Math.floor(i / 3) * (ch + 0.3);
+    box(s, x, y, cw, ch, i < 3 ? C.text2 : C.background2, "auto pick " + (i + 1));
+    const dark = i < 3;
+    T(s, String(i + 1), { x: x + 0.25, y: y + 0.2, w: 0.5, h: 0.5, fontFace: "Cambria", fontSize: 26, bold: true, color: C.accent2 });
+    T(s, p[0], { x: x + 0.8, y: y + 0.25, w: cw - 1.0, h: 0.5, fontSize: 16, bold: true, color: dark ? C.background1 : C.text2, fit: "shrink" });
+    T(s, p[1], { x: x + 0.25, y: y + 0.9, w: cw - 0.5, h: ch - 1.05, fontSize: 13, color: dark ? C.accent6 : C.text1, fit: "shrink" });
+  });
+}
+{
+  const s = slide("CONTENT", "\"Dólar automático\": a real model with a fake timeline");
+  const cw = (CW - 0.3) / 2;
+  box(s, M, 1.5, cw, 5.2, C.background2, "what it is");
+  T(s, "What they teach", { x: M + 0.25, y: 1.7, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.text2 });
+  T(s, ["Affiliate marketing for foreign offers (ClickBank, Digistore24, BuyGoods), paid in dollars.", "Traffic from Google or YouTube ads aimed at US and European buyers.", "Commissions often 50–75% per sale, so one sale can pay US$50–150.", "\"Automatic\" only after a campaign where ad cost per sale is below the commission."].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: M + 0.25, y: 2.2, w: cw - 0.5, h: 4.3, fontSize: 14, paraSpaceAfter: 8, fit: "shrink" });
+  const x2 = M + cw + 0.3;
+  box(s, x2, 1.5, cw, 5.2, C.text2, "risks");
+  T(s, "What they leave out", { x: x2 + 0.25, y: 1.7, w: cw - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.background1 });
+  T(s, ["You pay for ad tests first: plan US$300–1,500 (ASSUMPTION), which bends zero capital.", "Google suspends affiliate ad accounts for policy breaches.", "Many offers are supplements with refunds that claw back commissions.", "Related courses have Reclame Aqui complaints about hidden costs and broken guarantees.", "Verdict: real but ad-funded, fit 2/5. Better with your own finance or travel offers."].map((t, i, a) => ({ text: t, options: { bullet: true, breakLine: i < a.length - 1 } })), { x: x2 + 0.25, y: 2.2, w: cw - 0.5, h: 4.3, fontSize: 14, color: C.background1, paraSpaceAfter: 8, fit: "shrink" });
 }
 
 // ---------- 13. Section: Plans ----------
