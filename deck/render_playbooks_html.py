@@ -76,6 +76,45 @@ def pb(p):
 {ver if vi else ''}<details class="src"><summary>Sources</summary><ul>{src}</ul></details>
 </section>'''
 
+def timeline():
+    import re as _re
+    if not PF: return ""
+    PB = {p["id"]: p for p in P}
+    ph = PF["phases"]; span = []
+    for x in ph:
+        m = _re.findall(r"\d+", x["months"]); span.append((int(m[0]), int(m[1])))
+    core = []
+    for i, x in enumerate(ph):
+        for sid in x["streams"]:
+            if sid not in [c[0] for c in core]: core.append((sid, i))
+    last = {sid: max(i for i, x in enumerate(ph) if sid in x["streams"]) for sid, _ in core}
+    M = span[-1][1]
+    rows = ""
+    for sid, i in core:
+        a, b = span[i][0], span[last[sid]][1]
+        t = PB.get(sid, {}).get("title", sid)
+        rows += f'<div class="gr"><a href="#{e(sid)}" class="gl">{e(sid)}</a><div class="gt"><i style="left:{a/M*100:.1f}%;width:{(b-a)/M*100:.1f}%" title="{e(t)}"></i></div></div>'
+    ticks = "".join(f'<span style="left:{m/M*100:.1f}%">M{m}</span>' for m in [0, 3, 6, 9, 12, 18, 24] if m <= M)
+    gantt = f'<div class="gantt"><div class="gr"><span></span><div class="gx">{ticks}</div></div>{rows}</div>'
+    steps = ""
+    for i, x in enumerate(ph):
+        new = [sid for sid, j in core if j == i]
+        hrs = ", ".join(f'{e(h["id"])} {h["h"]}h' for h in x["hours"])
+        body = ""
+        for sid in new:
+            p = PB.get(sid)
+            if not p: continue
+            li = "".join(f'<li><strong>{e(st.get("when",""))}:</strong> {e(st.get("action",""))}</li>' for st in p.get("build_steps", []))
+            body += f'<details class="stp"><summary><strong>{e(sid)}</strong>: {e(p["title"])} ({len(p.get("build_steps",[]))} steps)</summary><ol>{li}</ol></details>'
+        cont = [sid for sid in x["streams"] if sid not in new]
+        launch = f"<h4>Launch now</h4>{body}" if body else ""
+        keep = f'<p class="legend">Keep running: {e(", ".join(cont))}</p>' if cont else ""
+        steps += f'<div class="ph"><h3>{e(x["name"])} <span class="legend">months {e(x["months"])}</span></h3><p>{e(x["goal"])}</p><p class="legend">Weekly hours: {hrs}</p>{launch}{keep}</div>'
+    gates = "".join(f'<tr><td><a href="#{e(sid)}">{e(sid)}</a></td><td>M{span[i][0]}</td><td>{e(PB[sid]["kill_scale"])}</td></tr>' for sid, i in core if sid in PB)
+    return (f'<section id="timeline"><h2>What to do, when: master timeline</h2><p class="lede">The {len(core)} core streams from the stack plan, in launch order. Bars show when each stream is active (months from 12 Oct 2026). Under each phase, open a stream to see its build steps in order.</p>'
+            f'{gantt}<h4>Step by step, phase by phase</h4>{steps}'
+            f'<h4>Decision gates (kill, hold or scale)</h4><div class="tw"><table><tr><th>Stream</th><th>Starts</th><th>Rule</th></tr>{gates}</table></div></section>')
+
 PORT = (f'''<section id="portfolio"><h2>The stack plan</h2><p class="lede">{e(PF["thesis"])}</p>
 <h4>Total net revenue by month (US$/month)</h4><div class="bars">{bars}</div>
 <p class="legend">Dark: conservative · medium: base · light: strong · vertical line: US$10k floor. Value shown: base case.</p>
@@ -114,14 +153,18 @@ th,td{{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vert
 .track .floor{{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--fg)}}.bv{{font-family:var(--mono);text-align:right}}
 .fw{{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:4px 18px 16px;margin-top:16px}}.fwh{{font:600 20px/1.2 var(--display);margin:14px 0 0;color:var(--accent)}}
 .legend{{font-size:12.5px;color:var(--muted)}}details{{margin-top:12px}}summary{{cursor:pointer;color:var(--muted);font-size:13px}}
+.gantt{{display:grid;gap:5px;margin:12px 0;max-width:900px}}.gr{{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;font-size:13px}}.gl{{font-family:var(--mono);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+.gt{{position:relative;height:16px;background:var(--sunk);border-radius:4px}}.gt i{{position:absolute;top:0;bottom:0;background:var(--accent);border-radius:4px}}.gx{{position:relative;height:16px;font:11px var(--mono);color:var(--muted)}}.gx span{{position:absolute;transform:translateX(-50%)}}.gx span:first-child{{transform:none}}
+.ph{{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}}.stp ol{{font-size:14px}}.stp li{{margin:4px 0}}
 @media (max-width:860px){{.wrap{{grid-template-columns:1fr}}nav{{position:static;max-height:none;grid-auto-flow:column;overflow-x:auto}}nav .nh{{display:none}}}}
 </style>
 <div class="wrap">
-<nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><div class="nh">Playbooks</div>{nav}</nav>
+<nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><a href="#timeline">Master timeline</a><div class="nh">Playbooks</div>{nav}</nav>
 <main>
 <header><div class="eyebrow">Operating playbooks · October 2026</div><h1>Calebe Revenue Playbooks</h1>
 <p class="lede">{len(P)+len(PEND)} revenue streams you can run at the same time, each with a strategy analysis (unmet needs, economic value, willingness to pay, pricing, wedge, positioning, switching costs, defensibility) plus the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling.</p></header>
 {PORT}
+{timeline()}
 {"".join(pb(p) for p in P)}
 <p class="legend">Figures labelled SOURCED, CALC or ASSUMPTION as the agents reported them. No income is guaranteed; not tax or legal advice.</p>
 </main></div>'''
