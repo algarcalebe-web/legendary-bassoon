@@ -47,6 +47,21 @@ def fwblock(p):
 <div class="grid2"><div><h4>Switching costs in (barriers to buying)</h4><p>{e(f["switching_in"])}</p><h4>Switching costs out (lock-in)</h4><p>{e(f["switching_out"])}</p></div><div><h4>Defensibility</h4>{df}<h4>Envelopment and network effects</h4><p>{e(f["envelopment"])}</p></div></div>
 <p><strong>Verdict:</strong> {e(f["verdict"])}</p></div>"""
 
+import os as _os
+PIV = json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "deneffe_pivot.json")))
+def pivot(p):
+    if p["id"] != PIV["id"]: return ""
+    li = lambda xs: "".join(f"<li>{e(x)}</li>" for x in xs)
+    return (f'<div class="pivot"><div class="eyebrow">Recommended pivot</div><h3>{e(PIV["title"])}</h3><p>{e(PIV["summary"])}</p>'
+        f'<div class="grid2"><div><h4>Dan brings</h4><ul>{li(PIV["dan"])}</ul></div><div><h4>Calebe brings</h4><ul>{li(PIV["calebe"])}</ul></div></div>'
+        f'<h4>His growth gaps, and what closes them</h4>{table(["Gap", "What closes it"], PIV["gaps"])}'
+        f'<h4>Joint offer ladder (prices illustrative, to set with his WTP method)</h4>{table(["Offer", "Price", "Who does what", "Role"], PIV["ladder"])}'
+        f'<p>{e(PIV["economics"])}</p>'
+        f'<h4>Proposed terms</h4>{table(["Term", "Proposal"], PIV["terms"])}'
+        f'<h4>90-day pilot</h4>{table(["When", "Do"], PIV["pilot"])}<p><strong>Success bar:</strong> {e(PIV["success_bar"])}</p>'
+        f'<h4>What it changes in your stack</h4><p>{e(PIV["impact"])}</p>'
+        f'<h4>First steps</h4><ol>{li(PIV["first_steps"])}</ol></div>')
+
 def pb(p):
     sc = table(["Month", "Conservative", "Base", "Strong"], [[f"Month {s['month']}", s["conservative"], s["base"], s["strong"]] for s in p["scenarios"]])
     steps = table(["When", "Action", "Tool", "Output"], [[s["when"], s["action"], s["tool"], s["output"]] for s in p["build_steps"]])
@@ -64,6 +79,7 @@ def pb(p):
 <div class="eyebrow">Playbook · setup {e(p["setup_hours"])} h · then {e(p["weekly_hours"])} h/week · base month 12: {money(base12) if base12 is not None else "n/a"}</div>
 <h2>{e(p["title"])}</h2>
 <p class="lede">{e(p["thesis"])}</p>
+{pivot(p)}
 <div class="grid2"><div><h4>Who buys</h4><p>{e(p["buyer"]["who"])}</p><h4>Where they are</h4><p>{e(p["buyer"]["where"])}</p><h4>When they buy</h4><p>{e(p["buyer"]["trigger"])}</p></div>
 <div><h4>How value is extracted</h4><p>{e(p["value_extraction"])}</p><h4>Unit economics</h4><p class="mono">{e(p["unit_economics"])}</p><h4>Tools per month</h4><p>{e(p["tools_cost_monthly"])}</p></div></div>
 {fwblock(p)}
@@ -156,10 +172,11 @@ th,td{{text-align:left;padding:7px 10px;border-bottom:1px solid var(--line);vert
 .gantt{{display:grid;gap:5px;margin:12px 0;max-width:900px}}.gr{{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;font-size:13px}}.gl{{font-family:var(--mono);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 .gt{{position:relative;height:16px;background:var(--sunk);border-radius:4px}}.gt i{{position:absolute;top:0;bottom:0;background:var(--accent);border-radius:4px}}.gx{{position:relative;height:16px;font:11px var(--mono);color:var(--muted)}}.gx span{{position:absolute;transform:translateX(-50%)}}.gx span:first-child{{transform:none}}
 .ph{{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin:12px 0}}.stp ol{{font-size:14px}}.stp li{{margin:4px 0}}
+.pivot{{background:var(--soft);border:1px solid var(--accent);border-radius:12px;padding:16px 20px;margin:16px 0}}.pivot .tw{{background:var(--surface)}}
 @media (max-width:860px){{.wrap{{grid-template-columns:1fr}}nav{{position:static;max-height:none;grid-auto-flow:column;overflow-x:auto}}nav .nh{{display:none}}}}
 </style>
 <div class="wrap">
-<nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><a href="#timeline">Master timeline</a><div class="nh">Playbooks</div>{nav}</nav>
+<nav aria-label="Streams"><div class="nh">Portfolio</div><a href="#portfolio">Stack plan</a><a href="#first14">First 14 days</a><a href="#timeline">Master timeline</a><a href="#linkedin-pricing">Deneffe pivot</a><div class="nh">Playbooks</div>{nav}</nav>
 <main>
 <header><div class="eyebrow">Operating playbooks · October 2026</div><h1>Calebe Revenue Playbooks</h1>
 <p class="lede">{len(P)+len(PEND)} revenue streams you can run at the same time, each with a strategy analysis (unmet needs, economic value, willingness to pay, pricing, wedge, positioning, switching costs, defensibility) plus the exact product ladder, where buyers are, step-by-step build, traffic engine, automation, unit economics and kill-or-scale rules. US$10k a month is the floor the stack has to clear, not the ceiling.</p></header>

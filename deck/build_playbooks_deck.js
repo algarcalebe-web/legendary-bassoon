@@ -58,6 +58,7 @@ const stack = PF.stack, at = (m) => stack.find((r) => r.month === m);
 const phases = PF.phases.map((p) => { const m = p.months.match(/\d+/g).map(Number); return { ...p, a: m[0], b: m[1] }; });
 const core = []; phases.forEach((p, i) => p.streams.forEach((id) => { if (!core.find((c) => c.id === id)) core.push({ id, start: i }); }));
 core.forEach((c) => { c.end = Math.max(...phases.map((p, i) => (p.streams.includes(c.id) ? i : -1))); });
+const PIV = JSON.parse(fs.readFileSync(__dirname + "/deneffe_pivot.json", "utf8"));
 const SL = Object.fromEntries(S.streams.map((x) => [x.id, x]));
 
 // 1 Title
@@ -197,6 +198,34 @@ phases.forEach((p, i) => {
     tb(s, x.hours, { x: px + 0.25, y, w: pw - 0.5, h: 0.28, fontSize: 12, color: "55645F" }); y += 0.35;
     tb(s, [{ text: "Target: ", options: { bold: true } }, { text: x.kpi }], { x: px + 0.25, y, w: pw - 0.5, h: 0.62, fontSize: 12 }); y += 0.66;
     tb(s, [{ text: "Gate: ", options: { bold: true, color: C.accent6 } }, { text: x.gate }], { x: px + 0.25, y, w: pw - 0.5, h: 6.75 - y, fontSize: 12 });
+    if (c.id === PIV.id) {
+      const TB = { fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 0.5, color: "D3DCD8" }, valign: "middle" };
+      const H = (cells) => cells.map((t) => ({ text: t, options: { bold: true, color: C.background1, fill: { color: C.accent2 } } }));
+      // Pivot 1: why and the joint ladder
+      s = slide("CONTENT", "Pivot: build the pricing practice with Deneffe Consulting");
+      tb(s, PIV.summary, { x: M, y: 1.2, w: W - 2 * M, h: 1.05, fontSize: 14 });
+      s.addTable([H(["Joint offer", "Price (illustrative)", "Who does what", "Role"])].concat(PIV.ladder.map((r) => r.map((t, j) => (j === 0 ? { text: t, options: { bold: true } } : t)))),
+        { ...TB, x: M, y: 2.4, w: 7.7, colW: [2.2, 1.6, 2.6, 1.3], fontSize: 12, rowH: 0.62 });
+      const px2 = 8.55, pw2 = W - M - px2;
+      card(s, px2, 2.4, pw2, 4.4);
+      tb(s, "HIS GAPS → WHAT CLOSES THEM", { x: px2 + 0.25, y: 2.55, w: pw2 - 0.5, h: 0.25, fontSize: 11, bold: true, color: C.accent2, charSpacing: 1 });
+      tb(s, PIV.gaps.map(([g, f], j) => ({ text: `${g}: `, options: { bold: true, breakLine: false } })).flatMap((r, j) => [r, { text: PIV.gaps[j][1], options: { breakLine: j < PIV.gaps.length - 1 } }]),
+        { x: px2 + 0.25, y: 2.9, w: pw2 - 0.5, h: 3.8, fontSize: 12, paraSpaceAfter: 6 });
+      tb(s, PIV.economics, { x: M, y: 5.75, w: 7.7, h: 1.0, fontSize: 12, italic: true, color: "55645F" });
+      // Pivot 2: terms and pilot
+      s = slide("CONTENT", "Pivot: terms and the 90-day pilot with Deneffe");
+      s.addTable([H(["Term", "Proposal"])].concat(PIV.terms.map(([a, b]) => [{ text: a, options: { bold: true } }, b])),
+        { ...TB, x: M, y: 1.3, w: 6.0, colW: [1.5, 4.5], fontSize: 12, rowH: 0.7 });
+      PIV.pilot.forEach(([w, d], j) => {
+        const y = 1.3 + j * 1.15;
+        circle(s, 6.95, y + 0.15, 0.55, j + 1, C.accent2, 14);
+        tb(s, w, { x: 7.65, y, w: 5.1, h: 0.3, fontSize: 13, bold: true, color: C.accent2 });
+        tb(s, d, { x: 7.65, y: y + 0.3, w: 5.1, h: 0.8, fontSize: 12 });
+      });
+      card(s, 6.95, 4.85, W - M - 6.95, 1.95, "DCEFEA");
+      tb(s, [{ text: "Success bar: ", options: { bold: true, color: C.accent1 } }, { text: PIV.success_bar, options: { breakLine: true } }, { text: "What it changes: ", options: { bold: true, color: C.accent1 } }, { text: PIV.impact.split(". ")[0] + "." }],
+        { x: 7.15, y: 4.95, w: W - M - 7.35, h: 1.8, fontSize: 12, paraSpaceAfter: 6 });
+    }
   });
 });
 
@@ -232,6 +261,6 @@ const cuts = S.cuts, half = Math.ceil(cuts.length / 2);
 
 // Close
 s = slide("DARKLIST", "This week");
-s.addText(S.days.slice(0, 5).map((d, i) => ({ text: `${d.day}: ${d.do}`, options: { bullet: true, breakLine: i < 4 } })), { placeholder: "body", fontSize: 16, paraSpaceAfter: 10 });
+s.addText([{ text: "Now: " + PIV.first_steps[0] + "; propose the 90-day pilot.", options: { bullet: true, breakLine: true, color: C.accent3, bold: true } }].concat(S.days.slice(0, 5).map((d, i) => ({ text: `${d.day}: ${d.do}`, options: { bullet: true, breakLine: i < 4 } }))), { placeholder: "body", fontSize: 15, paraSpaceAfter: 8 });
 
 pres.writeFile({ fileName: OUT }).then(() => applyTheme(OUT, THEME)).then(() => console.log("wrote", OUT));
