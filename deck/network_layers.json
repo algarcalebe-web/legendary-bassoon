@@ -1,0 +1,41 @@
+{
+  "layers": [
+    {"n": 1, "key": "input", "name": "Input layer · Signal and cash", "window": [0, 1.5], "when": "Weeks 0-6",
+     "role": "Sell expertise directly. Every engagement produces cash, buyer questions, anonymised cases and market intelligence.",
+     "consumes": "Your expertise, network and time; no capital",
+     "produces": "First USD, buyer questions, case studies, pricing data, first audience",
+     "trigger": "Start now. Each stream risks at most a few hundred dollars.",
+     "members": ["linkedin-pricing", "async-reviews", "expert-calls", "paid-research", "hours-anchor", "fixed-fee-studio", "grant-teardown"]},
+    {"n": 2, "key": "h1", "name": "Hidden layer 1 · Encode into IP", "window": [1, 4], "when": "Weeks 4-16",
+     "role": "Turn the questions and models from layer 1 into products that sell without your hours, and lead magnets that feed layer 1 back.",
+     "consumes": "Repeated client questions, models built for clients, teardown data",
+     "produces": "Templates, kits and toolkits; free tools that capture emails; credibility",
+     "trigger": "Opens once layer 1 has brought in its first US$1k; paid from the growth fund.",
+     "members": ["ai-product-pricing", "model-templates", "ai-spend-fpa", "pro-firm-pricing", "ai-roi-kit", "ai-risk-valuation", "sustainability-premium", "br-tax-reform", "automation-templates", "niche-calculators"]},
+    {"n": 3, "key": "h2", "name": "Hidden layer 2 · Amplify distribution", "window": [3, 9], "when": "Months 3-9",
+     "role": "Multiply reach: channels and partners that carry layer 2 products to buyers you cannot reach one by one.",
+     "consumes": "Products and IP from layer 2; content from layer 1",
+     "produces": "Audience at scale, email list, partner and marketplace channels, referral income",
+     "trigger": "Opens when net income is US$2k+/month for 2 months.",
+     "members": ["yt-finance", "course-library", "seo-calculators", "framework-licensing", "hotmart-affiliate", "job-board", "b2b-referrals", "ai-adoption-ptes", "eu-ai-literacy"]},
+    {"n": 4, "key": "output", "name": "Output layer · Convert trust into high-ticket", "window": [6, 15], "when": "Months 6-15",
+     "role": "Monetise the audience and credibility built upstream with retainers, success fees and deal flow.",
+     "consumes": "Inbound trust from layers 2-3, case studies, network",
+     "produces": "Retainers, success fees, deal flow, the US$10k floor",
+     "trigger": "Opens when net income is US$5k+/month and the growth fund holds US$3k+.",
+     "members": ["fractional-roles", "vc-scout", "expert-matching", "export-readiness", "green-export-value", "lei-do-bem", "ai-automation-agency", "pj-role"]},
+    {"n": 5, "key": "scale", "name": "Scale layer · Compound with capital and team", "window": [12, 24], "when": "Months 12-24",
+     "role": "Use the growth fund, proprietary data and a small team to build assets that keep earning.",
+     "consumes": "Growth fund, data from every layer, analysts",
+     "produces": "Data and software assets, team-delivered services, capital gains",
+     "trigger": "Opens when net income clears US$10k/month for 3 months and the growth fund holds US$10k+.",
+     "members": ["survey-business", "data-products", "finance-apps", "whitelabel-backoffice", "ad-desk", "talent-referrals", "carbon-credits", "site-flipping", "print-on-demand"]}
+  ],
+  "short": {
+    "linkedin-pricing": "Pricing practice (+Deneffe)", "async-reviews": "Async reviews", "expert-calls": "Expert calls", "paid-research": "Paid research", "hours-anchor": "Senior contracting", "fixed-fee-studio": "Fixed-fee studio", "grant-teardown": "EU grant teardowns",
+    "ai-product-pricing": "AI pricing toolkit", "model-templates": "Model templates", "ai-spend-fpa": "AI spend FP&A kit", "pro-firm-pricing": "Pro-firm pricing kit", "ai-roi-kit": "AI ROI kit", "ai-risk-valuation": "AIX valuation overlay", "sustainability-premium": "Green premium kit", "br-tax-reform": "Tax reform kit", "automation-templates": "Automation templates", "niche-calculators": "Pricing Lab calculators",
+    "yt-finance": "YouTube channel", "course-library": "Course library", "seo-calculators": "Calculator sites", "framework-licensing": "Framework licensing", "hotmart-affiliate": "Course affiliate hub", "job-board": "LatAm finance jobs", "b2b-referrals": "Hiring cost desk", "ai-adoption-ptes": "AI for LatAm SMEs", "eu-ai-literacy": "EU AI literacy kit",
+    "fractional-roles": "Fractional pricing lead", "vc-scout": "VC scout desk", "expert-matching": "Expert matching desk", "export-readiness": "SC export desk", "green-export-value": "CBAM/EUDR data packs", "lei-do-bem": "Lei do Bem advisory", "ai-automation-agency": "Finance AI automation", "pj-role": "PJ contract (alt path)",
+    "survey-business": "Pricing research shop", "data-products": "Data products", "finance-apps": "Shopify landed-cost app", "whitelabel-backoffice": "White-label back office", "ad-desk": "Ad-fed model desk", "talent-referrals": "Talent bridge", "carbon-credits": "Carbon brokerage", "site-flipping": "Micro-site flipping", "print-on-demand": "Print-on-demand"
+  }
+}
