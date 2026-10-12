@@ -5,7 +5,9 @@ const fs = require("fs");
 const pptxgen = require("pptxgenjs");
 const { applyTheme } = require(process.env.PPTX_SKILL + "/scripts/apply_theme.js");
 const [PBJ, WJ, PJ, DJ, OUT] = process.argv.slice(2);
-const PF = JSON.parse(fs.readFileSync(PBJ, "utf8")).portfolio;
+const PBD = JSON.parse(fs.readFileSync(PBJ, "utf8"));
+const PF = PBD.portfolio;
+const TITLE = Object.fromEntries(PBD.playbooks.map((p) => [p.id, p.title]));
 const ST = Object.fromEntries(JSON.parse(fs.readFileSync(WJ, "utf8")).map((x) => [x.id, x]));
 const PT = Object.fromEntries(JSON.parse(fs.readFileSync(PJ, "utf8")).map((x) => [x.id, x]));
 const DS = JSON.parse(fs.readFileSync(DJ, "utf8"));
@@ -41,6 +43,14 @@ pres.defineSlideMaster({
   ],
 });
 pres.defineSlideMaster({
+  title: "STREAM", background: { color: HEX.lt1 },
+  objects: [
+    { placeholder: { options: { name: "title", type: "title", x: M, y: 0.25, w: W - 2 * M, h: 0.95, fontSize: 20, bold: true, color: C.text1, fontFace: THEME.headFontFace, valign: "middle" }, text: "" } },
+    { text: { text: "Calebe Garcia · Revenue Network · Oct 2026", options: { x: M, y: 7.05, w: 6, h: 0.3, fontSize: 10, color: MUTED, margin: 0 } } },
+  ],
+  slideNumber: { x: W - M - 0.6, y: 7.05, w: 0.6, h: 0.3, fontSize: 10, color: MUTED, align: "right" },
+});
+pres.defineSlideMaster({
   title: "CONTENT", background: { color: HEX.lt1 },
   objects: [
     { placeholder: { options: { name: "title", type: "title", x: M, y: 0.35, w: W - 2 * M, h: 0.85, fontSize: 28, bold: true, color: C.text1, fontFace: THEME.headFontFace, valign: "middle" }, text: "" } },
@@ -63,7 +73,7 @@ const TBL = { fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 
 const LCOL = [C.accent1, C.accent3, C.accent5, C.accent2, C.accent6];
 const LHEX = [HEX.accent1, HEX.accent3, HEX.accent5, HEX.accent2, HEX.accent6];
 const CORE = new Set(PF.phases.flatMap((p) => p.streams));
-const L = NET.layers.map((l, i) => ({ ...l, col: LCOL[i], hex: LHEX[i], items: l.members.map((id) => ({ ...ST[id], pitch: PT[id], core: CORE.has(id), short: NET.short[id] })) }));
+const L = NET.layers.map((l, i) => ({ ...l, col: LCOL[i], hex: LHEX[i], items: l.members.map((id) => ({ ...ST[id], name: TITLE[id], pitch: PT[id], core: false, short: NET.short[id] })) }));
 L.forEach((l) => l.items.forEach((x) => { x.risk = x.start_capital_usd + 3 * x.monthly_cost_usd; if (!x.pitch) throw new Error("missing pitch " + x.id); }));
 const ALL = L.flatMap((l) => l.items.map((x) => ({ ...x, ln: l.n })));
 const stack = PF.stack, at = (m) => stack.find((r) => r.month === m);
@@ -72,7 +82,7 @@ const stack = PF.stack, at = (m) => stack.find((r) => r.month === m);
 sec("Overview");
 let s = slide("DARK", "Revenue Network: Sprints, Layers and Pitches");
 s.addText([
-  { text: `${ALL.length} revenue streams wired as a 5-layer network and launched in 5 sprints`, options: { breakLine: true } },
+  { text: `${ALL.length} revenue streams wired as a 5-layer network; each sprint is a set that runs in sync`, options: { breakLine: true } },
   { text: "Each layer feeds the next with cash, insight, IP and audience; gate results re-weight hours and capital every month", options: { breakLine: true, color: C.accent3 } },
   { text: "Calebe Garcia · October 2026 · US$10k/month net is the floor, not the target", options: { fontSize: 14 } },
 ], { placeholder: "body" });
@@ -119,10 +129,9 @@ s = slide("CONTENT", "Where it lands, and the uncomfortable part");
   tb(s, v, { x: x + 0.25, y: 1.6, w: 2.4, h: 0.95, fontSize: 36, bold: true, color: col, fontFace: THEME.headFontFace });
   tb(s, l, { x: x + 0.25, y: 2.6, w: 2.4, h: 0.85, fontSize: 13 });
 });
-const sumH = ALL.reduce((a, x) => a + (parseFloat(String(x.hours).split("·")[1]) || 0), 0);
 tb(s, [
-  { text: "You cannot run all of these at once. ", options: { bold: true, color: C.accent6 } },
-  { text: `The ${ALL.length} streams need roughly ${Math.round(sumH)} hours a week in steady state; you have 40. The sprints decide the order; the feedback loop decides what survives. Expect 8-12 active streams at any time; the rest wait on the bench.`, options: { breakLine: true } },
+  { text: "Each sprint is a set of streams that run in sync. ", options: { bold: true, color: C.accent1 } },
+  { text: "Hours do not simply add up: one piece of work feeds several streams at once. A client engagement becomes a teardown post, a template, a course module and a data point for the index; one model serves the review, the kit and the licence. The feedback gates then decide which streams keep their share of time.", options: { breakLine: true } },
   { text: "Figures come from the 13-stream stack plan (assumption-based, 25% overlap cut), which included two travel streams now excluded: treat them as an upper reference until gates produce real numbers.", options: { color: MUTED, fontSize: 13 } },
 ], { x: M, y: 3.95, w: W - 2 * M, h: 2.8, fontSize: 15, paraSpaceAfter: 10 });
 
@@ -180,8 +189,8 @@ sec("First 14 days");
 // ---------- Per stream: pitch + build ----------
 function pitchSlide(x, l, idx, prev, next) {
   const p = x.pitch;
-  const s = slide("CONTENT", `${l.n}.${idx} ${x.name}`);
-  tb(s, [{ text: (x.core ? "CORE" : "BENCH") + " · PITCH · ", options: { bold: true, color: x.core ? C.accent1 : C.accent2 } }, { text: p.one_liner, options: { italic: true } }], { x: M, y: 1.15, w: W - 2 * M, h: 0.4, fontSize: 14 });
+  const s = slide("STREAM", `${l.n}.${idx} ${x.name}`);
+  tb(s, [{ text: `SPRINT ${l.n} · PITCH · `, options: { bold: true, color: l.col } }, { text: p.one_liner, options: { italic: true } }], { x: M, y: 1.15, w: W - 2 * M, h: 0.4, fontSize: 14 });
   // Left: description, buyer, problem
   card(s, M, 1.7, 4.0, 5.15);
   const lab = (t, x0, y0, w0) => tb(s, t, { x: x0, y: y0, w: w0, h: 0.25, fontSize: 10, bold: true, color: C.accent2, charSpacing: 1 });
@@ -216,8 +225,8 @@ function pitchSlide(x, l, idx, prev, next) {
   tb(s, [{ text: "Verdict: ", options: { bold: true, color: C.accent1 } }, { text: p.verdict }], { x: rx + 0.2, y: 5.78, w: rw - 0.4, h: 1.0, fontSize: 11.5, valign: "middle" });
 }
 function buildSlide(x, l, idx) {
-  const s = slide("CONTENT", `${l.n}.${idx} ${x.name}: build it step by step`);
-  tb(s, [{ text: (x.core ? "CORE · " : "BENCH · "), options: { bold: true, color: x.core ? C.accent1 : C.accent2 } }, { text: x.why, options: { italic: true, color: MUTED } }], { x: M, y: 1.15, w: 7.6, h: 0.55, fontSize: 13 });
+  const s = slide("STREAM", `${l.n}.${idx} ${x.name}`);
+  tb(s, [{ text: `SPRINT ${l.n} · STEP BY STEP · `, options: { bold: true, color: l.col } }, { text: x.why, options: { italic: true, color: MUTED } }], { x: M, y: 1.15, w: 7.6, h: 0.55, fontSize: 13 });
   x.steps.slice(0, 8).forEach((st, j) => {
     const y = 1.8 + j * 0.64;
     circle(s, M, y + 0.06, 0.42, j + 1, l.col, 13);
@@ -271,13 +280,18 @@ L.forEach((l, li) => {
     { text: "Consumes: ", options: { bold: true, color: C.accent3 } }, { text: l.consumes, options: { breakLine: true } },
     { text: "Produces: ", options: { bold: true, color: C.accent3 } }, { text: l.produces, options: { breakLine: true } },
     { text: "Trigger: ", options: { bold: true, color: C.accent3 } }, { text: `${l.trigger} (${l.when})`, options: { breakLine: true } },
-    { text: `${l.items.length} streams: ${l.items.map((x) => x.short).join(" · ")}`, options: { fontSize: 13 } },
+    { text: `${l.items.length} streams, run in sync: ${l.items.map((x) => x.short).join(" · ")}`, options: { fontSize: 13 } },
   ], { placeholder: "body", paraSpaceAfter: 6 });
   s = slide("CONTENT", `Sprint ${l.n} at a glance: launch in this order`);
-  s.addTable([hdr(["#", "Stream", "Status", "At risk $", "First cash", "M3", "M12", "M24", "Hours"])].concat(l.items.map((x, j) => [
-    String(j + 1), { text: x.name, options: { bold: true } }, { text: x.core ? "Core" : "Bench", options: { color: x.core ? C.accent1 : C.accent2, bold: true } },
-    k(x.risk), x.first_cash, k(x.m3), k(x.m12), k(x.m24), x.hours])),
-    { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.45, 3.45, 0.8, 0.95, 1.5, 0.8, 0.8, 0.8, 2.58], fontSize: 12, rowH: 0.5 });
+  s.addTable([hdr(["#", "Stream (original playbook name)", "At risk $", "First cash", "M3", "M12", "M24"])].concat(l.items.map((x, j) => [
+    String(j + 1), { text: x.name, options: { bold: true } }, k(x.risk), x.first_cash, k(x.m3), k(x.m12), k(x.m24)])),
+    { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.45, 6.7, 0.95, 1.4, 0.85, 0.85, 0.93], fontSize: 10.5, rowH: 0.5 });
+  for (let a = 0; a < l.items.length; a += 4) {
+    s = slide("CONTENT", `Sprint ${l.n}: how these ideas differ${l.items.length > 4 ? ` (${a / 4 + 1}/${Math.ceil(l.items.length / 4)})` : ""}`);
+    s.addTable([hdr(["Idea", "Who pays", "What is sold", "Unmet need"])].concat(l.items.slice(a, a + 4).map((x) => [
+      { text: x.short, options: { bold: true, color: l.col } }, x.pitch.buyer, x.offers.slice(0, 2).map((o) => `${o.name}: ${o.price}`).join("; "), x.pitch.problem])),
+      { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [2.0, 3.2, 3.5, W - 2 * M - 8.7], fontSize: 11, rowH: 1.0 });
+  }
   const prevL = li ? L[li - 1].name.split(" · ")[1].toLowerCase() : "your expertise and network";
   const nextL = li < L.length - 1 ? L[li + 1].name.split(" · ")[1].toLowerCase() : "the growth fund and the next cycle";
   l.items.forEach((x, i) => {
@@ -289,10 +303,10 @@ L.forEach((l, li) => {
 
 // ---------- Control ----------
 sec("Control");
-for (let a = 0; a < ALL.length; a += 8) {
-  s = slide("CONTENT", `Feedback gates: kill, hold or scale on dates (${a / 8 + 1}/${Math.ceil(ALL.length / 8)})`);
-  s.addTable([hdr(["Sprint", "Stream", "Rule"])].concat(ALL.slice(a, a + 8).map((x) => [String(x.ln), { text: x.name, options: { bold: true } }, x.gate])),
-    { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.8, 3.0, W - 2 * M - 3.8], fontSize: 12, rowH: 0.58 });
+for (let a = 0; a < ALL.length; a += 7) {
+  s = slide("CONTENT", `Feedback gates: kill, hold or scale on dates (${a / 7 + 1}/${Math.ceil(ALL.length / 7)})`);
+  s.addTable([hdr(["Sprint", "Stream", "Rule"])].concat(ALL.slice(a, a + 7).map((x) => [String(x.ln), { text: x.name, options: { bold: true } }, x.gate])),
+    { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.8, 4.4, W - 2 * M - 5.2], fontSize: 11, rowH: 0.6 });
 }
 s = slide("CONTENT", "What could break the plan, and the response");
 DS.risks.slice(0, 5).forEach((r, i) => {
