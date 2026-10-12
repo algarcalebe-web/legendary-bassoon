@@ -30,5 +30,8 @@ for i in ORDER:
         if i in fw: p['frameworks'] = fw[i]
         if 'frameworks' in pb[i]: p['frameworks'] = pb[i]['frameworks']
         out.append(p)
+CUTFIX = {'sourcing-agent': 'sourcing-agent: different buyer (foreign importers) and lumpy commissions that are slow to close.', 'acl-energy': 'acl-energy: BRL income from local Santa Catarina buyers with in-person selling; outside the AI-pricing engine.'}
+if portfolio and portfolio.get('cut_list'):
+    portfolio['cut_list'] = [CUTFIX.get(c.split(':')[0].strip(), c) for c in portfolio['cut_list']]
 json.dump({'playbooks': out, 'portfolio': portfolio, 'pending': [i for i in ORDER if i not in pb]}, open(sys.argv[1], 'w'), ensure_ascii=False)
 print(len(out), 'playbooks;', sum(1 for p in out if 'frameworks' in p), 'with frameworks; portfolio', bool(portfolio))

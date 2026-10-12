@@ -30,6 +30,13 @@ pres.defineSlideMaster({
   ],
 });
 pres.defineSlideMaster({
+  title: "DARKLIST", background: { color: HEX.dk1 },
+  objects: [
+    { placeholder: { options: { name: "title", type: "title", x: M, y: 0.5, w: W - 2 * M, h: 1.0, fontSize: 40, bold: true, color: C.background1, fontFace: THEME.headFontFace, valign: "middle" }, text: "" } },
+    { placeholder: { options: { name: "body", type: "body", x: M, y: 1.75, w: W - 2 * M, h: 5.2, fontSize: 18, color: C.accent4, valign: "top" }, text: "" } },
+  ],
+});
+pres.defineSlideMaster({
   title: "CONTENT", background: { color: HEX.lt1 },
   objects: [
     { placeholder: { options: { name: "title", type: "title", x: M, y: 0.35, w: W - 2 * M, h: 0.85, fontSize: 30, bold: true, color: C.text1, fontFace: THEME.headFontFace, valign: "middle" }, text: "" } },
@@ -195,10 +202,12 @@ phases.forEach((p, i) => {
 
 // Gates table
 sec("Control");
-s = slide("CONTENT", "Decision gates: kill, hold or scale on dates, not feelings");
-const gh = ["Stream", "Starts", "Rule"].map((t) => ({ text: t, options: { bold: true, color: C.background1, fill: { color: C.accent1 } } }));
-s.addTable([gh].concat(core.map((c) => [SL[c.id] ? SL[c.id].name : c.id, `M${phases[c.start].a}`, SL[c.id] ? SL[c.id].gate : ""])),
-  { x: M, y: 1.3, w: W - 2 * M, colW: [2.9, 0.8, W - 2 * M - 3.7], fontSize: 11, fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 0.5, color: "D3DCD8" }, rowH: 0.38, valign: "middle" });
+[[0, 7], [7, core.length]].forEach(([a, b], pi) => {
+  s = slide("CONTENT", `Decision gates: kill, hold or scale on dates (${pi + 1}/2)`);
+  const gh = ["Stream", "Starts", "Rule"].map((t) => ({ text: t, options: { bold: true, color: C.background1, fill: { color: C.accent1 } } }));
+  s.addTable([gh].concat(core.slice(a, b).map((c) => [{ text: SL[c.id] ? SL[c.id].name : c.id, options: { bold: true } }, `M${phases[c.start].a}`, SL[c.id] ? SL[c.id].gate : ""])),
+    { x: M, y: 1.3, w: W - 2 * M, colW: [3.0, 0.9, W - 2 * M - 3.9], fontSize: 13, fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 0.5, color: "D3DCD8" }, rowH: 0.7, valign: "middle" });
+});
 
 // Risks
 s = slide("CONTENT", "What could break the plan, and the response");
@@ -217,12 +226,12 @@ const cuts = S.cuts, half = Math.ceil(cuts.length / 2);
   const part = cuts.slice(a, b), hh = Math.ceil(part.length / 2), cw = (W - 2 * M - 0.3) / 2;
   [part.slice(0, hh), part.slice(hh)].forEach((col, ci) => {
     s.addTable(col.map((c) => [{ text: c.id, options: { bold: true, color: C.accent1 } }, c.why]),
-      { x: M + ci * (cw + 0.3), y: 1.3, w: cw, colW: [1.9, cw - 1.9], fontSize: 10, fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 0.5, color: "D3DCD8" }, rowH: 0.47, valign: "middle" });
+      { x: M + ci * (cw + 0.3), y: 1.3, w: cw, colW: [2.1, cw - 2.1], fontSize: 12, fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 0.5, color: "D3DCD8" }, rowH: 0.47, valign: "middle" });
   });
 });
 
 // Close
-s = slide("DARK", "This week");
-s.addText(S.days.slice(0, 5).map((d, i) => ({ text: `${d.day}: ${d.do}`, options: { bullet: true, breakLine: i < 4 } })), { placeholder: "body", fontSize: 14, paraSpaceAfter: 6 });
+s = slide("DARKLIST", "This week");
+s.addText(S.days.slice(0, 5).map((d, i) => ({ text: `${d.day}: ${d.do}`, options: { bullet: true, breakLine: i < 4 } })), { placeholder: "body", fontSize: 16, paraSpaceAfter: 10 });
 
 pres.writeFile({ fileName: OUT }).then(() => applyTheme(OUT, THEME)).then(() => console.log("wrote", OUT));
