@@ -2948,7 +2948,202 @@ So cash lags 1-2 months.</p><h4>Tools per month</h4><p>The lean setup costs abou
 - Second-number eSIM ~US$4
 - Domain + Carrd ~US$2
 With DivulgaNinja (~US$9+, i.e. R$49.90+) and Keepa (~US$21) it is about US$55/mo. Ad spend is separate: a R$1,500 test, then rule-based spend recovered from commissions.</p></div></div>
-<p class="legend">Strategy framework analysis is being written for this stream.</p>
+<div class="fw"><h3 class="fwh">Strategy frameworks</h3>
+<div class="grid2"><div><h4>Unmet needs</h4><ul><li>Trust filter. Shoppers in casa/cozinha are flooded with &#x27;achadinhos&#x27; accounts that post anything that pays. Nobody publishes the gate they use, for example &#x27;only items rated 4.5 or higher with 100+ sold, at or below their own 30-day minimum price&#x27;. The n8n scorer already computes this, so show it on every post as &#x27;Menor preço em 30 dias, nota 4.8, 2,3 mil vendidos&#x27; (that is the brand promise).</li><li>Personal price alerts. A buyer wants &#x27;tell me when THIS air-fryer basket or THIS blackout curtain drops&#x27;, not 16 random posts a day. Generic channels can&#x27;t do it. A Telegram bot command &#x27;/alerta pote hermético até R$40&#x27; stored in the Postgres table the pipeline already keeps meets the need. ASSUMPTION: about 1 day of n8n work.</li><li>Planned-purchase moments. Setting up a first apartment, a chá de casa nova / chá de panela, a move or a renovation means R$1,000-5,000 (ASSUMPTION) of casa/cozinha spend over 2-3 months, with no curated, price-tracked list for it. Generic deal feeds serve impulse buys, not this.</li><li>Seller side: small Shopee/ML casa sellers need their first 10-30 sales and reviews. Shopee Ads charges per click with no guarantee of sales. They don&#x27;t need &#x27;a post&#x27;. They need predictable cost per sale.</li><li>Affiliate side: Brazilian affiliates pay DivulgaNinja-type SaaS (from R$49.90/mo, SOURCED vendor site) every month. Technically able ones want to own a one-off asset that includes offer scoring, not just reposting.</li></ul></div><div><h4>Unserved segments</h4><ul><li>Noivas, recém-casados and people moving into their first apartment (women 24-35). They are a high-basket, time-boxed, referral-heavy group (one bride brings bridesmaids and family), and generic achadinhos channels don&#x27;t serve them as a group. Wedge candidate.</li><li>Small apartment renters in SP, Curitiba and Florianópolis (an &#x27;apê pequeno&#x27; organisation niche). They have high Pinterest search intent and are underserved on Telegram.</li><li>Brazilian Shopee/ML casa sellers with under 500 sales. Big sellers buy influencers and Shopee Ads; these sellers can&#x27;t afford either and have no performance-priced alternative.</li><li>Spanish-speaking LATAM affiliates (Mexico, Colombia, Chile all have Shopee or Mercado Libre affiliate programs: ML yes; Shopee Mexico/Colombia/Chile status UNKNOWN). Every n8n deal-bot tutorial in their language I know of is Portuguese. The Gumroad EN/ES template is the USD piece of this stream.</li><li>Telegram-first older buyers (45-60) who find Instagram achadinhos noisy. This is a guess (ASSUMPTION); size it by checking the age split in the Week-4 Meta ad results.</li></ul></div></div>
+<h4>Economic value to the customer (EVC)</h4><p>EVC is calculated separately for each of the stream&#x27;s four buyers. Members pay nothing, so the stream&#x27;s only real pricing levers are sponsored posts and the template.
+
+1) MEMBER (price R$0; Calebe captures value through marketplace commission, whose rate he does not set)
+- Reference value: R$0. The next best alternatives are free: the Shopee app&#x27;s own Ofertas/Flash Sale tab, ML&#x27;s &#x27;Ofertas do dia&#x27;, Pelando, Instagram achadinhos accounts.
+- Differentiation value: savings plus time.
+  - ASSUMPTION: a member buys 1.5 items/month through the channel, saving R$25 each against the price she would have paid. That is about R$37/month of savings (CALC).
+  - She also saves about 30 min/month of searching. At R$15/h (ASSUMPTION, class B/C) that is R$7.50.
+  - Member EVC ≈ R$45/month (CALC).
+- Calebe captures the base-case ARPM of R$0.39 (CALC from the playbook), under 1% of the value he creates.
+- So the problem is capture, not value. The capture rate is fixed by Shopee, ML and Amazon. The only levers are:
+  - mix: push higher-commission categories
+  - basket: Amazon&#x27;s 24h cart cookie (ASSUMPTION for BR, verify); enxoval lists
+  - frequency: price alerts
+
+2) SELLER buying a sponsored post
+- Reference value is Shopee Ads cost per click, which is UNKNOWN for BR casa. I assume R$0.30-0.80 per click (verify inside a Shopee seller account).
+- One post at 10k members:
+  - 15% views/sub (playbook KPI) = 1,500 views
+  - × 4% CTR (ASSUMPTION) = about 60 clicks
+  - Reference value = 60 × R$0.30-0.80 = R$18-48.
+- Differentiation: curated social proof, a pinned post, and a buying-ready audience. ASSUMPTION: click-to-order conversion of 4% vs 2% for Ads, which justifies up to a 2× premium. That puts EVC at about R$36-96 per post.
+- The playbook&#x27;s R$80 flat price sits at the top of that range. It will feel expensive to a seller who knows their CPC.
+- Fix: price per sale, not per post (see pricing). Shopee&#x27;s seller-funded extra commission (referred to in the playbook; mechanics need verifying in the Shopee affiliate dashboard) lets the seller pay only when a sale happens. That removes the seller&#x27;s risk, which is the main thing stopping them.
+
+3) TEMPLATE buyer (technical affiliate)
+- Reference value: DivulgaNinja at R$49.90/month (SOURCED vendor), or R$599/year (CALC).
+- Negative differentiation: they must self-host. A VPS costs about R$27/month (ASSUMPTION: US$5 × 5.4) plus LLM about R$27/month (ASSUMPTION), so R$648/year (CALC). Setup takes about 4-8 hours. At an assumed R$50/h, that is R$200-400 (ASSUMPTION).
+- Positive differentiation: an offer scorer (30-day minimum price, rating gate, commission × CTR), which reposting SaaS does not appear to have (UNKNOWN for DivulgaNinja&#x27;s newest plans; check app.divulganinja.com.br/plans). Also full ownership and no per-group limits. ASSUMPTION: worth R$300-600/year to a full-time affiliate.
+- Year-1 EVC ≈ R$599 − R$648 − R$300 + R$450 ≈ R$100-ish (CALC).
+- So a pure JSON download at R$147 is only marginally positive against the SaaS for year 1. It becomes clearly positive in year 2 or for someone running more than 2 channels.
+- Implication: sell the scorer, updates and the setup video as the value, not the JSON alone. Make the R$497 done-with-you tier the profit tier.
+
+4) GUMROAD EN/ES buyer
+- There are free n8n Telegram-deal workflows on n8n.io/workflows, so the reference value is close to US$0 for generic posting.
+- Differentiation is only the Shopee GraphQL HMAC signing plus the scorer. WTP is probably US$19-49 (ASSUMPTION).</p><div class="tw "><table><thead><tr><th>Value driver</th><th>Type</th><th>Quantified</th></tr></thead><tbody><tr><td>Money saved per purchase vs non-curated price</td><td>economic</td><td>ASSUMPTION: R$25/item × 1.5 items/member/month = R$37/month per member. Calebe captures about R$0.39 of it (base ARPM, CALC)</td></tr><tr><td>Search time avoided (no app scrolling or price comparison)</td><td>functional</td><td>ASSUMPTION: 30 min/month per member ≈ R$7.50 at R$15/h</td></tr><tr><td>Trust gate shown on every post (rating ≥4.5, ≥100 sold, price ≤ 30-day minimum)</td><td>functional</td><td>Expected to raise click-to-order conversion from 3% to 4-5% (playbook range, ASSUMPTION). At constant traffic that lifts ARPM by 33-66% (CALC)</td></tr><tr><td>Personal price alerts (/alerta)</td><td>functional</td><td>ASSUMPTION: members who set alerts click 2× more often and churn at half the rate. If 20% of members adopt, blended ARPM rises about 20% and average life rises about 10% (CALC). Measure it</td></tr><tr><td>Enxoval / casa nova checklist (curated list of 80 items with tracked prices)</td><td>economic</td><td>ASSUMPTION: R$1,500 basket through the links × 6% = R$90 commission per enxoval member, vs R$4.70 LTV for a generic member (CALC from the playbook). That is about 19× higher</td></tr><tr><td>&#x27;Achei antes de todo mundo&#x27; (I found it first): the thrill of finding a deal and the social currency of forwarding it to friends</td><td>emotional</td><td>Drives organic forwards. Target ≥ 5% of posts forwarded (Telegram shows forwards per post in tgstat, so it can be tracked)</td></tr><tr><td>Seller: first sales and reviews at a known cost per sale</td><td>economic</td><td>ASSUMPTION: a seller pays R$8-15 extra commission per sale vs an unknown CPC on Shopee Ads (R$0.30-0.80 per click ÷ 2% conversion = R$15-40 per sale, CALC)</td></tr><tr><td>Template: no monthly SaaS fee plus scoring logic the buyer owns</td><td>economic</td><td>R$599/year SaaS avoided (CALC from R$49.90/month SOURCED), minus about R$648/year to self-host (ASSUMPTION). Net positive only with the scorer and updates, or in year 2</td></tr></tbody></table></div>
+<div class="grid2"><div><h4>Willingness to pay</h4><div class="tw "><table><thead><tr><th>Segment</th><th>Willingness to pay</th><th>Basis</th></tr></thead><tbody><tr><td>Channel members (end buyers)</td><td>R$0 in cash. They pay in attention and clicks. Expected value per member: ARPM R$0.10 (low), R$0.39 (base), R$0.65 (strong) per month (CALC from the playbook, all assumption-driven)</td><td>Every competitor (Pelando, Promobit, achadinhos channels) is free. Paid &#x27;VIP&#x27; deal groups exist in BR, but their prices and retention are UNKNOWN. Fake-door test a R$9.90/month VIP alert tier before assuming any cash WTP</td></tr><tr><td>Enxoval / casa nova members</td><td>R$0 cash. Commission value about R$60-120 per member over 3 months (CALC: R$1,000-2,000 basket × 6%, ASSUMPTION)</td><td>High planned basket. Worth paying CAC of up to about R$20 per member, vs R$1 for generic members</td></tr><tr><td>Small Shopee/ML casa sellers (&lt;500 sales)</td><td>Flat fee: R$30-60 per post at 10k members (ASSUMPTION). Performance: R$5-15 extra commission per sale, or 8-15% of item price (ASSUMPTION)</td><td>Anchored to the Shopee Ads CPC they already see (UNKNOWN, assumed R$0.30-0.80) × 60 clicks per post. Sellers trust per-sale pricing more than flat fees from an unknown channel</td></tr><tr><td>Brazilian technical affiliates (template)</td><td>R$97-197 one-off for the template; R$397-597 for done-with-you setup (ASSUMPTION)</td><td>Anchor: DivulgaNinja R$49.90/month (SOURCED) × 2-4 months. Self-hosting costs pull WTP below a full year of SaaS</td></tr><tr><td>LATAM / EN affiliates (Gumroad)</td><td>US$19-49 (ASSUMPTION)</td><td>Free generic n8n workflows exist. Willingness to pay rests only on the Shopee HMAC signing, the scorer and the ES language</td></tr><tr><td>Other BR channel operators (scorer as a service, later)</td><td>R$49-99/month (ASSUMPTION) for a hosted scored-offer feed (JSON or Telegram) they pull into their own channel</td><td>Below DivulgaNinja&#x27;s upper plans (UNKNOWN). Positioned as a data feed, not a posting tool, so it complements rather than competes</td></tr></tbody></table></div><p><strong>How to validate:</strong> Total cost under R$300; about 6 hours.
+
+1) Sellers: Gabor-Granger by DM, weeks 5-8.
+- Pick 30 Shopee casa sellers with 50-500 sales, taken from the channel&#x27;s own top-converting listings (&#x27;ver loja&#x27;).
+- Message in PT-BR. Offer one of three price points at random:
+  - R$40 per post
+  - R$80 per post
+  - R$10 per sale (seller-funded extra commission)
+- Ask &#x27;você compraria esta semana?&#x27;, then show the next price down if they say no.
+- Close with Pix.
+- Pass bar: 3 or more paid at any price point, and record which point converts best.
+
+2) Template: pre-sale plus Van Westendorp.
+- Post the build-in-public thread on r/n8n and community.n8n.io, and in 3 Brazilian n8n Telegram groups. Find these by searching &#x27;n8n brasil&#x27; in Telegram; names UNKNOWN.
+- Run a 4-question Van Westendorp Google Form: too cheap / cheap / expensive / too expensive.
+- Target n ≥ 30 responses.
+- Simultaneously open a Kiwify pre-sale at R$97 &#x27;lote 1&#x27;, delivered in 21 days, with a refund if it isn&#x27;t delivered.
+- Pass bar: 10 pre-sales. If fewer than 5, ship the scorer as a free lead magnet for the done-with-you service instead.
+
+3) Members: no cash test until there are 5k or more members. Then:
+- Fake-door a &#x27;/vip&#x27; Telegram command: &#x27;alertas ilimitados + lista enxoval completa, R$9.90/mês&#x27;.
+- Measure click-through to the payment link. Collect Pix only from the first 20, as a real pre-sale.
+- Pass bar: 1% of active members click.
+
+4) Enxoval wedge:
+- R$300 Meta test (part of the playbook&#x27;s R$1,500) with interest &#x27;noivado/casamento&#x27; + &#x27;decoração&#x27;, women 24-35.
+- Measure CAC per member, and commission per enxoval member at day 60 vs the generic cohort. Separate the cohorts with sub_id &#x27;enx&#x27;.</p></div><div><h4>Pricing</h4><p>The value metric differs for each revenue line.
+
+A) Commission (members). Price is set by the marketplaces, so the value metric is ARPM. Manage it through mix, not volume:
+- Scorer weight = commission_R$ × CTR × discount.
+- Cap tech posts at under 10%.
+- Raise basket through Amazon cart posts and enxoval lists.
+- Do NOT charge members. If the /vip fake door passes, add VIP alerts at R$9.90/month or R$79/year (ASSUMPTION; about 2 months free as the annual anchor). Fence: free members get public posts and 3 alerts; VIP gets unlimited alerts plus the enxoval checklist.
+
+B) Sponsored posts. Move from a flat R$80 to performance pricing with a floor:
+- Tier 1 &#x27;Teste&#x27; (the wedge for sellers): no fee. The seller sets a seller-funded extra commission of at least 10% (or R$8 per sale, ASSUMPTION) on 1-3 SKUs, and Calebe guarantees 2 scored posts. Zero risk for the seller, and the extra commission comes on top of the platform rate. Verify that the Shopee extra-commission mechanics and the NFS-e requirement apply (the playbook says a CNPJ is needed).
+- Tier 2 &#x27;Destaque&#x27;: R$60 per post at 10-30k members, R$120 per post above 30k (ASSUMPTION; set from the Gabor-Granger result) + 1 pinned post 24h + click report. Packs of 5 at 20% off.
+- Tier 3 &#x27;Lançamento&#x27;: R$450 per month (ASSUMPTION) for 8 posts + inclusion in the Black Friday / 11.11 list + a share of a Reels slot.
+- Fences:
+  - Rating ≥ 4.5, or a new listing with sample approval. This protects member trust and justifies the premium.
+  - Maximum 2 sponsored posts per day.
+  - Category exclusivity is sold only in Tier 3.
+- Anchor: show &#x27;equivalente a R$X por clique&#x27; against the seller&#x27;s own Shopee Ads CPC in the media kit.
+- At 60 clicks per post, Tier 2 at R$60 is about R$1/click. That is within the EVC of R$36-96 per post, i.e. 60-100% of EVC. Acceptable only because of the conversion differentiation, so prove it with the click report.
+
+C) Template (Kiwify BRL, Gumroad USD), good-better-best:
+- &#x27;Robô Básico&#x27; R$97: the JSON + README. A decoy/entry tier, under 2 months of DivulgaNinja.
+- &#x27;Robô Pro&#x27; R$197: the JSON + the scorer + the 40-min video + 12 months of updates (Shopee API changes) + a Telegram support group. The target tier, about 4 months of SaaS.
+- &#x27;Feito com você&#x27; R$597: a 90-min setup call on the buyer&#x27;s VPS (ASSUMPTION; the playbook&#x27;s R$497 is fine as a launch price).
+- Gumroad: US$29 / US$59 / US$149 (ASSUMPTION).
+- Launch: lote 1 at 30% off for 7 days, tied to the r/n8n post.
+- Anchor line on the sales page: &#x27;R$599/ano em SaaS vs R$197 uma vez&#x27;. This is honest only if you also list the VPS cost (do so).
+
+D) Later: a hosted scored-offer feed for other channel operators at R$79/month, priced by number of feeds/niches. Recurring, and it doesn&#x27;t compete with the template buyer&#x27;s self-hosting.
+
+Price vs EVC summary:
+- Member: captures under 1% (the platform sets it)
+- Seller Tier 2: 60-100%
+- Template Pro: about 100%+ of year-1 EVC; justified by updates and support
+- Done-with-you: under 50% of the buyer&#x27;s time value at R$50/h × 8h + risk</p><h4>Wedge</h4><p>Beachhead: &#x27;Casa Nova / Enxoval Inteligente&#x27;. This is a sub-channel plus a downloadable checklist (a Carrd page with 80 items: cozinha, banheiro, lavanderia, organização). Each item carries a tracked price, a 30-day minimum and a gate badge. It launches with the 11.11 and Black Friday window (Black Friday 27 Nov 2026).
+
+Why this segment first:
+(1) Basket. ASSUMPTION: R$1-2k over 2-3 months vs R$30 impulse buys. That is about 19× generic member LTV, so it can pay a CAC of R$10-20 when generic members only support R$1.
+(2) Distinct acquisition. Meta interests &#x27;noivado&#x27; and &#x27;casamento&#x27;, Pinterest &#x27;lista de chá de casa nova&#x27;, and the subreddit r/casamento (activity level UNKNOWN; check). Generic achadinhos channels don&#x27;t target these.
+(3) Built-in referral. Chá de panela guests need the list, so each bride shares the Carrd link with 20-40 guests (ASSUMPTION).
+(4) Black Friday timing makes the list urgent.
+
+How it opens the rest:
+- Enxoval members graduate into the main &#x27;Achadinhos da Casa&#x27; channel after 3 months, which keeps generic growth cheap.
+- The 80-item price history lets the scorer prove &#x27;menor preço histórico&#x27; claims, which is the trust moat.
+- Sellers of enxoval categories (potes, panelas, organizadores) are the Tier 1 performance-commission pipeline.
+- The /alerta feature built for brides becomes the retention engine for everyone.
+- The cohort CAC and LTV data feed the paid-ads-affiliate stream.
+
+Fallback if enxoval CAC is above R$20 or 60-day commission per member is below R$15: run the generic casa/cozinha channel as in the playbook.</p></div></div>
+<h4>Positioning</h4><p class="lede">Channel: for Brazilian women setting up or reorganising a home who are tired of &#x27;achadinhos&#x27; channels that post anything that pays, Achadinhos da Casa is the deal channel for casa and cozinha that only posts an item when it is at or below its own 30-day minimum price, rated 4.5 or higher with 100+ sold, and it alerts you when the specific item you want drops. Unlike Pelando or Promobit (tech-heavy, crowd-voted and noisy) or Instagram achadinhos accounts (no price history, and every post looks the same), every post shows the proof: &#x27;30-day minimum, rating, units sold&#x27;.
+
+Template: for Portuguese- and Spanish-speaking affiliates who already run n8n and are tired of paying R$50+/month to repost links, Robô de Ofertas Pro is a self-hosted Shopee/ML/Telegram workflow with a built-in offer scorer and 12 months of API-change updates, for a one-time R$197. Unlike reposting SaaS, you own it and it picks the offers, not just posts them.</p><div class="tw "><table><thead><tr><th>Alternative</th><th>Why we win</th><th>Where we lose</th></tr></thead><tbody><tr><td>Pelando (pelando.com.br): crowd-voted deals plus alerts</td><td>Pelando is tech- and electronics-heavy, and its audience skews male and gamer (ASSUMPTION; check pelando &#x27;casa&#x27; category volume). We go deep in casa/cozinha with a visible price-history gate and personal /alerta for a specific item</td><td>Brand trust, community voting, huge reach and SEO. Their keyword alerts already cover &#x27;I want X&#x27; for anyone willing to set them up</td></tr><tr><td>Promobit (promobit.com.br)</td><td>Niche curation and WhatsApp-first delivery to class B/C home buyers, who don&#x27;t browse a deal site</td><td>Years of price history across retailers, app install base, and partnerships with retailers we can&#x27;t match</td></tr><tr><td>Shopee app&#x27;s own Ofertas Relâmpago / push notifications; ML &#x27;Ofertas do dia&#x27;</td><td>Cross-marketplace, curated, and gated on rating and 30-day minimum price. The marketplace&#x27;s own feed promotes whatever it is paid to promote</td><td>Zero friction (the buyer is already in the app), real-time stock, and the marketplace controls the commission we live on</td></tr><tr><td>Instagram/TikTok achadinhos creators (thousands of accounts)</td><td>Prices are current (the bot refreshes every 30 min, while a Reel shows a stale price), posts are searchable and cover 3 marketplaces, and the channel can&#x27;t be throttled by the algorithm</td><td>Faces and personality build trust, discovery is native and free, and creators sell sponsored posts more easily. We also need them as the acquisition channel</td></tr><tr><td>Other Telegram/WhatsApp promo channels (found via tgstat &#x27;Compras/Promoções&#x27;)</td><td>The scorer plus ARPM/CAC discipline: we know which members are profitable, they guess</td><td>Existing scale. A channel with 100k members out-earns us on sponsored posts from day 1</td></tr><tr><td>Shopee Ads (for sellers)</td><td>Pay-per-sale via extra commission (Tier 1): no wasted clicks, plus social proof in a curated feed</td><td>Ads scale on demand, are self-serve, and are targeted inside the app. We have a fixed audience</td></tr><tr><td>DivulgaNinja and similar posting SaaS (for template buyers)</td><td>One-time price, self-owned, includes offer scoring, and an ES/EN version for LATAM</td><td>No hosting, works for non-technical users, official-looking WhatsApp support, ongoing feature development. Most affiliates aren&#x27;t technical, so our market is the technical minority</td></tr><tr><td>Free n8n community workflows (n8n.io/workflows)</td><td>Shopee BR GraphQL HMAC signing already solved, PT-BR copy prompts, a scorer, and real 90-day numbers</td><td>Free. A competent n8n user can rebuild it from the gregojoao/shopee-affiliate reference in a weekend</td></tr></tbody></table></div>
+<div class="grid2"><div><h4>Switching costs in (barriers to buying)</h4><p>What stops a buyer from switching to us, and how to lower each cost:
+
+Members
+- Their cost is attention and notification fatigue: &#x27;mais um grupo de promoção&#x27;. They already sit in 3-10 such groups (ASSUMPTION).
+- Fixes:
+  - Promise a cap in the channel name and description: &#x27;máx. 15 posts/dia, só casa&#x27;.
+  - Offer a &#x27;silent&#x27; WhatsApp Channel (one-way, no group chatter).
+  - Make the first value instant: the bio link opens the enxoval checklist or a &#x27;menor preço do ano hoje&#x27; Carrd page with no join needed. The join CTA then says &#x27;receba quando cair&#x27;.
+  - Use the /alerta command as an onboarding hook: &#x27;diga o que procura e eu aviso&#x27;. It gives a reason to join that no existing group offers.
+
+Sellers
+- Their costs: fear of paying for nothing, no data, unknown operator, Pix to a stranger.
+- Fixes:
+  - Tier 1 performance-only (seller-funded extra commission, no upfront fee).
+  - A public media kit with screenshot proof of tgstat stats.
+  - A CNPJ and NFS-e from month 2.
+  - First post at half price, with a click report.
+
+Template buyers
+- Their costs: setup effort, VPS fear, credential risk, an API that may break.
+- Fixes:
+  - A 40-min video plus a one-command Docker Compose file.
+  - 12 months of updates.
+  - A 7-day refund (Kiwify supports guarantees; the exact policy is UNKNOWN, so check).
+  - A done-with-you tier.
+  - Public build numbers on r/n8n for credibility.</p><h4>Switching costs out (lock-in)</h4><p>Lock-in mechanisms, from weakest to strongest:
+
+(1) Habit and notification slot. Weak: anyone can leave a channel with one tap.
+
+(2) Personal alert data. Each member&#x27;s saved /alerta list (items and target prices) lives in our Postgres. Leaving means losing alerts she already set up. Target 20% adoption (ASSUMPTION).
+
+(3) Enxoval checklist progress. A per-member &#x27;comprei / falta&#x27; state, kept in a Telegram bot conversation or in a Carrd + Google Sheet copy per user. It is sticky for the 2-3 months of the purchase cycle.
+
+(4) Price history as a public asset. &#x27;Este item custou R$X nos últimos 90 dias&#x27; becomes more valuable every month and is not portable to a competitor.
+
+(5) Multi-surface presence (Telegram + WhatsApp Channel + Pinterest + Carrd list). Members who drift off one surface stay reachable on the others.
+
+(6) Sellers: performance history (their sales data via sub_id) and a recurring Tier 3 monthly package. Report &#x27;your cost per sale with us vs Ads&#x27; monthly so leaving looks expensive.
+
+(7) Template buyers: they get updates only through the support group, which creates a renewal option at year 2 (e.g. R$97/year for updates, ASSUMPTION). Upsell to the hosted feed.
+
+Honest assessment: member lock-in stays weak. Defensibility comes from the data and cost-per-acquisition discipline, not from captivity.</p></div><div><h4>Defensibility</h4><div class="tw "><table><thead><tr><th>Defensive mechanism</th><th>Strength (1-5)</th></tr></thead><tbody><tr><td>Proprietary price history (30/90-day minimum per SKU in Postgres) behind the &#x27;menor preço&#x27; trust badge</td><td class=num>US$3</td></tr><tr><td>CAC/ARPM/churn cohort data by acquisition source (Meta, Reels, enxoval). Competitors guess; Calebe allocates spend by payback</td><td class=num>US$3</td></tr><tr><td>Personal alert lists and enxoval checklist state (member-level switching cost)</td><td class=num>US$2</td></tr><tr><td>Niche brand in casa/enxoval with a visible quality gate</td><td class=num>US$2</td></tr><tr><td>Seller relationships via performance-commission deals</td><td class=num>US$2</td></tr><tr><td>Automation (n8n pipeline). Easily copied, and he sells it himself, so it is not a moat</td><td class=num>US$1</td></tr><tr><td>Audience size / reach. Reach is rented from Telegram, WhatsApp and Meta, which can throttle or ban it</td><td class=num>US$1</td></tr></tbody></table></div><h4>Envelopment and network effects</h4><p>Network effects:
+- Weak, one-sided ones. More members means more forwards, which brings more members (a viral loop, not a true network effect).
+- A two-sided effect appears only with sellers: more members makes sponsored and performance deals worth more, which brings more seller-funded commission, which pays for better deals and more members. It becomes real above about 30k members (ASSUMPTION).
+- Price history gets a data network effect from members&#x27; /alerta requests: their requests tell the scorer which SKUs to track.
+
+Platform envelopment risk (who can bundle this away), highest first:
+(1) Shopee, Mercado Livre and Amazon own the commission rate and can cut it unilaterally. The Shopee 2026 changes were reportedly tiered (third-party). They also run their own deal feeds, push notifications and Shopee Live. They could launch in-app &#x27;alerta de preço&#x27; for any item. Amazon already has wishlists, and its price-drop notifications are UNKNOWN for BR.
+(2) Meta/WhatsApp controls distribution: Channels algorithm, group limits, bans on automation.
+(3) Pelando or Promobit could launch a casa vertical with WhatsApp alerts and out-reach us.
+(4) DivulgaNinja-type SaaS could add a scorer, killing the template&#x27;s differentiation.
+(5) n8n&#x27;s free template library commoditises the template.
+
+How to envelop instead of being enveloped:
+- Bundle across marketplaces. No single marketplace will show competitors&#x27; prices, so the cross-marketplace &#x27;menor preço em qualquer loja&#x27; comparison is the one thing Shopee or ML can&#x27;t bundle.
+- Own the member relationship off-platform. Collect the WhatsApp number and email via the enxoval checklist download (LGPD-compliant opt-in) so a Telegram or WhatsApp ban is survivable.
+- Become the supplier, not the competitor, to other channel operators. Sell the scored-offer feed (R$79/month, ASSUMPTION) and the template, so the many achadinhos channels run on Calebe&#x27;s scorer.
+- Bundle the stream into Calebe&#x27;s other streams: the viagem clone feeds travel-stack, CAC data feeds paid-ads-affiliate, the tax case study feeds br-tax-reform. This stream&#x27;s strategic value is larger as a data and testbed component than standalone.</p></div></div>
+<p><strong>Verdict:</strong> Build it, capped and re-shaped. Expect it to stay well under 10% of the US$10k floor. On the playbook&#x27;s base case it reaches about US$900/month at month 12 (≈R$4,860 at R$5.40). That needs about 12.5k members at R$0.39 ARPM, which comes from four stacked assumptions:
+- 6% daily clickers
+- 4% conversion
+- R$90 average order
+- 6% blended commission
+
+Halve two of them and you are at the conservative US$150-200. At 5 h/week (~22 h/month), base month 12 is about US$41/h (CALC) and conservative about US$7/h. That compares with US$100+/h in the USD pricing streams.
+
+Changes to the value capture:
+(1) Make enxoval/casa nova the wedge. It is where LTV per member (about R$90 vs R$4.70, CALC) can pay for paid acquisition.
+(2) Re-price sponsored posts from a flat R$80 to performance-first. Tier 1 uses seller-funded extra commission; Tier 2 is R$60-120 per post. A flat R$80 sits at or above seller EVC (R$36-96) and will stall.
+(3) Re-tier the template: R$97 / R$197 Pro with updates / R$597 done-with-you. The plain JSON at R$147 is barely positive in year-1 EVC against R$49.90/month SaaS once VPS cost is counted. Push the USD Gumroad ES version (US$29/59/149) because it is the only hard-currency piece.
+(4) Build /alerta in week 3. It is the only member-level switching cost and retention lever.
+
+Kill and scale rules stay as in the playbook. Add one kill rule: if the enxoval cohort&#x27;s 60-day commission per member is under R$15, drop the wedge.
+
+The real return on this stream is the reusable scorer and pipeline (the template and feed), the CAC/ARPM data for paid-ads-affiliate, and the Black Friday 2026 window. Start before 1 Nov, or wait for Dia das Mães 2027.
+
+Verify before committing hours:
+- The actual commission rates in the three affiliate dashboards
+- Shopee extra-commission mechanics
+- Amazon BR cookie and price-display rules
+- Shopee Ads CPC in casa</p></div>
 <h4>Product ladder</h4><div class="tw "><table><thead><tr><th>Product</th><th>Format</th><th>Price</th><th>Buyer</th></tr></thead><tbody><tr><td>Telegram channel &#x27;Achadinhos da Casa&#x27; (working name, rename after a handle check)</td><td>Public Telegram channel. 12-20 posts/day, each with a photo, the price before and after, a coupon if there is one, a short affiliate link and a 1-line hook in PT-BR. A Telegram bot posts automatically via n8n</td><td>Free to members. Revenue is affiliate commission: Shopee (rate set per offer in the dashboard; Tecnoblog reports &#x27;up to 14%&#x27; at launch), Mercado Livre (Casa 4-10% per a third-party table, UNCONFIRMED), Amazon BR (rates per the official table at associados.amazon.com.br; blog figures conflict, so treat them as UNKNOWN until checked)</td><td>Brazilian women aged 25-55 setting up or reorganising a home who buy on impulse at R$20-150 per item</td></tr><tr><td>WhatsApp Channel plus 2-3 WhatsApp community groups mirroring the best 6-8 deals/day</td><td>WhatsApp Channel (one-way) and groups capped at 1,024 members each (WhatsApp group limit, ASSUMPTION check current). Posting is semi-automated (see risks)</td><td>Free; affiliate commission</td><td>The same buyers. In Brazil, WhatsApp reaches more people than Telegram</td></tr><tr><td>Sponsored &#x27;Achado Patrocinado&#x27; posts for Shopee/ML sellers</td><td>1 pinned post plus 1 repost in groups. Sold through a Google Form and paid by Pix</td><td>ASSUMPTION: R$80 per post at 10k total members, R$200 at 30k+, packs of 5 at a 20% discount. Validate by asking 10 sellers before setting the price</td><td>Small Shopee/ML sellers in casa/cozinha who need first sales and reviews</td></tr><tr><td>&#x27;Robô de Ofertas n8n&#x27; template (the workflow JSON + 40-min screen-recorded setup video in PT)</td><td>Digital download sold on Kiwify or Hotmart, with a Gumroad version in EN/ES for LATAM</td><td>R$147 (ASSUMPTION; DivulgaNinja SaaS starts at R$49.90/mo, so a one-time template at about 3 months of that subscription is a defensible anchor)</td><td>Brazilian affiliates who don&#x27;t want a monthly SaaS fee. Find them in the r/n8n and r/empreendedorismo audiences and in Brazilian n8n Telegram groups</td></tr></tbody></table></div>
 <h4>Build it, step by step</h4><div class="tw "><table><thead><tr><th>When</th><th>Action</th><th>Tool</th><th>Output</th></tr></thead><tbody><tr><td>Week 1, day 1</td><td>Register as an affiliate on all three programs using your CPF:
 - Shopee: affiliate.shopee.com.br
