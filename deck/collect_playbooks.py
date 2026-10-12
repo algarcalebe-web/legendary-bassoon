@@ -1,7 +1,7 @@
 """Collect finished playbooks from workflow journals into one JSON (partial results allowed)."""
 import json, sys, glob
 W = '/root/.claude/projects/-home-user-legendary-bassoon/fdf86186-d2b5-5fda-b68d-796c8730fe71/subagents/workflows/'
-RUNS = ['wf_90aeb2df-2ad', 'wf_4a57cc01-2f9', 'wf_99703fae-c5a', 'wf_ffef6c07-e1c', 'wf_77aa1970-6ef', 'wf_ed37060e-d65', 'wf_89c05642-3b8', 'wf_b90f21d3-e6d']
+RUNS = ['wf_90aeb2df-2ad', 'wf_4a57cc01-2f9', 'wf_99703fae-c5a', 'wf_ffef6c07-e1c', 'wf_77aa1970-6ef', 'wf_ed37060e-d65', 'wf_b90f21d3-e6d']
 ORDER = ['pro-firm-pricing','ai-product-pricing','ai-roi-kit','ai-risk-valuation','sustainability-premium','green-export-value','br-tax-reform','yt-finance','course-library','model-templates','travel-stack','b2b-referrals','job-board','directory','hours-anchor','async-reviews','eu-ai-literacy','deal-channel','vc-scout','paid-ads-affiliate','fixed-fee-studio','linkedin-pricing','pj-role','fractional-roles','grant-teardown','ad-desk','whitelabel-backoffice','expert-calls','expert-matching','talent-referrals','hotmart-affiliate','sourcing-agent','travel-host-agency','airbnb-cohost','stock-media','itinerary-licensing','automation-templates','framework-licensing','finance-apps','data-products','seo-calculators','lead-gen-br','acl-energy','carbon-credits','lei-do-bem','export-readiness','ai-spend-fpa','geo-services','niche-calculators','ai-adoption-ptes','ai-automation-agency','dropshipping','print-on-demand','site-flipping','paid-research','survey-business']
 pb, fx, fw, portfolio = {}, {}, {}, None
 for run in RUNS:
