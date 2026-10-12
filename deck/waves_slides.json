@@ -1,0 +1,2797 @@
+[
+ {
+  "id": "pro-firm-pricing",
+  "name": "AI-era pricing kit for pro firms",
+  "kind": "product",
+  "why": "MBA/MFin pricing expertise fits a gap: only a third of firms repriced for AI; no cheap finance-grade fee calculators exist.",
+  "offers": [
+   {
+    "name": "A1 Accounting Fee Calculator",
+    "price": "US$49 (bump: Template Pack US$29)"
+   },
+   {
+    "name": "Bundle: calculator+templates+class",
+    "price": "US$129"
+   },
+   {
+    "name": "Live Firm Pricing Workshop",
+    "price": "US$2,500 (5 partners); US$3,500 (6-15)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Pick US/UK accounting firms. Save 50 pain quotes from r/Bookkeeping, r/taxpros and LinkedIn in Notion."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build free AI Hours-Leak Calculator in Google Sheets plus 1-page PDF. Use it as the email lead magnet."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build SKU A1 calculator in Excel/Sheets. Set up Lemon Squeezy or Polar, Carrd page and Kit; sell at US$49."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Write A1 Template Pack and 5-email welcome sequence in Kit. Open ME/Simples company with a contador and Wise."
+   },
+   {
+    "when": "Wk 4-5",
+    "do": "Post on LinkedIn 3x/week, answer 5 Reddit questions/week, pitch 15 podcasts. Record 90-min masterclass (US$129 bundle)."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Build A2 (law) and A3 (agency) calculators, 6 SEO landing pages. Run Meta/Reddit ad test capped at US$300-400."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Record course (US$197 launch). Offer 10 free fee teardowns, then sell the US$2,500 workshop to callers."
+   },
+   {
+    "when": "Mo 4-12",
+    "do": "Launch Pricing Room (US$39/mo) at 40+ buyers, PT-BR kit, white-label pitches, then Sprints (US$7.5-12k)."
+   }
+  ],
+  "kpi": "300 email subscribers and 1st workshop sold by month 4; 5,000 subscribers and 120 members by month 12",
+  "gate": "Month 4: under 300 subscribers and under 15 sales = switch lead vertical to agencies. CPL above US$6 after 2 creative rounds = stop ads.",
+  "m3": 900,
+  "m12": 6000,
+  "m24": 9500,
+  "hours": "110h setup · 10h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 175,
+  "capital_note": "Descript ~US$24, Claude ~US$20, Carrd US$19/yr. Defer ads (US$400, wk 8) and Skool/Circle (~US$99).",
+  "first_cash": "3-6 weeks",
+  "scale_with_capital": "Ads at CPL under US$2, webinar sponsorship, and paid Kit/Skool tiers once membership passes 100."
+ },
+ {
+  "id": "ai-risk-valuation",
+  "name": "AIX Overlay: AI risk for DCF/LBO models",
+  "kind": "product",
+  "why": "MFin skills fit a new valuation input: AI exposure. Deal buyers now walk away over AI impact; few tools price it.",
+  "offers": [
+   {
+    "name": "AIX Overlay for Excel: Individual",
+    "price": "US$149 (Team US$449)"
+   },
+   {
+    "name": "AIX Diligence Memo: Light",
+    "price": "US$1,500 (48h rush US$2,250)"
+   },
+   {
+    "name": "Course: Pricing AI Risk into Valuations",
+    "price": "US$349 bundle"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Pull Anthropic Economic Index (CC-BY-4.0) and O*NET tables in pandas. Map NAICS niches to occupations."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Verify Lemon Squeezy PayPal payout to Brazil; open Wise Business or Payoneer. Write TOM interview guide, book 29 calls."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build AIX Overlay v0.9 in Excel: 6 linked model cells, task map, exposure block, 3 scenarios. Run 10 interviews."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build 12-question Quick Score in Tally, Carrd page, 5-email Kit sequence. List all products in Lemon Squeezy."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Publish cornerstone Searchfunder post with the free score. Offer 3 free Light memos for case studies and testimonials."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Record 9-module course, publish 40 Atlas niche pages, pitch Acquiring Minds. Run US$500 ad test (Reddit, Google)."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Launch sell-side AI Resilience Report to 50 brokers. Re-price from interviews. Automate refresh in GitHub Actions."
+   },
+   {
+    "when": "Mo 4-6+",
+    "do": "Add PT/ES edition on Hotmart (R$497), publish Predictions Ledger, pitch licences to finance schools and MBA programmes."
+   }
+  ],
+  "kpi": "20 TOM interviews by day 21; 300 subscribers by day 45; first paid memo by day 60",
+  "gate": "Day 90 kill: under 10 template sales AND zero paid memos after 20 interviews and the US$500 test. Fold into model-templates. 3+ memo requests/month for 2 months = scale.",
+  "m3": 1200,
+  "m12": 6000,
+  "m24": 9000,
+  "hours": "75h setup · 8h/wk",
+  "start_capital_usd": 100,
+  "monthly_cost_usd": 60,
+  "capital_note": "Claude Pro US$20, Carrd US$19/yr, domain, Descript US$24 optional. Defer US$500 ad test to wk 8.",
+  "first_cash": "3-8 weeks",
+  "scale_with_capital": "Claude Max (US$100) for memo volume and ad budget once channels pass break-even."
+ },
+ {
+  "id": "br-tax-reform",
+  "name": "Reforma Tributaria pricing and cash kit",
+  "kind": "product",
+  "why": "CBS starts Jan 2027 and split payment hits cash flow. PT fluency plus pricing and finance skills fit Brazilian SMEs and accountants.",
+  "offers": [
+   {
+    "name": "RT-KIT-03 bundle (repricing+cash)",
+    "price": "R$397 (about US$74)"
+   },
+   {
+    "name": "Kit Escritorio white-label licence",
+    "price": "R$197/mo (S) to R$497/mo (M)"
+   },
+   {
+    "name": "Diagnostico Preco & Caixa 2027",
+    "price": "R$3,500 per company (20% to accountant)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1",
+    "do": "Read LC 214/2025, Res. CGSN 186/2026 and Decreto 12.955/2026. Run TOM interviews with 12 accountants and 8 SME CFOs."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Build RT-PRC-01 repricing model (R$197) and RT-CXA-02 split-payment cash model (R$297) in Excel."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build free Calculadora Preco 2027, Brevo form, 5-email PT sequence. Set up Hotmart products with 40% affiliates."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Soft launch to 20 interviewees: Kit Escritorio at R$147/mo for a testimonial. Target 5 licensees, 20 kit sales."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Record 6-module PT course (~5 h). Post 6 YouTube videos. Pitch free webinars to CRC-SC, Sescon, ACATE, ACIF."
+   },
+   {
+    "when": "Wk 7-8",
+    "do": "Pitch 2 articles to contabeis.com.br and jornalcontabil.com.br. Run ads capped at R$2,500. Write EN VAT brief (US$490)."
+   },
+   {
+    "when": "Wk 9-10",
+    "do": "Launch Diagnostico service via licensee accountants using Tally intake and a fixed 2-call script."
+   },
+   {
+    "when": "Monthly",
+    "do": "Update models when rates change, run licensee webinar, and run the Simples vs Hibrido campaign each September."
+   }
+  ],
+  "kpi": "20 interviews by 25 Oct 2026; 500 email leads and 60 paid buyers by Jan 2027",
+  "gate": "31 Dec 2026: under 30 paid sales and under 5 licensees = stop active work, keep passive. Kill ads if CPL above R$15 after R$300 per ad set.",
+  "m3": 900,
+  "m12": 2800,
+  "m24": 3300,
+  "hours": "90h setup · 7h/wk",
+  "start_capital_usd": 170,
+  "monthly_cost_usd": 70,
+  "capital_note": "Descript US$24, Claude US$20, Canva ~US$7, Carrd US$19/yr, R$300-500 accountant. Defer R$2,500 ads.",
+  "first_cash": "4-5 weeks",
+  "scale_with_capital": "Part-time CRC-registered accountant on revenue share for diagnostics, plus paid Meta/Google ads if CPL stays under R$10."
+ },
+ {
+  "id": "model-templates",
+  "name": "Finance and pricing model template library",
+  "kind": "product",
+  "why": "Generic DCF/LBO files are free; pricing and WTP models are unserved. MBA/MFin and pricing work make them credible.",
+  "offers": [
+   {
+    "name": "PV-03 Usage-Based/AI Pricing Simulator",
+    "price": "US$149"
+   },
+   {
+    "name": "Pricing Strategy Toolkit bundle",
+    "price": "US$299 single / US$790 consultant"
+   },
+   {
+    "name": "Model Update Club",
+    "price": "US$19/mo or US$149/yr"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1",
+    "do": "Open Payhip, PayPal Brazil, Mercado Pago, Etsy; test US$1 payout. Register on eFinancialModels, check price parity."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Map top 10 eFM listings and Etsy results by price. Write a 15-row model style guide (inputs blue, checks tab, cover)."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Build VA-01 DCF and free LBO Short-Form, then PV-01 Value Map and PV-03 AI Pricing Simulator with 2 worked cases each."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Submit VA-01, VA-02, PV-03 to eFM. Launch Payhip store with free LBO lead magnet, MailerLite, 5-email sequence."
+   },
+   {
+    "when": "Wk 5-7",
+    "do": "Build VA-04 SaaS model, VA-02 LBO, PV-02/04/05. Launch Etsy PF-01..03 and VA-03. Package US$299 Pricing Toolkit."
+   },
+   {
+    "when": "Wk 8-10",
+    "do": "Build PT-BR BR-01/BR-02 on Payhip with Pix. Post 4 LinkedIn carousels. Launch Model Update Club."
+   },
+   {
+    "when": "Wk 11-12",
+    "do": "Run US$300 ad test (Pinterest, Reddit). Kill any ad set with CPA above 60% of net price after US$75 spend."
+   },
+   {
+    "when": "Mo 3-12",
+    "do": "Day-90 SKU review; build 5 SKUs only in top 2 categories, target 25 SKUs. Pitch cohort licences at US$990/yr."
+   }
+  ],
+  "kpi": "10 SKUs live by week 8; 25 by month 6; 500 subscribers by month 3",
+  "gate": "Day 90: SKUs under 0.5 sales/month stop promotion; catalog average under 0.5 = stop building, keep as lead magnet. Ad set CPA above 60% of net price = kill.",
+  "m3": 200,
+  "m12": 1600,
+  "m24": 3000,
+  "hours": "110h setup · 7h/wk",
+  "start_capital_usd": 80,
+  "monthly_cost_usd": 35,
+  "capital_note": "Microsoft 365 ~US$10, domain+Carrd ~US$30/yr, Etsy fees, ElevenLabs ~US$5. Defer US$300 ads.",
+  "first_cash": "3-6 weeks",
+  "scale_with_capital": "Pinterest/Reddit ads on winning SKUs once CPA is under 60% of net price; paid MailerLite beyond 1,000 subscribers."
+ },
+ {
+  "id": "hours-anchor",
+  "name": "Senior finance and pricing contracting",
+  "kind": "service",
+  "why": "Few freelancers hold MBA, MFin and AI pricing skills. UTC-3 overlaps US hours. Fastest route to USD cash and reviews.",
+  "offers": [
+   {
+    "name": "SKU 1: Investor-ready SaaS/AI model",
+    "price": "US$900 / US$1,500 / US$2,400"
+   },
+   {
+    "name": "SKU 2: Usage-based pricing teardown",
+    "price": "US$1,800 / US$3,500"
+   },
+   {
+    "name": "Fractional pricing and FP&A retainer",
+    "price": "US$2,000/mo, rising to US$2,400"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Day 1",
+    "do": "Open Payoneer and Wise. Book a contador call on invoicing service exports as a PJ."
+   },
+   {
+    "when": "Day 1-3",
+    "do": "Write positioning brief (AI/SaaS pricing, investor-grade models). Build 3 portfolio pieces from public data."
+   },
+   {
+    "when": "Day 3-4",
+    "do": "Launch Upwork profile (US$65/h) and 3 Project Catalog listings for SKUs 1-3. Add Contra, Braintrust, Catalant profiles."
+   },
+   {
+    "when": "Day 5",
+    "do": "Apply to Toptal Finance. Create expert profiles on GLG, AlphaSights, Guidepoint and Third Bridge."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Send 3 Upwork proposals/day (120 words, jobs under 6h old). Message 40 warm contacts at launch prices US$700/US$1,200."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Email 30 fractional CFO and boutique M&A firms a white-label offer. Fill idle hours with Alignerr/Handshake, 8h/wk max."
+   },
+   {
+    "when": "Wk 6",
+    "do": "After 3 five-star reviews raise rate to US$80/h, SKUs 15%. End each job with a next-90-days memo pitching the retainer."
+   },
+   {
+    "when": "Mo 4-6+",
+    "do": "Rate US$100/h at 8 reviews, 2 retainer conversions, US$120/h via Toptal or expert calls. Hire junior at US$15-25/h."
+   }
+  ],
+  "kpi": "15+ proposals/week; 20% reply rate by week 6; 6% win rate by week 8",
+  "gate": "Week 6: under 2 contracts and reply rate under 10% after 60 proposals = rewrite profile and pivot keywords. Under 2 wins after 120 = drop Upwork bidding.",
+  "m3": 2600,
+  "m12": 6200,
+  "m24": 7500,
+  "hours": "35h setup · 20h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 135,
+  "capital_note": "Upwork Plus ~US$20/mo, Connects ~US$20-60/mo (US$0.15 each), contador ~US$45-80. Contra Pro optional.",
+  "first_cash": "1-3 weeks",
+  "scale_with_capital": "More Connects, Contra Pro and a junior analyst at US$15-25/h to lift margin on fixed-price SKUs."
+ },
+ {
+  "id": "vc-scout",
+  "name": "VC Scout + Founder Raise-Readiness Desk",
+  "kind": "service",
+  "why": "Brazil/LatAm founder access plus MBA/MFin models sells flat-fee raise prep now. Scout carry is a free long-shot add-on.",
+  "offers": [
+   {
+    "name": "Raise-Ready Sprint FULL",
+    "price": "US$2,500 flat, 50% upfront"
+   },
+   {
+    "name": "Fractional Investor-Readiness Advisor",
+    "price": "US$1,500/mo + 0.25-0.5% equity"
+   },
+   {
+    "name": "Outsourced LatAm Scout Retainer",
+    "price": "US$2,000/mo (3-mo min)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Apply to scout programs (Allied VC, SHL.vc, Republic, Zacua). Build Sprint templates: model, slides, valuation tab."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Write EN/PT sales page on Carrd with 3 Sprint SKUs. Open Wise Business and ask a contador about PF vs PJ billing."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Turn 10 anonymised analyses into LinkedIn posts (EN/PT). Build list of 150 Brazil/LatAm B2B SaaS/AI startups."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Send 15 LinkedIn DMs/day offering a free 30-min readiness review; book 8 calls. Pitch Venture Cafe and ACATE for talks."
+   },
+   {
+    "when": "Wk 4-5",
+    "do": "Close first 2 Sprints (LITE at US$600 for testimonials). Deliver with 1-page memo; submit fundable founders to scouts."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Build sample Deal Memo #0 with 8 companies. Email 60 EU/US seed funds a US$2,000/mo 3-month pilot. Add FAST templates."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Raise to LITE US$900, FULL US$2,500, PLUS US$4,500. Start free newsletter. Automate intake with Tally, Make, Claude."
+   },
+   {
+    "when": "Mo 4-6+",
+    "do": "Cut dead scout programs. Hire analyst at US$8-12/h for 10h/wk. Run quarterly Brazil B2B AI demo calls for funds."
+   }
+  ],
+  "kpi": "12+ founder calls/month by month 2; 3 paid Sprints/month and 5 scout seats by month 6",
+  "gate": "Week 10: under 2 paid Sprints from 600+ DMs = drop founder services, keep scout seats plus fund pitch. Scale at 4+ Sprints/month or 1+ fund retainer.",
+  "m3": 2200,
+  "m12": 7000,
+  "m24": 9500,
+  "hours": "45h setup · 14h/wk",
+  "start_capital_usd": 130,
+  "monthly_cost_usd": 110,
+  "capital_note": "Carrd US$19/yr, Claude US$20, Make ~US$10, contador ~US$55-110/mo. Defer analyst (US$350-500/mo) to month 5.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Part-time analyst at US$8-12/h to draft FULL models; Make/Claude API automation for readiness scoring."
+ },
+ {
+  "id": "pj-role",
+  "name": "Senior pricing full-time PJ contract",
+  "kind": "income",
+  "why": "Usage and AI pricing needs rare pricing-plus-margin skills. A US SaaS PJ contract hits the US$11.5k gross floor with one employer.",
+  "offers": [
+   {
+    "name": "Senior Pricing/Monetization Lead (PJ)",
+    "price": "Ask US$13-14k/mo; floor US$11.5k gross"
+   },
+   {
+    "name": "GTM/Strategic Finance Manager (PJ)",
+    "price": "US$11.5-13k/mo gross"
+   },
+   {
+    "name": "Fractional pricing lead bridge",
+    "price": "US$6-8k (2d/wk); US$8.5-10k (3d/wk)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Set floor (US$11.5k), ask (US$13.5k), walk-away terms. Pull US comps from Levels.fyi and Glassdoor."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Confirm ME/Simples CNPJ with a CNAE for consulting via Contabilizei or Agilize. Ask about Fator R and export treatment."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Rewrite LinkedIn for recruiters (UTC-3, usage and AI pricing). Publish proof piece: seat vs credit vs outcome sheet."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Build list of 80 target companies. Set daily alerts on LinkedIn, Himalayas, Wellfound, We Work Remotely, Google Alerts."
+   },
+   {
+    "when": "Wk 3-10",
+    "do": "Apply to 8-10 qualifying roles/week with a 4-sentence note to the hiring manager. Send 5 warm asks/week. Post weekly."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Prepare 30-60-90 plan and case framework. Offer 2-3 targets a 4-week paid pricing audit at US$4-6k as a bridge."
+   },
+   {
+    "when": "Wk 6-14",
+    "do": "Run interview loops: state USD monthly range first. At offer, get USD invoices, client-paid Deel fees, 30-day notice."
+   },
+   {
+    "when": "Mo 1-6 on job",
+    "do": "Invoice via Deel/Remote, withdraw to Wise, pay DAS and INSS. Ship one measured win by day 60; ask +10% at month 6."
+   }
+  ],
+  "kpi": "60+ qualifying applications and 200 notes plus 40 warm asks by end of week 10",
+  "gate": "Month 4: no final round or only offers under US$9.5k gross = switch to fractional (2-3 days/wk at US$6-10k) plus own practice.",
+  "m3": 0,
+  "m12": 10005,
+  "m24": 11310,
+  "hours": "140h setup · 40h/wk",
+  "start_capital_usd": 120,
+  "monthly_cost_usd": 70,
+  "capital_note": "AI assistant US$20/mo, optional LinkedIn Premium ~US$30-40, accountant ~US$30-65/mo. Wise FX 0.5-1%.",
+  "first_cash": "3-4 months",
+  "scale_with_capital": "Little. Capital is not the lever; negotiation and rate review are. Optional LinkedIn Premium."
+ },
+ {
+  "id": "ad-desk",
+  "name": "Ad-fed investor model and valuation desk",
+  "kind": "service",
+  "why": "Founders face US$25-65/h freelancers or US$5-15k boutiques. A fixed US$1,900 pack built by a Brazilian bench fits MFin skills.",
+  "offers": [
+   {
+    "name": "Investor Model + Valuation Pack",
+    "price": "US$1,900 fixed (+30% rush)"
+   },
+   {
+    "name": "Model Upkeep retainer",
+    "price": "US$350/mo Essentials; US$750/mo Board"
+   },
+   {
+    "name": "White-label bench seat",
+    "price": "30% off list (core pack US$1,330)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 0 D1",
+    "do": "Book 1-hour paid consult with a Brazilian accountant on service-export CNPJ, Simples Anexo III/V and Fator R."
+   },
+   {
+    "when": "Wk 1",
+    "do": "Set up domain, mailbox, Stripe or Wise invoicing. Build 3 master model templates (SaaS, marketplace, hardware)."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build one worked sample (fictional AI SaaS) and 8-page PDF preview. Launch landing page: model plus valuation, US$1,900."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Recruit analysts in Portuguese with a R$300 paid test (24-month model). Approve 3 passing 35+ of 40 QA checks. Sign PJ."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Build Notion/Make pipeline with 40-check QA. Launch Google Ads (3 ad groups; US/UK/IE/NL/DE). Answer Reddit questions."
+   },
+   {
+    "when": "Wk 5-7",
+    "do": "Deliver first packs: scope call, analyst build, QA at 50% and 100%, own assumptions memo. Read ad data at ~US$1,000."
+   },
+   {
+    "when": "Wk 8-10",
+    "do": "Launch upkeep retainer links (US$350/US$750). Email 40 fractional CFO firms with a wholesale partner sheet."
+   },
+   {
+    "when": "Mo 4-12",
+    "do": "Promote a bench lead (R$1,500-2,500/mo), add 2 analysts, scale ads where CAC is under US$600, test LinkedIn Lead Gen."
+   }
+  ],
+  "kpi": "3 bench analysts approved by week 3; CPC US$10 or less by week 5; 4%+ click-to-lead by week 6",
+  "gate": "After US$1,000-1,200 ad spend: CPC above US$15, lead rate under 2%, or CAC above US$1,200 = kill ads. Month 6: under 6 packs sold = kill stream.",
+  "m3": -200,
+  "m12": 6200,
+  "m24": 10700,
+  "hours": "95h setup · 18h/wk",
+  "start_capital_usd": 2000,
+  "monthly_cost_usd": 125,
+  "capital_note": "Ads to gate 1 ~US$1,000 (cap US$1,800), bench tests ~US$340, contract review ~US$150-280, tools.",
+  "first_cash": "5-7 weeks",
+  "scale_with_capital": "Ad budget (steps of 30%/week once CAC is under US$600), more bench analysts, LinkedIn Lead Gen test capped at US$500."
+ },
+ {
+  "id": "expert-matching",
+  "name": "AI pricing expert matching desk",
+  "kind": "service",
+  "why": "A narrow managed desk for AI/SaaS monetization fits his pricing niche: fixed-scope sprints, 15-20% take, about 4h per Sprint.",
+  "offers": [
+   {
+    "name": "AI Pricing Teardown (entry)",
+    "price": "US$490 (US$290 first 10 buyers)"
+   },
+   {
+    "name": "Monetization Sprint (matched)",
+    "price": "US$7,500 fixed; desk keeps US$1,500"
+   },
+   {
+    "name": "Fractional GTM/Pricing retainer",
+    "price": "US$4,000-8,000/mo; desk keeps 10%"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Define niche as AI/SaaS monetization. Write the 7-SKU menu as one-page scopes. Draft MSA and SOW templates."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Set up US LLC (Stripe Atlas US$500 or doola), Mercury, Stripe Connect, Wise. Build one-page site and Airtable ops base."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Recruit 12-20 pricing experts via LinkedIn and Professional Pricing Society. Build free AI Pricing Benchmark (100+)."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Post benchmark on LinkedIn and r/SaaS; message 150 warm contacts. Deliver Teardowns in 5 days with a Sprint proposal."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Set up cold outbound: Apollo list of 1,000 AI/SaaS firms, 2 secondary domains, 3-email sequence over 10 days."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Run first matched Sprint: shortlist 3 experts, QA at day 5 and 10. Email Orb, Metronome, Lago, Stigg, Chargebee, Paddle."
+   },
+   {
+    "when": "Wk 6-10",
+    "do": "Automate matching: Tally, Airtable, Claude API. Sell US$149 template pack. Launch Readiness Pack; US$500 Google Ads."
+   },
+   {
+    "when": "Wk 11-12+",
+    "do": "Review kill/scale rule. Add retainer offer to every close-out. Month 4: pitch PE partners a US$25k portfolio diagnostic."
+   }
+  ],
+  "kpi": "12 vetted experts by week 4; 10 paid Teardowns by week 6; 25%+ Teardown-to-Sprint conversion by month 3",
+  "gate": "Week 12: under 2 matched Sprints AND under 15 qualified leads, or 2 of first 5 clients rate expert under 7/10 = fold into own consulting.",
+  "m3": 1200,
+  "m12": 7000,
+  "m24": 12000,
+  "hours": "90h setup · 12h/wk",
+  "start_capital_usd": 900,
+  "monthly_cost_usd": 300,
+  "capital_note": "Stripe Atlas US$500 (or doola ~US$297), lawyer US$300-600, Framer, Airtable, Claude. Defer Apollo and ads.",
+  "first_cash": "3-5 weeks",
+  "scale_with_capital": "Part-time ops assistant (US$600-900/mo), Google Ads on 7 intent keywords, Sales Navigator in recruiting months."
+ },
+ {
+  "id": "automation-templates",
+  "name": "Finance ops automation templates",
+  "kind": "product",
+  "why": "n8n/Make stores are full of lead-gen flows. Few templates come from FP&A and pricing experience: close, cash forecast, margin alerts.",
+  "offers": [
+   {
+    "name": "FOA-04 Pricing & Margin Alert Pack",
+    "price": "US$149"
+   },
+   {
+    "name": "Finance Ops Automation Vault",
+    "price": "US$399 solo; US$799 firm"
+   },
+   {
+    "name": "Done-for-you install",
+    "price": "US$750 per kit; US$2,000 Close+Cash"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Self-host n8n CE on a Hetzner or Hostinger VPS (Docker, Caddy). Open Make, Zapier, QBO and Xero sandboxes."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Demand check: log 40 pain posts on invoices, reconciliation, cash forecast from r/n8n, r/FPandA, r/Bookkeeping."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Build FOA-01 Invoice Capture Kit in n8n, port to Make and Xero, write setup guide. Build 3 free lead-magnet templates."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Open Lemon Squeezy or Payhip store plus Carrd page. Launch on r/n8n and n8n forum; give Stripe reconciler away free."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Build FOA-02 Month-End Close, FOA-03 13-Week Cash Forecast, and FOA-04 Pricing & Margin Alert Pack (signature product)."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Launch Vault bundle and Vault Pro (US$29/mo) with Discord. Post 1 faceless YouTube video/week and SEO pages per SKU."
+   },
+   {
+    "when": "Mo 4-5",
+    "do": "Build PT-BR kits (NF-e into Omie/Conta Azul) on Hotmart at R$197. Run US$300-500 ad test on Reddit and Google."
+   },
+   {
+    "when": "Mo 5-6+",
+    "do": "DM 50 fractional CFO firms: 14-day firm trial, 30% affiliate. Run Monday health-check flow; ship 1 template/month."
+   }
+  ],
+  "kpi": "1,000 free template downloads and 500 subscribers by month 3; 10 paid orders by month 2",
+  "gate": "Month 4: under 25 paid orders, under 300 subscribers and conversion under 0.7% = maintenance mode. Kill ads at CPA above US$120 after US$300.",
+  "m3": 600,
+  "m12": 4000,
+  "m24": 6500,
+  "hours": "90h setup · 7h/wk",
+  "start_capital_usd": 75,
+  "monthly_cost_usd": 80,
+  "capital_note": "VPS US$5-15/mo, Make ~US$10.59, LLM API US$5-20, Carrd US$19/yr, domain US$12/yr. Defer Zapier, ads.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "US$300-500 ad tests on proven SKUs, Zapier Pro for more platform versions, Descript for video output."
+ },
+ {
+  "id": "data-products",
+  "name": "Brazil and SEC data products",
+  "kind": "product",
+  "why": "CADE, CCEE/ONS and SEC data is free but unusable raw. Cleaned, alerting trackers sell to lawyers, energy funds and bankers.",
+  "offers": [
+   {
+    "name": "Radar CADE Pro",
+    "price": "US$149/mo or R$790/mo per seat"
+   },
+   {
+    "name": "Radar CADE Firm",
+    "price": "US$590/mo or R$2,990/mo"
+   },
+   {
+    "name": "SEC Fairness-Opinion Comps Pack",
+    "price": "US$49 per sector pack"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1",
+    "do": "Set up domain, GitHub repo, Postgres (Neon/Supabase). Build daily CADE ingestion from DOU section 3 notices via INLABS."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Extract parties, counsel, deal type with a Claude Haiku-class model. Backfill 2012-2026. Build first League Table."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Launch Radar CADE Weekly on Beehiiv (PT+EN). Ingest CCEE PLD and ONS curtailment. Build Evidence.dev dashboards."
+   },
+   {
+    "when": "Wk 4-5",
+    "do": "Billing: Lemon Squeezy for USD/EUR, Stripe Brasil or Asaas for BRL/Pix. Open ME. Launch Brazil Power Monitor weekly."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Build SEC fairness-opinion comps from EDGAR; list 6 sector packs on Lemon Squeezy. Post free 30-deal sample on Kaggle."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Email 300 competition/M&A lawyers their league-table rank. Send 150 energy contacts a free plant curtailment snapshot."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Call each trial user and run 4 Van Westendorp questions. Offer annual prepay. Add same-day email and Slack alerts."
+   },
+   {
+    "when": "Mo 4-6+",
+    "do": "Publish League Table quarterly, sell badges, add API/MCP server. Month 6: raise prices 20-30% if trial-to-paid >30%."
+   }
+  ],
+  "kpi": "95%+ CADE extraction accuracy by week 2; 500 subscribers by week 8; 2,000 by month 6",
+  "gate": "Week 12: a sub-product under 300 subscribers AND under 3 paying accounts after 300+ touches = kill it. Total net MRR under US$800 at month 6 = kill stream.",
+  "m3": 600,
+  "m12": 5500,
+  "m24": 11000,
+  "hours": "160h setup · 12h/wk",
+  "start_capital_usd": 300,
+  "monthly_cost_usd": 200,
+  "capital_note": "Anthropic API US$20-60 for backfill, domains, ME opening R$1,000-2,000, accountant. Defer Apollo and ads.",
+  "first_cash": "6-10 weeks",
+  "scale_with_capital": "Paid Neon/Beehiiv/Apollo tiers and API spend at steady state; US$300 LinkedIn ad test on law-firm buyers."
+ },
+ {
+  "id": "lei-do-bem",
+  "name": "Innovation-incentive advisory (Lei do Bem)",
+  "kind": "service",
+  "why": "Santa Catarina Lucro Real firms leave Lei do Bem benefits unclaimed. Finance modelling plus success fees fit; clients pay BRL.",
+  "offers": [
+   {
+    "name": "Diagnostico Lei do Bem + Fomento",
+    "price": "R$4,900 one-off (about US$900)"
+   },
+   {
+    "name": "Lei do Bem full annual cycle",
+    "price": "10% of tax benefit; min R$25,000/yr"
+   },
+   {
+    "name": "Finep/BNDES credit structuring",
+    "price": "R$4,000/mo (3 mo) + 1.5-2% of credit"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-3",
+    "do": "Study Lei 11.196/2005 (arts. 17-26), Decreto 5.798/2006, FORMP&D guide. Build the benefit calculator in Sheets."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Map Finep, BNDES, Inovacred, Embrapii, FAPESC lines and calendar. Set up CNPJ (Simples) with a contador."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build PT diagnostic and FORMP&D-style report templates. Launch one-page PT site with calculator and 3 SEO articles."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build CRM list of 300 Lucro Real SC firms (CNAE 10-33 and 62, 100+ staff) from Casa dos Dados and Amanha 500 Maiores."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Email and visit 30 accounting and 10 tax law firms (15-20% referral fee). Send 20 CFO messages/day with an estimate."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Pitch free workshops to ACATE, ACIJ, ACIB, FIESC. Close first 3 diagnostics (2 weeks each); convert to full cycle."
+   },
+   {
+    "when": "Mo 3-6",
+    "do": "Set up 2026 timesheets and cost centres with clients before 31 Dec. Sell a Finep/Inovacred or Embrapii project."
+   },
+   {
+    "when": "Mo 6-12",
+    "do": "Publish weekly PT SEO and monthly funding-call carousel. Invoice success fees after ECF/FORMP&D (Jul 2027); hire junior."
+   }
+  ],
+  "kpi": "300 qualified accounts by week 3; 5 referral partners and 15 discovery calls by month 2",
+  "gate": "End Jan 2027: under 2 signed annual contracts and under 2 paid diagnostics after 300 accounts = sell diagnostics only via accountants. Kill if law cuts the benefit.",
+  "m3": 600,
+  "m12": 6500,
+  "m24": 13000,
+  "hours": "70h setup · 12h/wk",
+  "start_capital_usd": 600,
+  "monthly_cost_usd": 250,
+  "capital_note": "Contract review R$1,500-3,000, contador R$300-500/mo, Claude US$20, Carrd. Defer Sales Navigator and ads.",
+  "first_cash": "6-9 weeks",
+  "scale_with_capital": "Part-time junior engineer or UFSC/UDESC intern (R$4-6k/mo) for technical reports, plus Sales Navigator and CRM."
+ },
+ {
+  "id": "niche-calculators",
+  "name": "Pricing Lab: WTP and pricing calculators",
+  "kind": "product",
+  "why": "Software layer on his pricing and finance models: logins and an Excel add-in earn recurring per-seat fees and white-label licences.",
+  "offers": [
+   {
+    "name": "Pricing Lab Pro (web)",
+    "price": "US$29/mo or US$249/yr per seat"
+   },
+   {
+    "name": "Consultant/Agency white-label",
+    "price": "US$990/yr (3 seats)"
+   },
+   {
+    "name": "Excel add-in: Pricing Functions",
+    "price": "US$79/yr per seat; team of 5 US$299/yr"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1",
+    "do": "Check Google, Reddit, AppSource per keyword. Launch Carrd pre-sale with Lemon Squeezy; target 3 white-label pre-orders."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build TypeScript engine with Claude Code: Van Westendorp, Gabor-Granger, usage-based bill, LTV/CAC functions."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Build Next.js app on Cloudflare Pages with Supabase auth and CSV upload. Set up Lemon Squeezy tiers and licence webhook."
+   },
+   {
+    "when": "Wk 5",
+    "do": "Ship 4 free SEO calculators (van westendorp, gabor granger, usage-based pricing, LTV CAC) with MailerLite capture."
+   },
+   {
+    "when": "Wk 6-7",
+    "do": "Build Excel add-in MVP with yo office and submit to Microsoft AppSource. Add white-label logo and client workspaces."
+   },
+   {
+    "when": "Wk 8-10",
+    "do": "Launch on Product Hunt, Indie Hackers, LinkedIn. Weekly WTP teardown. Wk 10: US$300 Google plus US$200 LinkedIn ads."
+   },
+   {
+    "when": "Wk 11-12",
+    "do": "Add PT/ES calculators (PTAX, export pricing). List on G2 and Capterra. Add annual-plan push email at day 25."
+   },
+   {
+    "when": "Mo 4-12",
+    "do": "Ship usage/credit simulator, quarterly WTP Benchmark (US$149), done-for-you calculators (US$1.5-3.5k), 1 free tool/mo."
+   }
+  ],
+  "kpi": "3+ white-label pre-orders by week 2; 1,500 monthly calculator visitors and 600 subscribers by month 4",
+  "gate": "Week 2: under 3 pre-orders and under 5 positive replies = free calculators only. Under 10 paying customers by day 90 or MRR under US$500 at month 6 = freeze.",
+  "m3": 450,
+  "m12": 3200,
+  "m24": 6500,
+  "hours": "130h setup · 6h/wk",
+  "start_capital_usd": 70,
+  "monthly_cost_usd": 90,
+  "capital_note": "Claude/Cursor ~US$20, Carrd US$19/yr, domain US$12/yr; Supabase free until payers. Defer US$500 ads.",
+  "first_cash": "1-3 weeks (pre-orders)",
+  "scale_with_capital": "US$500 ad tests on exact-match keywords, Supabase Pro and Plausible once paying users arrive."
+ },
+ {
+  "id": "print-on-demand",
+  "name": "Niche print-on-demand: finance and travel",
+  "kind": "product",
+  "why": "Two niches he can own: technically correct finance jokes and personalized countries-visited prints. Low capital, listings run passively.",
+  "offers": [
+   {
+    "name": "Finance-insider mug (11oz/15oz)",
+    "price": "US$19.95 / US$23.95"
+   },
+   {
+    "name": "Personalized 'Countries Visited' poster",
+    "price": "US$12.95 digital; US$39-54 print"
+   },
+   {
+    "name": "CFA / Finance Grad personalized mug/tee",
+    "price": "US$27.95 mug / US$32.95 tee"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Open Etsy shop (designed by seller, Printify/Printful disclosed). Set up Etsy Payments to a BR bank or Wise/Payoneer."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Research 15 seed keywords in eRank (under ~50k results). Write 60 finance jokes, 20 PT/ES phrases; check trademarks."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Design typography-first in Kittl or Canva Pro. Build map poster engine: Natural Earth SVG plus Python script."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Order 1 tee, 1 mug, 1 poster sample from Printify/Printful. Publish first 30 Etsy listings with 13 tags each."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Publish 30 more listings incl. EN/PT/ES posters; copy to Redbubble and TeePublic. Add 20 Christmas variants by Nov 10."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Launch free Countries Visited Tracker lead magnet. Pin 5 pins/day on Pinterest. Rework listings under 40 views."
+   },
+   {
+    "when": "Wk 9-10",
+    "do": "Make 5 variants of each winner (colour, product, language). Month 3: upload top 25 designs to Amazon Merch at US$19.99."
+   },
+   {
+    "when": "Mo 3-6",
+    "do": "Price-test top mugs at US$19.95/22.95/24.95. Automate personalization alerts with Make. Decide scale or kill at month 6."
+   }
+  ],
+  "kpi": "100 live Etsy listings by week 6 (about Nov 20, 2026); 2%+ shop conversion by month 3",
+  "gate": "End Feb 2027: under 40 orders/month, Etsy Ads ROAS under 2 after US$300, or net under US$300 at month 6 = maintenance only. Scale at net US$800+ and 3% poster conversion.",
+  "m3": 150,
+  "m12": 1200,
+  "m24": 2200,
+  "hours": "90h setup · 8h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 160,
+  "capital_note": "Design/keyword tools ~US$60-90/mo, Etsy listing fees ~US$20, samples. Defer Etsy Ads (US$90-150/mo).",
+  "first_cash": "4-8 weeks",
+  "scale_with_capital": "Etsy Ads, Printify Premium (~US$29), Flying Upload, and a Workana designer at US$5-10 per design variant."
+ },
+ {
+  "id": "survey-business",
+  "name": "B2B pricing research shop",
+  "kind": "service",
+  "why": "AI vendors are moving to usage and credit pricing and need WTP data. Pricing skill plus stats fits fixed-fee studies and an annual report.",
+  "offers": [
+   {
+    "name": "Pricing Pulse: customer-list WTP study",
+    "price": "US$3,900 (founding US$2,900)"
+   },
+   {
+    "name": "AI Monetization Sprint",
+    "price": "US$7,900 + panel at cost +15%"
+   },
+   {
+    "name": "State of AI Pricing & WTP 2027 report",
+    "price": "US$490 / US$1,490 team; sponsor US$7,500"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1",
+    "do": "Set up domain, Carrd page with 3 fixed-price offers. Build Van Westendorp and Gabor-Granger pipeline, Quarto template."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build Tally survey templates. Open panel accounts (Prolific etc.), run US$150 pilot: target US$4 or less per complete."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Field a free N=200 AI Copilot WTP mini-benchmark (~US$600) as proof. Write SOW and DPA templates."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Set up Stripe Payment Links, Wise Business, Lemon Squeezy. Build list of 300 Seed to Series B AI/SaaS firms in Apollo."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Send 15 personalized emails/day citing their pricing page plus one benchmark chart. Offer founding Pulse at US$2,900."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Deliver first 3 studies, log hours, get case studies. Launch US$149 DIY kit. Pre-sell report sponsorship to 25 vendors."
+   },
+   {
+    "when": "Wk 9-13",
+    "do": "Field report N=500 B2B buyers (US$2,500-6,000, sponsor-funded). Launch with gated summary, sponsor webinar, guest posts."
+   },
+   {
+    "when": "Mo 4-12",
+    "do": "Launch US$79/mo Benchmark Pro tracker, white-label for consultants, part-time analyst (R$4-6k/mo), second annual report."
+   }
+  ],
+  "kpi": "10 discovery calls by week 6; 300 subscribers by week 8; first 3 paid studies by week 8",
+  "gate": "Week 10: under 2 paid studies, under 150 subscribers and no sponsor interest = fold into consulting. First report under 20 licences and no sponsor = custom studies only.",
+  "m3": 4500,
+  "m12": 15000,
+  "m24": 24000,
+  "hours": "90h setup · 18h/wk",
+  "start_capital_usd": 1000,
+  "monthly_cost_usd": 190,
+  "capital_note": "Panel pilot US$150, free mini-benchmark ~US$600, tools US$150-230/mo. Report fieldwork is sponsor-funded.",
+  "first_cash": "5-8 weeks",
+  "scale_with_capital": "Panel sample for larger studies and reports, a part-time analyst (R$4-6k/mo), and a second flagship report."
+ },
+ {
+  "id": "ai-product-pricing",
+  "name": "AI Product Pricing & Unit-Economics Toolkit",
+  "kind": "product",
+  "why": "MoF + usage-pricing + engineering mix is rare; AI firms leaving seat pricing need token COGS tied to margin.",
+  "offers": [
+   {
+    "name": "APM-1 AI Pricing & Unit Economics Model",
+    "price": "US$149 solo / US$399 company"
+   },
+   {
+    "name": "AI Pricing Teardown Pack (30 products)",
+    "price": "US$99 one-off"
+   },
+   {
+    "name": "AI Pricing Model Sprint (10 days)",
+    "price": "US$3,500"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1",
+    "do": "Open Lemon Squeezy and Polar.sh. Make a US$1 test purchase and payout to Wise USD first. Fallback: Gumroad or Hotmart."
+   },
+   {
+    "when": "Wk 1 D1-4",
+    "do": "Buy domain, build 1-page Carrd site (~US$19/yr), set up free Kit. Build Quick Calc sheet from vendor prices (URL, date)."
+   },
+   {
+    "when": "Wk 1 D5",
+    "do": "Interview 5 AI founders (30 min): COGS per user, credit values, what broke. Get permission to anonymise 2-3 cases."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build APM-1 (9 tabs) in Excel, port to Sheets, test on 2 founders' numbers. Record 25-min Loom; sales page US$149/399."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Write teardowns 1-10 on a fixed template. Launch at US$99 early-bird to list and networks. Post on LinkedIn."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Write teardowns 11-30, compile TDP PDF + CSV, set up US$199 bundle and order bump in Lemon Squeezy."
+   },
+   {
+    "when": "Wk 8",
+    "do": "Launch Teardown Pro (US$29/mo or US$249/yr). Productise US$3,500 sprint: Tally intake, SOW template, invoice."
+   },
+   {
+    "when": "Wk 9-10",
+    "do": "Run US$300-500 paid test (Reddit Ads, Google Search) to the free calc. Stop any ad set above US$4 per email."
+   }
+  ],
+  "kpi": "500 subscribers and 40 cumulative paid sales by Month 3; 2,500 subscribers by Month 6.",
+  "gate": "Kill/pivot at wk 10 if <20 paid sales and <500 subscribers: fold APM-1 into model-templates. Scale if opt-in >=25%, buyer rate >=2.5%, cost/email <US$4.",
+  "m3": 1200,
+  "m12": 6500,
+  "m24": 11000,
+  "hours": "110h setup · 8h/wk",
+  "start_capital_usd": 60,
+  "monthly_cost_usd": 65,
+  "capital_note": "Buys domain, Carrd, Loom, AI subscription. The US$300-500 ad test waits until weeks 9-10, after sales start.",
+  "first_cash": "3-4 weeks",
+  "scale_with_capital": "Ads to US$1k/month, a VA at US$400-600/month for teardown data, then Maven cohort launch."
+ },
+ {
+  "id": "sustainability-premium",
+  "name": "Green Premium Pricing Kit",
+  "kind": "product",
+  "why": "B2B buyers pay green premiums but sellers can't justify them; CBAM makes carbon a cash line. No paid DIY kit found.",
+  "offers": [
+   {
+    "name": "GP-01 Green Premium Value Calculator",
+    "price": "US$79"
+   },
+   {
+    "name": "Pricing Kit bundle (GP-01..03 + extras)",
+    "price": "US$249 single / US$749 team"
+   },
+   {
+    "name": "Async Green Premium Pricing Review",
+    "price": "US$490 (founding US$290)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 Mon-Fri",
+    "do": "Build a 60-contact ICP list. Run 15 problem interviews (20 min) via warm network. Goal: 3+ pre-paid founding reviews."
+   },
+   {
+    "when": "Wk 1 Fri",
+    "do": "Build lead magnet GP-00 Quick Check sheet plus a 2-page PDF on value-pool logic."
+   },
+   {
+    "when": "Wk 2 Mon-Wed",
+    "do": "Build GP-01 EVC/TCO calculator in Excel: TCO NPV, carbon value, compliance value, WTP split slider."
+   },
+   {
+    "when": "Wk 2 Thu-Fri",
+    "do": "Open Payhip (free, 5% fee) and PayPal; run US$1 test payout. Buy domain, build Carrd page, Kit 5-email welcome sequence."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build GP-02 CBAM pass-through model. Launch on LinkedIn: 1 story post + 4 carousels. DM 60 prospects the Quick Check."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Build GP-03 WTP kit; package US$249 bundle and US$749 team licence. Productise async review with Tally intake."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Write Teardown Report #1 from public sources (~12 offers). Publish 4 SEO articles on green pricing and CBAM cost."
+   },
+   {
+    "when": "Wk 10-12",
+    "do": "Launch Teardown Club (US$29/mo). Run US$500 paid test: US$300 LinkedIn ads, US$200 Google Search on CBAM keywords."
+   }
+  ],
+  "kpi": "First paid digital sale by Week 4; 300 email subscribers by Month 3; 2%+ email-to-paid in 60 days.",
+  "gate": "Kill at day 90 if <150 subscribers, <10 paid orders and zero reviews/licence talks; fold assets into other streams. Pivot at month 6 to reviews and licences if they sell.",
+  "m3": 550,
+  "m12": 2900,
+  "m24": 5400,
+  "hours": "95h setup · 6h/wk",
+  "start_capital_usd": 45,
+  "monthly_cost_usd": 85,
+  "capital_note": "Buys domain (~US$12/yr), Carrd US$19/yr, Canva, Claude Pro. Defer US$500 ad test and Sales Navigator.",
+  "first_cash": "4 weeks",
+  "scale_with_capital": "LinkedIn/Google ads beyond the US$500 test, Payhip Plus US$29, paid email tool, Sales Navigator if outbound converts."
+ },
+ {
+  "id": "yt-finance",
+  "name": "Faceless Pricing & Deal Math YouTube Channel",
+  "kind": "asset",
+  "why": "Narrow niche of worked-number AI/SaaS pricing teardowns with downloadable models; few rivals offer tools to operators.",
+  "offers": [
+   {
+    "name": "T1 AI/SaaS Usage-Based Pricing Model",
+    "price": "US$39 personal / US$129 team"
+   },
+   {
+    "name": "Course C1: Value Pricing for B2B & AI",
+    "price": "US$249 launch / US$349 list"
+   },
+   {
+    "name": "Teardown Vault membership",
+    "price": "US$15/mo or US$129/yr"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 Mon-Tue",
+    "do": "Audit top 20 videos for each of 12 keywords. Log views, age, length, downloadable model. Draft 40 video ideas."
+   },
+   {
+    "when": "Wk 1 Wed-Fri",
+    "do": "Set up brand channel, Lemon Squeezy store and Kit page. Build the free AI Pricing Calculator sheet as lead magnet."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build pipeline: script template (number hook, model on screen, CTA). Record your own voice on a ~US$50 USB mic with OBS."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Publish videos 1-2 (10-14 min) with model links in the description. Cut 3 Shorts from each."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Launch T1 at US$39/US$129 with T2 order bump (US$49). Load the 5-email sequence in Kit."
+   },
+   {
+    "when": "Wk 4-12",
+    "do": "Publish 2 long-form videos + 4-6 Shorts per week. Script Mon, record Tue, edit Wed-Thu, schedule Fri."
+   },
+   {
+    "when": "Wk 8-10",
+    "do": "Record 6-module course C1. Pre-sell to the email list at US$249 before finishing module 6."
+   },
+   {
+    "when": "Month 4-6",
+    "do": "Apply for YPP at 1,000 subs and 4,000 hours; file W-8BEN. Launch Vault month 5. Hire editor (US$25-50/video) month 6."
+   }
+  ],
+  "kpi": "18 long-form videos by Week 12; thumbnail CTR >=5% and 0.8% email opt-in by Month 3.",
+  "gate": "Kill/pivot at month 7 if <1,000 subs, <600 emails and revenue <US$10 per 1k views. If C1 pre-sells <5 at wk 10, move the course to the LinkedIn funnel.",
+  "m3": 200,
+  "m12": 3000,
+  "m24": 7500,
+  "hours": "70h setup · 14h/wk",
+  "start_capital_usd": 85,
+  "monthly_cost_usd": 385,
+  "capital_note": "Buys mic (~US$50), Canva ~US$15, Claude Pro US$20. Steady state adds editor at US$200-400/month from month 6.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Editor at US$25-50 per video frees time; YouTube ads beyond the US$300 test once cost per email is proven."
+ },
+ {
+  "id": "b2b-referrals",
+  "name": "Brazil Hiring Cost Desk (EOR referrals)",
+  "kind": "asset",
+  "why": "EOR bounties pay US$1,500 per Deel customer; generic comparison pages are vendor-owned. Calc plus Brazil cost data fills the gap.",
+  "offers": [
+   {
+    "name": "Get 3 EOR quotes routing (free to buyer)",
+    "price": "US$0; Deel US$500 SQL + US$1,000 won"
+   },
+   {
+    "name": "Brazil Hiring Kit (Sheet + checklists)",
+    "price": "US$79 (bump US$39)"
+   },
+   {
+    "name": "Async Brazil hiring review",
+    "price": "US$490"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1",
+    "do": "Apply to affiliate programs: Deel, Remote, Oyster, Rippling, Wise, HubSpot."
+   },
+   {
+    "when": "Wk 1 D2",
+    "do": "Buy domain (~US$10/yr). Deploy Cloudflare Pages site with disclosure, methodology and About pages showing credentials."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build Brazil cost engine in Google Sheets from primary PT sources: CLT, 13th, vacation, FGTS 8%, employer INSS."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Turn the Sheet into a web calculator (contractor / EOR / entity). Gate PDF by email. Add 'Get 3 EOR quotes' Tally form."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Run 8 interviews. Publish 8 money pages (1,500-2,500 words) with calculator and dated price tables, plus PT hub."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Build US$79 Hiring Kit and US$39 add-on on Lemon Squeezy. Answer 15 Reddit/IH threads weekly. Reply to quotes in 24 h."
+   },
+   {
+    "when": "Wk 7-8",
+    "do": "Publish 'Brazil Hiring Cost Index 2026', pitch 20 HR newsletters. Launch biweekly LatAm Hiring Brief newsletter."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Add 12 more pages. Email 10 smaller EORs for CPA deals (US$500-1,000 anchor). Optional Google Ads test up to US$400."
+   }
+  ],
+  "kpi": "4 of 6 affiliate programs approved by Week 3; 20 EN money pages by Week 10; 300 emails by Month 3.",
+  "gate": "Kill/pause at month 6 if <2 credited SQLs and <1,000 organic visits/mo; keep calculator as lead magnet, move 8 h/wk to async-reviews.",
+  "m3": 300,
+  "m12": 3500,
+  "m24": 6500,
+  "hours": "90h setup · 8h/wk",
+  "start_capital_usd": 40,
+  "monthly_cost_usd": 110,
+  "capital_note": "Buys domain, Claude Pro (shared), optional Plausible US$9. Months 4-12 add paid Kit/Beehiiv ~US$39, Descript.",
+  "first_cash": "6-10 weeks",
+  "scale_with_capital": "Google Ads test up to US$400 after calculator ranks; paid email and video tools; direct CPA deals with smaller EORs."
+ },
+ {
+  "id": "async-reviews",
+  "name": "Async Deck, Model & Pricing Reviews",
+  "kind": "service",
+  "why": "Combined finance + pricing reviews with LBO/DCF and usage-pricing credentials sit in a thin band between free AI and US$250-550 audits.",
+  "offers": [
+   {
+    "name": "Deck Teardown",
+    "price": "US$290"
+   },
+   {
+    "name": "Financial Model Review",
+    "price": "US$490"
+   },
+   {
+    "name": "Pricing Page and Packaging Review",
+    "price": "US$390"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1",
+    "do": "Write the 3 SKUs: scope, deliverables, turnaround, exclusions (no redesign, no model build, no investment advice)."
+   },
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Build QA checklists (deck 40 items, model 35 items, pricing). Create Carrd landing page with sample Loom and prices."
+   },
+   {
+    "when": "Wk 1 D3",
+    "do": "Set up Lemon Squeezy (5% + US$0.50) or Stripe checkout. Build Tally intake form with Make/Zapier to Notion."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Write AI first-pass prompts as internal pre-reads only. Build 'Investor Objection Checklist' and 4-email Kit sequence."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Run 5 founding reviews at US$145 (50% off) for testimonials. Answer 3-5 Reddit/IH threads daily with no link."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Post 2 LinkedIn teardowns/week. Contact 20 accelerators: cohort pack of 10 reviews for US$2,400 prepaid."
+   },
+   {
+    "when": "Wk 4",
+    "do": "List Deck and Model reviews on Upwork Project Catalog at US$290/490. Build Kit post-delivery automation."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Launch Founder Desk (US$390/mo) and Raise-Ready Pack (US$690). Launch BR edition in Portuguese with ACATE/Sebrae talk."
+   }
+  ],
+  "kpi": "5 founding reviews by Week 2; 4 full-price orders/month by Month 2, 10 by Month 4.",
+  "gate": "Kill/pivot at day 90 if <5 full-price orders after 300 touches and 12 posts. First pivot: drop deck reviews, keep model and pricing reviews.",
+  "m3": 1400,
+  "m12": 4300,
+  "m24": 5500,
+  "hours": "35h setup · 12h/wk",
+  "start_capital_usd": 45,
+  "monthly_cost_usd": 58,
+  "capital_note": "Buys Claude Pro US$20, Loom ~US$15, Workspace ~US$7, domain/Carrd. Kit, Tally, Make, F5Bot run on free tiers.",
+  "first_cash": "1-2 weeks",
+  "scale_with_capital": "Hire a subcontract reviewer at US$110-130 per deck review once volume passes 20 reviews/month."
+ },
+ {
+  "id": "fixed-fee-studio",
+  "name": "Fixed-Fee Finance Deliverables Studio",
+  "kind": "service",
+  "why": "LBO/DCF/CIM skills at IB standard beat generalist modellers (US$35-350) and AI scaffolds in the mid-ticket band.",
+  "offers": [
+   {
+    "name": "SKU 0 Model Health Check",
+    "price": "US$300 launch, then US$450"
+   },
+   {
+    "name": "SKU 1 Investor-ready 3-statement model",
+    "price": "US$900 / 1,600 / 2,800"
+   },
+   {
+    "name": "SKU 3 Teaser + CIM-lite pack",
+    "price": "US$1,800 / US$3,500"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 0 D1-2",
+    "do": "Confirm with a contador: invoice as PF (carne-leao) or open ME in Simples Nacional. Open Wise and Payoneer."
+   },
+   {
+    "when": "Wk 1",
+    "do": "Pick brand, buy domain (~US$12/yr), build Carrd site (US$19/yr). Log 20 live listings each on Upwork, Fiverr, Contra."
+   },
+   {
+    "when": "Wk 1-4",
+    "do": "Build SaaS master model (3 statements, SAFE dilution, unit economics) in Excel. Clone marketplace, DTC, services."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Build 3 watermarked public samples on fictional companies: SaaS model, ecommerce financials + teaser, 12-page CIM-lite."
+   },
+   {
+    "when": "Wk 5",
+    "do": "Write Tally intake, scope docs and QA checklist per SKU. Run an AI-substitute test against your deliverable."
+   },
+   {
+    "when": "Wk 6",
+    "do": "Go live: Contra (0% commission), Fiverr (5 gigs x 3 packages), Upwork (4 Catalog projects). Send 5-8 proposals/day."
+   },
+   {
+    "when": "Wk 6-12",
+    "do": "Deliver first 8-10 orders early, ask reviews, track hours in Toggl. Raise to list prices after 5+ reviews per platform."
+   },
+   {
+    "when": "Month 5-10",
+    "do": "Automate intake with Tally + Make (~US$10.59/mo). Add Model Upkeep US$350-600/mo. Hire 1-2 analysts at US$25-40/h."
+   }
+  ],
+  "kpi": "14 listings live and 3 samples by Week 6; 8 orders and 6+ five-star reviews by Week 12.",
+  "gate": "Kill/shrink at day 90 live if <3 paid orders, or <US$35/h after fees on last 5 orders, or no US$900+ listing converted. Keep SKU 0 on Contra only.",
+  "m3": 1100,
+  "m12": 5000,
+  "m24": 7500,
+  "hours": "110h setup · 18h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 75,
+  "capital_note": "Buys domain, Carrd, Microsoft 365, Canva, Claude, Upwork Connects. Contador R$200-500/mo is extra.",
+  "first_cash": "6-8 weeks",
+  "scale_with_capital": "Junior analysts at US$25-40/h or US$250-500 per build lift capacity; Fiverr Promoted Gigs test US$210."
+ },
+ {
+  "id": "fractional-roles",
+  "name": "Fractional Pricing & Monetization Lead",
+  "kind": "service",
+  "why": "Few people do both AI pricing design and the finance behind it; Seed-B AI startups need both. Likeliest route to US$10k+/month.",
+  "offers": [
+   {
+    "name": "AI Pricing and Margin Diagnostic (async)",
+    "price": "US$2,500 (test 1,500/2,500/3,500)"
+   },
+   {
+    "name": "Usage-Based Pricing Sprint",
+    "price": "US$7,500-12,000"
+   },
+   {
+    "name": "Fractional Head of Pricing retainer",
+    "price": "US$4,000-7,500/month"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Check Mercor and consulting contracts for non-compete/IP clauses. Open Brazilian PJ (CNPJ) via accountant, plus Wise."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build 3 proof assets with no client data: AI Pricing Margin Calculator (Google Sheets), sample memo, sample board pack."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build one-page site with 3 priced offers and Calendly. Apply on Fractional Jobs, GoFractional, Paro, Toptal, Contra."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Build 300-company target list (Seed-B, raised in last 120 days, 15-150 staff). Message 60 warm contacts."
+   },
+   {
+    "when": "Wk 4+",
+    "do": "Send 20 trigger-based cold emails/day pitching the Diagnostic. Wk 4-6: email billing vendors (Metronome, Orb) for deals."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Deliver first 1-2 Diagnostics (US$1,500 founding price for a testimonial). Send Sprint proposal within 24 h of readout."
+   },
+   {
+    "when": "Month 2-3",
+    "do": "Deliver first Sprint with WTP survey. Convert Sprint clients to retainers (US$4-7.5k/month), capped at 10 h/week."
+   },
+   {
+    "when": "Month 4-12",
+    "do": "Raise prices after 3 testimonials: Diagnostic US$3,500, Sprint US$12k, retainer from US$5k. Hire analyst month 9-12."
+   }
+  ],
+  "kpi": "2+ paid Diagnostics by Week 8; 10+ warm intro calls by Week 4; 2.5%+ cold email reply rate by Week 8.",
+  "gate": "Kill/pivot at day 90 if no paid Diagnostic and <8 qualified calls after 1,000+ emails. Test BRL Diagnostic and white-label to fractional CFOs first.",
+  "m3": 2200,
+  "m12": 12000,
+  "m24": 16000,
+  "hours": "60h setup · 25h/wk",
+  "start_capital_usd": 350,
+  "monthly_cost_usd": 200,
+  "capital_note": "Buys Workspace, Crunchbase ~US$49, cold-email tool ~US$37, LLM US$20 for ~2 months, plus accountant.",
+  "first_cash": "5-8 weeks",
+  "scale_with_capital": "Brazilian analyst for data prep and model upkeep (month 9-12) lets you carry 6-8 clients; more outbound volume."
+ },
+ {
+  "id": "whitelabel-backoffice",
+  "name": "White-Label Deal & FP&A Back Office",
+  "kind": "service",
+  "why": "Brokers, CAS practices and fractional-CFO firms sell CIMs and KPI packs they hate making; AI-assisted pipeline drafts in hours.",
+  "offers": [
+   {
+    "name": "CIM Standard (SDE/EBITDA recast)",
+    "price": "US$2,900 / US$4,500"
+   },
+   {
+    "name": "Broker Bundle subscription",
+    "price": "US$3,500/month, 3-month min"
+   },
+   {
+    "name": "White-label Monthly KPI/FP&A Pack",
+    "price": "US$650-1,200/month per client"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Register brand and domain. Set up Google Workspace, Stripe and a 1-page site listing 8 SKUs with fixed prices."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build master templates: CIM (12 sections), 1-page teaser, SDE/EBITDA recast workbook, KPI pack. Use Word, Excel, Canva."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build AI drafting pipeline: 60-question Tally intake, interview transcription, Claude prompts per CIM section."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build KPI pack template on Fathom or Reach Reporting. Write white-label MSA with no-poach clause; lawyer ~US$300-600."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Build prospect list: 600 brokers (BizBuySell, IBBA; 8+ listings) and 400 fractional-CFO firms."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Start outbound: 25 LinkedIn notes/day, 40 cold emails/day from 3 secondary domains. Offer a free teaser rewrite."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Close 2 pilots: 1 broker CIM at US$1,950, 1 fractional CFO with 2 end clients on KPI packs. Deliver early."
+   },
+   {
+    "when": "Month 3-4",
+    "do": "Convert pilots to Broker Bundle US$3,500/mo. Hire first Brazilian analyst as PJ at R$6,000-8,000/month after paid test."
+   }
+  ],
+  "kpi": "2 paid pilots by Week 8; 4+ booked calls/week by Week 6; US$3,000 MRR by Month 4.",
+  "gate": "Kill/pivot at wk 10 if <2 paying clients after 1,500 touches, or month 6 MRR <US$2,000 and CIM win rate <10%. Pivot to brokers-only or FCFO/CPA-only first.",
+  "m3": 3800,
+  "m12": 16500,
+  "m24": 28000,
+  "hours": "90h setup · 25h/wk",
+  "start_capital_usd": 900,
+  "monthly_cost_usd": 1600,
+  "capital_note": "Buys ~US$300/mo tools (Sales Navigator, Instantly, Claude), lawyer US$300-600. Cost adds ~US$1,300 analyst.",
+  "first_cash": "5-7 weeks",
+  "scale_with_capital": "More analysts (R$6-8k/month PJ), a part-time designer, more warmed domains and Sales Navigator seats for outbound."
+ },
+ {
+  "id": "talent-referrals",
+  "name": "Brazil Finance Talent Bridge",
+  "kind": "service",
+  "why": "You can test LBO/DCF/FP&A skills yourself; US buyers fear offshore analysts who can't model. Brazilian analysts cost 40-60% of US hires.",
+  "offers": [
+   {
+    "name": "Contingent placement finder fee",
+    "price": "20% of year-1 pay, min US$7,500"
+   },
+   {
+    "name": "Staff augmentation: embedded analyst",
+    "price": "US$32-45/hr billed"
+   },
+   {
+    "name": "Modeling Case Test as a Service",
+    "price": "US$250 per candidate"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Record each referral program's terms in Airtable: Toptal, Braintrust, Turing, AI-training platforms (payout, rules)."
+   },
+   {
+    "when": "Wk 1 D2-3",
+    "do": "Build the case test: 45-min 3-statement, 30-min LBO, 15-min English memo. Add Tally form and scoring rubric."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Open US LLC (Doola or Stripe Atlas, ~US$500 one-time), Mercury bank account and Wise Business."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Launch Carrd site. Seed supply: 50 LinkedIn requests/day to Brazilian analysts; post case test in 5 alumni groups."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Grade case tests (~20 min each). Do 15-min English screens with top 10. Send others to platform referral links."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Build 300-contact client list (CFOs at PE-backed firms, 100 searchers). Send 3-email sequence. Message 40 warm contacts."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Run discovery calls. Close first contingent agreements at US$6,000 flat pilot price. Shortlist within 10 business days."
+   },
+   {
+    "when": "Wk 8",
+    "do": "Productise staff aug: LLC invoices monthly in advance, pays analyst via Deel/Wise. Month 4: pitch 20 PE partners."
+   }
+  ],
+  "kpi": "25 case tests completed by Week 3; 10 discovery calls by Week 6; 3%+ cold email reply rate.",
+  "gate": "Kill/pivot at day 90 if 0 signed mandates after 600 cold emails, 40 warm asks, 10+ calls. Pivot: sell case-test vetting to LatAm staffing firms or EORs.",
+  "m3": 1500,
+  "m12": 11000,
+  "m24": 19000,
+  "hours": "70h setup · 14h/wk",
+  "start_capital_usd": 1000,
+  "monthly_cost_usd": 220,
+  "capital_note": "Buys US LLC ~US$500 plus ~US$180-260/mo tools (Sales Navigator ~US$100, Apollo, Instantly).",
+  "first_cash": "8-12 weeks",
+  "scale_with_capital": "Part-time Brazilian sourcer (BRL 3-5k/month or 10% of fees), Zapier automation ~US$20-30/month, more outbound seats."
+ },
+ {
+  "id": "framework-licensing",
+  "name": "Pricing & Valuation Framework Licensing",
+  "kind": "product",
+  "why": "Accelerators, bootcamps and MBAs lack AI/usage-pricing teaching material; your consulting plus MBA/MFin gives a licensable toolkit.",
+  "offers": [
+   {
+    "name": "Value Pricing Toolkit, Personal / Team",
+    "price": "US$149 one-off / US$490 per year"
+   },
+   {
+    "name": "Accelerator Cohort Licence",
+    "price": "US$2,500 per cohort; US$6,000/year"
+   },
+   {
+    "name": "Live virtual workshop (half-day)",
+    "price": "US$2,500-3,500"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 Mon-Tue",
+    "do": "Pick flagship 'Pricing AI and Usage-Based Products'. Write module outline (value metric, EVC/WTP, packaging, rollout)."
+   },
+   {
+    "when": "Wk 1 Wed-Fri",
+    "do": "Build 6 spreadsheet models with locked formulas, input tab, output chart, instructions tab. Test each on 3 scenarios."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build ~60-slide facilitator deck (3-hour and 8-session versions). Open Lemon Squeezy (US$149/490), Carrd page."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Message 40 named contacts (Hult Prize, Venture Cafe): offer a free 60-min guest session for feedback and a testimonial."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Build list of 300 accelerator contacts and 150 faculty. Send 4-email EN/PT/ES sequence, 30/day, from a warmed domain."
+   },
+   {
+    "when": "Wk 4-5",
+    "do": "Deliver 2 pilot sessions; collect NPS and 2 testimonials each. Run a free Maven Lightning Lesson in week 5."
+   },
+   {
+    "when": "Wk 8",
+    "do": "Convert pilots with 3 options: Annual US$6,000, Cohort US$2,500, Founding Annual US$3,600 (14-day expiry)."
+   },
+   {
+    "when": "Month 3-4",
+    "do": "Launch Train-the-Trainer (founding US$800). Build 'Pricing Coach' GPT for licensees. Refresh quarterly for renewals."
+   }
+  ],
+  "kpi": "2 pilot sessions with testimonials by Week 5; 2 paid institutional contracts by Week 10.",
+  "gate": "Kill/downgrade to self-serve at wk 12 if <2 paid institutional contracts after 450 contacts and 2 pilots, or NPS <30. Keep only the US$149 toolkit.",
+  "m3": 1200,
+  "m12": 5500,
+  "m24": 9000,
+  "hours": "120h setup · 10h/wk",
+  "start_capital_usd": 250,
+  "monthly_cost_usd": 190,
+  "capital_note": "Buys ~2 months of Sales Navigator (~US$99, months 1-3 only), Instantly ~US$37, Workspace, Claude, Carrd.",
+  "first_cash": "8-10 weeks",
+  "scale_with_capital": "LinkedIn Conversation Ads test (cap US$500) after 2 testimonials; travel for in-person workshops (US$6-8k + travel)."
+ },
+ {
+  "id": "seo-calculators",
+  "name": "Pricing & Brazil-Tax Calculator Sites",
+  "kind": "asset",
+  "why": "Calculators keep clicks that AI Overviews can't answer; you can build pricing, valuation and PJ tax/FX tools few content sites match.",
+  "offers": [
+   {
+    "name": "EN-01 Usage-Based Pricing Model",
+    "price": "US$79 (launch US$49)"
+   },
+   {
+    "name": "PT-01 Planilha PJ Internacional",
+    "price": "R$97 (~US$18)"
+   },
+   {
+    "name": "Pricing Teardown (fixed-scope service)",
+    "price": "US$750"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 Mon-Tue",
+    "do": "Keyword triage: 300 seed keywords per site (Keyword Planner, Ahrefs free). Keep tool intent, KD under 20, weak SERPs."
+   },
+   {
+    "when": "Wk 1 Wed-Fri",
+    "do": "Buy 2 domains. Scaffold Astro site on Cloudflare Pages. Add Search Console, Plausible, consent banner."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Ship 4 EN calculators: LLM API cost, usage vs seat simulator, SaaS valuation, LTV/CAC. Add 1,200-1,800 word explainers."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Ship 4 PT calculators: PJ x CLT, Fator R, USD receiving cost (BCB PTAX API), 'quanto cobrar em dólar'. Verify tax logic."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Build EN-01 and PT-01 in Sheets with Loom. Set up Lemon Squeezy and Hotmart/Kiwify. Add email capture and sequences."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Apply to affiliate programs (Wise, Payoneer, Deel) and AdSense. Launch on Show HN, Product Hunt, Indie Hackers."
+   },
+   {
+    "when": "Wk 6-10",
+    "do": "Release embeddable calculators with do-follow links. Build comparison hubs from real fee data. Ship EN-02, EN-03."
+   },
+   {
+    "when": "Wk 11-12",
+    "do": "Productise US$750 Pricing Teardown: Tally intake, Calendly, payment link, report template. Mo 5-6: US$300 max ad test."
+   }
+  ],
+  "kpi": "8 calculators live by Week 4; 3k organic sessions/month by Month 4; 15k by Month 6.",
+  "gate": "Month 4: if <50k impressions/month and <3 pages in top 20, stop adding pages and spend 4 weeks on links. Month 9: net <US$500 and <10k sessions, cut to 2 h/week.",
+  "m3": 150,
+  "m12": 3000,
+  "m24": 6500,
+  "hours": "140h setup · 12h/wk",
+  "start_capital_usd": 175,
+  "monthly_cost_usd": 150,
+  "capital_note": "Buys 2 domains, Claude Pro US$20, Plausible US$9, accountant review R$300-600. Ad test waits until month 5-6.",
+  "first_cash": "5-8 weeks",
+  "scale_with_capital": "Ezoic/Mediavine ad upgrade when eligible, part-time VA at ~US$6-10/h for fee tables, Ahrefs Lite only if needed."
+ },
+ {
+  "id": "export-readiness",
+  "name": "SC Export Desk (EU-Mercosur)",
+  "kind": "service",
+  "why": "EU-Mercosur provisional since May 2026 and US tariff pressure give Santa Catarina exporters urgent need for tariff, price and buyer analysis.",
+  "offers": [
+   {
+    "name": "NCM Opportunity Report",
+    "price": "R$297 (~US$55) or US$69"
+   },
+   {
+    "name": "Export Readiness Diagnostic",
+    "price": "R$4,900 (founding R$2,900)"
+   },
+   {
+    "name": "EU Price Corridor Sprint",
+    "price": "EUR 1,900 (R$9,900 domestic)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Verify live legal status first: EU-Mercosur tariff annex (EUR-Lex, Access2Markets) and current US tariff exemptions."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build tariff dataset: parse EU schedule PDF to CSV (pdfplumber), map CN8 to NCM8, add ComexStat. Pick 3 SC NCM clusters."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build free Tariff-Cut Checker (Sheet, Carrd, Tally gate). Build Python + Claude API NCM report generator; test 10 NCMs."
+   },
+   {
+    "when": "Wk 3",
+    "do": "List NCM reports on Hotmart (BRL) and Payhip (USD). Write diagnostic one-pager and SOW. Build 300-firm SC lead list."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Pre-sell: 40 LinkedIn DMs and 100 PT cold emails; 5 founding diagnostics at R$2,900. Run 15 discovery calls."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Pitch workshop to 6 hosts (ACIJ, FIESC CIN, Sebrae-SC). Deliver founding diagnostics using a fixed template."
+   },
+   {
+    "when": "Wk 6-7",
+    "do": "Productise buyer matching (EUR 2,500 + 2% success fee), lawyer-drafted. Launch US Tariff Exposure Review at US$1,500."
+   },
+   {
+    "when": "Wk 8-12",
+    "do": "Launch Tariff Tracker newsletter (R$49/mo) on n8n/Make. Run first workshops; sell diagnostic at R$3,900 for 14 days."
+   }
+  ],
+  "kpi": "3+ founding diagnostics paid (R$2,900) from 15 calls by Week 5; 300 checker emails by Month 3.",
+  "gate": "Kill/pivot by wk 6 if <2 paid founding diagnostics after 15 calls and 150 contacts: fold checker into green-export-value. Stop ads if CPL >R$120.",
+  "m3": 900,
+  "m12": 5300,
+  "m24": 7600,
+  "hours": "95h setup · 14h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 95,
+  "capital_note": "Buys Claude, API, Workspace, Carrd, domain, Apollo US$49. Defer lawyer R$1,500-3,000 and ~US$560 ad test.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Google and LinkedIn ads (R$1,500 each), Apollo/Sales Navigator, part-time junior comex analyst at R$2,500-3,500/mo PJ."
+ },
+ {
+  "id": "ai-adoption-ptes",
+  "name": "AI for LatAm SMEs: PT/ES Courses",
+  "kind": "product",
+  "why": "PT/ES AI courses are generic prompt lists; a pricing-and-finance AI wedge from an MBA+MFin consultant is hard to copy.",
+  "offers": [
+   {
+    "name": "Tripwire mini-course (Precificação IA)",
+    "price": "R$47 (ES US$17)"
+   },
+   {
+    "name": "Core 'IA na PME: Playbook de 30 Dias'",
+    "price": "R$297 (ES US$67)"
+   },
+   {
+    "name": "Clube IA & Lucro (recurring)",
+    "price": "R$47/mo or R$397/yr"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Open Hotmart producer, Udemy instructor, MailerLite, Google Workspace accounts. Talk to a contador."
+   },
+   {
+    "when": "Wk 1 D3-7",
+    "do": "Check demand in Google Trends and YouTube for 30 keywords. Run 10 discovery calls and a Van Westendorp survey."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build free lead-magnet Google Sheet (markup, margin, break-even, channel fees) + 25 tested prompts. Carrd, MailerLite."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Record 5-lesson tripwire in OBS; sell at R$47 on Hotmart with order bump, 50% affiliation. Publish 6 faceless PT videos."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Run Meta Ads test: R$1,500 (~US$280) over 10 days, 3 creatives, sending Brazil 25-55 to the free kit."
+   },
+   {
+    "when": "Wk 5-7",
+    "do": "Build core playbook (6 modules, ~35 lessons) and template vault: Custom GPT instructions, n8n/Make blueprints."
+   },
+   {
+    "when": "Wk 8",
+    "do": "Launch core at R$297 with 6-email sequence and a live webinar. Add Clube upsell and R$37 vertical pack bump."
+   },
+   {
+    "when": "Wk 8-12",
+    "do": "Spanish track: translate, re-voice with ElevenLabs, publish Udemy ES course 1. Pitch 60 B2B targets."
+   }
+  ],
+  "kpi": "10 calls and 40 survey replies by Week 2; Meta CPL <=R$5 by Week 4; 3%+ tripwire conversion by Week 5.",
+  "gate": "Kill/pivot if <15 pre-buys of core at R$197 by wk 6 despite 1,000+ leads: test accounting-firm B2B wedge. Stop ads if month-6 net <US$500 and CPL >R$10.",
+  "m3": 500,
+  "m12": 4000,
+  "m24": 7000,
+  "hours": "150h setup · 10h/wk",
+  "start_capital_usd": 400,
+  "monthly_cost_usd": 135,
+  "capital_note": "Buys Meta ad test (~US$280) plus ~1 month of Claude, ElevenLabs, Canva, Workspace. Ads not in monthly cost.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Raise Meta budget 20% steps while tripwire+bump revenue covers 70%+ of ad cost; commission-only BDR for B2B workshops."
+ },
+ {
+  "id": "site-flipping",
+  "name": "DD Service + Micro-Site Flipping",
+  "kind": "service",
+  "why": "US$1k can't buy a profitable site, but your valuation and pricing skills sold as DD work earn cash fast and fund micro-flips.",
+  "offers": [
+   {
+    "name": "Micro-Deal DD Report",
+    "price": "US$490 (launch US$290)"
+   },
+   {
+    "name": "SaaS/App DD + Valuation Pack",
+    "price": "US$1,490"
+   },
+   {
+    "name": "Pre-Exit Pricing Uplift",
+    "price": "US$1,500 flat"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Build master valuation model in Google Sheets: intake, SDE normalisation, trend, 3-scenario DCF, multiples check."
+   },
+   {
+    "when": "Wk 1 D3",
+    "do": "Write sample report tearing down 2 live public Flippa listings with Similarweb free, Wayback Machine, Ahrefs free tools."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Launch one-page site with 3 offers, Stripe Payment Links (US$290/490/1,490), Tally intake, Cal.com. Start newsletter."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Post the 2 teardowns to r/microsaas, r/EntrepreneurRideAlong, Indie Hackers. Quote-tweet new Flippa listings on X."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Comment on Flippa listings of US$5k-50k. Message 30 builders a week. Package model as US$49/US$99 template."
+   },
+   {
+    "when": "Wk 4-8",
+    "do": "Set buy-box: price US$1k-8k, 12+ months revenue, profit US$80-400/mo. Screen 30 listings/week; make 1-2 offers/week."
+   },
+   {
+    "when": "Wk 8-10",
+    "do": "Close first acquisition via Escrow.com with 14-day inspection and transition support. Fund it from DD revenue (US$2-6k)."
+   },
+   {
+    "when": "Wk 10-14",
+    "do": "Pricing uplift on asset #1: raise core SKU 20-40%, add Good/Better/Best tiers, order bump and post-purchase upsell."
+   }
+  ],
+  "kpi": "3 cumulative paid DD reports by Week 4; 6 reports/month and 500 Flip Ledger subscribers by Month 6.",
+  "gate": "Kill DD service if <3 paid reports by wk 6 at both US$290 and US$490; niche down first. Kill flipping if no listing fits after 150 screened.",
+  "m3": 1100,
+  "m12": 3200,
+  "m24": 5500,
+  "hours": "60h setup · 14h/wk",
+  "start_capital_usd": 60,
+  "monthly_cost_usd": 150,
+  "capital_note": "Buys Claude/ChatGPT US$20, Carrd US$19/yr. First flip (US$2-6k) is funded by DD fees. Contador is extra.",
+  "first_cash": "2-4 weeks",
+  "scale_with_capital": "Own flips of US$2-6k then US$5-15k assets funded by DD fees; Acquire.com Premium ~US$33/mo; part-time analyst US$8-12/h."
+ },
+ {
+  "id": "ai-roi-kit",
+  "name": "AI ROI Business Case Kit",
+  "kind": "product",
+  "why": "Budget season is Oct-Dec; SMEs lack CFO-grade AI ROI tools and Calebe's pricing, valuation and FP&A skills fill the gap.",
+  "offers": [
+   {
+    "name": "ROI Model Solo / Pro",
+    "price": "US$79 / US$149"
+   },
+   {
+    "name": "Async Business-Case Review",
+    "price": "US$490 (US$1,190 for 5)"
+   },
+   {
+    "name": "Advisor Licence + Tracker",
+    "price": "US$399/yr; US$49/mo"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Write the value map and a 12-question Trade-Off Method interview guide; no Van Westendorp."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Book 10 twenty-minute interviews: 4 SME CFOs, 3 fractional CFOs, 3 owners. Source from LinkedIn, Venture Cafe, r/FPandA."
+   },
+   {
+    "when": "Wk 1-2",
+    "do": "Build Solo model in Excel and Sheets: baseline, TCO, 4 benefit methods, NPV/IRR/payback, kill/scale gate, board summary."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Add 3 filled examples, then Pro: 15-use-case register, tracker, 8-slide board deck. Build the free Tally scorecard."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Analyse interviews; set prices and fences. Open Lemon Squeezy (5% + US$0.50) and Hotmart; confirm Brazil payout route."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Record the 6-module, 90-minute course. Build a one-page Carrd site with sample PDF, pricing and credentials."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Launch on LinkedIn and Reddit. Message 60 fractional CFOs offering a free 30-day Advisor trial. Publish 5 SEO guides."
+   },
+   {
+    "when": "Wk 7-12",
+    "do": "Run US$400 ad test, deliver reviews, hit the Wk 12 gate, then launch the US$49/mo Tracker in months 4-5."
+   }
+  ],
+  "kpi": "12 kit sales and 150 scorecard leads by Week 8; US$5,000+ net/month by Month 12",
+  "gate": "Wk 12: kill if under 15 kits and under 2 reviews and median switching point under US$40. Scale if over 30 kits/mo or review attach over 8%.",
+  "m3": 900,
+  "m12": 5700,
+  "m24": 8500,
+  "hours": "75h setup · 7h/wk",
+  "start_capital_usd": 450,
+  "monthly_cost_usd": 200,
+  "capital_note": "US$400 ad test plus Carrd, Loom and Make tools. Defer ads and Descript until the Wk 12 gate.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Google Search ads at a US$45 CAC ceiling per kit buyer; a second advisor batch."
+ },
+ {
+  "id": "green-export-value",
+  "name": "CBAM/EUDR Data Packs for Exporters",
+  "kind": "service",
+  "why": "Deadline-forced demand (CBAM 2026, EUDR 30 Dec); EUR-paid packs priced at 1-3% of the buyer's yearly CBAM gap.",
+  "offers": [
+   {
+    "name": "Workbooks T1/T2/T3 (CBAM/EUDR/VSME)",
+    "price": "US$149 / US$79 / US$99"
+   },
+   {
+    "name": "CBAM Verifier-Ready Data Pack (D1)",
+    "price": "EUR 4,500 (+1,500 per route)"
+   },
+   {
+    "name": "Carbon Data Desk retainer (R1)",
+    "price": "EUR 650/mo (Lite EUR 300)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Download the CBAM default-value acts, VSME standard and EUDR GeoJSON spec; extract Brazil rows for CN 72/73/76."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build the free Cost-Gap Calculator (Sheets, Tally). Launch a 5-page EN/PT Carrd site; set up Payoneer/Wise and Gumroad."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build and publish EUDR Geolocation Kit (T2) first, as EUDR applies 30 Dec. Write 4 SEO pages (EUDR, CBAM pig iron)."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build CBAM Workbook (T1) and VSME Pack (T3). Write D1/D3/D4 delivery SOPs with a not-verification disclaimer."
+   },
+   {
+    "when": "Wk 4-5",
+    "do": "Contact 15 partners (CBAM software, GIS firms, Sebrae). Run a free PT webinar; offer D3 at EUR 1,500 to first 3 clients."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Message 40 CBAM/purchasing roles at Italian and German foundries (Sales Navigator trial); deliver the first D1 or D3."
+   },
+   {
+    "when": "Wk 7-8",
+    "do": "Write the D2 clause memo template. Run a US$300 Google or LinkedIn ads test to the calculator."
+   },
+   {
+    "when": "Mo 3-6",
+    "do": "Convert every delivered pack into an R1 retainer; list providers in a directory (US$49/mo featured); add Spanish pages."
+   }
+  ],
+  "kpi": "2 packs sold (one in EUR) by Month 3; 2 retainers by Month 6, 6 by Month 12",
+  "gate": "Month 4: kill or shrink to autopilot if under 2 paid packs and under 25 calculator leads. Scale if 2+ EUR D1s close: raise D1 to EUR 6,500, hire a junior engineer.",
+  "m3": 1550,
+  "m12": 6400,
+  "m24": 10000,
+  "hours": "85h setup · 14h/wk",
+  "start_capital_usd": 400,
+  "monthly_cost_usd": 113,
+  "capital_note": "US$300 ad test, Carrd, domain, AI plan. Insurance (about US$50/mo) and Sales Navigator can wait.",
+  "first_cash": "2-6 weeks",
+  "scale_with_capital": "Brazilian junior environmental engineer (about BRL 5-7k/mo) for data intake; larger ad tests."
+ },
+ {
+  "id": "course-library",
+  "name": "Pricing and Founder Finance Courses",
+  "kind": "product",
+  "why": "Sell the AI-pricing course as lead engine in EN/ES/PT; Udemy finds buyers, own store and Hotmart keep the margin.",
+  "offers": [
+   {
+    "name": "AI Pricing Pro Kit (own store)",
+    "price": "US$197; team US$790"
+   },
+   {
+    "name": "Founder Finance Bundle",
+    "price": "US$297 (PT R$897 Hotmart)"
+   },
+   {
+    "name": "All-Access Annual",
+    "price": "US$199/yr; team US$149/seat"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Score 6 candidate courses x 3 languages on an attractiveness grid using Udemy search demand and competitors."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Run 10 Trade-Off Method interviews: 8 AI/SaaS founders and PMs, 2 Brazilian analysts."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Open Udemy, Payhip/Lemon Squeezy, Hotmart, Kit, Payoneer. Build the free AI Token-Margin and Price Floor Calculator."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Record Course 1, AI & Usage-Based Pricing (25-30 lectures). Build the US$197 Pro Kit with a 40-product teardown table."
+   },
+   {
+    "when": "Wk 5",
+    "do": "Launch Course 1. Send instructor coupons to the first 100 people to collect reviews; offer no review incentives."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Record WTP and Funding courses. Localise to PT/ES. Publish Valuation & FP&A on Hotmart at R$397 and on Udemy."
+   },
+   {
+    "when": "Wk 9-10",
+    "do": "Set up the US$297 bundle, US$199/yr All-Access, a 30% affiliate programme and a 7-email Kit welcome sequence."
+   },
+   {
+    "when": "Wk 12-Mo 5",
+    "do": "Run a US$300 PT Meta ad test; email 30 accelerators for team licences; run the defensive review in Month 4."
+   }
+  ],
+  "kpi": "Course 1 live by Wk 5, 8 listings by Wk 10; rating 4.4+ with 50 ratings and 500 subscribers by Month 3-4",
+  "gate": "Kill any SKU under 10 paid sales/mo after 90 days; kill PT ads if cost per lead over R$10. Scale: Pro Kit 15+ sales/mo launches a US$995 Maven cohort.",
+  "m3": 150,
+  "m12": 2000,
+  "m24": 3500,
+  "hours": "190h setup · 6h/wk",
+  "start_capital_usd": 250,
+  "monthly_cost_usd": 45,
+  "capital_note": "US$60 mic, about US$60-90/mo build tools, domain. The US$300 Meta ad test can wait until Week 12.",
+  "first_cash": "5-6 weeks",
+  "scale_with_capital": "Paid ads on the free calculator; Maven cohort at US$995 rising to US$1,495."
+ },
+ {
+  "id": "job-board",
+  "name": "LatAm Finance Jobs Board",
+  "kind": "asset",
+  "why": "No board lists finance and pricing roles verified open to LatAm; one script feeds it and employers pay per post.",
+  "offers": [
+   {
+    "name": "Standard / Featured Post",
+    "price": "US$149 / US$299"
+   },
+   {
+    "name": "Vetted Shortlist",
+    "price": "US$1,500 flat"
+   },
+   {
+    "name": "Placement (contingent)",
+    "price": "15% of year-1 comp, min US$4,000"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1",
+    "do": "Buy the domain; set up WordPress with WP Job Manager, salary and LatAm-eligibility fields, 3 categories."
+   },
+   {
+    "when": "Wk 1 D2-3",
+    "do": "Write a Python fetcher for Greenhouse, Lever and Ashby job endpoints; seed 300 companies; run on GitHub Actions cron."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Add an LLM eligibility classifier; only \"explicit\" gets the Verified tag, \"likely\" goes to a 15 min/day manual queue."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Auto-publish 150 verified free listings with EN/PT/ES SEO pages. Launch the newsletter; set up Stripe links and Make."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Post value threads on r/FPandA; email 40 founders and CFOs to claim listings. Interview 10 hiring managers."
+   },
+   {
+    "when": "Wk 4-5",
+    "do": "Build the candidate pool with a graded modelling test. Send marquee employers an applicant report and the US$299 offer."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Pitch packs to 25 staffing firms. Launch the US$1,500 Vetted Shortlist to Featured buyers. Add US$29/US$79 cross-sells."
+   },
+   {
+    "when": "Mo 3-6",
+    "do": "Sell newsletter sponsors past 2,000 subscribers; publish 2 salary data posts a month; run the Month 6 kill/scale review."
+   }
+  ],
+  "kpi": "150 verified listings by Wk 2; 2,000 subscribers and 3+ paid posts/mo by Month 6",
+  "gate": "Month 6: kill or shrink to a newsletter if paid posts under 3/mo, subscribers under 1,200 or median apply clicks under 15. Scale at 8+ posts/mo and a placement.",
+  "m3": 250,
+  "m12": 3200,
+  "m24": 6000,
+  "hours": "60h setup · 7h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 60,
+  "capital_note": "Domain, hosting and Claude API for early months; free tiers elsewhere. The US$300 ad test and Apollo can wait.",
+  "first_cash": "4-8 weeks",
+  "scale_with_capital": "Move to JBoard or Niceboard (from about US$249/mo) above US$2k/mo; commission recruiter-coordinator."
+ },
+ {
+  "id": "eu-ai-literacy",
+  "name": "EU AI Act Article 4 Literacy Kit",
+  "kind": "product",
+  "why": "EU SMEs must document staff AI literacy (enforceable since 2 Aug 2026); partners sell seats so Calebe does little direct selling.",
+  "offers": [
+   {
+    "name": "Starter Team (25 seats) / Business (100)",
+    "price": "EUR 290/yr / EUR 790/yr"
+   },
+   {
+    "name": "Partner white-label",
+    "price": "EUR 49/mo + EUR 4/seat/yr"
+   },
+   {
+    "name": "SCORM licence / Evidence Pack",
+    "price": "EUR 990/yr / EUR 490 one-off"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-3",
+    "do": "Read Article 4, the Commission Q&A and the Omnibus change. Buy and log 3 competitor courses to find gaps."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Script 4 role tracks in EN as 5-7 lessons of 3-4 minutes each, with Finance and Sales scenarios."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Produce EN video; dub to ES/PT/DE with native review. Build the Next.js/Supabase delivery app with PDF register."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Export SCORM 1.2 packages; test in SCORM Cloud. Open Paddle, ask about Brazil payouts. Build 4-language landing page."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Pilot free with 3 SMEs (Spain, Portugal, DACH). Build the partner kit with a 30% recurring referral link."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Send 25 LinkedIn notes per weekday to DPOs and IT MSPs. List on OpenSesame; publish 8 SEO articles."
+   },
+   {
+    "when": "Wk 6",
+    "do": "Run a US$300 Google Search test in ES and PT; kill any keyword with CPA over EUR 150 after 30 clicks."
+   },
+   {
+    "when": "Mo 3-6",
+    "do": "Add Finance track and Evidence Pack upsell, automated renewal emails (day -45, -14, -3) and a public changelog page."
+   }
+  ],
+  "kpi": "3 signed partners and 8 paying companies by Month 3; 10 partners and 30 companies by Month 6",
+  "gate": "Month 4: kill or make the course a free lead magnet if under 3 paying partners and under 10 paying companies. Scale at 10+ partners by Month 6.",
+  "m3": 350,
+  "m12": 2300,
+  "m24": 3800,
+  "hours": "95h setup · 6h/wk",
+  "start_capital_usd": 800,
+  "monthly_cost_usd": 250,
+  "capital_note": "Two months of video, Sales Navigator, Vercel; US$300-500 native reviewers. The US$300 ad test can wait.",
+  "first_cash": "4-8 weeks",
+  "scale_with_capital": "Commission-based DACH sales rep; FR and IT dubbing; high-risk deployer track at EUR 25/seat."
+ },
+ {
+  "id": "linkedin-pricing",
+  "name": "LinkedIn Pricing Practice (B2B SaaS/AI)",
+  "kind": "service",
+  "why": "Best credential fit: a named LinkedIn practice selling written pricing work to SaaS/AI teams, priced as US$2,900-7,900 projects.",
+  "offers": [
+   {
+    "name": "Pricing Page Teardown",
+    "price": "US$490 (credited to Diagnostic)"
+   },
+   {
+    "name": "Pricing Diagnostic",
+    "price": "US$2,900 (founding US$1,500)"
+   },
+   {
+    "name": "Pricing Sprint",
+    "price": "US$7,900 (US$9,500 Series B-C)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Pick the practice name and promise; rewrite the LinkedIn profile around the written Pricing Diagnostic in 5 days."
+   },
+   {
+    "when": "Wk 1 D2-3",
+    "do": "Build a one-page Carrd site with 3 fixed-price offers, a Tally intake form and a Stripe Payment Link per offer."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build the free 25-check Pricing Page Scorecard (Kit gate) and a 100-page teardown database. Write 12 posts ahead."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Publish 3 posts a week plus 1 Friday teardown; comment 8-10 times daily. Pre-sell 3 founding Diagnostics at US$1,500."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Build the Diagnostic memo template and billing-export sheet. Deliver founding clients; get named testimonials."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Launch the biweekly \"Price Signals\" newsletter. Set full prices; set up Stripe USD/EUR invoicing and Wise payouts."
+   },
+   {
+    "when": "Wk 5-8",
+    "do": "Build the Sprint kit (WTP survey, price model, packaging matrix). Pitch the US$6,000 Clinic to 15 VC/accelerator leads."
+   },
+   {
+    "when": "Mo 3-6",
+    "do": "Launch the US$2,500/mo Pricing Desk at Sprint handoff; sell a US$79 teardown PDF; hire a part-time Brazilian analyst."
+   }
+  ],
+  "kpi": "3 paid Diagnostics by Day 45, 6 by Day 90; 300 Scorecard subscribers by Day 90",
+  "gate": "Day 90: kill or pivot if under 2 paid Diagnostics, under 10 qualified inbound talks and median impressions under 1,500. Scale at 3+ Diagnostics/mo twice.",
+  "m3": 1200,
+  "m12": 7000,
+  "m24": 11500,
+  "hours": "45h setup · 15h/wk",
+  "start_capital_usd": 60,
+  "monthly_cost_usd": 50,
+  "capital_note": "Carrd, domain and one month of Claude Pro; everything else is free tier. LinkedIn Premium and Taplio can wait.",
+  "first_cash": "2-3 weeks",
+  "scale_with_capital": "Part-time Brazilian analyst (about R$3,000-5,000/mo) to run the database and teardown prep."
+ },
+ {
+  "id": "grant-teardown",
+  "name": "EU Grant Financial Teardowns",
+  "kind": "service",
+  "why": "EIC/Eurostars applicants are engineers weak on pricing and financial plans; async teardowns beat EUR 5-15k consultants and need little setup.",
+  "offers": [
+   {
+    "name": "EIC Teardown Basic/Standard/Premium",
+    "price": "US$450 / US$600 / US$950"
+   },
+   {
+    "name": "EIC Financial Plan Template Kit",
+    "price": "US$149 (US$79 launch)"
+   },
+   {
+    "name": "White-label teardown for consultancies",
+    "price": "EUR 350 each; 10 for EUR 3,000"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Day 1",
+    "do": "Read the EIC Work Programme, full-application guide and evaluation criteria; do the same for Eurostars."
+   },
+   {
+    "when": "Day 2-3",
+    "do": "Build the 12-criterion RAG scorecard, an 80-comment library and the EIC Financial Plan Template Kit in Sheets."
+   },
+   {
+    "when": "Day 4",
+    "do": "Create 2 anonymised sample teardowns with Loom walkthroughs as portfolio pieces."
+   },
+   {
+    "when": "Day 5",
+    "do": "Publish Fiverr gigs (450/600/950; SaaS 490); set up Upwork profile and Project Catalog with saved-search alerts."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build Carrd mini-site, Lemon Squeezy kit page and Tally intake. Schedule 8 LinkedIn posts linking to a free checklist."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Send 30 DMs offering 3 free beta teardowns for testimonials. Run Gabor-Granger WTP test on 20+ conversations."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Pitch 40 grant consultancies on EUR 350 white-label teardowns. Bid 3-5 Upwork proposals daily; deliver in 3-4 hours."
+   },
+   {
+    "when": "Mo 2-4",
+    "do": "Launch the kit at US$79; run cut-off calendar campaigns; run a US$300 LinkedIn ad test; add PT/ES gigs."
+   }
+  ],
+  "kpi": "3 paid orders by end of Month 1; 5 five-star reviews by Month 3; 8 orders/month by Month 6",
+  "gate": "Month 4: kill or shrink to referral feeder if under 4 paid orders or under US$60/h after fees. Scale at 8+ orders/mo or 2+ white-label partners.",
+  "m3": 1100,
+  "m12": 4200,
+  "m24": 5500,
+  "hours": "45h setup · 12h/wk",
+  "start_capital_usd": 70,
+  "monthly_cost_usd": 60,
+  "capital_note": "Claude Pro, Loom, Carrd and Upwork Connects. The US$300 LinkedIn ad test is Month 3 and optional.",
+  "first_cash": "2-4 weeks",
+  "scale_with_capital": "Subcontract a PT/ES grant-writing freelancer for non-finance sections; LinkedIn ads at under US$25 per lead."
+ },
+ {
+  "id": "expert-calls",
+  "name": "Paid Expert-Network Calls",
+  "kind": "service",
+  "why": "Networks struggle to staff fluent-English Brazil experts; near-zero setup and US$200-280 net per call on pricing and tax-reform topics.",
+  "offers": [
+   {
+    "name": "1:1 expert call via network",
+    "price": "US$300/h, rising to US$400-500/h"
+   },
+   {
+    "name": "Survey / transcript interview",
+    "price": "US$50-150 / US$200-400"
+   },
+   {
+    "name": "Direct Brazil Pricing Diligence Sprint",
+    "price": "US$4,500 (lite US$2,500)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1",
+    "do": "Write a master expert bio in EN/PT/ES with 12 topics under 3 angles; rewrite the LinkedIn headline and About."
+   },
+   {
+    "when": "Wk 1 D2-3",
+    "do": "Register with GLG, AlphaSights, Guidepoint, Third Bridge, Arbolus; set US$300/h (floor US$250) and a Wise USD payout."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Register with 7 smaller networks (Dialectica, Coleman, Atheneum, AlphaSense, Office Hours and 2 more); set Gmail filter."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Write 10 screening-answer snippets. Send 25 LinkedIn requests to network recruiters. Publish a CBS/IBS pricing article."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Reply to every invite within 30 minutes in business hours; accept surveys paying US$50+; write 3 angle cheat sheets."
+   },
+   {
+    "when": "Mo 2",
+    "do": "Join transcript libraries and survey panels. Ask an online accountant about a single-member LTDA on Simples Nacional."
+   },
+   {
+    "when": "Mo 3",
+    "do": "After 10 calls, raise to US$375 on big networks; post a general-topic LinkedIn note every 2 weeks."
+   },
+   {
+    "when": "Mo 4-6",
+    "do": "Package the US$4,500 Diligence Sprint for self-sourced leads; drop idle networks; raise rates where conversion is 40%+."
+   }
+  ],
+  "kpi": "12 networks live by Wk 2; 8 invites/mo by Month 3, 15 by Month 6; 30% invite-to-call conversion",
+  "gate": "Month 4: drop to 1 h/week if under 2 calls/mo and under 6 invites/mo. Scale at 6+ calls/mo for 2 months: raise rates 15-25%.",
+  "m3": 700,
+  "m12": 2200,
+  "m24": 3000,
+  "hours": "22h setup · 5h/wk",
+  "start_capital_usd": 10,
+  "monthly_cost_usd": 15,
+  "capital_note": "Pushover US$5 one-time; all other tools are free. Accountant (about US$27-55/mo) only once a PJ is opened.",
+  "first_cash": "4-8 weeks",
+  "scale_with_capital": "Little: ads do not reach network recruiters. Capital only covers an accountant once on a PJ."
+ },
+ {
+  "id": "hotmart-affiliate",
+  "name": "Finance Course Affiliate Review Hub",
+  "kind": "income",
+  "why": "Calebe has a real edge reviewing finance-career courses; 'vale a pena' searches have high buyer intent in PT-BR and EN.",
+  "offers": [
+   {
+    "name": "PT-BR finance courses (Hotmart/Kiwify)",
+    "price": "30-60% of R$197-997"
+   },
+   {
+    "name": "EN modeling programs (CFI, WSP, BIWS)",
+    "price": "Commission UNKNOWN; about US$20-150/sale"
+   },
+   {
+    "name": "Free Kit Analista (Telegram + email)",
+    "price": "Free"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1",
+    "do": "Open Hotmart, Kiwify and Eduzz accounts; apply to Udemy, Wall Street Prep, BIWS and CFI affiliate programs."
+   },
+   {
+    "when": "Wk 1 D2-3",
+    "do": "Screen products: commission 40%+, hot temperature, clean sales page, good Reclame Aqui score."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Collect about 150 PT/EN queries in Keyword Planner and cluster into reviews, X-vs-Y and lists."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Launch WordPress with Rank Math and Pretty Links. Build the free DCF template and a buyer-only bonus (Tally)."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Publish 8 money pages (vale a pena reviews, best courses 2026, WSP vs BIWS vs CFI). Start a faceless YouTube channel."
+   },
+   {
+    "when": "Wk 4-8",
+    "do": "Open Telegram and WhatsApp channels; publish 2 articles, 1 video, 3 Shorts weekly; answer questions on Reddit and Quora."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Run a max US$300 ads test to own review pages; review Hotmart src reports; drop products with refunds above 15%."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Email the 2 best sellers for higher commission and coupons; prepare Black Friday coupon page and countdown emails."
+   }
+  ],
+  "kpi": "8 money pages live by Wk 3; 30 indexed pages by Month 3; 3,000 organic sessions/mo by Month 6",
+  "gate": "Month 6: kill new content if under 1,500 sessions/mo, under US$150 net and no page over US$0.05/visit. Scale if 3 pages earn over US$0.15/visit.",
+  "m3": 80,
+  "m12": 2200,
+  "m24": 4500,
+  "hours": "70h setup · 10h/wk",
+  "start_capital_usd": 100,
+  "monthly_cost_usd": 50,
+  "capital_note": "Hosting, domain, AI plan and ElevenLabs for about 2 months. The US$300 ad test is optional and can wait.",
+  "first_cash": "6-10 weeks",
+  "scale_with_capital": "PT-BR freelance writer (about R$80-150 per article) for 4 articles/week; Black Friday ads."
+ },
+ {
+  "id": "finance-apps",
+  "name": "Shopify Landed-Cost App",
+  "kind": "product",
+  "why": "Tariffs and de minimis changes make COGS move; Shopify holds one static cost, and landed cost, FX and margin are Calebe's home turf.",
+  "offers": [
+   {
+    "name": "Starter / Growth plans",
+    "price": "US$29/mo / US$79/mo"
+   },
+   {
+    "name": "Pro plan",
+    "price": "US$199/mo"
+   },
+   {
+    "name": "Done-for-you COGS cleanup",
+    "price": "US$1,500-3,000 one-off"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Read 100+ Shopify forum and Reddit posts on landed cost; install the top 5 competing apps on a free dev store."
+   },
+   {
+    "when": "Wk 1 D2",
+    "do": "Register a Shopify Partner account (US$19 one-time) and create 2 development stores."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Run 10 problem interviews; pre-sell founding plans at US$19/mo or US$190/yr. Go if 3 pre-sales or 8 written commitments."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Scaffold with Shopify CLI, Polaris, Neon. Build the PO cost-pool allocation engine and unit-cost write-back."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Add Billing API plans, a 14-day trial, GDPR webhooks; onboard pre-sale customers by hand and fix friction in 48 hours."
+   },
+   {
+    "when": "Wk 5-6",
+    "do": "Submit the App Store listing with demo video. Publish a free calculator, 3 SEO articles and a US$49 Sheets template."
+   },
+   {
+    "when": "Wk 7-8",
+    "do": "Launch on r/shopify and Shopify Community after approval. Email the waitlist; ask active users for reviews."
+   },
+   {
+    "when": "Wk 9-12",
+    "do": "Build Growth features (tariff simulator, margin alerts, FX); run a US$300 ads test; pitch brokers in Month 3-4."
+   }
+  ],
+  "kpi": "3 paid pre-sales in Wk 1; live on the App Store by Wk 8; 25+ paying stores by Month 6",
+  "gate": "Wk 1: pivot if under 3 pre-sales and under 8 commitments. Month 6: maintenance mode if under 8 paying stores and activation under 25%. Scale at 25+ stores.",
+  "m3": 150,
+  "m12": 3000,
+  "m24": 7000,
+  "hours": "220h setup · 8h/wk",
+  "start_capital_usd": 200,
+  "monthly_cost_usd": 100,
+  "capital_note": "US$19 Shopify fee, about 2 months of hosting, Claude Code/Cursor and domain. The US$300-600 ad test can wait.",
+  "first_cash": "1-8 weeks",
+  "scale_with_capital": "US$500-1,000/mo in App Store ads at CAC under US$150; part-time support contractor (about US$500/mo)."
+ },
+ {
+  "id": "carbon-credits",
+  "name": "Santa Catarina Carbon Credit Brokerage",
+  "kind": "service",
+  "why": "Buyers want Brazilian removal supply but fear fraud; Calebe can screen integrity, model offtakes and earn success fees. Not passive.",
+  "offers": [
+   {
+    "name": "Integrity Screen / Buyer DD Memo",
+    "price": "BRL 3,500 / US$2,500"
+   },
+   {
+    "name": "Origination mandate success fee",
+    "price": "6-10% of contract; min US$5,000"
+   },
+   {
+    "name": "Brazil Carbon Supply Brief",
+    "price": "US$29/mo; US$290/yr"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-3",
+    "do": "Read Law 15.042, Puro.earth and Verra biochar rules; build a Brazil project database from the three registries."
+   },
+   {
+    "when": "Wk 1 D4-5",
+    "do": "Pull 12 months of buyers from cdr.fyi; list 60 non-Frontier buyers. Write the 20-question PT/EN red-flag checklist."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Book 1 hour with a Florianopolis lawyer on whether brokering needs CVM registration. Build a PT/EN Carrd site."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Contact 40 SC supply targets (sawmills, swine co-ops, landfills); visit Embrapa; launch the Brazil Carbon Supply Brief."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Email 60 buyers offering a free snapshot and the US$2,500 DD memo. Deliver 2 Integrity Screens with a 10-year DCF."
+   },
+   {
+    "when": "Wk 6-8",
+    "do": "Sign the first exclusive 12-month mandate at 8% success fee; build a data room; approach 15 buyers and 5 marketplaces."
+   },
+   {
+    "when": "Wk 8-12",
+    "do": "Launch the US$29/mo newsletter tier and Gumroad models (US$149, US$99). Pitch SBCE Sprints to 20 SC industrial CFOs."
+   },
+   {
+    "when": "Mo 4-6",
+    "do": "Negotiate the first offtake term sheet with the DD memo as closer; run the Month 6 kill/scale review."
+   }
+  ],
+  "kpi": "2 paid Integrity Screens by Wk 8, 1 DD memo by Wk 10, 1 signed mandate by Month 3",
+  "gate": "Month 6: kill if no mandate, under 2 paid memos/screens and no offtake LOI; keep the newsletter if 30+ payers. Kill at once if CVM registration is required.",
+  "m3": 600,
+  "m12": 4500,
+  "m24": 9000,
+  "hours": "90h setup · 8h/wk",
+  "start_capital_usd": 900,
+  "monthly_cost_usd": 200,
+  "capital_note": "Lawyer hour (US$280-750), Sales Navigator trial, Claude Pro, accountant, travel. Lemlist, DocuSign can wait.",
+  "first_cash": "5-8 weeks",
+  "scale_with_capital": "Part-time PT analyst (about BRL 3-4k/mo) for screens; travel and event fees for a second supply cluster."
+ },
+ {
+  "id": "ai-spend-fpa",
+  "name": "AI Spend FP&A Kit",
+  "kind": "product",
+  "why": "AI token and seat spend is now a volatile COGS line; finance teams forecast it ad hoc, and 2027 budgeting is near. Fast, cheap build.",
+  "offers": [
+   {
+    "name": "Core / Pro template",
+    "price": "US$149 / US$349"
+   },
+   {
+    "name": "AI Spend FP&A course",
+    "price": "US$399 (launch US$299)"
+   },
+   {
+    "name": "AI Spend Setup Sprint",
+    "price": "US$3,000 fixed (US$5,000 with pricing)"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Log 30 pain quotes from Reddit and LinkedIn; DM 15 finance people at AI startups. Need 3 who would pay."
+   },
+   {
+    "when": "Wk 1 D3-5",
+    "do": "Build the vendor price table (OpenAI, Anthropic, Gemini, Mistral, Bedrock, Azure) and the free AI Burn Check."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build the Core template: drivers, price table, 24-month 3-scenario forecast, actuals and variance bridge."
+   },
+   {
+    "when": "Wk 3",
+    "do": "Build Pro connectors (Apps Script, OpenAI and Anthropic usage APIs); beta free with 5 finance people for testimonials."
+   },
+   {
+    "when": "Wk 4",
+    "do": "Open Lemon Squeezy and Gumroad, a Carrd page and 5-email Kit welcome sequence plus post-purchase sequence."
+   },
+   {
+    "when": "Wk 5",
+    "do": "Launch with 5 LinkedIn posts in 10 days; post the free sheet on r/FPandA, Indie Hackers, Product Hunt and Eloquens."
+   },
+   {
+    "when": "Wk 6-10",
+    "do": "Record the 6-module course (pre-sell at US$199); write 4 SEO pages; pitch 10 podcasts; productise the US$3,000 Sprint."
+   },
+   {
+    "when": "Wk 11-12",
+    "do": "Launch the US$19/mo Unit Cost Monitor; translate Core to PT-BR with one contador hour and list on Hotmart."
+   }
+  ],
+  "kpi": "300 subscribers and 10 paid orders by Week 6; 1,500 subscribers by Month 6",
+  "gate": "Kill or downgrade to lead magnet if under 3 of 15 DMs would pay, under 10 orders in 30 days, or under US$1,000/mo net at Month 6. Scale at 3% conversion plus 1 sprint/mo.",
+  "m3": 700,
+  "m12": 6000,
+  "m24": 9000,
+  "hours": "90h setup · 6h/wk",
+  "start_capital_usd": 150,
+  "monthly_cost_usd": 60,
+  "capital_note": "About 2 months of Kit, AI plan, Carrd, domain, API tests. The US$500 ad test (Month 5) can wait.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Freelance Apps Script developer (US$30-50/h) for more connectors; LinkedIn and Reddit ads once upsells pay back."
+ },
+ {
+  "id": "ai-automation-agency",
+  "name": "Finance Ops AI Automation Studio",
+  "kind": "service",
+  "why": "Most automation agencies cannot price on CFO-grade ROI; Calebe sells fixed-price finance builds plus retainers from a low Brazilian cost base.",
+  "offers": [
+   {
+    "name": "Automation ROI Audit",
+    "price": "US$490 (credited to build)"
+   },
+   {
+    "name": "AP Inbox-to-Ledger Autopilot (SKU A)",
+    "price": "US$2,500 setup + US$390/mo"
+   },
+   {
+    "name": "White-label partner program",
+    "price": "US$1,500 + US$350/setup + US$120/mo"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Wk 1 D1-2",
+    "do": "Open Wise Business and Stripe; ask a contador about an ME on Simples Nacional with export-of-services treatment."
+   },
+   {
+    "when": "Wk 1 D2-4",
+    "do": "Stand up n8n on a Hetzner VPS, plus Intuit and Xero developer sandboxes and the Anthropic API."
+   },
+   {
+    "when": "Wk 1-2",
+    "do": "Build SKU A in the QBO sandbox: Gmail, PDF extraction, vendor match, GL mapping, bill creation; record Loom demos."
+   },
+   {
+    "when": "Wk 2",
+    "do": "Build the Sheets ROI calculator, Tally form and Carrd page; write audit, SKU A and B offers with a US$10k guarantee."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Build the Upwork profile; send 5 proposals a day opening with a 3-line ROI estimate."
+   },
+   {
+    "when": "Wk 3-4",
+    "do": "Scrape AP/AR job postings (Apify) for outbound; set up 3 domains and Instantly warm-up; message 40 warm contacts."
+   },
+   {
+    "when": "Wk 4-6",
+    "do": "Pitch 300 bookkeeping firms on white-label; run a WTP test on discovery calls; deliver first audits and close builds."
+   },
+   {
+    "when": "Wk 6-10",
+    "do": "Add n8n monitoring and auto ROI reports for retainers; build SKU C and D only after a client pays; hold the Wk 10 gate."
+   }
+  ],
+  "kpi": "3 paid audits by Wk 8; 2% cold-email reply rate by Wk 6; audit-to-build conversion 40% by Month 3",
+  "gate": "Wk 10: kill or go partner-only if under 2 paid audits after 2,500 emails and 60 proposals. Scale at 3+ Care retainers and 2 builds/mo for 2 months.",
+  "m3": 3200,
+  "m12": 12500,
+  "m24": 20000,
+  "hours": "90h setup · 22h/wk",
+  "start_capital_usd": 400,
+  "monthly_cost_usd": 500,
+  "capital_note": "Months 1-2 of Workspace inboxes, Instantly, Apify, VPS, Claude, Upwork. Descript and Sales Navigator can wait.",
+  "first_cash": "4-6 weeks",
+  "scale_with_capital": "Brazilian n8n developer (about US$600-2,000/mo) for builds; part-time Brazil SDR once partners reach 5."
+ },
+ {
+  "id": "paid-research",
+  "name": "Paid Research Participation",
+  "kind": "income",
+  "why": "Calebe fits five rare B2B screener buckets and works in UTC-3; USD cash can start in week 2 for under 5 h/week.",
+  "offers": [
+   {
+    "name": "Moderated B2B interview (Respondent.io)",
+    "price": "US$100-250/h (UNVERIFIED)"
+   },
+   {
+    "name": "Expert-network call",
+    "price": "US$200/h, then 300, then 400"
+   },
+   {
+    "name": "User Interviews session / paid survey",
+    "price": "US$50-200 / US$30-150"
+   }
+  ],
+  "steps": [
+   {
+    "when": "Day 1",
+    "do": "Open Wise (USD details) and PayPal. Write a canonical profile doc: true titles, dates, company sizes, tools used."
+   },
+   {
+    "when": "Day 2",
+    "do": "Rewrite LinkedIn headline and About around pricing, FP&A, M&A, Brazil/LATAM keywords; list Mercor work as AI training."
+   },
+   {
+    "when": "Day 2-3",
+    "do": "Fully complete Respondent.io and User Interviews profiles, with weekday availability 10:00-19:00 BRT."
+   },
+   {
+    "when": "Day 3",
+    "do": "Apply to 11 expert networks (GLG, AlphaSights, Guidepoint, Third Bridge, Arbolus and 6 more) at US$200/h."
+   },
+   {
+    "when": "Day 4-5",
+    "do": "Sign up for UserTesting, Userlytics, Trymata, TestingTime, dscout, Wynter, Prolific; log Brazil eligibility."
+   },
+   {
+    "when": "Day 5",
+    "do": "Set Gmail alert filters to Telegram via Make and Espanso screener snippets."
+   },
+   {
+    "when": "Wk 2-3",
+    "do": "Screen twice daily (09:00, 17:00 BRT); run 3-5 UserTesting tests; take vetting calls, exclude Mercor confidential info."
+   },
+   {
+    "when": "Mo 1-3",
+    "do": "Post weekly on LinkedIn; drop platforms under US$25/h; raise expert rate to US$300 after 5 calls; Day 90 checkpoint."
+   }
+  ],
+  "kpi": "18 profiles live by Wk 1; 4 moderated B2B sessions/mo by Month 3; 2 expert calls/mo by Month 4",
+  "gate": "Day 90: downgrade to expert networks at 1 h/week if net under US$300/mo and effective pay under US$40/h. Scale at 2+ expert calls/mo.",
+  "m3": 550,
+  "m12": 1500,
+  "m24": 1800,
+  "hours": "16h setup · 5h/wk",
+  "start_capital_usd": 50,
+  "monthly_cost_usd": 10,
+  "capital_note": "About US$50 for a wired headset if needed; all platforms and tools are free. LinkedIn Premium is optional.",
+  "first_cash": "1-3 weeks",
+  "scale_with_capital": "Nothing material; the scale path is selling pricing-research studies using these panels."
+ }
+]

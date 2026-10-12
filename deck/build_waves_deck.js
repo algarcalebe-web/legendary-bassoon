@@ -53,23 +53,24 @@ const tb = (s, text, o) => s.addText(text, { isTextBox: true, margin: 0, fontSiz
 const card = (s, x, y, w, h, fill = C.background2) => s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, fill: { color: fill }, line: { color: fill }, rectRadius: 0.08 });
 const circle = (s, x, y, d, label, fill = C.accent1, fs = 14) =>
   s.addText(String(label), { shape: pres.shapes.OVAL, x, y, w: d, h: d, fill: { color: fill }, color: C.background1, fontSize: fs, bold: true, align: "center", valign: "middle", margin: 0 });
-const k = (n) => (n >= 1000 ? `$${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : `$${Math.round(n)}`);
+const k = (n) => (n < 0 ? "-" + k(-n) : n >= 1000 ? `$${(n / 1000).toFixed(n >= 100000 ? 0 : 1)}k` : `$${Math.round(n)}`);
 const hdr = (cells, fill = C.accent1) => cells.map((t) => ({ text: t, options: { bold: true, color: C.background1, fill: { color: fill } } }));
 const TBL = { fontFace: "Calibri", color: C.text1, border: { type: "solid", pt: 0.5, color: "D3DCD8" }, valign: "middle" };
 
 // Waves by start capital; inside a wave: core streams first, then fastest cash, then month-12 value.
 const CORE = new Set(PF.phases.flatMap((p) => p.streams));
 const WAVES = [
-  { n: 1, name: "Wave 1 · Zero capital: sell expertise and time", max: 150, col: C.accent1, hex: HEX.accent1,
-    entry: "Start now. Needs only a laptop, Wise and free tools.", rule: "Goal: first USD in weeks 2-4 and a monthly surplus. Put 30% of every net dollar into the growth fund." },
-  { n: 2, name: "Wave 2 · Bootstrap: productise what Wave 1 taught you", max: 1000, col: C.accent3, hex: HEX.accent3,
+  { n: 1, name: "Wave 1 · Zero capital: sell expertise and time", max: 300, col: C.accent1, hex: HEX.accent1,
+    entry: "Start now. Up to US$300 at risk: a laptop, Wise and low-cost tools.", rule: "Goal: first USD in weeks 2-4 and a monthly surplus. Put 30% of every net dollar into the growth fund." },
+  { n: 2, name: "Wave 2 · Bootstrap: productise what Wave 1 taught you", max: 700, col: C.accent3, hex: HEX.accent3,
     entry: "Opens when Wave 1 nets US$2k+/month for 2 months in a row and the growth fund covers the wave's start capital.", rule: "Build products from repeated client questions; each launch is paid from the fund, never from savings." },
-  { n: 3, name: "Wave 3 · Reinvest: buy speed with profit", max: 5000, col: C.accent2, hex: HEX.accent2,
-    entry: "Opens when net income is US$5k+/month and the growth fund holds US$5k+.", rule: "Spend on panels, ads tests, analysts and apps only after a paid pilot proves demand." },
+  { n: 3, name: "Wave 3 · Reinvest: buy speed with profit", max: 1300, col: C.accent2, hex: HEX.accent2,
+    entry: "Opens when net income is US$5k+/month and the growth fund holds US$3k+.", rule: "Spend on panels, ads tests, analysts and apps only after a paid pilot proves demand." },
   { n: 4, name: "Wave 4 · Capital-backed: compounding assets", max: Infinity, col: C.accent6, hex: HEX.accent6,
-    entry: "Opens when net income clears the US$10k floor for 3 months and the growth fund holds US$15k+.", rule: "Cap any single bet at 25% of the fund; keep 6 months of personal costs untouched." },
+    entry: "Opens when net income clears the US$10k floor for 3 months and the growth fund holds US$10k+.", rule: "Cap any single bet at 25% of the fund; keep 6 months of personal costs untouched." },
 ];
-ST.forEach((x) => { x.wave = WAVES.find((w) => x.start_capital_usd <= w.max); x.core = CORE.has(x.id); });
+const FORCE4 = new Set(["site-flipping"]); // buying sites needs acquisition capital beyond the paid DD service
+ST.forEach((x) => { x.risk = x.start_capital_usd + 3 * x.monthly_cost_usd; x.wave = FORCE4.has(x.id) ? WAVES[3] : WAVES.find((w) => x.risk <= w.max); x.core = CORE.has(x.id); });
 const days = (t) => { const m = String(t).match(/(\d+)\s*(day|week|month)/i); if (!m) return 999; return +m[1] * (/day/i.test(m[2]) ? 1 : /week/i.test(m[2]) ? 7 : 30); };
 WAVES.forEach((w) => { w.items = ST.filter((x) => x.wave === w).sort((a, b) => (b.core - a.core) || (days(a.first_cash) - days(b.first_cash)) || (b.m12 - a.m12)); });
 const stack = PF.stack, at = (m) => stack.find((r) => r.month === m);
@@ -88,12 +89,12 @@ WAVES.forEach((w, i) => {
   const x = M + i * 3.07, y = 4.3 - i * 0.85, h = 2.4 + i * 0.85;
   card(s, x, y, 2.9, h, i === 0 ? "DCEFEA" : C.background2);
   circle(s, x + 0.2, y + 0.2, 0.6, w.n, w.col, 18);
-  const cap = i === 0 ? "≤ US$150" : i === 3 ? "> US$5k" : `≤ US$${w.max.toLocaleString("en-US")}`;
-  tb(s, cap + " to start", { x: x + 0.95, y: y + 0.28, w: 1.85, h: 0.45, fontSize: 15, bold: true, color: w.col });
+  const cap = i === 3 ? "> US$1.3k" : `≤ US$${w.max.toLocaleString("en-US")}`;
+  tb(s, cap + " at risk", { x: x + 0.95, y: y + 0.28, w: 1.85, h: 0.45, fontSize: 15, bold: true, color: w.col });
   tb(s, `${w.items.length} streams`, { x: x + 0.2, y: y + 0.95, w: 2.5, h: 0.35, fontSize: 14, bold: true });
   tb(s, w.entry, { x: x + 0.2, y: y + 1.35, w: 2.5, h: h - 1.5, fontSize: 12, color: MUTED });
 });
-tb(s, "Growth fund: 30% of every net dollar. A wave opens only when its entry trigger is met; until then its streams stay on the bench.", { x: M, y: 1.25, w: 8.6, h: 0.8, fontSize: 15, bold: true, color: C.accent1 });
+tb(s, "Capital at risk = start cost + 3 months of running costs. Growth fund: 30% of every net dollar. A wave opens only when its entry trigger is met; until then its streams stay on the bench.", { x: M, y: 1.25, w: 8.6, h: 0.8, fontSize: 15, bold: true, color: C.accent1 });
 
 s = slide("CONTENT", "Where it lands, and the uncomfortable part");
 [[`Month 10`, "Base case clears US$10k net (Aug 2027)", C.accent1], [k(at(12).base), "Base net/month at month 12", C.accent1], [k(at(24).base), `Base at month 24 (strong ${k(at(24).strong)})`, C.accent1], ["> 24 mo", `Conservative: ${k(at(24).conservative)} at month 24`, C.accent6]].forEach(([v, l, col], i) => {
@@ -111,21 +112,21 @@ tb(s, [
 
 // Capital by wave chart + summary table
 s = slide("CONTENT", "Capital needed rises wave by wave; so does what it can earn");
-const capW = WAVES.map((w) => w.items.reduce((a, x) => a + x.start_capital_usd, 0));
+const capW = WAVES.map((w) => w.items.reduce((a, x) => a + x.risk, 0));
 const m12W = WAVES.map((w) => w.items.reduce((a, x) => a + x.m12, 0));
-s.addChart(pres.charts.BAR, [{ name: "Start capital (US$, all streams in wave)", labels: WAVES.map((w) => `Wave ${w.n}`), values: capW }], {
+s.addChart(pres.charts.BAR, [{ name: "Capital at risk (US$, all streams in wave)", labels: WAVES.map((w) => `Wave ${w.n}`), values: capW }], {
   x: M, y: 1.3, w: 6.0, h: 4.6, barDir: "col", chartColors: [HEX.accent2], showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "$#,##0", dataLabelFontSize: 12, dataLabelFontFace: "+mn-lt", dataLabelColor: "333333",
-  showTitle: true, title: "Start capital per wave (sum, US$)", titleFontSize: 14, titleFontFace: "+mn-lt", titleColor: "333333", showLegend: false,
+  showTitle: true, title: "Capital at risk per wave (start + 3 months of costs, sum, US$)", titleFontSize: 14, titleFontFace: "+mn-lt", titleColor: "333333", showLegend: false,
   catAxisLabelColor: MUTED, valAxisLabelColor: MUTED, catAxisLabelFontFace: "+mn-lt", valAxisLabelFontFace: "+mn-lt", catAxisLabelFontSize: 12, valAxisLabelFontSize: 11, valAxisLabelFormatCode: "$#,##0",
   valGridLine: { color: "E3E9E6", size: 0.5 }, catGridLine: { style: "none" },
 });
 const sumRows = WAVES.map((w, i) => [{ text: `Wave ${w.n}`, options: { bold: true, color: w.col } }, String(w.items.length), String(w.items.filter((x) => x.core).length), k(capW[i]), k(m12W[i])]);
-s.addTable([hdr(["Wave", "Streams", "Core", "Start capital", "Month-12 base (sum)"])].concat(sumRows), { ...TBL, x: 7.0, y: 1.4, w: W - M - 7.0, colW: [1.1, 1.0, 0.8, 1.4, 1.43], fontSize: 13, rowH: 0.5 });
+s.addTable([hdr(["Wave", "Streams", "Core", "Capital at risk", "Month-12 base (sum)"])].concat(sumRows), { ...TBL, x: 7.0, y: 1.4, w: W - M - 7.0, colW: [1.1, 1.0, 0.8, 1.4, 1.43], fontSize: 13, rowH: 0.5 });
 tb(s, "Month-12 sums assume every stream in a wave runs, which the 40-hour week does not allow; read them as each wave's ceiling, not a forecast. Core = in the stack plan.", { x: 7.0, y: 4.2, w: W - M - 7.0, h: 1.4, fontSize: 12, italic: true, color: MUTED });
 
 // Master wave timeline
 sec("Timeline");
-s = slide("CONTENT", "Master timeline: when each wave opens if the triggers are hit on plan");
+s = slide("CONTENT", "Master timeline: when each wave opens on plan");
 const TM = 24, gx = M + 3.0, gw = W - M - gx;
 const wins = [[0, 24], [3, 24], [6, 24], [12, 24]];
 WAVES.forEach((w, i) => {
@@ -185,9 +186,9 @@ function streamSlide(x, w, idx) {
   const trio = (vals, color) => { vals.forEach(([l, v], j) => { const bx = px + 0.25 + j * cw; tb(s, v, { x: bx, y, w: cw, h: 0.36, fontSize: 16, bold: true, color, fontFace: THEME.headFontFace }); tb(s, l, { x: bx, y: y + 0.36, w: cw, h: 0.22, fontSize: 10, color: MUTED }); }); y += 0.64; };
   lab("CAPITAL");
   trio([["to start", k(x.start_capital_usd)], ["per month", k(x.monthly_cost_usd)], ["first cash", x.first_cash]], w.col);
-  tb(s, x.capital_note, { x: px + 0.25, y, w: pw - 0.5, h: 0.5, fontSize: 11 }); y += 0.55;
+  tb(s, x.capital_note, { x: px + 0.25, y, w: pw - 0.5, h: 0.62, fontSize: 10.5 }); y += 0.68;
   lab("OFFERS");
-  x.offers.slice(0, 3).forEach((o) => { tb(s, [{ text: o.name + ": ", options: { bold: true } }, { text: o.price, options: { color: C.accent1 } }], { x: px + 0.25, y, w: pw - 0.5, h: 0.4, fontSize: 11 }); y += 0.42; });
+  x.offers.slice(0, 3).forEach((o) => { tb(s, [{ text: o.name + ": ", options: { bold: true } }, { text: o.price, options: { color: C.accent1 } }], { x: px + 0.25, y, w: pw - 0.5, h: 0.38, fontSize: 11 }); y += 0.4; });
   lab("BASE NET US$/MONTH");
   trio([["M3", k(x.m3)], ["M12", k(x.m12)], ["M24", k(x.m24)]], C.accent1);
   tb(s, x.hours, { x: px + 0.25, y, w: pw - 0.5, h: 0.25, fontSize: 11, color: MUTED }); y += 0.3;
@@ -226,16 +227,16 @@ WAVES.forEach((w) => {
   s.addText([
     { text: "Entry trigger: ", options: { bold: true, color: C.accent3 } }, { text: w.entry, options: { breakLine: true } },
     { text: "Rule: ", options: { bold: true, color: C.accent3 } }, { text: w.rule, options: { breakLine: true } },
-    { text: `${w.items.length} streams · start capital ${k(w.items.reduce((a, x) => a + x.start_capital_usd, 0))} if all launched · core first: ${w.items.filter((x) => x.core).map((x) => x.name).join(", ") || "none"}`, options: { fontSize: 14 } },
+    { text: `${w.items.length} streams · capital at risk ${k(w.items.reduce((a, x) => a + x.risk, 0))} if all launched · core first: ${w.items.filter((x) => x.core).map((x) => x.name).join(", ") || "none"}`, options: { fontSize: 14 } },
   ], { placeholder: "body", paraSpaceAfter: 8 });
   // Wave overview table (split at 10 rows)
   for (let a = 0; a < w.items.length; a += 10) {
     const part = w.items.slice(a, a + 10);
     s = slide("CONTENT", `Wave ${w.n} at a glance${w.items.length > 10 ? ` (${a / 10 + 1}/${Math.ceil(w.items.length / 10)})` : ""}: launch in this order`);
-    s.addTable([hdr(["#", "Stream", "Status", "Start $", "Per month $", "First cash", "M12 base", "Hours"])].concat(part.map((x, j) => [
+    s.addTable([hdr(["#", "Stream", "Status", "Start $", "Per month $", "At risk $", "First cash", "M12 base", "Hours"])].concat(part.map((x, j) => [
       String(a + j + 1), { text: x.name, options: { bold: true } }, { text: x.core ? "Core" : "Bench", options: { color: x.core ? C.accent1 : C.accent2, bold: true } },
-      k(x.start_capital_usd), k(x.monthly_cost_usd), x.first_cash, k(x.m12), x.hours])),
-      { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.45, 3.6, 0.9, 1.0, 1.15, 1.6, 1.05, 2.38], fontSize: 12, rowH: 0.48 });
+      k(x.start_capital_usd), k(x.monthly_cost_usd), k(x.risk), x.first_cash, k(x.m12), x.hours])),
+      { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.45, 3.1, 0.8, 0.85, 1.0, 0.95, 1.55, 0.95, 2.48], fontSize: 12, rowH: 0.48 });
   }
   // Scale levers
   for (let a = 0; a < w.items.length; a += 8) {
@@ -250,10 +251,10 @@ WAVES.forEach((w) => {
 // ---------- Control ----------
 sec("Control");
 const all = WAVES.flatMap((w) => w.items.map((x) => ({ ...x, wn: w.n })));
-for (let a = 0; a < all.length; a += 11) {
-  s = slide("CONTENT", `Decision gates: kill, hold or scale on dates (${a / 11 + 1}/${Math.ceil(all.length / 11)})`);
-  s.addTable([hdr(["Wave", "Stream", "Rule"])].concat(all.slice(a, a + 11).map((x) => [String(x.wn), { text: x.name, options: { bold: true } }, x.gate])),
-    { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.7, 3.0, W - 2 * M - 3.7], fontSize: 11, rowH: 0.49 });
+for (let a = 0; a < all.length; a += 8) {
+  s = slide("CONTENT", `Decision gates: kill, hold or scale on dates (${a / 8 + 1}/${Math.ceil(all.length / 8)})`);
+  s.addTable([hdr(["Wave", "Stream", "Rule"])].concat(all.slice(a, a + 8).map((x) => [String(x.wn), { text: x.name, options: { bold: true } }, x.gate])),
+    { ...TBL, x: M, y: 1.3, w: W - 2 * M, colW: [0.7, 3.0, W - 2 * M - 3.7], fontSize: 12, rowH: 0.58 });
 }
 s = slide("CONTENT", "What could break the plan, and the response");
 DS.risks.slice(0, 5).forEach((r, i) => {
