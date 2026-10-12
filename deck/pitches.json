@@ -1,0 +1,819 @@
+[
+ {
+  "id": "pro-firm-pricing",
+  "one_liner": "Client-margin audit kit, letters and workshop for 3-20 person firms repricing as AI cuts billable hours",
+  "description": "Spreadsheet kit (US$49 solo, US$149 firm) that audits each existing client's margin and writes price-increase letters. Backend: US$2,500-4,500 workshop, sprint, US$199/yr Fee Book.",
+  "buyer": "Owners of 1-25 person accounting firms (US/UK/CA/AU), buying under US$300 on a card at Nov-Jan renewals.",
+  "problem": "Free templates only quote new clients. None audits the existing book or gives wording for 'why pay the same if you use AI?'.",
+  "strategy": [
+   "Beachhead: 3-20 staff bookkeeping firms; '2027 Price Increase Kit' launched in the Nov 2026-Jan 2027 window.",
+   "Vs free vendor templates and Ron Baker's course: audits existing clients on AI cost-to-serve; letters in 2 h.",
+   "Hybrid: US$49 solo, US$149 firm licence, US$199 bundle, US$199/yr Fee Book; workshop fenced by staff count."
+  ],
+  "value": [
+   "EVC about US$11.7k/yr for a 6-person, 90-client firm (CALC on assumptions); products capture 0.4-2% of it.",
+   "Drivers: repricing underpriced clients (US$7.8k attributable), scope-creep change orders (US$3k), owner time saved.",
+   "WTP: solo US$0-49; 5-20 staff US$99-399 tools, US$2,500-3,500 workshop; US$1-10M firms US$7,500-15,000 sprint."
+  ],
+  "moat": "Weak: spreadsheet IP scores 1/5. Best locks: anonymised fee benchmarks (3/5), PT-BR edition (3/5), white-label licences (3/5).",
+  "verdict": "GO, narrower wedge; worth US$2-6k/month semi-passive, not US$10k alone. Risk: free templates and vendors bundling pricing."
+ },
+ {
+  "id": "ai-risk-valuation",
+  "one_liner": "AI-disruption overlay for DCF/LBO models, with diligence memos, for small-deal searchers and PE teams",
+  "description": "US$149 template and US$99-399 niche atlas feed the real revenue: Light memos at US$1,500-3,500 by deal size, US$390/yr AIX Watch, US$2,400-6,000/yr firm plans.",
+  "buyer": "Searchers and lower-mid-market PE buying US$2-30M EV firms, when an investor or lender asks about AI pre-LOI.",
+  "problem": "Public AI-risk frameworks stop at qualitative scores; big-firm tools aren't for sale. Small buyers use a gut haircut investors won't accept.",
+  "strategy": [
+   "Wedge: post-LOI Light memo sold to traditional searchers and the 3-5 search fund investors backing them.",
+   "Vs gut haircut and DIY Claude/Copilot: a published, sourced, quarterly method on seat, usage, outcome revenue.",
+   "Memos priced by EV band (US$1,500-8,500); firm plan by deals screened per year; template credited to memo."
+  ],
+  "value": [
+   "Light memo EVC about US$5.5-8k; US$1,500 captures 20-27%. US$187.5k expected value at risk on a US$5M deal.",
+   "Drivers: avoided overpayment or better structure, analyst hours saved, seller multiple defended, 5-day delivery.",
+   "WTP: post-LOI US$1,500-3,500 memo; firm plan US$2,400-6,000/yr; template US$149-449; students US$99-349."
+  ],
+  "moat": "Dataset from memos (4/5), public prediction ledger (4/5), IC-template distribution (4/5). The template file scores 1/5.",
+  "verdict": "Pursue, re-weighted to memos and firm plans. Base case about US$6k/mo by month 12; main risk is Claude/Copilot commoditising the template."
+ },
+ {
+  "id": "br-tax-reform",
+  "one_liner": "Repricing and split-payment cash models for Brazil's tax reform, sold to accounting firms to resell to SMEs",
+  "description": "White-label model 'Repreco & Caixa 2027' licensed to accountants by client count (R$197-697/month), plus R$397 SME kit, R$497 course and diagnostics.",
+  "buyer": "Owners of 2-30 staff accounting firms and their SME clients; CBS starts Jan 2027, split payment 2028.",
+  "problem": "Free calculators show tax on one transaction and law courses teach rules. Nobody tells a client what price to charge or how much cash to plan.",
+  "strategy": [
+   "Wedge: Santa Catarina firms with 30-150 clients at R$147 founding price, plus a free CRC-SC/Sescon webinar.",
+   "Vs free ERP calculators and ESN courses: multi-SKU margin solver, cash cost, hybrid NPV, white-label.",
+   "Two-part: fixed license by client CNPJs (S R$197, M R$397, L R$697/mo), annual prepay 10x, R$397 SME kit."
+  ],
+  "value": [
+   "Tier S accounting firm EVC about R$11,000/yr; R$1,970/yr price captures about 18% (CALC on assumptions).",
+   "Drivers: 2 h saved per client, reform reviews resold (R$7,100 net), 1.5 pp margin on R$4m revenue (R$60k).",
+   "WTP: small firms R$150-250/mo; mid R$400-900/mo; Presumido SME R$300-600 kit; workshops R$4,000-12,000."
+  ],
+  "moat": "Weak on content (1/5). Better: versioned rate tables with CRC reviewer (3/5), accountant client files and branded reports (3/5).",
+  "verdict": "GO, time-boxed. Base about US$2-3k/month by month 12. Main risks: ERPs bundling free simulators, no CRC credentials, rate uncertainty."
+ },
+ {
+  "id": "model-templates",
+  "one_liner": "Excel pricing-decision models (EVC, WTP, AI credit pricing) for SaaS pricing leads and consultants",
+  "description": "Excel models sold on eFinancialModels, Payhip and Etsy, from US$199 per model to a US$990 consultant licence. Model Update Club at US$19/month or US$149/year.",
+  "buyer": "AI/SaaS founders, product leads and pricing consultants, before a launch, raise, price change or budget season.",
+  "problem": "Valuation templates are free (Macabacus). Pricing and AI-credit models are rare, so buyers rebuild in a blank sheet or ask an LLM.",
+  "strategy": [
+   "Wedge: AI credit/usage pricing simulator PV-03 (US$199) with a free AI credit margin quick calc as lead magnet.",
+   "Vs Macabacus, Flevy US$23 and LLM-built sheets: tested formulas, checks tab, client-use licence, expert behind it.",
+   "Two-part: file licence plus Club; personal, consultant, firm licences; student coupon fence; BRL pricing."
+  ],
+  "value": [
+   "PV-03 EVC about US$2,000-3,000; US$149-199 captures 5-10%. Consultant licence EVC about US$6,000+.",
+   "Drivers: 5 margin points on US$50k MRR (US$2,500/month), 10-16 h build time saved, client-use rights.",
+   "WTP: students US$0-49; founders US$99-199; pricing leads US$149-299; consultants US$790-1,290; BR firms R$990+/yr."
+  ],
+  "moat": "Weak: file IP scores 1/5. Better: pricing expertise (3/5), email list (3/5), consultant licences (3/5), hosted calculator later (3/5).",
+  "verdict": "Build as a satellite and lead engine, not a floor-clearer; about US$1.6k/month by month 12. Risk: LLMs copy simple models."
+ },
+ {
+  "id": "hours-anchor",
+  "one_liner": "Fixed-price AI pricing and finance modelling projects plus retainers for seed to Series B AI/SaaS founders",
+  "description": "Catalog SKUs from US$490 to US$4,500 (margin check, pricing project, investor model, LBO), then US$2,000-3,000/month retainers. Hourly only as an entry rung.",
+  "buyer": "Seed to Series B AI/SaaS founders and fractional CFO firms, raising in 60-90 days or moving to usage pricing.",
+  "problem": "Free SaaS templates don't check margin by tier; generalist modellers lack pricing skill; pricing agencies skip US$500-5,000 projects.",
+  "strategy": [
+   "Wedge: US$490 'AI margin check' (72h) for seed to Series A firms on usage pricing, credited to the pricing project.",
+   "Vs DIY templates and generalist freelancers: pricing plus MBA/MFin modelling, fixed price, New York hours.",
+   "Fixed price per deliverable, scaled by complexity; retainer US$2,000 (10h) or US$3,000 (20h); rush +35%."
+  ],
+  "value": [
+   "Pricing teardown EVC about US$24,000 on a US$1M ARR company; the US$1,800 listed price captured under 10%.",
+   "Drivers: 3 margin points (US$30,000/yr), 5% price uplift (US$50,000 ARR), 40-60 founder hours saved.",
+   "WTP: founders US$900-2,000 model; pricing US$3,000-6,000; retainer US$2,400-3,500/month; LBO US$2,500-4,000."
+  ],
+  "moat": "Moderate: niche positioning (3/5), Upwork reputation (3/5), partner network (3/5), Brazil cost base (3/5). Weak lock-in.",
+  "verdict": "Viable anchor, not passive. Base about US$6,200/month; can clear US$10k only with 4 retainers. Risk: AI copilots commoditise basic models."
+ },
+ {
+  "id": "vc-scout",
+  "one_liner": "Flat-fee raise-readiness packages for Brazil/LatAm B2B AI founders, plus deal flow for foreign funds",
+  "description": "Fixed-fee audit (US$950), Raise-Ready FULL (US$2,500-3,500) and PLUS, plus cohort licenses and fund deal packs. Scout carry and FAST equity are unpaid options.",
+  "buyer": "Brazil/LatAm pre-seed to Series A founders raising in USD within 60-90 days; also accelerators, VC platforms and CVCs.",
+  "problem": "Founders can't turn BRL books and AI inference costs into US-VC metrics. Fiverr gives no judgment, deck agencies no numbers, mentors no deliverable.",
+  "strategy": [
+   "Wedge: Florianopolis/ACATE B2B AI startups 30-90 days from a USD seed; US$950 Model and Pricing Audit.",
+   "Vs Fiverr modelers, deck agencies, mentors: VC-grade model plus usage pricing story in English, in 5-10 days.",
+   "Flat fees by stage band, never a % of the round; retainer US$1,200-1,800 plus FAST grant; cohort license BRL 30k."
+  ],
+  "value": [
+   "FULL Sprint EVC about US$10-20k; US$2,500 captures only 12-25%, so seed band is US$3,500.",
+   "Drivers: 1.4 points less dilution (about US$105k paper value), faster close, 10% ARPA uplift on US$300k ARR.",
+   "WTP: seed founders US$2,500-4,000 FULL; lead in sight US$4,500-7,000 PLUS; CVCs US$2,500-4,000/month."
+  ],
+  "moat": "Moderate: LatAm benchmark dataset (3/5), local presence in Florianopolis (3/5), skill bundle (3/5), institutional contracts (3/5).",
+  "verdict": "Viable but labour-heavy, not passive: about US$4-9k/month net by month 12, 18-20 h/week. Risks: AI models, securities rules."
+ },
+ {
+  "id": "pj-role",
+  "one_liner": "Full-time senior pricing and GTM-finance PJ contract for US AI/SaaS firms moving to usage pricing",
+  "description": "One person designs the pricing model, margin math and deal-desk rules, working US hours from Brazil. Paid as a monthly USD retainer (US$11.5k+ gross) through Deel or Remote.",
+  "buyer": "VP Product, CFO or RevOps head at Series B+ US AI/SaaS firms, after a raise or a launch of credit or usage pricing.",
+  "problem": "Few people can tie price to inference cost, design credits and set deal-desk rules. Consultancies leave after the project; a US hire is costly.",
+  "strategy": [
+   "Wedge: usage and AI-agent pricing at firms using or weighing a usage-billing vendor (Metronome, Orb, Stigg).",
+   "Vs US hire and consultancies: about half the year-1 cost, stays to run the model, formal MBA/MFin training.",
+   "Monthly retainer: US$13.5k anchor, US$12k senior, US$9k 3-day fractional, US$5k audit; floor US$11.5k."
+  ],
+  "value": [
+   "EVC about US$24-31k/month versus US$19-24k/month year-1 cost of a US hire; ask is 45-55% of EVC.",
+   "Drivers: saves about US$95-125k/yr vs US hire, no recruiter fee, 2% price realisation on US$30M ARR (US$600k).",
+   "WTP: Series B-D US$11-15k/month; PE-backed US$10-14k/month; seed fractional US$4-8k/month; EU scaleups EUR 7-10k."
+  ],
+  "moat": "Moderate-weak: rare skill mix (3/5), cost advantage (3/5), owning the pricing model and deal-desk rules (3/5). No contractual protection.",
+  "verdict": "Run for 4 months as the fastest route to the US$10k net floor, but odds are about 25-35% and it uses the full week. Not passive."
+ },
+ {
+  "id": "ad-desk",
+  "one_liner": "Fixed-price investor models and valuation packs for seed founders, built by a Brazilian analyst bench",
+  "description": "Packs at US$950, US$1,900 and US$3,400, sold via search ads with a 50% deposit. Upkeep retainers at US$350-750/month are the profit engine.",
+  "buyer": "Pre-seed to Series A founders in the US/EU, and fractional CFOs, with an investor meeting or grant deadline set.",
+  "problem": "Upwork modelers must be managed and QA'd by the founder; boutiques cost US$5-15k. Founders need a credible model by a fixed date.",
+  "strategy": [
+   "Wedge: EIC Accelerator, SBIR/STTR applicants and seed SaaS founders, via deadline-timed Google ads and network.",
+   "Vs Upwork and boutiques: one accountable MBA/MFin reviewer, 10 business days, a third or less of boutique cost.",
+   "Fixed packs (Lite, Core, Raise-Ready) plus upkeep subscription; rush +30%; white-label at 30% wholesale."
+  ],
+  "value": [
+   "Core pack EVC about US$3,750 vs the Upwork route; US$1,900 is about 50% of it; boutique alternative US$5-15k.",
+   "Drivers: 10-50 founder hours saved (US$1,000-5,000), US$3,100-13,100 cheaper than a boutique, fixed delivery date.",
+   "WTP: pre-seed US$500-1,200; seed US$1,500-3,000; Series A US$3,000-7,000; upkeep US$300-900/month."
+  ],
+  "moat": "Weak: templates and QA list (2/5), BRL labour cost (2/5). Better: upkeep history (3/5) and white-label CFO network (3/5).",
+  "verdict": "Build as a gated secondary stream. Base about US$6k/month net by month 12; paid CAC must be at or under about US$600, and it is unproven."
+ },
+ {
+  "id": "expert-matching",
+  "one_liner": "Managed desk matching AI/SaaS founders with vetted pricing experts for fixed-scope sprints, taking 10-20%",
+  "description": "Founders buy a US$490 teardown, then a US$7,500 Monetization Sprint, migration or retainer. The desk delivers or routes to vetted experts, keeping a 10-20% take.",
+  "buyer": "Founders at Seed to Series B AI/SaaS firms (US$0.5-30M ARR) launching AI pricing or facing inference-cost margin loss.",
+  "problem": "Founders can't tell a real pricing expert from a generalist, and big firms are too slow and costly. Freelance work is open-ended.",
+  "strategy": [
+   "Wedge: 'AI pricing' sprints; Calebe delivers the first 10-20 himself; billing vendors act as referral channel.",
+   "Vs Upwork, Toptal, boutiques: pricing-specific vetting, fixed scope, 72-hour start at under a tenth of the cost.",
+   "Fixed SKUs paid to the platform; take 20% under US$10k, 15% above, 10% on retainers; rush +30%."
+  ],
+  "value": [
+   "Sprint EVC about US$10,000 reference plus uplift; US$7,500 captures under 10% of value at US$2M ARR.",
+   "Drivers: 5% price realisation on US$2M ARR (US$100k/yr), margin 55% to 70% (US$300k/yr), 72-hour start.",
+   "WTP: Seed-A US$5,000-10,000 sprint; Series B+ US$15,000-40,000 project; PE programs US$20,000-75,000."
+  ],
+  "moat": "Weak to moderate: pricing benchmark data (3/5), billing-vendor partnerships (3/5), founder brand (3/5). Network effects 1/5; leakage likely.",
+  "verdict": "Conditional go, as a layer on Calebe's own consulting, not a generic marketplace. About US$3-7k/month net by month 12; about 10-12 h/week."
+ },
+ {
+  "id": "automation-templates",
+  "one_liner": "Finance-grade n8n/Make/Zapier automation kits for bookkeepers, fractional CFOs and lean finance teams",
+  "description": "Kits at US$79-149, a US$399 Vault bundle, US$29/month Vault Pro maintenance, US$799 firm license and US$750+ installs. Templates carry approval and audit controls.",
+  "buyer": "Fractional CFOs, bookkeeping firms and finance leads on QuickBooks or Xero, at month-end or after an API change.",
+  "problem": "Public templates post straight to the ledger with no checks and break silently on API changes. SaaS alternatives charge monthly or per document.",
+  "strategy": [
+   "Wedge: Invoice Capture Kit for QBO/Xero on n8n with duplicate check, approval, audit log and draft-only posting.",
+   "Vs free templates, AI builders and Dext-type SaaS: finance controls, self-hosted, one-off price, maintained.",
+   "Per kit, Vault US$399 credited, firm license by client count, installs US$750-2,000; Vault Pro annual US$249."
+  ],
+  "value": [
+   "EVC about US$6,000-8,000 per SMB in year 1; Vault costs about US$750 in year 1 (about 10% of EVC).",
+   "Drivers: AP entry hours removed (about US$300/month), SaaS fees avoided (US$360-6,000/yr), 1 margin point (US$20k).",
+   "WTP: solo US$49-149 per kit; firms US$500-1,500 license plus US$50-100/month; PT-BR R$197-497 per kit."
+  ],
+  "moat": "Weak: template JSON scores 1/5. Better: finance-controls expertise (3/5), maintenance plus health checks (3/5), PT-BR layer (3/5).",
+  "verdict": "GO as a supporting stream, not US$10k alone. Base about US$4k/month net by month 12. Risk: native AI builders from n8n, Intuit."
+ },
+ {
+  "id": "data-products",
+  "one_liner": "Bilingual Brazil data subscriptions: CADE merger-filing alerts, power curtailment data, fairness-opinion comps",
+  "description": "Radar CADE leads: free newsletter, Pro seat US$149/month, Firm US$590/month, league-table badge US$750/quarter. Power Monitor from R$390/month; comps US$39/month.",
+  "buyer": "Partners and BD staff at Brazilian competition and M&A law practices; also energy traders and infra funds.",
+  "problem": "CADE filings sit as unstructured PT text in the Diario Oficial; global vendors charge enterprise prices or treat Brazil as an afterthought.",
+  "strategy": [
+   "Wedge: Radar CADE, narrow scope (about 400-700 filings/yr), clear buyer with budget, viral counsel league table.",
+   "Vs manual DOU monitoring and MLex/TTR: structured, alertable filings back to 2012, from US$149/month.",
+   "Seat subscriptions with feature fences (history, export, API); BRL prices 20-30% below USD; annual = 10x monthly."
+  ],
+  "value": [
+   "CADE Firm EVC about US$1,100/month; price US$590 is about 54%. Pro seat US$149 is about 47% of reference.",
+   "Drivers: about 4 h/week associate time (US$640/month), BD leads from alerts, curtailment risk in valuation.",
+   "WTP: big firms US$500-1,200/month; boutiques US$80-200 per seat; ACL traders R$300-1,500/month; analysts US$30+."
+  ],
+  "moat": "Moderate-weak: cleaned 2012 backfill (3/5), alert/API workflow integration (3/5), league-table brand (3/5). Data access itself 1/5.",
+  "verdict": "GO, narrow, stacked with other streams. About US$5.5k/month net at month 12. Risks: small Brazil market; LLM self-build."
+ },
+ {
+  "id": "lei-do-bem",
+  "one_liner": "Lei do Bem, Finep and Embrapii incentive advisory for Santa Catarina mid-market firms, on success fees",
+  "description": "R$4,900 credited diagnostic, then a 10% success fee on realised Lei do Bem benefit (minimum R$25k/yr), plus Finep/BNDES credit structuring and a R$2,500/month retainer.",
+  "buyer": "CFOs of Lucro Real SC manufacturers and tech firms (R$30M-800M revenue), in Q4 planning before the 31 Jul deadline.",
+  "problem": "Mid-market firms leave the 20.4-34% R&D deduction unclaimed or claim it with weak documentation. Large consultancies chase big accounts.",
+  "strategy": [
+   "Wedge: Joinville, Jaragua do Sul, Blumenau metal-mechanic and electronics makers (R$80-500M), via accountants.",
+   "Vs FI Group, Ayming, Big Four: local, finance-led, lower fee, audit-ready documentation, one funding stack.",
+   "Hybrid: R$4,900 diagnostic, 10% of realised benefit, Completo 12% or 10% plus R$2,500/month; 1 pp off multi-year."
+  ],
+  "value": [
+   "EVC about R$612k benefit plus R$60-90k of differentiation vs an incumbent; the fee is roughly 10% of gross value.",
+   "Drivers: tax saving 20.4-34% of eligible R&D, cheaper Finep/Inovacred credit, Embrapii co-funding, less glosa risk.",
+   "WTP: mid-market 8-15% success fee (R$25-120k/yr); credit R$3-5k/month plus 1-2%; foreign subsidiaries R$40-100k/yr."
+  ],
+  "moat": "Moderate-weak: multi-year audit documentation (3/5), SC accountant referrals (3/5), local presence (3/5). Method and calculator 1/5.",
+  "verdict": "Pursue as high-value, non-passive. About US$11-15k/yr per client, but 9-10 month cash lag and in-person selling in SC."
+ },
+ {
+  "id": "niche-calculators",
+  "one_liner": "Web and Excel add-in tools that turn WTP survey data into branded pricing reports, per seat or white-label",
+  "description": "Freemium WTP analyzer: Study Pass US$79, Pro US$249/yr per seat, white-label US$990/yr for 3 seats, Excel add-in US$79/yr. Embedded calculators US$1,500-3,500.",
+  "buyer": "Product and pricing managers at US$1-50M ARR B2B SaaS, and pricing consultants, before a repricing or launch.",
+  "problem": "WTP analysis is 4-8 hours in Excel, or a research suite built for research teams. Free tools stop at Van Westendorp intersections.",
+  "strategy": [
+   "Wedge: WTP analysis (Van Westendorp, Gabor-Granger, NMS) with branded reports, white-label for consultants first.",
+   "Vs DIY Excel, ChatGPT and Conjointly: tested, repeatable, segmentable, priced per seat, with white-label reports.",
+   "Per seat plus branded exports; Free, Study Pass US$79, Pro US$29/mo or US$249/yr, white-label US$990/yr."
+  ],
+  "value": [
+   "Seat EVC about US$2,600-4,850/yr; Pro at US$249 captures 5-10%. White-label captures 16-22%.",
+   "Drivers: 4-6 h saved per study (US$300-450), 1% price realisation on US$5M ARR (US$50k), 3-4 h per client report.",
+   "WTP: PMs US$200-400/yr per seat; consultants US$600-1,500/yr; founders US$49-99 one-off; BR R$150-300/yr."
+  ],
+  "moat": "Weak: calculation code 1/5. Better: add-in formulas in customer workbooks (3/5), consultant channel (3/5), WTP benchmark dataset (3/5).",
+  "verdict": "Build as a satellite, not a floor-clearer: about US$3.2k/month net by month 12. Risk: Copilot or ChatGPT does a free version."
+ },
+ {
+  "id": "print-on-demand",
+  "one_liner": "Finance-insider gifts and personalized 'countries visited' prints in EN/PT/ES, sold on Etsy first",
+  "description": "Print-on-demand mugs, tees and map posters on Etsy (US$19.95 mug, US$54 poster). Upsells via personalization, size and frames; revenue is one-off sales.",
+  "buyer": "Finance professionals and their gift-givers (US/UK/CA), travellers, Brazilian diaspora; peaks at CFA results, Christmas.",
+  "problem": "Generic 'money humour' merch is wrong for insiders; map posters are English-only, with slow proofs and outdated borders.",
+  "strategy": [
+   "Wedge: CFA and finance milestone personalized mugs and tees for Q4 2026, then the personalized travel map poster.",
+   "Vs generic Amazon/Etsy tees and map shops: jargon checked by an MBA/MFin, PT/ES versions, proof in under 24 hours.",
+   "Value-priced by personalization and size: mug US$19.95-27.95; poster digital US$12.95, US$39, US$54, framed US$99."
+  ],
+  "value": [
+   "Finance mug EVC about US$23-36; price US$19.95-27.95 captures 60-80%. Poster EVC about US$46-73 vs US$54.",
+   "Drivers: accurate jargon (US$3-5 premium), personalization (+US$8), PT/ES versions (+US$5-10 in diaspora).",
+   "WTP: finance buyer US$18-24 mug, US$25-30 tee; gift US$25-35; traveller US$35-55 poster; couples US$50-100 framed."
+  ],
+  "moat": "Weak: designs 1/5 (AI images uncopyrightable), cost 1/5; domain accuracy, reviews and map engine each 2/5.",
+  "verdict": "Capped, mostly passive side stream, not a pillar. About US$1.2k/month at 12 months. Risks: Etsy/Amazon control, AI clones."
+ },
+ {
+  "id": "survey-business",
+  "one_liner": "Fixed-fee willingness-to-pay studies plus a yearly AI pricing benchmark for Seed to Series B AI/SaaS firms",
+  "description": "Studies at US$3,900 (Pulse), US$7,900 (AI Sprint) and US$14,500, plus US$149 DIY kit. Recurring: US$1,500/quarter tracker, benchmark licences and sponsorships.",
+  "buyer": "Founders and product heads at US$0.5-20M ARR AI/SaaS startups, after a round or when adding AI or usage pricing.",
+  "problem": "New AI pricing has no history to learn from. Survey tools leave design and analysis to the founder; big consultancies charge too much.",
+  "strategy": [
+   "Wedge: 10-day 'AI Monetization Sprint' for Seed to Series A B2B AI startups choosing credits, seats or outcomes.",
+   "Vs Conjointly DIY and Simon-Kucher: designs, fields and interprets the study; 10-20x cheaper; ARR and margin model.",
+   "Fixed fee by scope and sample source; Pulse, Sprint, CBC tiers; sample at cost +15%; rush +30%; 50% upfront."
+  ],
+  "value": [
+   "EVC about US$70-130k vs DIY reference about US$10k; Sprint US$7.9k plus sample is about 6-11% of EVC.",
+   "Drivers: 1-5% price realisation on bookings (US$20-100k/yr), margin protection (US$25-75k), 40-60 hours saved.",
+   "WTP: Seed-A US$2,500-8,000 per study; Series B-C US$15,000-40,000; VC benchmarks US$10,000-30,000."
+  ],
+  "moat": "Moderate: longitudinal WTP dataset (3/5), annual report brand (3/5), rare skill mix (3/5). Methodology itself 1/5; tracker baselines 2/5.",
+  "verdict": "Build as a complement to consulting. About US$9k/month by month 6, US$15k by month 12. Unknowns: panel quality, report demand."
+ },
+ {
+  "id": "ai-product-pricing",
+  "one_liner": "AI pricing and unit-economics model, teardowns and fixed-price sprint for seed-to-Series-B AI founders",
+  "description": "A credit-design and gross-margin spreadsheet (US$149 solo, US$399 company), a US$99 teardown pack, a course and a US$3,500 sprint. Free Quick Calc captures emails, then upsells.",
+  "buyer": "AI founders with US$5k-500k/month inference bills, plus finance leads. Trigger: margin under 50-60% or a board query.",
+  "problem": "Token COGS, credit value and margin sit in three places and nobody reconciles them. Pricing pages use the average user, but p90/p99 users drive COGS.",
+  "strategy": [
+   "Wedge: credit design for AI apps with US$5k-100k/month inference spend, then Series A sprints and VC licences",
+   "Vendor-neutral working model with live data, versus billing vendors (software) and consultancies (frameworks)",
+   "Hybrid: per-company files, recurring data (US$29/month), sprint US$4,500 after 3 founding sprints at US$2,500"
+  ],
+  "value": [
+   "EVC: solo US$2k-4k, Series A/B US$10k-30k+, VC US$40k+; 5 margin points on US$200k MRR = US$120k/year",
+   "Drivers: margin points recovered, hours saved (15-25 model, 60 teardowns), avoided 30% underpricing (US$6k/mo)",
+   "WTP: solo US$99-249; company US$399-999; sprint US$3k-8k; VC US$1,500-5,000/year; Brazil R$297-697"
+  ],
+  "moat": "Weak: the sheet scores 1 of 5. Data (30+ teardowns, benchmarks) scores 3; live price feed and VC standardisation raise switching costs.",
+  "verdict": "GO, restructured. A US$149 file is commoditised; money is in sprints and data licences: about US$12.6-15k/month by months 9-12."
+ },
+ {
+  "id": "sustainability-premium",
+  "one_liner": "Green-premium and CBAM pass-through pricing models with expert review for low-carbon sellers into the EU",
+  "description": "Spreadsheet kits (US$79 calculator, US$149 CBAM model), async reviews at US$490, a EUR 990 CBAM Pricing Sprint and licences up to US$1,490/year. Free Quick Check feeds an email sequence.",
+  "buyer": "Commercial leads at exporters and EU low-carbon producers, climate founders. Trigger: CBAM certificates from Feb 2027.",
+  "problem": "Free CBAM calculators stop at the importer's cost. Nothing says how much a low-carbon supplier can charge back or how to write the pass-through clause.",
+  "strategy": [
+   "Wedge: EUR 990 CBAM Pricing Sprint plus US$149 model, Brazilian exporters first; 5 founding reviews at US$290",
+   "Beats free calculators and Big-4 whitepapers: adds 2026-2034 path, value split and the clause to negotiate it",
+   "Price by buyer type and usage rights: US$249 founder, US$749 team, US$1,490 company licence as anchor"
+  ],
+  "value": [
+   "EVC: EUR 6k-146k+/year; steel, 5,000 t: buyer CBAM cost avoided EUR 7.5k (2026) to EUR 146k (2030)",
+   "Drivers: CBAM cost avoided, avoided discounting (EUR 60k-100k on EUR 2M sales), 15-25 hours saved",
+   "WTP: founders US$79-249; EU firms US$300-1,500 licence; exporters US$99-299 model; funds US$3k-6k/year"
+  ],
+  "moat": "Weak: the spreadsheet scores 1 of 5. Quarterly data refresh, give-to-get benchmark and cohort licences add some lock-in; renewal target 50%.",
+  "verdict": "Go as a narrow satellite, not core income: about US$1k-2.5k/month net by month 12. Main risk: carbon SaaS or LLMs bundle it free."
+ },
+ {
+  "id": "yt-finance",
+  "one_liner": "Faceless pricing and deal-math YouTube channel that ships a downloadable model with every video",
+  "description": "Teardown videos of real AI/SaaS price pages lead to a free calculator, then templates (US$79/249), a US$397 course, Vault at US$149/yr and a US$1,500 diagnostic. Sponsors add income.",
+  "buyer": "AI/SaaS founders, PMs and RevOps re-pricing; also FP&A analysts, students, Brazilians. Trigger: a price change.",
+  "problem": "Story channels explain companies but give no spreadsheet. Courses target IB recruits or cost US$750+. Nothing cheap serves operators pricing AI.",
+  "strategy": [
+   "Wedge: AI pricing teardowns (Cursor, Intercom Fin, Agentforce) plus a monthly AI Pricing Index of about 50 products",
+   "Shows the spreadsheet, versus Modern MBA (stories), Wall Street Prep (US$499) and Maven (US$750) cohorts",
+   "Licence scope metric: T1 US$79 personal, US$249 team, US$39 student; Vault US$19/mo; flat sponsor fees"
+  ],
+  "value": [
+   "EVC about US$5-15k per founder: 3% realisation on US$2M ARR = US$60k/yr; power-user guardrail US$48k/yr",
+   "Drivers: price realisation, avoided negative margin, about 40 hours saved (US$4k at US$100/h)",
+   "WTP: founders US$300-700; PMs US$79-249; FP&A US$49-149; students US$15-39; sponsors US$1,500-4,000"
+  ],
+  "moat": "Index scores 4 of 5, email list 4; templates score 1. Live data link and archive add weak switching costs.",
+  "verdict": "Go, narrowed. About US$3k/mo by month 12; costs 14 h/week. Risk: AI makes templates free. Kill at month 7 under US$15/1k views."
+ },
+ {
+  "id": "b2b-referrals",
+  "one_liner": "Vendor-neutral Brazil hiring cost calculator that earns EOR and fintech referral bounties plus buyer kits",
+  "description": "Free 3-path calculator (PJ contractor, EOR, own entity). Money comes from vendor bounties (Deel US$1,500, Rippling US$1,600), a US$129 kit, a US$590 review and a US$990/yr agency desk.",
+  "buyer": "EOR vendors pay per customer; users are US/EU founders and ops leads on a first Brazil hire. Trigger: offer stage.",
+  "problem": "Vendor calculators price only their own EOR and skip 'you do not need us yet'. Nobody quantifies pejotização exposure in USD.",
+  "strategy": [
+   "Wedge: PT-language contractor hub that sends employers to the English calculator, then to vendor referrals",
+   "Neutral 3-path numbers from Portuguese sources versus Deel/Remote guides and G2 or Forbes comparison pages",
+   "Vendor CPA US$1,500 or 15% of first-year fees; buyer ladder US$129 / US$179 / US$590 by decision size"
+  ],
+  "value": [
+   "Vendor EVC US$3.2-8k per customer (paid-search CAC) against a US$1.4-1.6k bounty; buyer EVC about US$1-3k",
+   "Drivers: US$6.9k/yr EOR over-spend avoided; about US$9k/yr pejotização exposure (up to US$45k over 5 years)",
+   "WTP: vendors US$1,400-1,600 published; kit US$79-149; review US$490-990; agencies US$600-1,200/yr"
+  ],
+  "moat": "Weak and manufactured: no scoring above 3 of 5; bounties are mostly one-time. Updates tier, Cost Index and agency embeds add stickiness.",
+  "verdict": "Worth building as a slow secondary stream: US$1-2k/mo at month 12 is realistic. Main risk: Deel or AI answers absorb the neutral query."
+ },
+ {
+  "id": "async-reviews",
+  "one_liner": "Fixed-fee async reviews of deck, financial model and pricing page for SaaS and AI founders, delivered by Loom",
+  "description": "Deck Teardown US$290, Model Review US$590, Pricing Review US$490-990, Raise-Ready Pack US$790, in 72 hours. Free checklist feeds upsells: call, re-review, US$390/mo Founder Desk.",
+  "buyer": "Seed founders 0-90 days before a raise; AI/SaaS teams changing pricing; fractional CFOs. Trigger: a dated deadline.",
+  "problem": "Free AI tools and US$50-100 gigs read the deck alone. Nobody cheap checks that deck, model and pricing page reconcile, in diligence language and on deadline.",
+  "strategy": [
+   "Wedge: Pricing Review for AI/SaaS teams with US$200k-5M ARR moving to usage or credits",
+   "Cross-checks deck, model and pricing together versus free AI, Upwork US$250-550 audits and Caycon US$299/999",
+   "Fixed fee fenced by ARR and speed: US$490 under US$1M ARR, US$990 above; +50% for 48h rush"
+  ],
+  "value": [
+   "EVC about US$3k-9k for pricing reviews; deck review US$300-450 on hard value, up to about US$2k with runway effect",
+   "Drivers: 3% ARPU lift on US$1M ARR = US$30k/yr; 8-20 hours saved; model integrity before diligence",
+   "WTP: pre-seed US$150-350; seed/A US$490-1,000; AI/SaaS pricing US$750-2,500; accelerators US$150-250 per review"
+  ],
+  "moat": "Weak: credentials and benchmark data each score 3 of 5; AI-matchable process scores 1. Objection Logs and Founder Desk add switching costs.",
+  "verdict": "Build as an active cash stream: US$3-6k/month at months 6-12. Main risks: time-for-money cap and free AI deck tools bundling it."
+ },
+ {
+  "id": "fixed-fee-studio",
+  "one_liner": "Fixed-fee finance studio: models, sell-side packs, reviews for seed founders and small-business sellers",
+  "description": "Fixed-scope SKUs on Upwork, Fiverr and Contra: US$300-450 Health Check, US$900-2,800 models, US$1,800-3,500 CIM packs, and US$350-600/month Model Upkeep retainers.",
+  "buyer": "Seed founders raising US$500k-5M and online-business owners selling. Trigger: investor or diligence request.",
+  "problem": "Cheap models and AI scaffolds often get dilution and add-backs wrong. Small sellers are too small for QoE firms and fear open-ended hourly bills.",
+  "strategy": [
+   "Wedge: US$300-450 Model Health Check for seed SaaS founders and Acquire.com/Flippa sellers, fee credited on upgrade",
+   "IB-grade QA and judgement versus US$35-350 modellers, DIY AI, fractional CFOs (US$3-8k/month) and brokers",
+   "Fixed fee per deliverable, good/better/best; fences: revenue band, speed (rush +40%), revisions, white-label"
+  ],
+  "value": [
+   "EVC about US$6,000 for a seed model (SKU 1 US$1,600 is about 27%); seller pack US$28k+ probability-weighted",
+   "Drivers: add-backs at 3-4x multiple (US$30-40k per US$10k), avoided dilution error (US$50k), 10-20 hours saved",
+   "WTP: pre-seed US$300-900; seed US$1,200-3,000; sellers US$1,500-5,000; brokers US$600-1,200 per pack"
+  ],
+  "moat": "Soft: reviews, broker relationships and retainers score 3 of 5; master models 2. Clients own their files, so lock-in stays light.",
+  "verdict": "Go as a cash stream: about US$5k/month net by month 12, US$7.5k by month 24. Main risk: free Copilot and Claude models commoditise basics."
+ },
+ {
+  "id": "fractional-roles",
+  "one_liner": "Fractional pricing and monetization lead plus light FP&A for funded AI/SaaS startups, via a pricing sprint",
+  "description": "US$2,500 async Diagnostic (credited), US$7.5-12k Sprint, then retainers of US$4,000 (pricing) or US$7,500 (pricing and FP&A) per month. Fundraise add-on US$5,000.",
+  "buyer": "Founder or CRO at a Seed+ to Series B AI/SaaS firm, US$1-20M ARR, no pricing owner. Trigger: new round or low margin.",
+  "problem": "Seat pricing breaks when inference costs are real. Generalist fractional CFOs report margin but do not redesign pricing; strategy firms cost US$100k+ and leave.",
+  "strategy": [
+   "Wedge: US$2,500 async Diagnostic on AI pricing and margin, then Sprint, retainer, and FP&A expansion",
+   "Pricing design plus finance in one person, starting in a week, versus FTE hires, strategy firms and generalist CFOs",
+   "Fixed-fee packages and retainers fenced by hours and SLA; show FTE cost of US$16-23k/month as anchor"
+  ],
+  "value": [
+   "EVC about US$25-43k/month against pricing at US$4-7.5k/month (10-30% of EVC)",
+   "Drivers: 2-5% ARR uplift (US$40k-500k/yr), 3-10 margin points, US$8.5-19k/month saved versus an FTE",
+   "WTP: Series A-B US$5-10k/month; Seed+ US$1.5-3k Diagnostic; EU EUR 4-8k/month; Brazil R$12-25k/month"
+  ],
+  "moat": "Moderate: skill mix, case library and embedded client models score 3 of 5. Model ownership and monthly board cadence create switching costs.",
+  "verdict": "Go as the hours leg: base case about US$12k net/month at month 12. Not passive or faceless; unknowns: outreach conversion, retainer life."
+ },
+ {
+  "id": "whitelabel-backoffice",
+  "one_liner": "White-label CIMs, recasts and KPI packs for business brokers, fractional-CFO firms and CPA advisory practices",
+  "description": "Deal documents under the client's brand at fixed fees (CIM US$2,900/4,500, teaser US$450, recast US$1,250), a US$3,500/mo broker bundle and KPI packs at US$650-1,200 per end client monthly.",
+  "buyer": "Owners of broker shops, fractional-CFO firms, CPA practices. Trigger: a CIM due on a new listing, or no capacity.",
+  "problem": "Brokers write CIMs at night and overstate SDE, so deals retrade. Fractional CFOs and CPAs lack cheap analyst capacity to resell under their brand.",
+  "strategy": [
+   "Wedge: free teaser rewrite, then US$1,950 first CIM, for US brokers with 8+ live BizBuySell listings",
+   "Fixed SKUs, SLAs and non-solicit versus Upwork freelancers, offshore staff and reporting software alone",
+   "Per-deliverable fees plus per-end-client subscriptions; metric is listings or clients; rush +30%"
+  ],
+  "value": [
+   "EVC about US$8,250 per CIM against US$2,900 price (about 35%); FCFO packs about US$800 against US$650",
+   "Drivers: 25-40 hours saved per CIM (US$3.7-10k); each avoided 5% retrade on US$1.5M saves US$7,500 in fee",
+   "WTP: Main Street brokers US$1,500-3,000 per CIM; FCFO US$500-900 per client/month; CPA US$600-1,200"
+  ],
+  "moat": "Moderate: templates, end-client history, contracts and Brazil cost base each score 3 of 5; recast history is painful to rebuild.",
+  "verdict": "Go as an active anchor, semi-passive by months 6-9: base case about US$8.5k net at month 6, US$16.5k at 12. Risks: liability, AI drafts."
+ },
+ {
+  "id": "talent-referrals",
+  "one_liner": "Vetted Brazil-based FP&A and valuation analysts for US PE, search-fund and VC-backed companies",
+  "description": "Case test (US$250/candidate), contingent placement (20% of comp, US$7,500 minimum) and staff-aug at US$32-45/hr. Leftover candidates go to platform referral programs.",
+  "buyer": "CFOs and operating partners at US firms with US$5-200M revenue. Trigger: PE close, search-fund deal, open FP&A role.",
+  "problem": "US buyers fear an offshore analyst who cannot model. Generalist LatAm firms screen for English and soft skills, not LBO or 3-statement ability.",
+  "strategy": [
+   "Wedge: new search-fund and lower-middle-market PE companies needing a reporting pack and 13-week cash flow",
+   "Tests modeling skill versus Revelo, Near and South; full-time analyst at about half US cost, not Toptal hourly",
+   "Hybrid: per placement (20%, US$7,500 minimum) plus per analyst-month; PE portfolio deal at 15%"
+  ],
+  "value": [
+   "EVC about US$90k/yr per seat: about US$75k saved versus a US hire plus US$14k faster fill; fee US$11k is 12%",
+   "Drivers: US$55-75k/yr salary arbitrage, fee US$11k versus US$20-25k, fill 6 weeks earlier",
+   "WTP: search funds US$5-8k per hire; PE 15-25% (US$8-15k); startups US$7-12k; case test US$150-400"
+  ],
+  "moat": "Moderate: case-test data, bench, PE ties and embedded staff-aug each score 3 of 5; one-off placements have weak lock-in.",
+  "verdict": "Go: US$10k/month net possible by months 9-12; not passive (12-15 h/week). Referral bonuses alone reach US$1-2k/month."
+ },
+ {
+  "id": "framework-licensing",
+  "one_liner": "Licensed pricing and valuation teaching toolkits for accelerators, universities and corporate pricing teams",
+  "description": "Ready-to-teach curriculum with models, cases and facilitator guides in EN/PT/ES: US$149 personal, US$2,500 cohort, US$6,000 annual institutional licence, plus paid workshops and white-label at US$15,000.",
+  "buyer": "Seed accelerator directors, then faculty and corporate pricing teams. Trigger: curriculum planning before a cohort.",
+  "problem": "Accelerator and MBA curricula lack usable material on usage-based and AI pricing. Generic slides skip tokens, inference cost floors and credits.",
+  "strategy": [
+   "Wedge: \"Pricing AI and usage-based products\" cohort module for seed accelerators via Hult Prize, Venture Cafe",
+   "Reusable licence versus consultant workshops, HBP cases and Reforge/Maven; finance-grade models, EN/PT/ES",
+   "Tiered licence by learners reached; fences: use rights, cohorts, languages, update rights; about 25-35% of EVC"
+  ],
+  "value": [
+   "EVC: accelerator about US$17-21k/yr (price US$6,000); university section US$4.4-5.8k (price US$1,500)",
+   "Drivers: 5% ARR uplift on 20 startups at US$250k = US$250k ARR; US$6-10k consultant fees saved; 40 hours prep",
+   "WTP: accelerators US$2,000-6,000/yr; faculty US$15-30 per student; corporate US$5,000-20,000/yr; founders US$49-199"
+  ],
+  "moat": "Moderate: update speed, trilingual LatAm ties and personal network score 3 of 5; copyright scores 1. Certified mentors add switching costs.",
+  "verdict": "Viable supporting stream, not a floor-clearer: about US$5.5k/month net at month 12. Main risk: HBP, Reforge or vendors bundle free content."
+ },
+ {
+  "id": "seo-calculators",
+  "one_liner": "Free AI/SaaS pricing and Brazil USD-earner tax calculators feeding templates, affiliates and consulting leads",
+  "description": "Two calculator sites (EN and PT). Money comes from templates (US$39-149, R$97), a US$750 teardown, widget licences, affiliates and ads. Calculators stay free; only the save button is email-gated.",
+  "buyer": "SaaS/AI founders changing pricing; Brazilian devs paid in USD as PJ. Trigger: a pricing change or first foreign offer.",
+  "problem": "Generic tools handle seats, not token COGS or credits. Brazilian PJ workers have no single tool for Simples annex, Fator R and USD receiving costs.",
+  "strategy": [
+   "Wedge: PT 'PJ internacional' tools plus EN 'AI feature cost and pricing' calculator",
+   "Niche depth, dated data and expert author versus generic calculator sites, platform simulators and ChatGPT",
+   "Free tools for traffic; templates US$39/59/79, bundle US$149; teardown US$750; widget licence US$20-60/month"
+  ],
+  "value": [
+   "EVC: Brazil PJ about R$1,000-3,000/month against a R$97 template; EN template worth thousands of USD against US$79",
+   "Drivers: 5 margin points on US$1M ARR = US$50k/yr; Simples 15.5% vs 6% saves about R$2,850/month on R$30k",
+   "WTP: founders US$49-149; PJ devs R$47-147; students US$19-49; accountants US$20-60/month"
+  ],
+  "moat": "Weak: maintained data, credentials, backlinks and email list score 3 of 5; code scores 1. Lock-in for free tools is weak.",
+  "verdict": "Supporting stream: US$1-3k/month net by month 12, ads well under US$1k. Will not clear US$10k before month 18-24; needs 10-15 h/week."
+ },
+ {
+  "id": "export-readiness",
+  "one_liner": "Fixed-fee EU-Mercosur tariff analysis, EU price corridors and buyer matching for Santa Catarina exporters",
+  "description": "Free Tariff-Cut Checker, R$297 NCM report, R$4,900 diagnostic, EUR 1,900 price sprint, EUR 2,500 buyer sprint plus 2% success fee, and a R$2,900/month retainer.",
+  "buyer": "Owners and export managers at SC manufacturers with R$20-300M revenue. Trigger: an EU duty step or US order repriced.",
+  "problem": "Public tools give the tariff rate, not the money. Nobody local prices for exporters or builds a researched EU buyer list; Apex programmes are slow and generic.",
+  "strategy": [
+   "Wedge: 'Tarifa até 2030' snapshot plus R$4,900 diagnostic for 3 SC clusters, sold via ACI and FIESC workshops",
+   "Turns the tariff path into a price corridor and named buyers in 2 weeks, versus free databases, PEIEX and Big-4",
+   "Fixed fees by NCMs, markets and buyer revenue; 2% success fee capped at EUR 15k; raise diagnostic to R$6,900 later"
+  ],
+  "value": [
+   "EVC about R$45-50k for the diagnostic (price captures about 10%); tile exporter: EUR 100k/yr duty removed on EUR 2M",
+   "Drivers: 30% capture = EUR 30k/yr; a distributor at EUR 150k/yr = EUR 37.5k gross profit; US misread up to US$400k",
+   "WTP: SMEs R$297-597 reports, R$2,900-6,900 diagnostic; EU importers EUR 1-3k; US review US$1-3k"
+  ],
+  "moat": "Weak to moderate: local network and pricing expertise score 3 of 5; data 2.5. Retainer model updates on each tariff step add stickiness.",
+  "verdict": "Go as a services stream: about US$5k net/month at month 12, 14 h/week. Main risk: Apex, Sebrae or FIESC launch a free simulator."
+ },
+ {
+  "id": "ai-adoption-ptes",
+  "one_liner": "AI playbooks for pricing, margins and cash flow aimed at LatAm small businesses, in Portuguese and Spanish",
+  "description": "Free kit, R$47 tripwire, R$297 core course (R$497 with 2 calls), R$47/month club, B2B workshops of R$2.5-8k and white-label licences. Sold on Hotmart PT/ES and Udemy ES.",
+  "buyer": "Brazilian owners of businesses with 2-49 staff who do not know their real margin. Trigger: margin squeeze or fee change.",
+  "problem": "Generic 'ChatGPT para negócios' courses are prompt lists. Owners lack a clean unit-margin model and finished, vertical workflows to plug AI into.",
+  "strategy": [
+   "Wedge: 'Precificação com IA' for restaurants, delivery and marketplace sellers, then wider AI playbooks",
+   "Finance and pricing focus by an MBA/MFin consultant versus generic courses, Sebrae free content and Alura",
+   "One-off per business, club R$47/month or R$397/year, B2B per event; core at R$297, R$397 after 30 testimonials"
+  ],
+  "value": [
+   "EVC about R$15,900 first year for a R$60k/month business; R$3,200 after an 80% discount, so R$297 is about 9%",
+   "Drivers: 1 margin point on R$60k/month = R$600/month; 3 h/week saved = R$645/month",
+   "WTP: MEI R$27-97; SMEs R$197-497; accountants R$800-2,400/yr; associations R$2,500-8,000 per workshop"
+  ],
+  "moat": "Weak to moderate: email list, SC channel ties and YouTube SEO score 3 of 5. Updated templates and white-label embeds add lock-in.",
+  "verdict": "Proceed as a mid-tier stream: about US$4k/month net at month 12. Main risk: Meta, Google or marketplaces bundle AI help free."
+ },
+ {
+  "id": "site-flipping",
+  "one_liner": "Paid due-diligence and pricing-uplift reports for small online-business buyers, funding micro-flips",
+  "description": "US$490 Micro DD report, US$1,490 SaaS pack, US$1,500 pre-exit uplift, US$1,200/month holdco retainer and a US$15/month newsletter tier. Fees fund his own flips of template shops and tools.",
+  "buyer": "First-time and part-time buyers with US$5k-50k, plus small holdcos. Trigger: a listing in bidding, 3-10 day decision.",
+  "problem": "Brokers vet mainly listings above about US$25k, so small buyers buy blind. Reports say 'risky or not' but give no plan to add profit.",
+  "strategy": [
+   "Wedge: DD reports for Etsy, Gumroad and Notion template shops and finance/travel tools under US$50k",
+   "Independent buyer-side opinion plus uplift plan versus marketplace vetting, Upwork analysts and US$10k+ QoE",
+   "Priced by deal-size band: US$490 under US$50k, US$1,490 for US$50-500k; rush +US$500"
+  ],
+  "value": [
+   "EVC about US$3,200 for a US$20k deal (US$490 is about 15%); SaaS pack on US$150k deal about US$20k",
+   "Drivers: about US$700 expected loss avoided; 5-10% price renegotiation; +US$1/month profit = US$30-40 at exit",
+   "WTP: first-time buyers US$150-500; holdcos US$1,500-5,000 per deal; pre-exit founders US$1,000-3,000"
+  ],
+  "moat": "Moderate: screened-deal data, track record and uplift skill score 3 of 5; the Sheets model scores 1. Lock-in is modest.",
+  "verdict": "Worth doing as a service first: about US$2k/month by month 6, US$3-6k by month 24. Not a floor-clearer. Risk: marketplaces bundle AI DD."
+ },
+ {
+  "id": "ai-roi-kit",
+  "one_liner": "Vendor-neutral AI ROI business case and tracker for finance leads at 20-300 person firms, under US$200.",
+  "description": "Excel kit with a baseline tab, TCO, cash-realization haircut, kill/scale gate and board summary. Sold as Solo US$79 and Pro US$149, plus reviews (US$490/890), Tracker US$49/month and advisor licences.",
+  "buyer": "Controllers and CFOs facing a Copilot or ChatGPT renewal or seat expansion; fractional CFOs buy the Advisor licence.",
+  "problem": "Vendor calculators are biased and US$13-89 templates skip baselines and the hours-to-cash haircut, so at day 90 nothing can be compared.",
+  "strategy": [
+   "Wedge: Copilot Business renewal check for M365 SMEs of 20-300 staff, Q4 2026; promo US$18 to US$21 (+16.7%).",
+   "Beats free vendor calculators and US$13-89 templates: neutral, starts from your baseline, applies a 30-50% haircut.",
+   "Hybrid: per use case, portfolio, advisory firm or spend band; Tracker US$49/month. Never per seat."
+  ],
+  "value": [
+   "EVC about US$1,200 per template; 15 idle seats x US$21 x 12 = US$3,780/yr saved on a 50-seat tenant (CALC).",
+   "Drivers: idle-seat savings, promo step +US$1,800/yr for 50 seats, killing a failing pilot at day 90 not 365.",
+   "WTP: US$49-99 template (SME), US$490-990 review (owner), US$399-990/yr advisor, US$2,500-4,000/yr PE (assumed)."
+  ],
+  "moat": "Benchmark data from reviews and Tracker rows (strength 3), advisor channel, neutrality. The template alone is 1/5; an LLM copies it.",
+  "verdict": "Build it, about US$2-6k/month net by month 12; will not clear the US$10k floor alone. Risk: free LLM DIY and Microsoft analytics."
+ },
+ {
+  "id": "green-export-value",
+  "one_liner": "CBAM, EUDR and VSME data packs for Brazilian exporters and their EU importers, priced on the EUR saved.",
+  "description": "Fixed-fee packs: D1 CBAM verifier-ready data (EUR 4,500/7,500/12,000 by tonnage), D2 premium clause memo, D3 EUDR EUR 1,800, D4 VSME EUR 2,900. Retainer EUR 300-650/mo; SKUs US$49-149.",
+  "buyer": "EU foundries importing Brazilian pig iron on CBAM defaults; SC timber exporters facing EUDR on 30 Dec 2026.",
+  "problem": "No verified emissions data exists for Brazilian plants. Software gives an English form, verifiers cannot prepare their own data, Big 4 bills hourly.",
+  "strategy": [
+   "Wedge: EUDR D3 for SC pine furniture before 30 Dec 2026; CBAM D1+D2 for IT/DE foundries in parallel.",
+   "Beats CBAM software, verifiers and Big 4: PT field work, EN output, priced against the EUR 40/t gap it closes.",
+   "Fixed-fee packs by tonnage, always quoted next to the EUR/yr saving; R1 retainer per installation per month."
+  ],
+  "value": [
+   "EVC about EUR 45-90k for D1 at 10,000 t; default-value uplift about EUR 40/t, EUR 400k/yr (CALC).",
+   "Drivers: CBAM cost avoided (markup 10%, 20%, 30%), EUR 50-200k/yr seller premium, EUDR market access.",
+   "WTP: EUR 6-12k per installation (EU foundry); EUR 1.5-3k EUDR chain; BRL 20-45k (MG producer, assumed)."
+  ],
+  "moat": "Bilingual field presence, pricing and clause skill, verifier channel (3/5 each); templates 1/5. Retainers add stickiness.",
+  "verdict": "GO, re-priced; realistic month-12 net US$3-8k. Risks: verifier bottleneck delays savings to 2027; few installations; no accreditation."
+ },
+ {
+  "id": "course-library",
+  "one_liner": "AI pricing and founder-finance courses in EN/ES/PT, built as the cheap bottom rung of a price ladder.",
+  "description": "Free token-margin calculator, Udemy course (about US$4 net per sale), Pro Kit US$249, Data Club US$29/mo or US$290/yr, team packs and cohort licences. PT courses at R$497 on Hotmart in 12 instalments.",
+  "buyer": "Seed/Series A AI-SaaS founders with a pricing change due in 90 days; Brazilian analysts and SME controllers.",
+  "problem": "Free content has concepts but no numbers (scores 5 of 10). Maven costs US$800-2,500; consultants US$2,000+. CFI and WSP are English-only.",
+  "strategy": [
+   "Wedge: free AI Token-Margin Calculator plus Pro Kit for founders with a live pricing decision.",
+   "Beats Maven at about 1/6 of the price, available now, with a dated 40-product teardown and a margin calculator.",
+   "Fenced ladder with two-part pricing: Pro Kit, Data Club, per-cohort licences; drop All-Access at US$199."
+  ],
+  "value": [
+   "Pro Kit EVC US$1,050-1,445; US$249 captures 17-24%. A 2-5% lift on US$30k MRR is US$600-1,500/month (CALC).",
+   "Drivers: margin floor (61% falls to 18% for heavy users), revenue lift, about 10 research hours saved.",
+   "WTP: US$199-399 Pro Kit (A1), R$297-497 PT course, US$990-2,500 per cohort, US$29-49/month data."
+  ],
+  "moat": "Dated teardown dataset, give-to-get benchmark, practitioner credibility, owned email list (each 3/5). Course videos are 1/5.",
+  "verdict": "Keep as lead-gen rung; month-12 net about US$3,100/month (strong US$6-8k), not US$10k alone. Risk: billing vendors give a calculator free."
+ },
+ {
+  "id": "job-board",
+  "one_liner": "Finance and pricing job board verified open to LatAm, with USD pay shown and a graded modelling-test badge.",
+  "description": "Candidates use it free. Employers pay: Featured post US$299, Vetted Shortlist US$1,500 (credited to placement), flat placement US$6,500 analyst or US$9,000 manager. Newsletter sponsors pay per 1,000 opens.",
+  "buyer": "US/EU scale-ups of 20-500 staff opening a first LatAm finance seat after hiring engineers via Deel or Remote.",
+  "problem": "LinkedIn 'remote' draws ineligible applicants. Get on Board, Revelo and Torre are tech-first; The Finance Nomad is US-centric.",
+  "strategy": [
+   "Wedge: Brazilian FP&A and pricing analysts placed at US Series A-C SaaS firms already paying Brazilians via Deel.",
+   "Vs LinkedIn and nearshore firms: verified eligibility, graded test, flat published fees, no monthly markup.",
+   "Per post, per hire (shortlist, placement), per 1,000 opens (sponsors). Anchor: US$9.6-12k agency fee."
+  ],
+  "value": [
+   "Featured post EVC about US$915 gross, US$460-640 after traffic discount; 5.3 screening hours = US$390 (CALC).",
+   "Drivers: US$34-48k/yr seat saving (US$90k US vs US$42-56k LatAm), agency fee avoided US$2.4-5.5k per hire.",
+   "WTP: Featured US$200-400, shortlist US$1,000-2,000, placement US$5-7k; unvalidated until 10 TOM interviews."
+  ],
+  "moat": "Graded candidate pool, owned newsletter list, repeat-hire accounts (each 3/5); scraper plus classifier 1/5. Multi-homing is cheap.",
+  "verdict": "GO with a 6-month kill gate; about US$1.5-4k/mo by month 12. A funnel, not a pillar. Risk: LinkedIn or Get on Board adds eligibility tags."
+ },
+ {
+  "id": "eu-ai-literacy",
+  "one_liner": "White-label Article 4 AI-literacy course with evidence register for EU SMEs, sold via DPOs and accountants.",
+  "description": "Role-based 20-25 minute tracks in ES/PT/DE/EN with a dated register PDF and AI use policy. Annual seat bands: Micro EUR 149, Starter EUR 290, Business EUR 690. Partners pay EUR 4 per seat.",
+  "buyer": "External DPOs, IT MSPs and accountants serving 20-300 SMEs; direct SME managers with 10-250 staff.",
+  "problem": "Free and cheap courses issue certificates but leave the SME to build the register and policy itself. Content is generic and mostly DE/EN.",
+  "strategy": [
+   "Wedge: external DPOs and accountants in Portugal, then Spain; target 10 partners with 10-20 clients each.",
+   "Vs Modulos (free) and Provimedia (EUR 9.90/head): register, policy, finance scenarios, ES/PT, white-label.",
+   "Annual prepaid seat bands; partners EUR 4/seat (min 100), EUR 3 at 1,000+, white-label add-on EUR 290/yr."
+  ],
+  "value": [
+   "EVC EUR 822 vs Modulos and about EUR 1,036 vs Provimedia for 25 staff; EUR 290 is 28-35% of it (CALC).",
+   "Drivers: register saves 6 h (EUR 210), policy replaces EUR 300-600 drafting, 65 minutes per head saved.",
+   "WTP: EUR 99-190 micro, EUR 250-390 small ES/PT, EUR 400-700 DACH, EUR 3-5 per seat for partners."
+  ],
+  "moat": "Partner embedding is the strongest lock-in (3/5). Content is copyable with AI dubbing; 94% gross margin allows EUR 2.50/seat.",
+  "verdict": "Run as partner-led cash stream, US$1-4k/month base; does not clear US$10k. Risk: heyData, DataGuard or Microsoft bundle it free."
+ },
+ {
+  "id": "linkedin-pricing",
+  "one_liner": "Named LinkedIn pricing practice selling a written Pricing Diagnostic and Sprint to seed-Series C B2B SaaS/AI.",
+  "description": "Ladder: free scorecard, Teardown US$490, Diagnostic US$2,900 (written, 5 days), Sprint US$7,900-9,500, Pricing Desk retainer US$2,500/month. Fixed fees paid upfront by Stripe or invoice.",
+  "buyer": "Founders, CROs and VPs Product at B2B SaaS/AI firms (about US$1-50M ARR) with no pricing owner, often post-funding.",
+  "problem": "AI credit and usage pricing squeezes gross margin. Big consultancies cost US$100k+ and take months; DIY content is generic.",
+  "strategy": [
+   "Wedge: AI-margin pricing for AI-native B2B SaaS at seed-Series B: heavy users lose money; here is the fix.",
+   "Vs Simon-Kucher and boutiques: 30-50x cheaper, 5-day written answer, finance-grade margin per usage unit.",
+   "Fixed-fee ladder by ARR band and scope; credits between steps; raise 15-20% after every 3 closed deals."
+  ],
+  "value": [
+   "EVC about US$135-285k in year 1 for a US$5M ARR firm; Diagnostic captures 1-2% (CALC, assumed uplift).",
+   "Drivers: 1-5% ARR uplift (US$50-250k), AI add-on margin to 60-75% target, US$150k ARR x 5x = US$750k EV.",
+   "WTP (assumed): Series A US$2,900-4,500 Diagnostic; Series B-C US$12-25k Sprint; seed US$490 Teardown."
+  ],
+  "moat": "Pricing-page database, personal brand, finance method and VC referral channel (each 3/5). Switching costs are moderate to low.",
+  "verdict": "GO as a service engine; base about US$7k/month net at month 12, 20-25% odds of US$10k alone. Risk: zero SaaS case studies at start."
+ },
+ {
+  "id": "grant-teardown",
+  "one_liner": "Async finance and pricing teardown of EIC and Eurostars grant applications, plus SaaS pricing reviews.",
+  "description": "Fixed-price review of business model, unit economics and financial plan in 5-7 days. Tiers US$450/600/950; add-ons: jury drill US$350, second pass US$250. White-label to grant consultancies at EUR 250-450.",
+  "buyer": "Deep-tech founders writing an EIC or Eurostars full application in the 4-8 weeks before a cut-off.",
+  "problem": "Engineers are weak on business model and financials. Consultancies charge EUR 5-15k plus a 5-10% success fee.",
+  "strategy": [
+   "Wedge: EIC resubmitters whose negative evaluation flags the business model or financial plan.",
+   "Vs consultancies: 10-30x cheaper, no success fee, 5 days, finance specialist rather than generalist.",
+   "Fixed packages per proposal at 450/600/950; consultancy route EUR 5-15k shown as anchor; raise after 15 reviews."
+  ],
+  "value": [
+   "EVC about EUR 8-18k; price of US$450-950 captures 3-10% (CALC, assumption-heavy).",
+   "Drivers: +0.5 to 2 pp award odds on EUR 2.5M = EUR 12.5-50k; 15-25 founder hours saved.",
+   "WTP (assumed): US$500-1,500 first attempt, US$600-2,000 resubmitter, US$800-2,500 jury drill and review."
+  ],
+  "moat": "Documented client wins (4/5 once available), Fiverr reviews, credentials, white-label partners (each 3/5). Price and speed 1/5.",
+  "verdict": "GO as mid-tier, seasonal stream: base about US$2.5k/month by month 6, US$4-5.5k by month 12-24. Risk: unknown demand on Fiverr/Upwork."
+ },
+ {
+  "id": "expert-calls",
+  "one_liner": "Paid expert-network calls on Brazil B2B pricing, CBS/IBS tax reform and AI-training labour, for investors.",
+  "description": "Calebe takes paid calls via GLG, AlphaSights, Guidepoint, Third Bridge and others at US$300/h, rising to US$400-500/h. Follow-ups, transcripts and surveys add income; direct Sprint US$2,500-4,500.",
+  "buyer": "Expert networks pay; end users are PE, hedge-fund and consulting teams starting Brazil or LatAm due diligence.",
+  "problem": "Brazil experts are mostly ex-operators of one company, with little pricing or tax-reform view and uneven English.",
+  "strategy": [
+   "Wedge: how Brazil's CBS/IBS tax reform changes B2B pricing in 2026-2027; AI-training angle in parallel.",
+   "Vs ex-company operators and Big 4 tax: cross-company pricing view in DCF/LBO terms, English, NY hours.",
+   "Hourly per network: US$300, US$400 after 10 good calls, US$500 niche; direct Lite US$2,500, Sprint US$4,500."
+  ],
+  "value": [
+   "EVC about US$2,500-3,000 per call to the client vs about US$1,200 network price; he captures 10-15% (CALC).",
+   "Drivers: one call replaces about 2 narrower calls (US$1,200 saved), no interpreter (US$100-200/h).",
+   "WTP (assumed): networks US$250-450/h; transcripts US$200-400; direct US$2,500-7,500 per sprint."
+  ],
+  "moat": "Rating history and rebooking (3/5), rare topic mix (3/5). Time-zone and language fit are 1/5; networks are not exclusive.",
+  "verdict": "Do it, capped at 5 h/week; base about US$1.4k/month at M6, US$3k at M24. Main risk: compliance with his Mercor contractor relationship."
+ },
+ {
+  "id": "hotmart-affiliate",
+  "one_liner": "Independent 'vale a pena?' review hub for finance-career and travel courses, earning affiliate commission.",
+  "description": "PT-BR reviews and DCF/LBO/FP&A tutorials lead to affiliate links with an exclusive template bonus. Income is 30-60% commission on Hotmart/Kiwify sales; the email list later supports his own course.",
+  "buyer": "Brazilian engineers and accountants (22-35) moving into finance, paying by card or Pix in 12x; producers pay commission.",
+  "problem": "Buyers cannot tell which Hotmart finance courses are real. Sales pages overpromise, and no credentialed PT-BR reviewer shows course insides.",
+  "strategy": [
+   "Wedge: PT-BR 'vale a pena' reviews and DCF/LBO/FP&A tutorials for engineers moving into corporate finance.",
+   "Vs producer pages and generic affiliate blogs: MBA+MFin first-hand tests, 'who should not buy', bonus templates.",
+   "Percent of net sale: 40%+ now, ask 55-60% after 10-20 sales; prefer recurring products; later his own course."
+  ],
+  "value": [
+   "Producer EVC about R$235-260 per sale (47-52% of a R$497 ticket); learner gains R$120-220 (CALC).",
+   "Drivers: R$200 CAC replaced by commission paid on retained sales; refunds 5% vs 12% (assumed) saves about R$35.",
+   "WTP (assumed): R$300-1,000 per course (BR switchers), US$200-600 (EN recruits), US$10-20 on Udemy."
+  ],
+  "moat": "Owned email/Telegram list (4/5), credentials and template library (3/5). Affiliate links themselves are 1/5; buyers can go direct.",
+  "verdict": "Do it as an audience layer: about US$600/mo (conservative) to US$2,200 (base) at month 12. Risk: AI answers cut clicks, SEO takes months."
+ },
+ {
+  "id": "finance-apps",
+  "one_liner": "Shopify app that allocates freight, duty and tariffs into correct per-SKU landed cost for importing brands.",
+  "description": "Monthly subscription per store: Free, Starter US$29, Growth US$79 (simulator, FX, accounting export), Pro US$199 (multi-store). PO-line usage overage US$0.10; COGS cleanup service US$1,500-3,000.",
+  "buyer": "Founders and ops leads at US/UK/EU/AU Shopify brands importing goods; trigger is a tariff change or a container landing.",
+  "problem": "Shopify stores one static cost per item, so landed cost lives in a spreadsheet pasted by hand. Profit apps trust whatever COGS you typed.",
+  "strategy": [
+   "Wedge: US Shopify brands importing from China or Vietnam by sea, US$500k-5M GMV, hit by tariff changes.",
+   "Vs spreadsheets, profit apps and ERPs (US$300+/mo): audit trail, tariff what-ifs, write-back, setup in an hour.",
+   "Flat per-store tiers fenced by write-back, simulator and multi-store; overage per PO line; annual 2 months free."
+  ],
+  "value": [
+   "Growth buyer EVC about US$450/month; US$79 captures about 18% (CALC, assumed inputs).",
+   "Drivers: 4-6 hours saved per PO, 1-3 gross-margin points recovered after tariff changes, faster repricing.",
+   "WTP: US$19-39/mo (US$300k-2M GMV), US$59-129 (US$2-15M), US$149-399 (agencies); mostly assumed."
+  ],
+  "moat": "PO and cost history, App Store ranking (each 3/5); code is 1/5. Switching cost is real but export stays open.",
+  "verdict": "GO, conditionally: US$0.5-3k/month net at month 12, up to about US$8k. Risk: Shopify adds native allocation; no pre-sales, no build."
+ },
+ {
+  "id": "carbon-credits",
+  "one_liner": "Integrity-screened origination of Santa Catarina biochar and methane credits for international removal buyers.",
+  "description": "Entry: BRL 3,500 integrity screen for owners, US$2,500-6,000 due-diligence memo for buyers. Core income: 8% success fee on each delivery of a multi-year offtake; data subscription US$29/mo.",
+  "buyer": "SC biochar and swine-methane project owners; mid-market removal buyers wanting Brazilian supply without REDD+ risk.",
+  "problem": "Owners lack a neutral view of what is creditable or a fair revenue share; buyers cannot afford US$15-40k diligence per small project.",
+  "strategy": [
+   "Wedge: SC biochar from forestry residues sold as Puro.earth CORCs to buyers found on cdr.fyi.",
+   "Vs developers taking about 40%, marketplaces and rating agencies: owner keeps asset, local screening, US$2.5k memo.",
+   "Hybrid: paid screen or memo, then 8% fee per tCO2e delivered (6% above US$1M/yr), US$5k minimum per contract."
+  ],
+  "value": [
+   "Owner EVC about 3x the fee: US$110-125k/yr extra on 3,750 t biochar; buyer saves US$10-25k per purchase (CALC).",
+   "Drivers: higher owner revenue share, cheaper diligence, 10-20% prepayment on a US$2.4M offtake = US$240-480k capex.",
+   "WTP (assumed): owners 5-10% success fee; buyers US$2-6k per memo; SC emitters BRL 10-30k per project."
+  ],
+  "moat": "Local SC relationships and contracted multi-year fee streams (3/5 each). SBCE knowledge is easy to copy (1/5).",
+  "verdict": "Keep as secondary option at 8 h/week; base about US$4.5k/month by month 12, lumpy. Risk: slow first cash; check CVM rules before mandates."
+ },
+ {
+  "id": "ai-spend-fpa",
+  "one_liner": "Finance-grade budget, forecast and budget-vs-actual kit for AI token and tool spend, plus a course.",
+  "description": "Driver model (tokens x price x volume x model mix) in Sheets/Excel: Core US$149, Pro US$349, Agency US$699. Monitor US$19/month refreshes price tables; Setup Sprint US$3,000; course US$399 with Pro.",
+  "buyer": "FP&A leads at 20-500 person software firms with AI spend over US$10k/month; trigger is a surprise bill or Q4 budgeting.",
+  "problem": "FinOps tools suit engineers and FP&A tools lack token logic, so finance forecasts AI cost in ad-hoc spreadsheets.",
+  "strategy": [
+   "Wedge: finance leads at Series A-C AI-native SaaS in US/EU during Q4 2026 budgeting, via a free AI Burn Check.",
+   "Vs consoles and FinOps tools: forward-looking, cross-vendor, variance bridge, built in Sheets.",
+   "Good-better-best licences by entities modelled, not seats; Monitor US$19/month; fixed-fee Sprint US$3,000."
+  ],
+  "value": [
+   "Year-1 EVC about US$8,600; Pro plus Monitor (US$539) is about 6%, Sprint about 35% (CALC).",
+   "Drivers: 30 build hours saved (US$2,400), 5% overspend caught (US$2,000/month), 4 h/month reporting.",
+   "WTP: US$150-500 template, US$2,500-5,000 sprint, US$500-1,000 multi-client licence; mostly assumed."
+  ],
+  "moat": "Opt-in benchmark data, personal brand, distribution and pricing cross-sell (each 3/5). Template IP is 1/5 and copyable.",
+  "verdict": "Build as a fast secondary stream, base about US$6,000/month net by month 12. Risk: copyable template, high envelopment by consoles."
+ },
+ {
+  "id": "ai-automation-agency",
+  "one_liner": "Fixed-price AI finance-ops automation (AP, AR, close) for SMEs, direct and white-labelled via bookkeepers.",
+  "description": "Free calculator, US$490 audit (credited), US$2.2-3.9k fixed build, mandatory 3-month Care retainer at US$390-590/mo. Bookkeeping firms resell at about US$120 per client per month wholesale.",
+  "buyer": "Owners and controllers of US$1-20M B2B firms on QuickBooks or Xero, triggered by a job post for an AP or AR clerk.",
+  "problem": "Agencies sell chatbots with no CFO-grade ROI case. Native SaaS misses cross-system flows, and freelancers vanish after go-live.",
+  "strategy": [
+   "Wedge: AP Inbox-to-Ledger for B2B service firms on QuickBooks Online that are hiring an AP or bookkeeping person.",
+   "Vs clerk hire, BILL/Dext and generic agencies: priced against the hire avoided, human approval, ROI report.",
+   "Fixed setup per workflow plus Care retainer; partner wholesale 40-60% below direct; raise 15-20% per 5 builds."
+  ],
+  "value": [
+   "Example EVC about US$43.8k/yr; year-1 price of US$15,960 captures 36%, about 2.7x ROI (CALC).",
+   "Drivers: 35 AP hours/month saved (US$980), DSO cut frees US$11k per day, deferred US$45-60k hire.",
+   "WTP (assumed): US$2-5k setup plus US$300-700/mo (US$3-20M firms); bookkeepers US$80-150 per client monthly."
+  ],
+  "moat": "Partner network (4/5 once 5+ partners bring 10+ clients), template library, finance credibility (3/5). Tech is 1/5.",
+  "verdict": "GO as primary engine; base about US$12.5k net/month by month 12. Risk: Intuit, Xero and BILL native AI commoditise AP capture."
+ },
+ {
+  "id": "paid-research",
+  "one_liner": "Paid research interviews and expert calls on SaaS pricing, finance, AI buying and Brazil.",
+  "description": "Calebe takes moderated B2B interviews at US$100-250/h (Respondent, User Interviews) and expert-network calls at US$200-400/h, after unmoderated tests build ratings. Income is per session or per hour.",
+  "buyer": "SaaS researchers, funds and consultants whose study screener needs pricing or finance practitioners.",
+  "problem": "Researchers cannot find practitioners who designed usage-based pricing; generic panels give finance managers who never touched pricing.",
+  "strategy": [
+   "Wedge: expert networks plus Respondent around one topic: usage-based and AI pricing in B2B SaaS, incl. LATAM.",
+   "Vs generic panelists and ex-insiders: cross-vendor pricing depth, EN/PT/ES, already verified and bookable.",
+   "Hourly on networks (200, 300, then 400 USD/h); per-session incentive set by the researcher on panels."
+  ],
+  "value": [
+   "EVC about US$795 per moderated interview vs about US$530 reference cost; he captures 15-30% (CALC).",
+   "Drivers: about 1.5x insight per session (US$265), avoids 20% no-show loss (US$106), covers 2-3 market cells.",
+   "WTP: US$100-250 per interview; expert payout US$200-500/h; unmoderated tests US$10-60 per test."
+  ],
+  "moat": "Scarce profile of pricing, finance, AI and Brazil (3/5); ratings and associate relationships (2/5). No contracts or exclusivity.",
+  "verdict": "Worth doing as support: US$1-2k/month net at months 6-12, US$4-5.5k upside. Risk: few US-panel studies may be open to Brazil."
+ }
+]

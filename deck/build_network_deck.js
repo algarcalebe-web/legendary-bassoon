@@ -128,25 +128,24 @@ tb(s, [
 
 // Sprint timeline
 sec("Sprints");
-s = slide("CONTENT", "Sprint timeline: each layer starts when the one before it produces");
+s = slide("CONTENT", "Sprint timeline: thick bar = build sprint, thin bar = keeps running");
 const TM = 24, gx = M + 3.2, gw = W - M - gx;
 L.forEach((l, i) => {
   const y = 1.35 + i * 1.08, [a, b] = l.window;
-  tb(s, `Sprint ${l.n} · ${l.name.split(" · ")[1]}`, { x: M, y, w: 3.1, h: 0.4, fontSize: 14, bold: true, color: l.col });
+  tb(s, `Sprint ${l.n} · ${l.name.split(" · ")[1]}`, { x: M, y, w: 3.1, h: 0.4, fontSize: 12.5, bold: true, color: l.col });
   tb(s, `${l.items.length} streams · ${l.when}`, { x: M, y: y + 0.4, w: 3.1, h: 0.3, fontSize: 12, color: MUTED });
   s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: gx + (a / TM) * gw, y: y + 0.08, w: ((b - a) / TM) * gw, h: 0.42, fill: { color: l.col }, line: { type: "none" }, rectRadius: 0.06 });
   s.addShape(pres.shapes.RECTANGLE, { x: gx + (b / TM) * gw, y: y + 0.24, w: ((TM - b) / TM) * gw, h: 0.1, fill: { color: l.hex, transparency: 60 }, line: { type: "none" } });
   tb(s, "Trigger: " + l.trigger, { x: gx + (a / TM) * gw, y: y + 0.55, w: Math.max(((TM - a) / TM) * gw, 3), h: 0.42, fontSize: 10.5, color: MUTED });
 });
 [0, 3, 6, 9, 12, 18, 24].forEach((m) => tb(s, "M" + m, { x: gx + (m / TM) * gw - 0.3, y: 6.75, w: 0.6, h: 0.25, fontSize: 11, color: MUTED, align: "center" }));
-tb(s, "Thick bar: build sprint. Thin bar: the layer keeps running. Month 0 = 12 Oct 2026; a sprint starts later if its trigger is late, never earlier.", { x: M, y: 6.75, w: 3.1, h: 0.3, fontSize: 9, italic: true, color: MUTED });
 
 // Layer I/O table
 s = slide("CONTENT", "What each layer consumes and produces");
 s.addTable([hdr(["Layer", "Consumes", "Produces", "Capital at risk (sum)"])].concat(L.map((l) => [
   { text: `${l.n} · ${l.name.split(" · ")[1]}`, options: { bold: true, color: l.col } }, l.consumes, l.produces, k(l.items.reduce((a, x) => a + x.risk, 0))])),
-  { ...TBL, x: M, y: 1.35, w: W - 2 * M, colW: [3.0, 3.9, 4.1, 1.13], fontSize: 13, rowH: 0.95 });
-tb(s, "Capital at risk = start cost + 3 months of running costs, summed over all streams in the layer if every one launched.", { x: M, y: 6.45, w: W - 2 * M, h: 0.4, fontSize: 11, italic: true, color: MUTED });
+  { ...TBL, x: M, y: 1.35, w: W - 2 * M, colW: [3.0, 3.9, 4.1, 1.13], fontSize: 13, rowH: 0.8 });
+tb(s, "Capital at risk = start cost + 3 months of running costs, summed over all streams in the layer if every one launched.", { x: M, y: 6.6, w: W - 2 * M, h: 0.4, fontSize: 11, italic: true, color: MUTED });
 
 // Growth fund
 s = slide("CONTENT", "How organic capital is built and spent");
@@ -234,7 +233,7 @@ function buildSlide(x, l, idx) {
   trio([["to start", k(x.start_capital_usd)], ["per month", k(x.monthly_cost_usd)], ["first cash", x.first_cash]], C.accent2);
   tb(s, x.capital_note, { x: px + 0.25, y, w: pw - 0.5, h: 0.62, fontSize: 10.5 }); y += 0.68;
   lab("OFFERS");
-  x.offers.slice(0, 3).forEach((o) => { tb(s, [{ text: o.name + ": ", options: { bold: true } }, { text: o.price, options: { color: C.accent1 } }], { x: px + 0.25, y, w: pw - 0.5, h: 0.38, fontSize: 11 }); y += 0.4; });
+  x.offers.slice(0, 3).forEach((o) => { tb(s, [{ text: o.name + ": ", options: { bold: true } }, { text: o.price, options: { color: C.accent1 } }], { x: px + 0.25, y, w: pw - 0.5, h: 0.4, fontSize: 10 }); y += 0.42; });
   lab("BASE NET US$/MONTH");
   trio([["M3", k(x.m3)], ["M12", k(x.m12)], ["M24", k(x.m24)]], C.accent1);
   tb(s, x.hours, { x: px + 0.25, y, w: pw - 0.5, h: 0.25, fontSize: 11, color: MUTED }); y += 0.3;
