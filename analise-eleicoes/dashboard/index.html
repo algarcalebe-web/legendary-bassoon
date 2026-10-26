@@ -1,0 +1,572 @@
+<style>
+/* Layout: cabeçalho com filtros e abas; a capa é o mapa municipal com o painel da cidade ao lado. */
+.st { --st-pt: #d4513f; --st-dir: #3d78d8; display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+.st-head { display: grid; gap: var(--cds-gap-sm); }
+.st-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.st-lede { margin: 0; max-width: 76ch; font-size: var(--cds-font-size-body); color: var(--color-fg-muted); line-height: 1.5; }
+.st-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+.st-seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+.st-seg button { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); background: transparent; color: var(--color-fg-muted); border: 0; cursor: pointer; font-variant-numeric: tabular-nums; }
+.st-seg button + button { border-left: 1px solid var(--color-border-line); }
+.st-seg button[aria-pressed="true"] { background: var(--color-panel); color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+.st-field { display: inline-flex; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st select, .st input[type="search"] { font: inherit; font-size: var(--cds-font-size-caption); color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); }
+.st input[type="search"] { min-width: 0; width: min(100%, 16rem); }
+.st :is(button, select, input):focus-visible { outline: 2px solid var(--color-fg); outline-offset: 1px; }
+.st-tabs { display: flex; gap: var(--cds-gap-xs); overflow-x: auto; border-bottom: 1px solid var(--color-border-line); }
+.st-tabs button { font: inherit; font-size: var(--cds-font-size-body); padding: var(--cds-pad-xs) var(--cds-pad-sm); background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted); cursor: pointer; white-space: nowrap; }
+.st-tabs button[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+.st-page { display: grid; gap: var(--cds-gap-md); min-width: 0; }
+.st-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--cds-gap-md); }
+.st-mapa-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--cds-gap-md); align-items: start; }
+@media (max-width: 980px) { .st-mapa-grid { grid-template-columns: minmax(0, 1fr); } }
+.st-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.st-card-h { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); justify-content: space-between; align-items: center; }
+.st-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.st-card h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: var(--cds-gap-sm) 0 0; }
+.st-note { margin: 0; max-width: 80ch; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.5; }
+.st-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr)); gap: var(--cds-gap-md); }
+.st-kpi { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: grid; gap: var(--cds-gap-xs); align-content: start; }
+.st-kpi-l { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st-kpi-v { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.st-kpi-s { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.st-sw { display: inline-block; width: 0.65rem; height: 0.65rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: baseline; }
+.st-sw-pt { background: var(--st-pt); } .st-sw-dir { background: var(--st-dir); }
+.st-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); align-items: center; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st-ramp { display: inline-block; width: 9rem; height: 0.6rem; border-radius: 2px; vertical-align: middle; margin: 0 0.35rem; }
+.st-chart { position: relative; min-height: 12rem; }
+.st-chart svg { display: block; }
+.st-mapa { position: relative; min-height: 22rem; background: var(--color-bg); border-radius: var(--cds-radius); overflow: hidden; touch-action: none; }
+.st-mapa svg { display: block; width: 100%; height: auto; max-height: 78vh; cursor: grab; }
+.st-mapa svg:active { cursor: grabbing; }
+.st-mapa path.m { stroke: var(--color-panel); stroke-width: 0.25; vector-effect: non-scaling-stroke; }
+.st-mapa path.m:hover { stroke: var(--color-fg); stroke-width: 1; }
+.st-zoom { position: absolute; right: 8px; top: 8px; display: grid; gap: 4px; }
+.st-zoom button { width: 2rem; height: 2rem; font: inherit; font-size: 1rem; background: var(--color-panel); color: var(--color-fg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); cursor: pointer; }
+.st-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 3; }
+.st-tip .st-tip-h { color: var(--cds-text-secondary); }
+.st-tbl { overflow: auto; max-height: 36rem; }
+.st-tbl.short { max-height: none; }
+.st table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.st th, .st td { padding: 0.4rem 0.55rem; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--color-border-line); }
+.st th:first-child, .st td:first-child { text-align: left; }
+.st td.txt, .st th.txt { text-align: left; }
+.st thead th { position: sticky; top: 0; background: var(--color-panel); color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); vertical-align: bottom; z-index: 1; }
+.st thead tr.grp th { text-align: center; border-bottom: 0; position: static; }
+.st thead th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+.st thead th[aria-sort="ascending"] button::after { content: " ↑"; }
+.st thead th[aria-sort="descending"] button::after { content: " ↓"; }
+.st tr.st-sel td { background: color-mix(in srgb, var(--color-fg) 7%, transparent); }
+.st tbody.click tr { cursor: pointer; }
+.st tbody.click tr:hover td { background: color-mix(in srgb, var(--color-fg) 5%, transparent); }
+.st .pos { color: var(--color-ok); } .st .neg { color: var(--color-bad); } .st .mut { color: var(--color-fg-muted); }
+.st-chip { display: inline-block; padding: 0.05rem 0.45rem; border-radius: 999px; font-size: var(--cds-font-size-caption); }
+.st .dispensa { background: color-mix(in srgb, var(--color-ok) 18%, transparent); }
+.st .viavel { background: color-mix(in srgb, var(--color-warn) 22%, transparent); }
+.st .inviavel { background: color-mix(in srgb, var(--color-bad) 20%, transparent); }
+.st-ins { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--cds-gap-md); }
+.st-ins li { display: grid; gap: 0.2rem; max-width: 80ch; }
+.st-ins b { font-weight: var(--cds-font-weight-medium); }
+.st-ins span { line-height: 1.5; }
+.st-ins.lead li:first-child span { font-size: var(--cds-font-size-body); }
+.st-city-h { display: grid; gap: 0.15rem; }
+.st-city-h b { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); line-height: 1.15; }
+.st-facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr)); gap: var(--cds-gap-sm); }
+.st-fact { display: grid; gap: 0.1rem; }
+.st-fact > span:first-child { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st-fact > span:last-child { font-variant-numeric: tabular-nums; font-size: var(--cds-font-size-body); }
+.st-method { display: grid; gap: var(--cds-gap-sm); max-width: 80ch; line-height: 1.55; }
+.st-method p, .st-method ul { margin: 0; }
+.st-method code { font-size: var(--cds-font-size-caption); }
+.st-fail { display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 6rem; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.st-fail::before { content: ""; width: 0.375rem; height: 0.375rem; border-radius: 50%; background: var(--color-bad); }
+.st [data-dash-source-state=empty] { color: transparent; }
+.st [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="st" id="topo">
+  <header class="st-head">
+    <h1 class="st-title" id="titulo">Segundo Turno em Números</h1>
+    <p class="st-lede dash-skeleton" id="lede" data-source="insights" data-field="texto" data-where="id=lede-2026">—</p>
+    <div class="st-controls">
+      <div class="st-seg" id="f-ano" role="group" aria-label="Eleição">
+        <button type="button" data-v="2026">2026</button>
+        <button type="button" data-v="2022">2022</button>
+        <button type="button" data-v="2018">2018</button>
+        <button type="button" data-v="2014">2014</button>
+        <button type="button" data-v="2010">2010</button>
+        <button type="button" data-v="2006">2006</button>
+        <button type="button" data-v="2002">2002</button>
+      </div>
+      <span class="st-field" id="disputa"></span>
+      <label class="st-field" for="f-reg">Região
+        <select id="f-reg">
+          <option value="BR">Brasil</option>
+          <option value="N">Norte</option>
+          <option value="NE">Nordeste</option>
+          <option value="CO">Centro-Oeste</option>
+          <option value="SE">Sudeste</option>
+          <option value="S">Sul</option>
+        </select>
+      </label>
+    </div>
+    <nav class="st-tabs" id="tabs" role="tablist" aria-label="Seções">
+      <button type="button" role="tab" id="tab-mapa" data-tab="mapa">Mapa</button>
+      <button type="button" role="tab" id="tab-geral" data-tab="geral">Visão geral</button>
+      <button type="button" role="tab" id="tab-estados" data-tab="estados">Estados</button>
+      <button type="button" role="tab" id="tab-porte" data-tab="porte">Porte</button>
+      <button type="button" role="tab" id="tab-cenarios" data-tab="cenarios">Cenários</button>
+      <button type="button" role="tab" id="tab-cidades" data-tab="cidades">Cidades</button>
+      <button type="button" role="tab" id="tab-terceira" data-tab="terceira">3ª via</button>
+      <button type="button" role="tab" id="tab-auditoria" data-tab="auditoria">Auditoria</button>
+      <button type="button" role="tab" id="tab-metodo" data-tab="metodo">Método</button>
+    </nav>
+  </header>
+
+  <section class="st-page" id="mapa" role="tabpanel" aria-labelledby="tab-mapa">
+    <div class="st-mapa-grid">
+      <div class="st-card" id="mapa-card">
+        <div class="st-card-h">
+          <h2 id="mapa-h">Mapa por município</h2>
+          <div class="st-controls">
+            <label class="st-field" for="f-cor">Cor
+              <select id="f-cor">
+                <option value="venc2">Vencedor do 2º turno</option>
+                <option value="venc1">Mais votado no 1º turno</option>
+                <option value="margem">Margem no 2º turno</option>
+                <option value="cresc_pt">Crescimento do PT (votos)</option>
+                <option value="cresc_dir">Crescimento do adversário (votos)</option>
+                <option value="pp_pt">Variação do PT (p.p.)</option>
+                <option value="pp_dir">Variação do adversário (p.p.)</option>
+                <option value="pct_terceira">3ª via no 1º turno</option>
+                <option value="delta_pct">Saldo recuperado (% do eleitorado)</option>
+                <option value="captura_pt">Fatia do PT nos votos novos</option>
+                <option value="virou">Cidades que viraram</option>
+                <option value="perda">Quem perdeu votos</option>
+                <option value="mudou">Mudou vs. eleição anterior</option>
+                <option value="cen50">PT com 50% da 3ª via: % do restante necessária</option>
+              </select>
+            </label>
+            <input type="search" id="f-cidade" list="lista-cidades" placeholder="Buscar município" aria-label="Buscar município">
+            <datalist id="lista-cidades"></datalist>
+          </div>
+        </div>
+        <div class="st-legend" id="mapa-legenda"></div>
+        <div class="st-mapa" id="mapa-chart" data-source="malha_municipios malha_estados"></div>
+        <p class="st-note">Arraste para mover. Zoom com os botões, Ctrl + roda do mouse ou pinça. Clique numa cidade para ver o que aconteceu do 1º para o 2º turno de 2002 a 2026.</p>
+      </div>
+      <div class="st-card" id="cidade-card">
+        <div class="st-city-h"><b id="cid-nome">—</b><span class="st-note" id="cid-sub"></span></div>
+        <div class="st-facts" id="cid-fatos"></div>
+        <h3>Fatia dos válidos, 1º → 2º turno</h3>
+        <div class="st-legend"><span><span class="st-sw st-sw-pt"></span>PT</span><span><span class="st-sw st-sw-dir"></span>Adversário</span></div>
+        <div class="st-chart" id="cid-chart"></div>
+      </div>
+    </div>
+    <div class="st-card" id="cid-cand-card">
+      <h2 id="cid-cand-h">Candidatos do 1º para o 2º turno</h2>
+      <div class="st-tbl short"><table id="cid-cand">
+        <thead>
+          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="2"></th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th><th class="txt">Disputa</th>
+            <th data-field="pct_pt_1t">1º</th><th data-field="pct_pt_2t">2º</th><th data-field="ganho_pt">Votos ganhos</th><th data-field="cresc_pt">Cresc.</th>
+            <th data-field="pct_dir_1t">1º</th><th data-field="pct_dir_2t">2º</th><th data-field="ganho_dir">Votos ganhos</th><th data-field="cresc_dir">Cresc.</th>
+            <th class="txt" data-field="lider1_sigla">Mais votado no 1º</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="cid-disp-card">
+      <h2>Votos em disputa do 1º para o 2º turno</h2>
+      <p class="st-note">Recuperados = queda do 1º para o 2º turno; negativo quer dizer que subiu (votos perdidos). Total disponível = 3ª via + saldo recuperado, igual ao que os dois finalistas somaram juntos.</p>
+      <div class="st-tbl short"><table id="cid-disp">
+        <thead>
+          <tr class="grp"><th></th><th></th><th colspan="3">Abstenção</th><th colspan="3">Brancos</th><th colspan="3">Nulos</th><th colspan="3"></th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th><th data-field="terceira_via">3ª via</th>
+            <th data-field="abst_1t">1º</th><th data-field="abst_2t">2º</th><th data-field="delta_abst">Recuperados</th>
+            <th data-field="brancos_1t">1º</th><th data-field="brancos_2t">2º</th><th data-field="delta_brancos">Recuperados</th>
+            <th data-field="nulos_1t">1º</th><th data-field="nulos_2t">2º</th><th data-field="delta_nulos">Recuperados</th>
+            <th data-field="delta">Saldo recuperado</th><th data-field="pool">Total disponível</th><th data-field="captura_pt">Fatia do PT</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="cid-cen-card">
+      <h2 id="cid-cen-h">Cenários na cidade</h2>
+      <p class="st-note">Se o candidato levou X% da 3ª via, quantos votos ainda faltavam para 50% dos válidos do 2º turno e que fatia do restante disponível (o que sobrou da 3ª via mais o saldo recuperado) ou só do saldo recuperado ele precisaria. Negativo é folga.</p>
+      <div class="st-tbl short"><table id="cid-cen">
+        <thead>
+          <tr class="grp"><th></th><th colspan="4" id="cid-cen-pt">PT</th><th colspan="4" id="cid-cen-dir">Adversário</th></tr>
+          <tr>
+            <th class="txt">3ª via levada (X)</th>
+            <th>Votos que faltavam</th><th>% do restante</th><th>% do saldo</th><th class="txt">Situação</th>
+            <th>Votos que faltavam</th><th>% do restante</th><th>% do saldo</th><th class="txt">Situação</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="geral" role="tabpanel" aria-labelledby="tab-geral" hidden>
+    <div class="st-kpis" id="kpis">
+      <div class="st-kpi"><span class="st-kpi-l"><span class="st-sw st-sw-pt"></span><span class="n-pt">PT</span> no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-pt2">—</span><span class="st-kpi-s"><span id="k-pt1">—</span> no 1º · <span id="k-pppt">—</span></span></div>
+      <div class="st-kpi"><span class="st-kpi-l"><span class="st-sw st-sw-dir"></span><span class="n-dir">Adversário</span> no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-dir2">—</span><span class="st-kpi-s"><span id="k-dir1">—</span> no 1º · <span id="k-ppdir">—</span></span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Crescimento de <span class="n-pt">PT</span></span><span class="st-kpi-v dash-skeleton" id="k-cpt">—</span><span class="st-kpi-s"><span id="k-gpt">—</span> votos</span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Crescimento de <span class="n-dir">Adversário</span></span><span class="st-kpi-v dash-skeleton" id="k-cdir">—</span><span class="st-kpi-s"><span id="k-gdir">—</span> votos</span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Votos em disputa no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-pool">—</span><span class="st-kpi-s">3ª via <span id="k-t">—</span> · saldo <span id="k-d">—</span></span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Fatia de <span class="n-pt">PT</span> nos votos novos</span><span class="st-kpi-v dash-skeleton" id="k-cap">—</span><span class="st-kpi-s">mínimo vindo da 3ª via: <span id="k-xmin">—</span></span></div>
+    </div>
+    <div class="st-grid">
+      <div class="st-card" id="fluxo">
+        <h2>De onde vieram e para onde foram os votos novos</h2>
+        <p class="st-note">Origem: 3ª via do 1º turno e quedas de abstenção, brancos e nulos. Destino: votos que cada finalista somou. As duas somas são iguais.</p>
+        <div class="st-chart" id="fluxo-chart" data-source="uf"></div>
+      </div>
+      <div class="st-card" id="leituras-card">
+        <h2>Leituras</h2>
+        <ul class="st-ins" id="leituras"></ul>
+      </div>
+    </div>
+    <div class="st-card" id="comparativo">
+      <h2>Do 1º para o 2º turno, 2002–2026</h2>
+      <p class="st-note" id="comp-nota">Uma linha por eleição.</p>
+      <div class="st-tbl short"><table id="comp-tabela" data-source="uf" data-row-key="id">
+        <thead>
+          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="6">Votos em disputa</th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th><th class="txt">Disputa</th>
+            <th data-field="pct_pt_1t">1º</th><th data-field="pct_pt_2t">2º</th><th data-field="ganho_pt">Votos ganhos</th><th data-field="cresc_pt">Cresc.</th>
+            <th data-field="pct_dir_1t">1º</th><th data-field="pct_dir_2t">2º</th><th data-field="ganho_dir">Votos ganhos</th><th data-field="cresc_dir">Cresc.</th>
+            <th data-field="pct_terceira">3ª via</th><th data-field="delta_abst">Abstenção rec.</th><th data-field="delta_brancos">Brancos rec.</th>
+            <th data-field="delta_nulos">Nulos rec.</th><th data-field="pool">Total disponível</th><th data-field="captura_pt">Fatia do PT</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="estados" role="tabpanel" aria-labelledby="tab-estados" hidden>
+    <div class="st-card" id="estados-grafico">
+      <div class="st-card-h">
+        <h2>Crescimento por estado, 1º → 2º turno</h2>
+        <div class="st-seg" id="f-metrica" role="group" aria-label="Métrica">
+          <button type="button" data-v="cresc">Crescimento em votos</button>
+          <button type="button" data-v="pp">Variação em p.p.</button>
+        </div>
+      </div>
+      <div class="st-legend"><span><span class="st-sw st-sw-pt"></span><span class="n-pt">PT</span></span><span><span class="st-sw st-sw-dir"></span><span class="n-dir">Adversário</span></span></div>
+      <div class="st-chart" id="estados-chart" data-source="uf"></div>
+    </div>
+    <div class="st-card" id="estados-tabela-card">
+      <h2>Estados na eleição escolhida</h2>
+      <p class="st-note">Rec. = queda do 1º para o 2º turno. Fatia do PT = votos que o PT somou sobre o que os dois somaram. Clique num cabeçalho para ordenar.</p>
+      <div class="st-tbl"><table id="estados-tabela" data-source="uf" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="nome"><button type="button" data-sort="nome">Estado</button></th>
+          <th data-field="pct_pt_1t"><button type="button" data-sort="pct_pt_1t" data-lab="pt" data-suf=" 1º">1º</button></th>
+          <th data-field="pct_pt_2t"><button type="button" data-sort="pct_pt_2t" data-lab="pt" data-suf=" 2º">2º</button></th>
+          <th data-field="pp_pt"><button type="button" data-sort="pp_pt">Var. p.p.</button></th>
+          <th data-field="cresc_pt"><button type="button" data-sort="cresc_pt">Cresc.</button></th>
+          <th data-field="pct_dir_1t"><button type="button" data-sort="pct_dir_1t" data-lab="dir" data-suf=" 1º">1º</button></th>
+          <th data-field="pct_dir_2t"><button type="button" data-sort="pct_dir_2t" data-lab="dir" data-suf=" 2º">2º</button></th>
+          <th data-field="pp_dir"><button type="button" data-sort="pp_dir">Var. p.p.</button></th>
+          <th data-field="cresc_dir"><button type="button" data-sort="cresc_dir">Cresc.</button></th>
+          <th data-field="pct_terceira"><button type="button" data-sort="pct_terceira">3ª via</button></th>
+          <th data-field="delta_abst"><button type="button" data-sort="delta_abst">Abstenção rec.</button></th>
+          <th data-field="delta_brancos"><button type="button" data-sort="delta_brancos">Brancos rec.</button></th>
+          <th data-field="delta_nulos"><button type="button" data-sort="delta_nulos">Nulos rec.</button></th>
+          <th data-field="pool"><button type="button" data-sort="pool">Total disponível</button></th>
+          <th data-field="captura_pt"><button type="button" data-sort="captura_pt">Fatia do PT</button></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="porte" role="tabpanel" aria-labelledby="tab-porte" hidden>
+    <div class="st-card" id="porte-grafico">
+      <h2>Variação em p.p. do 1º para o 2º turno, por porte da cidade</h2>
+      <p class="st-note">Porte pelo número de eleitores aptos. Eleição e região dos filtros.</p>
+      <div class="st-legend"><span><span class="st-sw st-sw-pt"></span><span class="n-pt">PT</span></span><span><span class="st-sw st-sw-dir"></span><span class="n-dir">Adversário</span></span></div>
+      <div class="st-chart" id="porte-chart" data-source="porte"></div>
+    </div>
+    <div class="st-card" id="porte-comp">
+      <div class="st-card-h">
+        <h2>Por porte, 2002–2026</h2>
+        <label class="st-field" for="f-porte-m">Métrica
+          <select id="f-porte-m">
+            <option value="pp_pt">Variação do PT (p.p.)</option>
+            <option value="pp_dir">Variação do adversário (p.p.)</option>
+            <option value="captura_pt">Fatia do PT nos votos novos</option>
+            <option value="pct_terceira">3ª via no 1º turno</option>
+            <option value="delta_pct">Saldo recuperado (% do eleitorado)</option>
+            <option value="viradas_pt">Cidades viradas para o PT</option>
+            <option value="viradas_dir">Cidades viradas para o adversário</option>
+            <option value="perdeu_dir">Cidades onde o adversário perdeu votos</option>
+            <option value="perdeu_pt">Cidades onde o PT perdeu votos</option>
+          </select>
+        </label>
+      </div>
+      <div class="st-tbl short"><table id="porte-tres">
+        <thead><tr><th class="txt">Eleição</th><th>Até 10 mil</th><th>10 a 50 mil</th><th>50 a 200 mil</th><th>200 mil a 1 mi</th><th>Mais de 1 mi</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="cenarios" role="tabpanel" aria-labelledby="tab-cenarios" hidden>
+    <div class="st-card" id="cen-card">
+      <div class="st-card-h">
+        <h2>Cenários de transferência</h2>
+        <div class="st-controls">
+          <div class="st-seg" id="f-cen-cand" role="group" aria-label="Candidato">
+            <button type="button" data-v="pt">PT</button>
+            <button type="button" data-v="dir">Adversário</button>
+          </div>
+          <label class="st-field" for="f-esc">Recorte <select id="f-esc"></select></label>
+        </div>
+      </div>
+      <p class="st-note">Cada finalista mantém seus votos do 1º turno e leva X% da 3ª via. Restante = o que sobra da 3ª via mais o saldo recuperado; saldo = só a queda de abstenção, brancos e nulos. O implícito é o que o resultado real exige. Negativo é folga.</p>
+      <div class="st-tbl short"><table id="cen-tabela" data-source="cenarios" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="x">X: % da 3ª via</th>
+          <th data-field="need">Votos que faltavam</th>
+          <th data-field="y_resto">% do restante</th>
+          <th data-field="y_saldo">% do saldo</th>
+          <th class="txt" data-field="status">Situação</th>
+          <th data-field="y_impl">% do saldo implícito</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="cen-tres-card">
+      <h2>% do restante necessária, 2002–2026</h2>
+      <p class="st-note">Mesmo recorte e candidato, uma linha por eleição.</p>
+      <div class="st-tbl short"><table id="cen-tres">
+        <thead><tr><th class="txt">Eleição</th><th>X 40%</th><th>X 50%</th><th>X 60%</th><th>X 70%</th><th>X 80%</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="cidades" role="tabpanel" aria-labelledby="tab-cidades" hidden>
+    <div class="st-card" id="viradas-card">
+      <h2>Viradas e mudanças de lado, 2002–2026</h2>
+      <p class="st-note">Virada: quem liderava a cidade no 1º turno perdeu o 2º. Mudança: o vencedor do 2º turno é de outro lado que na eleição anterior.</p>
+      <div class="st-tbl short"><table id="viradas-tabela" data-source="viradas" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th><th data-field="cidades">Cidades</th><th data-field="viradas">Viradas</th>
+          <th data-field="viradas_para_pt">→ PT</th><th data-field="viradas_para_dir">→ adversário</th><th data-field="eleitores_virados">Eleitores nelas</th>
+          <th data-field="venc_pt_2t">PT venceu</th><th data-field="venc_dir_2t">Adversário venceu</th>
+          <th data-field="mudou_para_pt">Mudou → PT</th><th data-field="mudou_para_dir">Mudou → adversário</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="perdas-card">
+      <h2>Perdas de votos e ganhos acima do disponível, 2002–2026</h2>
+      <p class="st-note">Com saldo positivo: o candidato perdeu votos numa cidade onde mais gente votou validamente no 2º turno. Acima do disponível: ganho maior que toda a 3ª via mais o saldo positivo, o que só fecha com eleitor trocando de lado.</p>
+      <div class="st-tbl short"><table id="perdas-tabela" data-source="viradas" data-row-key="id">
+        <thead>
+          <tr class="grp"><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th>
+            <th data-field="perdeu_pt">Perdeu votos</th><th data-field="votos_perdidos_pt">Votos perdidos</th><th data-field="perda_pt_saldo_pos">Com saldo positivo</th><th data-field="pt_acima_pool">Acima do disponível</th>
+            <th data-field="perdeu_dir">Perdeu votos</th><th data-field="votos_perdidos_dir">Votos perdidos</th><th data-field="perda_dir_saldo_pos">Com saldo positivo</th><th data-field="dir_acima_pool">Acima do disponível</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="top-card">
+      <div class="st-card-h">
+        <h2>Top 100 cidades</h2>
+        <div class="st-controls">
+          <div class="st-seg" id="f-cand" role="group" aria-label="Candidato"><button type="button" data-v="pt">PT</button><button type="button" data-v="dir">Adversário</button></div>
+          <div class="st-seg" id="f-crit" role="group" aria-label="Critério"><button type="button" data-v="abs">Votos ganhos</button><button type="button" data-v="pct">Crescimento %</button><button type="button" data-v="perda">Maiores perdas</button></div>
+        </div>
+      </div>
+      <p class="st-note">Crescimento % só entre cidades com 10 mil eleitores ou mais. A lista é da eleição escolhida; clique numa cidade para abri-la no mapa.</p>
+      <div class="st-tbl short"><table id="top-resumo" data-source="top100_resumo" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th><th data-field="cidades">Cidades</th><th data-field="ganho_top">Votos (soma)</th><th data-field="pct_ganho_total">% do ganho total</th>
+          <th data-field="mediana_cresc">Cresc. mediano</th><th data-field="capitais">Capitais</th><th data-field="reg_N">N</th><th data-field="reg_NE">NE</th>
+          <th data-field="reg_CO">CO</th><th data-field="reg_SE">SE</th><th data-field="reg_S">S</th><th data-field="repetidas_ant">Repetem a anterior</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div class="st-tbl"><table id="top-lista" data-source="top100" data-row-key="id">
+        <thead><tr>
+          <th data-field="rank">#</th><th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th>
+          <th data-field="votos_1t">Votos 1º</th><th data-field="votos_2t">Votos 2º</th><th data-field="ganho">Variação</th><th data-field="cresc">Cresc.</th><th data-field="pp">Var. p.p.</th>
+          <th class="txt" data-field="venc_2t">Venceu o 2º</th>
+        </tr></thead>
+        <tbody class="click"></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="busca-card">
+      <div class="st-card-h">
+        <h2>Explorar cidades</h2>
+        <div class="st-controls">
+          <input type="search" id="f-busca" placeholder="Buscar município" aria-label="Buscar município">
+          <select id="f-filtro" aria-label="Filtrar cidades">
+            <option value="todas">Todas</option>
+            <option value="pt">PT perdeu votos</option>
+            <option value="dir">Adversário perdeu votos</option>
+            <option value="ambos">Os dois perderam votos</option>
+            <option value="viradas">Viraram no 2º turno</option>
+          </select>
+        </div>
+      </div>
+      <p class="st-note">Eleição e região dos filtros, maiores eleitorados primeiro, até 200 linhas. Vencedor: PT, DIR (adversário) ou EMP (empate). Clique numa cidade para abri-la no mapa com o histórico 2002–2026.</p>
+      <div class="st-tbl"><table id="busca-tabela">
+        <thead><tr>
+          <th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th>
+          <th data-field="pct_pt_1t">PT 1º</th><th data-field="pct_pt_2t">PT 2º</th><th data-field="cresc_pt">Cresc. PT</th><th data-field="ganho_pt">Votos PT</th>
+          <th data-field="pct_dir_1t">Adv. 1º</th><th data-field="pct_dir_2t">Adv. 2º</th><th data-field="cresc_dir">Cresc. adv.</th><th data-field="ganho_dir">Votos adv.</th>
+          <th data-field="pct_terceira">3ª via</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
+        </tr></thead>
+        <tbody class="click"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="terceira" role="tabpanel" aria-labelledby="tab-terceira" hidden>
+    <div class="st-card" id="t3-leit">
+      <h2>Quem era a 3ª via e para onde foi</h2>
+      <ul class="st-ins" id="t3-leituras"></ul>
+    </div>
+    <div class="st-card" id="t3-bancadas">
+      <h2 id="t3-banc-h">Bancadas por candidato</h2>
+      <p class="st-note">Grupos pela coligação registrada no TSE. Eleitos: deputados federais, senadores e governadores (TSE). Apoio no 2º turno: posição declarada pelo candidato ou partido; entra só como hipótese, testada nas tabelas abaixo.</p>
+      <div class="st-tbl short"><table id="t3-banc" data-source="bancadas" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="candidato">Candidato</th><th class="txt" data-field="partido">Partido</th><th class="txt" data-field="coligacao">Coligação</th>
+          <th data-field="pct_pres_1t">% no 1º turno</th><th class="txt" data-field="apoio_2t">Apoio no 2º</th>
+          <th data-field="deputados">Deputados</th><th data-field="senadores">Senadores</th><th data-field="governadores">Governadores</th><th data-field="pct_votos_dep">% votos p/ deputado</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="t3-eleit">
+      <h2 id="t3-eleit-h">Eleitores de cada candidato: de onde vinham e para onde foram</h2>
+      <p class="st-note">Índice geográfico: onde estavam os votos do candidato, de 0% (igual ao eleitorado do adversário) a 100% (igual ao do PT), medido pelo 2º turno anterior e pelo voto para deputado. Origem: fatia estimada que votou no PT no 2º turno anterior. Transferência: fatia estimada que foi ao PT no 2º turno. Estimativas por regressão entre cidades; fora de 0–100% não são confiáveis, o que acontece com candidatos pequenos.</p>
+      <div class="st-tbl short"><table id="t3-tab" data-source="eleitores_3a_via" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="candidato">Candidato</th><th data-field="pct_pres_1t">% no 1º</th><th class="txt" data-field="apoio_2t">Apoio no 2º</th>
+          <th data-field="pos_prev">Índice: 2º turno anterior</th><th data-field="pos_dep">Índice: deputados</th>
+          <th data-field="origem_pt">Origem PT</th><th data-field="transf_pt">Transferência ao PT</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="t3-serie">
+      <h2>A 3ª via inteira, 2002–2026</h2>
+      <p class="st-note">Conversão = transferência ao PT menos origem PT. A transferência alternativa usa uma constante nacional em vez de uma por região; a diferença mostra quanto a estimativa depende do modelo.</p>
+      <div class="st-tbl short"><table id="t3-tres" data-source="eleitores_3a_via" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th><th data-field="pos_prev">Índice: 2º turno anterior</th><th data-field="pos_dep">Índice: deputados</th>
+          <th data-field="origem_pt">Origem PT</th><th data-field="transf_pt">Transferência ao PT</th><th data-field="transf_pt_alt">Transferência (alt.)</th>
+          <th data-field="conversao">Conversão</th><th data-field="conversao_alt">Conversão (alt.)</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="auditoria" role="tabpanel" aria-labelledby="tab-auditoria" hidden>
+    <div class="st-card" id="aud-leit">
+      <h2>Auditoria estatística do 2º turno</h2>
+      <p class="st-note">Só dados do TSE, por município, comparando 2026 com 2002–2022: crescimentos atípicos ou generalizados, conversões e perdas fora do histórico.</p>
+      <ul class="st-ins lead" id="aud-leituras"></ul>
+    </div>
+    <div class="st-card" id="aud-serie-card">
+      <h2>Abstenção, brancos e nulos entre turnos, 2002–2026</h2>
+      <div class="st-tbl short"><table id="aud-serie" data-source="auditoria_serie" data-row-key="id">
+        <thead>
+          <tr class="grp"><th></th><th colspan="3">Abstenção (% do eleitorado)</th><th colspan="3">Brancos + nulos (% do comparecimento)</th><th colspan="4">% das cidades em que</th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th>
+            <th data-field="abst_1t">1º</th><th data-field="abst_2t">2º</th><th data-field="d_abst_pp">Variação</th>
+            <th data-field="bn_1t">1º</th><th data-field="bn_2t">2º</th><th data-field="d_bn_pp">Variação</th>
+            <th data-field="pct_cid_abst_caiu">abstenção caiu</th><th data-field="pct_cid_bn_caiu">br. + nulos caíram</th><th data-field="pct_cid_ambos_caiu">os dois caíram</th><th data-field="pct_cid_swing_pt">PT ganhou fatia</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="aud-dist-card">
+      <div class="st-card-h">
+        <h2>Distribuição entre cidades</h2>
+        <label class="st-field" for="f-aud-var">Variável
+          <select id="f-aud-var">
+            <option value="d_abst">Variação da abstenção</option>
+            <option value="d_bn">Variação de brancos + nulos</option>
+            <option value="swing">Swing do PT (fatia entre os dois)</option>
+          </select>
+        </label>
+      </div>
+      <p class="st-note">Fatia das cidades em cada faixa. A eleição escolhida em destaque, as outras em cinza. À esquerda de zero: queda.</p>
+      <div class="st-chart" id="aud-dist" data-source="auditoria_hist"></div>
+    </div>
+    <div class="st-card" id="aud-forense-card">
+      <h2>Testes forenses, 2002–2026</h2>
+      <p class="st-note">Dispersão do swing: desvio-padrão do swing entre cidades. Atípicas: cidades com resíduo acima de 5 desvios robustos no modelo de transferência, por mil. Comparecimento × PT: correlação entre comparecimento e fatia do PT no 2º turno (enchimento de urnas a favor do PT a deixaria positiva). Klimek: cidades com comparecimento ≥ 90% e vencedor ≥ 80%. Dígitos: valor-p do 2º dígito (Benford) e do último dígito das contagens por cidade.</p>
+      <div class="st-tbl short"><table id="aud-forense" data-source="auditoria_serie" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th><th data-field="sd_swing">Dispersão do swing</th><th data-field="r2_uniforme">R² swing uniforme</th>
+          <th data-field="outliers_z5_por_mil">Atípicas por mil</th><th data-field="corr_comparecimento_pt">Comparecimento × PT</th><th data-field="corr_mobilizacao">Queda da abst. × PT no 1º</th>
+          <th data-field="klimek_cidades">Klimek</th><th data-field="benford2_p">2º dígito (p)</th><th data-field="ultimo_digito_p">Último dígito (p)</th>
+          <th data-field="x_hat">3ª via → PT</th><th data-field="y_hat">Saldo → PT</th><th data-field="c_hat">Constante</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="aud-out-card">
+      <h2>Cidades mais atípicas na eleição escolhida</h2>
+      <p class="st-note">Resíduo do modelo de transferência escalado pelo eleitorado: cidades grandes aparecem mais. Esperado = ganho do PT que o modelo previa. Clique para abrir no mapa.</p>
+      <div class="st-tbl"><table id="aud-out" data-source="auditoria_outliers" data-row-key="id">
+        <thead><tr>
+          <th data-field="rank">#</th><th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th>
+          <th data-field="z">Resíduo (z)</th><th data-field="ganho_pt">Ganho PT</th><th data-field="esperado_pt">Esperado</th><th data-field="ganho_adv">Ganho adv.</th>
+          <th data-field="terceira">3ª via</th><th data-field="delta">Saldo</th>
+        </tr></thead>
+        <tbody class="click"></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="metodo" role="tabpanel" aria-labelledby="tab-metodo" hidden>
+    <div class="st-card">
+      <h2>Como os números foram feitos</h2>
+      <div class="st-method">
+        <p><b>Fontes.</b> TSE. 2002–2022: dados abertos de votação por município e zona e cadastro de candidatos (eleitos). 2026: API oficial de resultados, 1º turno (eleição 6257), 2º turno (6258) e cargos estaduais (6259, 6260), por estado e por município; a soma dos municípios confere com o total de cada estado. Malha municipal: IBGE 2024, via geobr (Ipea), simplificada.</p>
+        <p><b>Candidatos.</b> PT: Lula (2002, 2006, 2022, 2026), Dilma (2010, 2014), Haddad (2018). Adversário no 2º turno: Serra (2002, 2010), Alckmin (2006), Aécio (2014), Bolsonaro (2018, 2022), Flávio (2026).</p>
+        <p><b>Definições.</b></p>
+        <ul>
+          <li>3ª via = votos válidos do 1º turno fora dos dois finalistas.</li>
+          <li>Nulos inclui nulos técnicos e votos anulados.</li>
+          <li>Recuperados = queda de abstenção, brancos ou nulos do 1º para o 2º turno. Saldo recuperado = soma das três.</li>
+          <li>Total disponível = 3ª via + saldo recuperado; por construção, igual ao que os dois finalistas somaram juntos.</li>
+          <li>Fatia do PT = votos que o PT somou ÷ total que os dois somaram.</li>
+          <li>Cenários: votos que faltavam = válidos do 2º turno ÷ 2 − votos do candidato no 1º − X × 3ª via. % do restante = votos que faltavam ÷ (total disponível − X × 3ª via). % do saldo = votos que faltavam ÷ saldo recuperado.</li>
+        </ul>
+        <p><b>Testes.</b> Regressão ecológica (Goodman) entre municípios, ponderada pelo eleitorado. Swing = variação da fatia do PT entre os dois finalistas. Benford: segundo dígito das contagens por município (teste fraco para eleições; serve de comparação entre anos). Klimek: concentração de cidades com comparecimento e votação extremos.</p>
+        <p><b>Limites.</b> Tudo é saldo líquido: movimentos opostos dentro de uma cidade se anulam. Regressões entre cidades mostram associação entre lugares, não o voto de pessoas. Dados por município não detectam alteração localizada em seções; isso exige os boletins de urna.</p>
+        <p><b>Reprodução.</b> Scripts em <code>analise-eleicoes/</code> no repositório <code>legendary-bassoon</code>, branch <code>claude/vigilant-hawking-2j8wd8</code>.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="core.js"></script>
+<script src="mapa.js"></script>
+<script src="abas.js"></script>
+<script src="auditoria.js"></script>
+<script>window.ST.start();</script>
