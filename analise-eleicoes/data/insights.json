@@ -1,0 +1,86 @@
+[
+ {
+  "id": "lede-2018",
+  "ordem": 1,
+  "tema": "lede",
+  "titulo": "Resumo 2018",
+  "texto": "Bolsonaro liderou o 1º turno e venceu o 2º com 55,1% dos válidos. Haddad somou 15,70 mi de votos (50,1%) e Bolsonaro 8,52 mi (17,3%); Haddad ficou com 64,8% dos votos novos do 2º turno."
+ },
+ {
+  "id": "lede-2022",
+  "ordem": 2,
+  "tema": "lede",
+  "titulo": "Resumo 2022",
+  "texto": "Lula liderou o 1º turno e venceu o 2º com 50,9% dos válidos. Lula somou 3,09 mi de votos (5,4%) e Bolsonaro 7,13 mi (14,0%); Lula ficou com 30,2% dos votos novos do 2º turno."
+ },
+ {
+  "id": "lede-2026",
+  "ordem": 3,
+  "tema": "lede",
+  "titulo": "Resumo 2026",
+  "texto": "Flávio liderou o 1º turno e Lula venceu o 2º com 51,8% dos válidos. Lula somou 10,38 mi de votos (19,3%) e Flávio 3,72 mi (6,6%); Lula ficou com 73,6% dos votos novos do 2º turno."
+ },
+ {
+  "id": "pool",
+  "ordem": 4,
+  "tema": "geral",
+  "titulo": "O pool de 2026",
+  "texto": "O 2º turno teve 14,10 mi de votos disponíveis: 9,32 mi da 3ª via e 4,78 mi de eleitores recuperados (abstenção −2,96 mi, brancos e nulos −1,82 mi). Lula ficou com 73,6%. Mesmo levando 100% dos recuperados, ele precisaria de pelo menos 60,1% da 3ª via, que era majoritariamente de direita."
+ },
+ {
+  "id": "delta",
+  "ordem": 5,
+  "tema": "geral",
+  "titulo": "A abstenção decidiu desta vez",
+  "texto": "O saldo de abstenção, brancos e nulos foi −2,21 mi em 2018 e +0,32 mi em 2022. Em 2026 foi +4,78 mi, o maior das três eleições. Sem nenhum voto desse saldo, Lula precisaria de 87,6% da 3ª via para vencer."
+ },
+ {
+  "id": "regressao",
+  "ordem": 6,
+  "tema": "geral",
+  "titulo": "O que a regressão por cidade sugere",
+  "texto": "Nas regiões, a transferência estimada da 3ª via para Lula vai de 46% (Centro-Oeste) a 71% (Norte). O termo constante é positivo em 4 de 5 regiões: um ganho uniforme pró-Lula que nem a 3ª via nem a queda da abstenção explicam, compatível com troca direta de eleitores de Flávio. Em 2022 o mesmo termo foi negativo em 5 de 5 regiões."
+ },
+ {
+  "id": "viradas",
+  "ordem": 7,
+  "tema": "cidades",
+  "titulo": "Quem fecha o 2º turno leva as viradas",
+  "texto": "Em 2026, 227 cidades trocaram de lado entre os turnos (220 para Lula), somando 10,96 mi de eleitores; a maior foi Rio de Janeiro (4,95 mi). Em 2022 foram 263, 261 para Bolsonaro; em 2018, 169, 144 para Haddad."
+ },
+ {
+  "id": "concentracao",
+  "ordem": 8,
+  "tema": "cidades",
+  "titulo": "Mais votos em menos cidades",
+  "texto": "Comparado a 2022, Lula perdeu 289 cidades para a direita e tomou 46. Venceu o 2º turno em 2.963 municípios, contra 3.203 em 2022, com margem nacional maior: o voto de Lula ficou mais urbano."
+ },
+ {
+  "id": "top100",
+  "ordem": 9,
+  "tema": "cidades",
+  "titulo": "Top 100: tamanho e geografia",
+  "texto": "Em votos absolutos, as 100 cidades que mais deram votos novos concentram 45% do ganho de Lula e 51% do de Flávio, e 87 delas já estavam no top 100 de Lula em 2022: é tamanho de cidade. Em crescimento %, entre cidades com 10 mil+ eleitores, o top 100 de Lula tem 44 cidades no Centro-Oeste, 41 no Sudeste e 0 no Nordeste; só 16 repetem 2022."
+ },
+ {
+  "id": "goias",
+  "ordem": 10,
+  "tema": "estados",
+  "titulo": "Goiás, a casa da 3ª via",
+  "texto": "Goiás teve a maior variação de Lula em pontos percentuais entre os estados (+9,3 p.p.) e a maior alta % de Flávio (14,3%). A 3ª via lá foi 15,3% dos válidos, contra 7,8% no Brasil: o maior estoque livre do país foi disputado pelos dois."
+ },
+ {
+  "id": "estados",
+  "ordem": 11,
+  "tema": "estados",
+  "titulo": "Estados que mudaram de lado",
+  "texto": "Minas Gerais foi o único estado a virar entre os turnos: Flávio liderou o 1º e Lula venceu o 2º. Flávio perdeu votos em números absolutos no 2º turno em 6 estados, com a maior queda em Amapá (−6,4%)."
+ },
+ {
+  "id": "perdas",
+  "ordem": 12,
+  "tema": "cidades",
+  "titulo": "Onde os finalistas perderam votos",
+  "texto": "Em 2026, Flávio teve menos votos no 2º turno que no 1º em 950 cidades (585 no Nordeste, 305 no Norte), somando 133.924 votos; Lula perdeu em 89. Em 2022 o espelho: Lula perdeu em 997 cidades (115.126 votos) e Bolsonaro em 108. Em 2018, Haddad perdeu em 128 e Bolsonaro em 138. Os dois perderam juntos em 75 cidades em 2026, 57 delas no Norte, onde a abstenção subiu no 2º turno."
+ }
+]

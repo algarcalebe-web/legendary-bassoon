@@ -1,0 +1,924 @@
+<style>
+/* Layout: cabeçalho com filtros e abas; cada aba é uma pilha de cartões com tabelas e gráficos. */
+.st { --st-pt: #d4513f; --st-dir: #3d78d8; display: grid; gap: var(--cds-gap-lg); font-family: var(--font-anthropic-sans); color: var(--color-fg); }
+.st-head { display: grid; gap: var(--cds-gap-sm); }
+.st-title { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.st-lede { margin: 0; max-width: 72ch; font-size: var(--cds-font-size-body); color: var(--color-fg-muted); line-height: 1.5; }
+.st-controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+.st-seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); overflow: hidden; }
+.st-seg button { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); background: transparent; color: var(--color-fg-muted); border: 0; cursor: pointer; }
+.st-seg button + button { border-left: 1px solid var(--color-border-line); }
+.st-seg button[aria-pressed="true"] { background: var(--color-panel); color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+.st-field { display: inline-flex; gap: var(--cds-gap-xs); align-items: center; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st select, .st input[type="search"] { font: inherit; font-size: var(--cds-font-size-caption); color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-xs) var(--cds-pad-sm); }
+.st input[type="search"] { min-width: 0; width: min(100%, 18rem); }
+.st :is(button, select, input):focus-visible { outline: 2px solid var(--color-fg); outline-offset: 1px; }
+.st-tabs { display: flex; gap: var(--cds-gap-xs); overflow-x: auto; border-bottom: 1px solid var(--color-border-line); }
+.st-tabs button { font: inherit; font-size: var(--cds-font-size-body); padding: var(--cds-pad-xs) var(--cds-pad-sm); background: none; border: 0; border-bottom: 2px solid transparent; color: var(--color-fg-muted); cursor: pointer; white-space: nowrap; }
+.st-tabs button[aria-selected="true"] { color: var(--color-fg); border-bottom-color: var(--color-fg); font-weight: var(--cds-font-weight-medium); }
+.st-page { display: grid; gap: var(--cds-gap-md); min-width: 0; }
+.st-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 24rem), 1fr)); gap: var(--cds-gap-md); }
+.st-card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.st-card-h { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); justify-content: space-between; align-items: center; }
+.st-card h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.st-note { margin: 0; max-width: 78ch; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.5; }
+.st-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.5rem), 1fr)); gap: var(--cds-gap-md); }
+.st-kpi { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-md); display: grid; gap: var(--cds-gap-xs); align-content: start; }
+.st-kpi-l { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st-kpi-v { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.1; }
+.st-kpi-s { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.st-sw { display: inline-block; width: 0.6rem; height: 0.6rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: baseline; }
+.st-sw-pt { background: var(--st-pt); } .st-sw-dir { background: var(--st-dir); }
+.st-legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.st-chart { position: relative; min-height: 12rem; }
+.st-chart svg { display: block; }
+.st-tip { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); white-space: nowrap; z-index: 2; }
+.st-tip b { font-weight: var(--cds-font-weight-medium); }
+.st-tip .st-tip-h { color: var(--cds-text-secondary); }
+.st-tbl { overflow: auto; max-height: 36rem; }
+.st-tbl.short { max-height: none; }
+.st table { border-collapse: collapse; width: 100%; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.st th, .st td { padding: 0.4rem 0.55rem; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--color-border-line); }
+.st th:first-child, .st td:first-child { text-align: left; }
+.st td.txt, .st th.txt { text-align: left; }
+.st thead th { position: sticky; top: 0; background: var(--color-panel); color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); vertical-align: bottom; z-index: 1; }
+.st thead th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: inherit; }
+.st thead th[aria-sort="ascending"] button::after { content: " ↑"; }
+.st thead th[aria-sort="descending"] button::after { content: " ↓"; }
+.st tr.st-group td { color: var(--color-fg-muted); font-weight: var(--cds-font-weight-medium); padding-top: 0.8rem; }
+.st tr.st-sel td { background: color-mix(in srgb, var(--color-fg) 6%, transparent); }
+.st .pos { color: var(--color-ok); } .st .neg { color: var(--color-bad); } .st .mut { color: var(--color-fg-muted); }
+.st-chip { display: inline-block; padding: 0.05rem 0.45rem; border-radius: 999px; font-size: var(--cds-font-size-caption); }
+.st-chip.dispensa { background: color-mix(in srgb, var(--color-ok) 18%, transparent); }
+.st-chip.viavel { background: color-mix(in srgb, var(--color-warn) 22%, transparent); }
+.st-chip.inviavel { background: color-mix(in srgb, var(--color-bad) 20%, transparent); }
+.st-chip.delta_negativo { background: color-mix(in srgb, var(--color-fg) 10%, transparent); }
+.st td.heat.dispensa { background: color-mix(in srgb, var(--color-ok) 18%, transparent); }
+.st td.heat.viavel { background: color-mix(in srgb, var(--color-warn) 22%, transparent); }
+.st td.heat.inviavel { background: color-mix(in srgb, var(--color-bad) 20%, transparent); }
+.st td.heat.delta_negativo { background: color-mix(in srgb, var(--color-fg) 8%, transparent); }
+.st-ins { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--cds-gap-md); }
+.st-ins li { display: grid; gap: 0.2rem; max-width: 78ch; }
+.st-ins b { font-weight: var(--cds-font-weight-medium); }
+.st-ins span { line-height: 1.5; }
+.st-method { display: grid; gap: var(--cds-gap-sm); max-width: 78ch; line-height: 1.55; }
+.st-method p, .st-method ul { margin: 0; }
+.st-method code { font-size: var(--cds-font-size-caption); }
+.st-fail { display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-height: 6rem; color: var(--color-fg-muted); font-size: var(--cds-font-size-caption); }
+.st-fail::before { content: ""; width: 0.375rem; height: 0.375rem; border-radius: 50%; background: var(--color-bad); }
+.st [data-dash-source-state=empty] { color: transparent; }
+.st [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+</style>
+
+<div class="st" id="topo">
+  <header class="st-head">
+    <h1 class="st-title" id="titulo">Segundo Turno em Números</h1>
+    <p class="st-lede dash-skeleton" id="lede" data-source="insights" data-field="texto" data-where="id=lede-2026">—</p>
+    <div class="st-controls">
+      <div class="st-seg" id="f-ano" role="group" aria-label="Eleição">
+        <button type="button" data-v="2026">2026 · Lula × Flávio</button>
+        <button type="button" data-v="2022">2022 · Lula × Bolsonaro</button>
+        <button type="button" data-v="2018">2018 · Haddad × Bolsonaro</button>
+      </div>
+      <label class="st-field" for="f-reg">Região
+        <select id="f-reg">
+          <option value="BR">Brasil</option>
+          <option value="N">Norte</option>
+          <option value="NE">Nordeste</option>
+          <option value="CO">Centro-Oeste</option>
+          <option value="SE">Sudeste</option>
+          <option value="S">Sul</option>
+        </select>
+      </label>
+    </div>
+    <nav class="st-tabs" id="tabs" role="tablist" aria-label="Seções">
+      <button type="button" role="tab" id="tab-geral" data-tab="geral">Visão geral</button>
+      <button type="button" role="tab" id="tab-estados" data-tab="estados">Estados</button>
+      <button type="button" role="tab" id="tab-cenarios" data-tab="cenarios">Cenários</button>
+      <button type="button" role="tab" id="tab-cidades" data-tab="cidades">Cidades</button>
+      <button type="button" role="tab" id="tab-regressao" data-tab="regressao">Regressão</button>
+      <button type="button" role="tab" id="tab-metodo" data-tab="metodo">Método</button>
+    </nav>
+  </header>
+
+  <section class="st-page" id="geral" role="tabpanel" aria-labelledby="tab-geral">
+    <div class="st-kpis" id="kpis">
+      <div class="st-kpi" id="kpi-pt"><span class="st-kpi-l"><span class="st-sw st-sw-pt"></span><span class="n-pt">PT</span> no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-pt2">—</span><span class="st-kpi-s"><span id="k-pt1">—</span> no 1º · <span id="k-pppt">—</span></span></div>
+      <div class="st-kpi" id="kpi-dir"><span class="st-kpi-l"><span class="st-sw st-sw-dir"></span><span class="n-dir">Direita</span> no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-dir2">—</span><span class="st-kpi-s"><span id="k-dir1">—</span> no 1º · <span id="k-ppdir">—</span></span></div>
+      <div class="st-kpi" id="kpi-cpt"><span class="st-kpi-l">Crescimento de <span class="n-pt">PT</span></span><span class="st-kpi-v dash-skeleton" id="k-cpt">—</span><span class="st-kpi-s"><span id="k-gpt">—</span> votos</span></div>
+      <div class="st-kpi" id="kpi-cdir"><span class="st-kpi-l">Crescimento de <span class="n-dir">Direita</span></span><span class="st-kpi-v dash-skeleton" id="k-cdir">—</span><span class="st-kpi-s"><span id="k-gdir">—</span> votos</span></div>
+      <div class="st-kpi" id="kpi-pool"><span class="st-kpi-l">Votos em disputa no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-pool">—</span><span class="st-kpi-s">3ª via <span id="k-t">—</span> · saldo <span id="k-d">—</span></span></div>
+      <div class="st-kpi" id="kpi-cap"><span class="st-kpi-l">Fatia de <span class="n-pt">PT</span> nos votos novos</span><span class="st-kpi-v dash-skeleton" id="k-cap">—</span><span class="st-kpi-s">mínimo vindo da 3ª via: <span id="k-xmin">—</span></span></div>
+    </div>
+
+    <div class="st-grid">
+      <div class="st-card" id="fluxo">
+        <h2>De onde vieram e para onde foram os votos novos</h2>
+        <p class="st-note">Origem: votos da 3ª via no 1º turno e queda de abstenção, brancos e nulos. Destino: votos que cada finalista somou. As duas somas são iguais.</p>
+        <div class="st-chart" id="fluxo-chart" data-source="uf"></div>
+      </div>
+      <div class="st-card" id="leituras-card">
+        <h2>Leituras</h2>
+        <ul class="st-ins" id="leituras"></ul>
+      </div>
+    </div>
+
+    <div class="st-card" id="comparativo">
+      <h2>2018 · 2022 · 2026 lado a lado</h2>
+      <p class="st-note" id="comp-nota">Mesma métrica nas três eleições, para o recorte escolhido em Região.</p>
+      <div class="st-tbl short"><table id="comp-tabela">
+        <thead><tr><th class="txt">Métrica</th><th>2018</th><th>2022</th><th>2026</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="estados" role="tabpanel" aria-labelledby="tab-estados" hidden>
+    <div class="st-card" id="estados-grafico">
+      <div class="st-card-h">
+        <h2>Crescimento por estado, 1º → 2º turno</h2>
+        <div class="st-seg" id="f-metrica" role="group" aria-label="Métrica">
+          <button type="button" data-v="cresc">Crescimento em votos</button>
+          <button type="button" data-v="pp">Variação em p.p.</button>
+        </div>
+      </div>
+      <p class="st-note">Crescimento em votos: votos do 2º turno sobre os do 1º. Variação em p.p.: diferença da fatia dos votos válidos. Ordenado pelo candidato do PT.</p>
+      <div class="st-legend"><span><span class="st-sw st-sw-pt"></span><span class="n-pt">PT</span></span><span><span class="st-sw st-sw-dir"></span><span class="n-dir">Direita</span></span></div>
+      <div class="st-chart" id="estados-chart" data-source="uf"></div>
+    </div>
+    <div class="st-card" id="estados-tabela-card">
+      <h2>Estados: votos, crescimento, 3ª via e abstenção</h2>
+      <p class="st-note">Saldo recuperado = (abstenção + brancos + nulos no 1º) − (o mesmo no 2º). Fatia do PT = votos que o PT somou sobre o total que os dois somaram. Clique num cabeçalho para ordenar.</p>
+      <div class="st-tbl"><table id="estados-tabela" data-source="uf" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="nome"><button type="button" data-sort="nome">Estado</button></th>
+          <th data-field="pct_pt_1t"><button type="button" data-sort="pct_pt_1t" data-lab="pt" data-suf=" 1º">1º</button></th>
+          <th data-field="pct_pt_2t"><button type="button" data-sort="pct_pt_2t" data-lab="pt" data-suf=" 2º">2º</button></th>
+          <th data-field="pp_pt"><button type="button" data-sort="pp_pt">Var. p.p.</button></th>
+          <th data-field="cresc_pt"><button type="button" data-sort="cresc_pt">Cresc.</button></th>
+          <th data-field="ganho_pt"><button type="button" data-sort="ganho_pt">Votos ganhos</button></th>
+          <th data-field="pct_dir_1t"><button type="button" data-sort="pct_dir_1t" data-lab="dir" data-suf=" 1º">1º</button></th>
+          <th data-field="pct_dir_2t"><button type="button" data-sort="pct_dir_2t" data-lab="dir" data-suf=" 2º">2º</button></th>
+          <th data-field="pp_dir"><button type="button" data-sort="pp_dir">Var. p.p.</button></th>
+          <th data-field="cresc_dir"><button type="button" data-sort="cresc_dir">Cresc.</button></th>
+          <th data-field="ganho_dir"><button type="button" data-sort="ganho_dir">Votos ganhos</button></th>
+          <th data-field="pct_terceira"><button type="button" data-sort="pct_terceira">3ª via</button></th>
+          <th data-field="delta_abst"><button type="button" data-sort="delta_abst">Queda abstenção</button></th>
+          <th data-field="delta_bn"><button type="button" data-sort="delta_bn">Queda brancos/nulos</button></th>
+          <th data-field="delta"><button type="button" data-sort="delta">Saldo recuperado</button></th>
+          <th data-field="captura_pt"><button type="button" data-sort="captura_pt">Fatia do PT</button></th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="cenarios" role="tabpanel" aria-labelledby="tab-cenarios" hidden>
+    <div class="st-card" id="cen-card">
+      <div class="st-card-h">
+        <h2>Quanto do saldo recuperado o PT precisava</h2>
+        <label class="st-field" for="f-esc">Recorte <select id="f-esc"></select></label>
+      </div>
+      <p class="st-note">Regra: cada finalista mantém seus votos do 1º turno; o PT leva X% da 3ª via; Y é a fatia do saldo recuperado (queda de abstenção, brancos e nulos) que ele precisaria para chegar a 50% dos válidos do 2º turno. Quando o saldo é negativo, a última coluna mede a necessidade como fatia de todo o estoque de abstenção e nulos do 2º turno. O Y implícito é o que o resultado real exige para cada X. Valor negativo significa folga: o PT venceria mesmo perdendo essa fatia.</p>
+      <div class="st-tbl short"><table id="cen-tabela" data-source="cenarios" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="x">X: % da 3ª via ao PT</th>
+          <th data-field="need">Votos que ainda faltavam</th>
+          <th data-field="y_win">Y necessário</th>
+          <th class="txt" data-field="status">Situação</th>
+          <th data-field="y_estoque">% do estoque do 2º turno</th>
+          <th data-field="y_impl">Y implícito no resultado</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="cen-mapa">
+      <h2>Y necessário por estado</h2>
+      <p class="st-note">Fatia do saldo recuperado que o PT precisaria em cada estado para vencê-lo, para cada X. Negativo é folga; vazio é saldo negativo.
+        <span class="st-chip dispensa">Basta a 3ª via</span> <span class="st-chip viavel">Viável</span> <span class="st-chip inviavel">Acima de 100%</span> <span class="st-chip delta_negativo">Saldo negativo</span></p>
+      <div class="st-tbl"><table id="cen-heat">
+        <thead><tr><th class="txt">Estado</th><th>X 40%</th><th>X 50%</th><th>X 60%</th><th>X 70%</th><th>X 80%</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="cidades" role="tabpanel" aria-labelledby="tab-cidades" hidden></section>
+  <template id="tpl-cidades">
+    <div class="st-card" id="viradas-card">
+      <h2>Cidades que viraram entre os turnos</h2>
+      <p class="st-note">Virada: o finalista que liderava a cidade no 1º turno perdeu o 2º. Mudança vs. eleição anterior: o vencedor do 2º turno na cidade é de outro campo que na eleição anterior.</p>
+      <div class="st-tbl short"><table id="viradas-tabela" data-source="viradas" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th>
+          <th data-field="cidades">Cidades</th>
+          <th data-field="viradas">Viradas</th>
+          <th data-field="viradas_para_pt">→ PT</th>
+          <th data-field="viradas_para_dir">→ direita</th>
+          <th data-field="eleitores_virados">Eleitores nelas</th>
+          <th data-field="venc_pt_2t">PT venceu</th>
+          <th data-field="venc_dir_2t">Direita venceu</th>
+          <th data-field="mudou_vs_ant">Mudaram vs. anterior</th>
+          <th data-field="mudou_para_pt">→ PT</th>
+          <th data-field="mudou_para_dir">→ direita</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="perdas-card">
+      <h2>Cidades onde os finalistas perderam votos do 1º para o 2º turno</h2>
+      <p class="st-note">Conta cidades em que o candidato teve menos votos no 2º turno que no 1º. Use o filtro na busca abaixo para ver quais são.</p>
+      <div class="st-tbl short"><table id="perdas-tabela" data-source="viradas" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th>
+          <th data-field="perdeu_pt">PT perdeu</th>
+          <th data-field="perdeu_dir">Direita perdeu</th>
+          <th data-field="perdeu_so_pt">Só o PT</th>
+          <th data-field="perdeu_so_dir">Só a direita</th>
+          <th data-field="perdeu_ambos">Os dois</th>
+          <th data-field="votos_perdidos_pt">Votos perdidos PT</th>
+          <th data-field="votos_perdidos_dir">Votos perdidos direita</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="top-card">
+      <div class="st-card-h">
+        <h2>Top 100 cidades</h2>
+        <div class="st-controls">
+          <div class="st-seg" id="f-cand" role="group" aria-label="Candidato">
+            <button type="button" data-v="pt">PT</button>
+            <button type="button" data-v="dir">Direita</button>
+          </div>
+          <div class="st-seg" id="f-crit" role="group" aria-label="Critério">
+            <button type="button" data-v="abs">Votos ganhos</button>
+            <button type="button" data-v="pct">Crescimento %</button>
+            <button type="button" data-v="perda">Maiores perdas</button>
+          </div>
+        </div>
+      </div>
+      <p class="st-note">Crescimento % só entre cidades com 10 mil eleitores ou mais: em cidade pequena, base baixa infla o percentual. Maiores perdas: cidades onde o candidato teve menos votos no 2º turno. Exterior fora.</p>
+      <div class="st-tbl short"><table id="top-resumo" data-source="top100_resumo" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th>
+          <th data-field="cidades">Cidades</th>
+          <th data-field="ganho_top">Votos (soma)</th>
+          <th data-field="pct_ganho_total">% do ganho total</th>
+          <th data-field="mediana_cresc">Cresc. mediano</th>
+          <th data-field="capitais">Capitais</th>
+          <th data-field="reg_N">N</th>
+          <th data-field="reg_NE">NE</th>
+          <th data-field="reg_CO">CO</th>
+          <th data-field="reg_SE">SE</th>
+          <th data-field="reg_S">S</th>
+          <th data-field="repetidas_ant">Repetem a anterior</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <p class="st-note" id="top-nota">Lista da eleição escolhida. O filtro de região mostra só as cidades da região dentro do top 100 nacional.</p>
+      <div class="st-tbl"><table id="top-lista" data-source="top100" data-row-key="id">
+        <thead><tr>
+          <th data-field="rank">#</th>
+          <th class="txt" data-field="municipio">Município</th>
+          <th class="txt" data-field="uf">UF</th>
+          <th data-field="aptos">Eleitores</th>
+          <th data-field="votos_1t">Votos 1º</th>
+          <th data-field="votos_2t">Votos 2º</th>
+          <th data-field="ganho">Variação</th>
+          <th data-field="cresc">Cresc.</th>
+          <th data-field="pp">Var. p.p.</th>
+          <th class="txt" data-field="venc_2t">Venceu o 2º</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="busca-card">
+      <div class="st-card-h">
+        <h2>Explorar cidades</h2>
+        <div class="st-controls">
+          <input type="search" id="f-busca" placeholder="Buscar município" aria-label="Buscar município">
+          <select id="f-filtro" aria-label="Filtrar cidades">
+            <option value="todas">Todas</option>
+            <option value="pt_perdeu">PT perdeu votos</option>
+            <option value="dir_perdeu">Direita perdeu votos</option>
+            <option value="ambos">Os dois perderam votos</option>
+            <option value="viradas">Viraram no 2º turno</option>
+          </select>
+          <label class="st-field" for="f-tres"><input type="checkbox" id="f-tres" checked> 3 eleições</label>
+        </div>
+      </div>
+      <p class="st-note">Vencedor e líder: PT, DIR (direita) ou EMP (empate). Com "3 eleições" marcado e uma busca, cada cidade aparece em 2018, 2022 e 2026. Sem busca, lista a eleição escolhida, maiores eleitorados primeiro, até 200 linhas.</p>
+      <div class="st-tbl"><table id="busca-tabela" data-source="cidades" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="municipio">Município</th>
+          <th class="txt" data-field="uf">UF</th>
+          <th class="txt" data-field="ano">Eleição</th>
+          <th data-field="aptos">Eleitores</th>
+          <th data-field="pct_pt_1t">PT 1º</th>
+          <th data-field="pct_pt_2t">PT 2º</th>
+          <th data-field="cresc_pt">Cresc. PT</th>
+          <th data-field="ganho_pt">Votos PT</th>
+          <th data-field="pct_dir_1t">Dir. 1º</th>
+          <th data-field="pct_dir_2t">Dir. 2º</th>
+          <th data-field="cresc_dir">Cresc. dir.</th>
+          <th data-field="ganho_dir">Votos dir.</th>
+          <th data-field="pct_terceira">3ª via</th>
+          <th class="txt" data-field="venc_2t">Venceu o 2º</th>
+          <th class="txt" data-field="lider_1t">Liderou o 1º</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </template>
+
+  <section class="st-page" id="regressao" role="tabpanel" aria-labelledby="tab-regressao" hidden></section>
+  <template id="tpl-regressao">
+    <div class="st-card" id="reg-card">
+      <h2>Regressão ecológica por cidade</h2>
+      <p class="st-note">Para cada cidade: votos ganhos pelo PT / eleitores = c + X × (3ª via / eleitores) + Y × (saldo recuperado / eleitores), ponderada pelo eleitorado. X estima a fatia da 3ª via que foi ao PT; Y, a fatia do saldo recuperado; c, um movimento uniforme que nem a 3ª via nem o saldo explicam (por exemplo, troca direta entre as bases). EP = erro-padrão, que subestima a incerteza real.</p>
+      <div class="st-tbl short"><table id="reg-tabela" data-source="regressao" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th>
+          <th class="txt" data-field="nome">Recorte</th>
+          <th data-field="n">Cidades</th>
+          <th data-field="x_hat">X (3ª via → PT)</th>
+          <th data-field="x_se">EP</th>
+          <th data-field="y_hat">Y (saldo → PT)</th>
+          <th data-field="y_se">EP</th>
+          <th data-field="c_hat">c</th>
+          <th data-field="r2">R²</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="reg-disp">
+      <h2>Cada ponto é uma cidade</h2>
+      <p class="st-note">Eixo horizontal: votos da 3ª via no 1º turno sobre eleitores. Vertical: votos que o PT somou no 2º turno sobre eleitores. Eleição e região dos filtros acima; eixos cortados nos 0,5% extremos.</p>
+      <div class="st-legend" id="reg-legenda"></div>
+      <div class="st-chart" id="reg-chart" data-source="cidades"></div>
+    </div>
+  </template>
+
+  <section class="st-page" id="metodo" role="tabpanel" aria-labelledby="tab-metodo" hidden>
+    <div class="st-card">
+      <h2>Como os números foram feitos</h2>
+      <div class="st-method">
+        <p><b>Fontes.</b> TSE. 2018 e 2022: dados abertos de votação por município e zona. 2026: API oficial de resultados, 1º turno (eleição 6257) e 2º turno (6258), arquivos por estado e por município; a soma dos municípios confere com o total de cada estado.</p>
+        <p><b>Candidatos.</b> PT: Haddad em 2018 (Lula estava inelegível), Lula em 2022 e 2026. Direita: Bolsonaro em 2018 e 2022, Flávio em 2026.</p>
+        <p><b>Definições.</b></p>
+        <ul>
+          <li>3ª via = votos válidos do 1º turno que não foram para os dois finalistas.</li>
+          <li>Nulos inclui nulos técnicos e votos anulados: tudo que compareceu e não foi válido nem branco.</li>
+          <li>Saldo recuperado (Δ) = (abstenção + brancos + nulos no 1º turno) − (o mesmo no 2º). Positivo: mais gente votou validamente no 2º turno.</li>
+          <li>Votos novos = 3ª via + Δ. Por construção, é igual à soma do que os dois finalistas ganharam.</li>
+          <li>Fatia do PT nos votos novos = votos ganhos pelo PT ÷ (ganho do PT + ganho da direita).</li>
+          <li>Mínimo vindo da 3ª via = (ganho do PT − Δ) ÷ 3ª via: a fatia da 3ª via que o PT teria de levar mesmo ficando com todo o saldo.</li>
+        </ul>
+        <p><b>Cenários.</b> Votos que faltavam = válidos do 2º turno ÷ 2 − votos do PT no 1º − X × 3ª via. Y necessário = votos que faltavam ÷ Δ. Y implícito = (ganho real do PT − X × 3ª via) ÷ Δ.</p>
+        <p><b>Limites.</b> Tudo é saldo líquido. Se um eleitor do PT se abstém e um abstencionista vota na direita, os dois movimentos somem da conta. O modelo supõe que nenhum eleitor do 1º turno trocou de finalista; a constante da regressão é onde essa troca aparece. A regressão por cidade é inferência ecológica: mostra associação entre lugares, não o voto de pessoas.</p>
+        <p><b>Reprodução.</b> Scripts <code>analise-eleicoes/build_dataset.py</code> e <code>build_insights.py</code> no repositório <code>legendary-bassoon</code>, branch <code>claude/vigilant-hawking-2j8wd8</code>.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(() => {
+  const NOMES = { '2018': { pt: 'Haddad', dir: 'Bolsonaro' }, '2022': { pt: 'Lula', dir: 'Bolsonaro' }, '2026': { pt: 'Lula', dir: 'Flávio' } };
+  const REG = { BR: 'Brasil', N: 'Norte', NE: 'Nordeste', CO: 'Centro-Oeste', SE: 'Sudeste', S: 'Sul', EX: 'Exterior' };
+  const ANOS = ['2018', '2022', '2026'];
+  const XS = [40, 50, 60, 70, 80];
+  const TABS = ['geral', 'estados', 'cenarios', 'cidades', 'regressao', 'metodo'];
+  const STATUS = { dispensa: 'Basta a 3ª via', viavel: 'Viável', inviavel: 'Acima de 100%', delta_negativo: 'Saldo negativo' };
+
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const isNum = (v) => v !== '' && v != null && !Number.isNaN(+v);
+  const nf0 = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 0 });
+  const nf1 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const nf2 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const nf3 = new Intl.NumberFormat('pt-BR', { minimumFractionDigits: 3, maximumFractionDigits: 3 });
+  const sgn = (v) => (+v > 0 ? '+' : +v < 0 ? '−' : '');
+  const F = {
+    int: (v) => (isNum(v) ? (+v < 0 ? '−' : '') + nf0.format(Math.abs(+v)) : '—'),
+    sint: (v) => (isNum(v) ? sgn(v) + nf0.format(Math.abs(+v)) : '—'),
+    pct: (v) => (isNum(v) ? (+v < 0 ? '−' : '') + nf1.format(Math.abs(+v) * 100) + '%' : '—'),
+    spct: (v) => (isNum(v) ? sgn(v) + nf1.format(Math.abs(+v) * 100) + '%' : '—'),
+    pp: (v) => (isNum(v) ? sgn(v) + nf1.format(Math.abs(+v) * 100) + ' p.p.' : '—'),
+    mi: (v) => (isNum(v) ? (+v < 0 ? '−' : '') + nf2.format(Math.abs(+v) / 1e6) + ' mi' : '—'),
+    smi: (v) => (isNum(v) ? sgn(v) + nf2.format(Math.abs(+v) / 1e6) + ' mi' : '—'),
+    dec: (v) => (isNum(v) ? (+v < 0 ? '−' : '') + nf3.format(Math.abs(+v)) : '—'),
+    txt: (v) => (v == null || v === '' ? '—' : String(v)),
+  };
+  const cls = (v) => (!isNum(v) ? '' : +v > 0 ? 'pos' : +v < 0 ? 'neg' : '');
+
+  const cache = new Map();
+  function tbl(id) {
+    const d = dash.data(id);
+    if (d.status !== 'ok' || !Array.isArray(d.data)) return null;
+    let c = cache.get(id);
+    if (!c || c.src !== d.data) {
+      c = { src: d.data, rows: d.data, by: new Map(d.data.map((r) => [String(r.id), r])) };
+      cache.set(id, c);
+    }
+    return c;
+  }
+  const failed = (id) => dash.data(id).status === 'error';
+  function setMark(el, src, field, id) {
+    el.dataset.source = src;
+    el.dataset.field = field;
+    el.dataset.where = 'id=' + encodeURIComponent(id);
+  }
+  function fill(el, src, field, id, text, extra) {
+    if (!el) return;
+    setMark(el, src, field, id);
+    el.textContent = text;
+    el.classList.remove('dash-skeleton');
+    el.classList.remove('pos', 'neg');
+    if (extra) el.classList.add(extra);
+  }
+  function failLine(container) {
+    const d = document.createElement('div');
+    d.className = 'st-fail';
+    d.textContent = 'Failed to load';
+    container.replaceChildren(d);
+  }
+  function td(text, className) {
+    const c = document.createElement('td');
+    c.textContent = text;
+    if (className) c.className = className;
+    return c;
+  }
+
+  // ---------- estado da página ----------
+  const st = { tab: 'geral', metrica: 'cresc', esc: null, cand: 'pt', crit: 'abs', q: '', filtro: 'todas', tres: true, sort: { k: 'cresc_pt', d: -1 }, drawn: {} };
+  const P = () => {
+    const p = dash.params();
+    return { ano: String(p.ano ?? '2026'), reg: String(p.regiao ?? 'BR') };
+  };
+
+  // ---------- controles ----------
+  function segPressed(sel, v) { $$(sel + ' button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === v))); }
+  $('#f-ano').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.esc = null; dash.setParams({ ano: b.dataset.v }); } });
+  $('#f-reg').addEventListener('change', (e) => { st.esc = null; dash.setParams({ regiao: e.target.value }); });
+  $('#f-metrica').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.metrica = b.dataset.v; draw(); } });
+  $('#f-esc').addEventListener('change', (e) => { st.esc = e.target.value; draw(); });
+  $('#estados-tabela thead').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-sort]');
+    if (!b) return;
+    const k = b.dataset.sort;
+    st.sort = { k, d: st.sort.k === k ? -st.sort.d : (k === 'nome' ? 1 : -1) };
+    draw();
+  });
+
+  function showTab(tab, push) {
+    if (!TABS.includes(tab)) tab = 'geral';
+    st.tab = tab;
+    TABS.forEach((t) => {
+      $('#' + t).hidden = t !== tab;
+      $('#tab-' + t).setAttribute('aria-selected', String(t === tab));
+    });
+    const tpl = $('#tpl-' + tab);
+    const sec = $('#' + tab);
+    if (tpl && !sec.firstElementChild) {
+      sec.appendChild(tpl.content.cloneNode(true));
+      if (tab === 'cidades') wireCidades();
+    }
+    if (push) dash.setLink(tab);
+    draw();
+  }
+  $('#tabs').addEventListener('click', (e) => { const b = e.target.closest('button[data-tab]'); if (b) showTab(b.dataset.tab, true); });
+
+  function wireCidades() {
+    $('#f-cand').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.cand = b.dataset.v; draw(); } });
+    $('#f-crit').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.crit = b.dataset.v; draw(); } });
+    let t;
+    $('#f-busca').addEventListener('input', (e) => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value; draw(); }, 200); });
+    $('#f-filtro').addEventListener('change', (e) => { st.filtro = e.target.value; draw(); });
+    $('#f-tres').addEventListener('change', (e) => { st.tres = e.target.checked; draw(); });
+  }
+
+  // ---------- cabeçalho ----------
+  function drawHead(p) {
+    segPressed('#f-ano', p.ano);
+    $('#f-reg').value = p.reg;
+    $$('.n-pt').forEach((el) => { el.textContent = NOMES[p.ano].pt; });
+    $$('.n-dir').forEach((el) => { el.textContent = NOMES[p.ano].dir; });
+    $$('button[data-lab]').forEach((b) => { b.textContent = NOMES[p.ano][b.dataset.lab] + b.dataset.suf; });
+    const ins = tbl('insights');
+    const lede = $('#lede');
+    if (ins) {
+      const id = 'lede-' + p.ano;
+      const r = ins.by.get(id);
+      fill(lede, 'insights', 'texto', id, r ? r.texto : '—');
+    } else if (failed('insights')) {
+      lede.classList.remove('dash-skeleton');
+      lede.textContent = '—';
+    }
+  }
+
+  // ---------- visão geral ----------
+  function drawGeral(p) {
+    const uf = tbl('uf');
+    const id = p.ano + '-' + p.reg;
+    const r = uf && uf.by.get(id);
+    if (r) {
+      fill($('#k-pt2'), 'uf', 'pct_pt_2t', id, F.pct(r.pct_pt_2t));
+      fill($('#k-pt1'), 'uf', 'pct_pt_1t', id, F.pct(r.pct_pt_1t));
+      fill($('#k-pppt'), 'uf', 'pp_pt', id, F.pp(r.pp_pt), cls(r.pp_pt));
+      fill($('#k-dir2'), 'uf', 'pct_dir_2t', id, F.pct(r.pct_dir_2t));
+      fill($('#k-dir1'), 'uf', 'pct_dir_1t', id, F.pct(r.pct_dir_1t));
+      fill($('#k-ppdir'), 'uf', 'pp_dir', id, F.pp(r.pp_dir), cls(r.pp_dir));
+      fill($('#k-cpt'), 'uf', 'cresc_pt', id, F.spct(r.cresc_pt));
+      fill($('#k-gpt'), 'uf', 'ganho_pt', id, F.sint(r.ganho_pt));
+      fill($('#k-cdir'), 'uf', 'cresc_dir', id, F.spct(r.cresc_dir));
+      fill($('#k-gdir'), 'uf', 'ganho_dir', id, F.sint(r.ganho_dir));
+      fill($('#k-pool'), 'uf', 'pool', id, F.mi(r.pool));
+      fill($('#k-t'), 'uf', 'terceira_via', id, F.mi(r.terceira_via));
+      fill($('#k-d'), 'uf', 'delta', id, F.smi(r.delta));
+      fill($('#k-cap'), 'uf', 'captura_pt', id, F.pct(r.captura_pt));
+      fill($('#k-xmin'), 'uf', 'x_min', id, F.pct(r.x_min));
+    }
+    drawFluxo(p, r);
+    drawLeituras();
+    drawComparativo(p, uf);
+  }
+
+  function drawLeituras() {
+    const ul = $('#leituras');
+    const ins = tbl('insights');
+    if (!ins) { if (failed('insights')) failLine(ul); return; }
+    const items = ins.rows.filter((r) => r.tema !== 'lede').sort((a, b) => +a.ordem - +b.ordem);
+    ul.replaceChildren(...items.map((r) => {
+      const li = document.createElement('li');
+      li.id = 'leitura-' + r.id;
+      const b = document.createElement('b');
+      setMark(b, 'insights', 'titulo', r.id);
+      b.textContent = r.titulo;
+      const s = document.createElement('span');
+      setMark(s, 'insights', 'texto', r.id);
+      s.textContent = r.texto;
+      li.append(b, s);
+      return li;
+    }));
+  }
+
+  function drawComparativo(p, uf) {
+    const tb = $('#comp-tabela tbody');
+    $('#comp-nota').textContent = 'Mesma métrica nas três eleições. Recorte: ' + REG[p.reg] + '.';
+    if (!uf) { if (failed('uf')) failLine(tb); return; }
+    const spec = [
+      ['g', 'Candidato do PT', (a) => NOMES[a].pt],
+      ['pct_pt_1t', '% dos válidos no 1º turno', F.pct], ['pct_pt_2t', '% dos válidos no 2º turno', F.pct],
+      ['pp_pt', 'Variação', F.pp, true], ['cresc_pt', 'Crescimento em votos', F.spct, true], ['ganho_pt', 'Votos ganhos', F.sint, true],
+      ['g', 'Candidato da direita', (a) => NOMES[a].dir],
+      ['pct_dir_1t', '% dos válidos no 1º turno', F.pct], ['pct_dir_2t', '% dos válidos no 2º turno', F.pct],
+      ['pp_dir', 'Variação', F.pp, true], ['cresc_dir', 'Crescimento em votos', F.spct, true], ['ganho_dir', 'Votos ganhos', F.sint, true],
+      ['g', 'Votos em disputa', () => ''],
+      ['terceira_via', '3ª via (votos)', F.int], ['pct_terceira', '3ª via (% dos válidos)', F.pct],
+      ['pct_abst_1t', 'Abstenção no 1º turno', F.pct], ['pct_abst_2t', 'Abstenção no 2º turno', F.pct],
+      ['pct_bn_1t', 'Brancos e nulos no 1º', F.pct], ['pct_bn_2t', 'Brancos e nulos no 2º', F.pct],
+      ['delta', 'Saldo recuperado (Δ)', F.sint, true],
+      ['captura_pt', 'Fatia do PT nos votos novos', F.pct], ['x_min', 'Mínimo da 3ª via para o PT', F.pct],
+    ];
+    tb.replaceChildren(...spec.map(([field, label, fmt, colored]) => {
+      const tr = document.createElement('tr');
+      if (field === 'g') {
+        tr.className = 'st-group';
+        tr.append(td(label), ...ANOS.map((a) => td(fmt(a))));
+        return tr;
+      }
+      tr.append(td(label));
+      ANOS.forEach((a) => {
+        const id = a + '-' + p.reg;
+        const r = uf.by.get(id);
+        const c = td(r ? fmt(r[field]) : '—', colored && r ? cls(r[field]) : '');
+        if (r) setMark(c, 'uf', field, id);
+        tr.append(c);
+      });
+      return tr;
+    }));
+  }
+
+  // ---------- gráficos ----------
+  function textWidth(svg, s) {
+    const t = svg.append('text').attr('font-size', 12).text(s);
+    const w = t.node().getComputedTextLength();
+    t.remove();
+    return w;
+  }
+
+  function drawFluxo(p, r) {
+    const box = $('#fluxo-chart');
+    if (!r) { if (failed('uf')) failLine(box); return; }
+    const n = NOMES[p.ano];
+    const muted = 'var(--cds-chart-muted)';
+    const items = [
+      { g: 'Origem', label: '3ª via do 1º turno', f: 'terceira_via', c: muted },
+      { g: 'Origem', label: 'Queda da abstenção', f: 'delta_abst', c: muted },
+      { g: 'Origem', label: 'Queda de brancos e nulos', f: 'delta_bn', c: muted },
+      { g: 'Destino', label: 'Votos novos de ' + n.pt, f: 'ganho_pt', c: 'var(--st-pt)' },
+      { g: 'Destino', label: 'Votos novos de ' + n.dir, f: 'ganho_dir', c: 'var(--st-dir)' },
+    ].map((d) => ({ ...d, v: +r[d.f] }));
+    const W = Math.max(280, box.clientWidth);
+    const rowH = 30, headH = 22;
+    let y = 0;
+    const pos = items.map((d, i) => {
+      if (i === 0 || items[i - 1].g !== d.g) y += headH;
+      const yy = y; y += rowH; return yy;
+    });
+    const H = y + 8;
+    const svg = d3.create('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Origem e destino dos votos novos');
+    box.replaceChildren(svg.node());
+    const left = Math.min(W * 0.45, d3.max(items, (d) => textWidth(svg, d.label)) + 12);
+    const valW = d3.max(items, (d) => textWidth(svg, F.smi(d.v))) + 10;
+    const lo = Math.min(0, d3.min(items, (d) => d.v));
+    const x = d3.scaleLinear([lo, d3.max(items, (d) => Math.max(0, d.v))], [left + (lo < 0 ? valW : 0), W - valW]);
+    let lastG = null;
+    items.forEach((d, i) => {
+      if (d.g !== lastG) {
+        svg.append('text').attr('x', 0).attr('y', pos[i] - 6).attr('font-size', 11).style('fill', 'var(--color-fg-muted)').attr('letter-spacing', '0.04em').text(d.g.toUpperCase());
+        lastG = d.g;
+      }
+      const yc = pos[i] + rowH / 2;
+      svg.append('text').attr('x', left - 10).attr('y', yc).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 12).style('fill', 'var(--color-fg)').text(d.label);
+      const x0 = x(Math.min(0, d.v)), x1 = x(Math.max(0, d.v));
+      svg.append('rect').attr('x', x0).attr('y', yc - 9).attr('width', Math.max(1, x1 - x0)).attr('height', 18).attr('rx', 4).style('fill', d.c);
+      svg.append('text').attr('x', d.v >= 0 ? x1 + 6 : x0 - 6).attr('y', yc).attr('dy', '0.35em').attr('text-anchor', d.v >= 0 ? 'start' : 'end').attr('font-size', 12).style('fill', 'var(--color-fg)').text(F.smi(d.v));
+    });
+    svg.append('line').attr('x1', x(0)).attr('x2', x(0)).attr('y1', headH - 4).attr('y2', H - 4).style('stroke', 'var(--cds-chart-axis)');
+  }
+
+  function drawEstados(p) {
+    const uf = tbl('uf');
+    const box = $('#estados-chart');
+    const tb = $('#estados-tabela tbody');
+    segPressed('#f-metrica', st.metrica);
+    if (!uf) { if (failed('uf')) { failLine(box); failLine(tb); } return; }
+    const rows = uf.rows.filter((r) => r.nivel === 'UF' && String(r.ano) === p.ano && (p.reg === 'BR' || r.regiao === p.reg));
+    // gráfico
+    const kp = st.metrica === 'cresc' ? 'cresc_pt' : 'pp_pt';
+    const kd = st.metrica === 'cresc' ? 'cresc_dir' : 'pp_dir';
+    const fmt = st.metrica === 'cresc' ? F.spct : F.pp;
+    const data = rows.slice().sort((a, b) => +b[kp] - +a[kp]);
+    const W = Math.max(280, box.clientWidth);
+    const rowH = 30;
+    const H = data.length * rowH + 28;
+    const svg = d3.create('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Crescimento por estado');
+    box.replaceChildren(svg.node());
+    box.style.minHeight = H + 'px';
+    const left = d3.max(data, (d) => textWidth(svg, d.uf)) + 12;
+    const valW = d3.max(data, (d) => Math.max(textWidth(svg, fmt(d[kp])), textWidth(svg, fmt(d[kd])))) + 10;
+    const lo = Math.min(0, d3.min(data, (d) => Math.min(+d[kp], +d[kd])));
+    const hi = Math.max(0, d3.max(data, (d) => Math.max(+d[kp], +d[kd])));
+    const x = d3.scaleLinear([lo, hi], [left + (lo < 0 ? valW : 0), W - valW]).nice();
+    const ticks = x.ticks(Math.max(2, Math.floor(W / 110)));
+    const g = svg.append('g');
+    ticks.forEach((t) => {
+      g.append('line').attr('x1', x(t)).attr('x2', x(t)).attr('y1', 0).attr('y2', H - 20).style('stroke', t === 0 ? 'var(--cds-chart-axis)' : 'var(--cds-chart-grid)');
+      g.append('text').attr('x', x(t)).attr('y', H - 6).attr('text-anchor', 'middle').attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text(st.metrica === 'cresc' ? F.pct(t).replace(',0', '') : nf0.format(t * 100) + ' p.p.');
+    });
+    const tip = document.createElement('div');
+    tip.className = 'st-tip';
+    tip.hidden = true;
+    box.appendChild(tip);
+    data.forEach((d, i) => {
+      const y0 = i * rowH + 4;
+      const row = svg.append('g');
+      row.append('text').attr('x', left - 10).attr('y', y0 + 11).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 12).style('fill', 'var(--color-fg)').text(d.uf);
+      [[kp, 'var(--st-pt)', 0], [kd, 'var(--st-dir)', 12]].forEach(([k, c, off]) => {
+        const v = +d[k];
+        const a = x(Math.min(0, v)), b = x(Math.max(0, v));
+        row.append('rect').attr('x', a).attr('y', y0 + off).attr('width', Math.max(1, b - a)).attr('height', 10).attr('rx', 3).style('fill', c);
+        row.append('text').attr('x', v >= 0 ? b + 4 : a - 4).attr('y', y0 + off + 5).attr('dy', '0.35em').attr('text-anchor', v >= 0 ? 'start' : 'end').attr('font-size', 10).style('fill', 'var(--color-fg-muted)').text(fmt(v));
+      });
+      row.append('rect').attr('x', 0).attr('y', y0 - 2).attr('width', W).attr('height', rowH).style('fill', 'transparent')
+        .on('mousemove', (ev) => {
+          const n = NOMES[p.ano];
+          tip.replaceChildren();
+          const h = document.createElement('div'); h.className = 'st-tip-h'; h.textContent = d.nome;
+          const l1 = document.createElement('div'); l1.innerHTML = '<span class="st-sw st-sw-pt"></span>'; l1.append(n.pt + ': ' + F.spct(d.cresc_pt) + ' · ' + F.pp(d.pp_pt) + ' · ' + F.sint(d.ganho_pt) + ' votos');
+          const l2 = document.createElement('div'); l2.innerHTML = '<span class="st-sw st-sw-dir"></span>'; l2.append(n.dir + ': ' + F.spct(d.cresc_dir) + ' · ' + F.pp(d.pp_dir) + ' · ' + F.sint(d.ganho_dir) + ' votos');
+          tip.append(h, l1, l2);
+          tip.hidden = false;
+          const [mx, my] = d3.pointer(ev, box);
+          const tw = tip.offsetWidth;
+          tip.style.left = Math.max(0, Math.min(box.clientWidth - tw, mx + 12)) + 'px';
+          tip.style.top = (my + 14) + 'px';
+        })
+        .on('mouseleave', () => { tip.hidden = true; });
+    });
+    // tabela
+    const { k, d: dir } = st.sort;
+    $$('#estados-tabela thead th').forEach((th) => th.setAttribute('aria-sort', th.dataset.field === k ? (dir > 0 ? 'ascending' : 'descending') : 'none'));
+    const sorted = rows.slice().sort((a, b) => (k === 'nome' ? a.nome.localeCompare(b.nome, 'pt-BR') : (+a[k] - +b[k])) * dir);
+    const cols = [['nome', F.txt], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct], ['pp_pt', F.pp, 1], ['cresc_pt', F.spct, 1], ['ganho_pt', F.sint, 1],
+      ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['pp_dir', F.pp, 1], ['cresc_dir', F.spct, 1], ['ganho_dir', F.sint, 1],
+      ['pct_terceira', F.pct], ['delta_abst', F.sint, 1], ['delta_bn', F.sint, 1], ['delta', F.sint, 1], ['captura_pt', F.pct]];
+    tb.replaceChildren(...sorted.map((r) => {
+      const tr = document.createElement('tr');
+      tr.dataset.key = r.id;
+      cols.forEach(([f, fm, c], i) => tr.append(td(fm(r[f]), (i === 0 ? 'txt' : '') + (c ? ' ' + cls(r[f]) : ''))));
+      return tr;
+    }));
+  }
+
+  // ---------- cenários ----------
+  function drawCenarios(p) {
+    const cen = tbl('cenarios');
+    const uf = tbl('uf');
+    const tb = $('#cen-tabela tbody');
+    const hb = $('#cen-heat tbody');
+    if (!cen || !uf) { if (failed('cenarios') || failed('uf')) { failLine(tb); failLine(hb); } return; }
+    const sel = $('#f-esc');
+    const ufs = uf.rows.filter((r) => r.nivel === 'UF' && String(r.ano) === p.ano && (p.reg === 'BR' || r.regiao === p.reg)).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
+    const opts = [[p.reg, REG[p.reg]], ...ufs.map((r) => [r.uf, r.nome])];
+    if (!st.esc || !opts.some(([v]) => v === st.esc)) st.esc = p.reg;
+    sel.replaceChildren(...opts.map(([v, t]) => new Option(t, v)));
+    sel.value = st.esc;
+    tb.replaceChildren(...XS.map((x) => {
+      const id = `${p.ano}-${st.esc}-${x}`;
+      const r = cen.by.get(id);
+      const tr = document.createElement('tr');
+      if (!r) return tr;
+      tr.dataset.key = id;
+      const chip = document.createElement('span');
+      chip.className = 'st-chip ' + r.status;
+      chip.textContent = STATUS[r.status] || r.status;
+      const stc = td('', 'txt'); stc.append(chip);
+      tr.append(td(String(x), 'txt'), td(F.int(r.need)), td(F.pct(r.y_win), r.status === 'dispensa' ? 'mut' : ''), stc,
+        td(F.pct(r.y_estoque), +r.need > 0 ? '' : 'mut'), td(F.pct(r.y_impl)));
+      return tr;
+    }));
+    hb.replaceChildren(...ufs.map((u) => {
+      const tr = document.createElement('tr');
+      tr.append(td(u.nome));
+      XS.forEach((x) => {
+        const id = `${p.ano}-${u.uf}-${x}`;
+        const r = cen.by.get(id);
+        const c = td(r ? F.pct(r.y_win) : '—', 'heat ' + (r ? r.status : ''));
+        if (r) { setMark(c, 'cenarios', 'y_win', id); c.title = STATUS[r.status]; }
+        tr.append(c);
+      });
+      return tr;
+    }));
+  }
+
+  // ---------- cidades ----------
+  function rowsTable(tbEl, src, list, cols) {
+    tbEl.replaceChildren(...list.map((r) => {
+      const tr = document.createElement('tr');
+      tr.dataset.key = r.id;
+      cols.forEach(([f, fm, c, t]) => tr.append(td(fm(r[f], r), (t ? 'txt' : '') + (c ? ' ' + cls(r[f]) : ''))));
+      return tr;
+    }));
+  }
+
+  function drawCidades(p) {
+    if (!$('#viradas-tabela')) return;
+    segPressed('#f-cand', st.cand);
+    segPressed('#f-crit', st.crit);
+    $$('#f-cand button').forEach((b) => { b.textContent = b.dataset.v === 'pt' ? 'PT (' + NOMES[p.ano].pt + ')' : 'Direita (' + NOMES[p.ano].dir + ')'; });
+    const vir = tbl('viradas');
+    if (vir) {
+      const list = ANOS.map((a) => vir.by.get(a + '-' + p.reg)).filter(Boolean);
+      rowsTable($('#viradas-tabela tbody'), 'viradas', list, [['ano', F.txt, 0, 1], ['cidades', F.int], ['viradas', F.int], ['viradas_para_pt', F.int], ['viradas_para_dir', F.int],
+        ['eleitores_virados', F.int], ['venc_pt_2t', F.int], ['venc_dir_2t', F.int], ['mudou_vs_ant', F.int], ['mudou_para_pt', F.int], ['mudou_para_dir', F.int]]);
+      rowsTable($('#perdas-tabela tbody'), 'viradas', list, [['ano', F.txt, 0, 1], ['perdeu_pt', F.int], ['perdeu_dir', F.int], ['perdeu_so_pt', F.int], ['perdeu_so_dir', F.int],
+        ['perdeu_ambos', F.int], ['votos_perdidos_pt', F.int], ['votos_perdidos_dir', F.int]]);
+    } else if (failed('viradas')) { failLine($('#viradas-tabela tbody')); failLine($('#perdas-tabela tbody')); }
+
+    const res = tbl('top100_resumo');
+    if (res) {
+      const list = ANOS.map((a) => res.by.get(`${a}-${st.cand}-${st.crit}`)).filter(Boolean);
+      rowsTable($('#top-resumo tbody'), 'top100_resumo', list, [['ano', F.txt, 0, 1], ['cidades', F.int], ['ganho_top', F.sint, 1], ['pct_ganho_total', F.pct], ['mediana_cresc', F.spct],
+        ['capitais', F.int], ['reg_N', F.int], ['reg_NE', F.int], ['reg_CO', F.int], ['reg_SE', F.int], ['reg_S', F.int], ['repetidas_ant', F.int]]);
+    } else if (failed('top100_resumo')) failLine($('#top-resumo tbody'));
+
+    const top = tbl('top100');
+    if (top) {
+      const list = top.rows.filter((r) => String(r.ano) === p.ano && r.cand === st.cand && r.crit === st.crit && (p.reg === 'BR' || r.regiao === p.reg))
+        .sort((a, b) => +a.rank - +b.rank);
+      rowsTable($('#top-lista tbody'), 'top100', list, [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['votos_1t', F.int], ['votos_2t', F.int],
+        ['ganho', F.sint, 1], ['cresc', F.spct, 1], ['pp', F.pp, 1], ['venc_2t', F.txt, 0, 1]]);
+    } else if (failed('top100')) failLine($('#top-lista tbody'));
+
+    const cid = tbl('cidades');
+    const tb = $('#busca-tabela tbody');
+    if (!cid) { if (failed('cidades')) failLine(tb); return; }
+    $('#f-busca').value !== st.q && document.activeElement !== $('#f-busca') && ($('#f-busca').value = st.q);
+    $('#f-filtro').value = st.filtro;
+    $('#f-tres').checked = st.tres;
+    const q = st.q.trim().toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const norm = (s) => s.toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const cond = {
+      todas: () => true,
+      pt_perdeu: (r) => +r.ganho_pt < 0,
+      dir_perdeu: (r) => +r.ganho_dir < 0,
+      ambos: (r) => +r.ganho_pt < 0 && +r.ganho_dir < 0,
+      viradas: (r) => String(r.virou) === '1',
+    }[st.filtro];
+    const inReg = (r) => p.reg === 'BR' || r.regiao === p.reg;
+    let list;
+    if (q.length >= 2 && st.tres) {
+      const cods = new Set(cid.rows.filter((r) => String(r.ano) === p.ano && inReg(r) && cond(r) && norm(r.municipio).includes(q)).map((r) => String(r.cod)));
+      list = cid.rows.filter((r) => cods.has(String(r.cod)));
+      list.sort((a, b) => a.municipio.localeCompare(b.municipio, 'pt-BR') || a.uf.localeCompare(b.uf) || +a.ano - +b.ano);
+    } else {
+      list = cid.rows.filter((r) => String(r.ano) === p.ano && inReg(r) && cond(r) && (q.length < 2 || norm(r.municipio).includes(q)));
+      list.sort((a, b) => +b.aptos - +a.aptos);
+    }
+    list = list.slice(0, st.tres && q.length >= 2 ? 300 : 200);
+    rowsTable(tb, 'cidades', list, [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['ano', F.txt, 0, 1], ['aptos', F.int], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct],
+      ['cresc_pt', F.spct, 1], ['ganho_pt', F.sint, 1], ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['cresc_dir', F.spct, 1], ['ganho_dir', F.sint, 1],
+      ['pct_terceira', F.pct], ['venc_2t', F.txt, 0, 1], ['lider_1t', F.txt, 0, 1]]);
+  }
+
+  // ---------- regressão ----------
+  function drawRegressao(p) {
+    if (!$('#reg-tabela')) return;
+    const reg = tbl('regressao');
+    const tb = $('#reg-tabela tbody');
+    if (reg) {
+      const order = ['BR', 'N', 'NE', 'CO', 'SE', 'S'];
+      const list = reg.rows.slice().sort((a, b) => +b.ano - +a.ano || order.indexOf(a.escopo) - order.indexOf(b.escopo));
+      rowsTable(tb, 'regressao', list, [['ano', F.txt, 0, 1], ['nome', F.txt, 0, 1], ['n', F.int], ['x_hat', F.pct], ['x_se', F.pct], ['y_hat', F.pct], ['y_se', F.pct],
+        ['c_hat', F.pct, 1], ['r2', F.dec]]);
+      $$('tr', tb).forEach((tr) => {
+        const r = reg.by.get(tr.dataset.key);
+        tr.classList.toggle('st-sel', !!r && String(r.ano) === p.ano && r.escopo === p.reg);
+      });
+    } else if (failed('regressao')) failLine(tb);
+
+    const box = $('#reg-chart');
+    const cid = tbl('cidades');
+    if (!cid) { if (failed('cidades')) failLine(box); return; }
+    const data = cid.rows.filter((r) => String(r.ano) === p.ano && r.uf !== 'ZZ' && (p.reg === 'BR' || r.regiao === p.reg) && +r.aptos > 0)
+      .map((r) => ({ r, x: +r.terceira_via / +r.aptos, y: +r.ganho_pt / +r.aptos }));
+    const regs = p.reg === 'BR' ? ['N', 'NE', 'CO', 'SE', 'S'] : [p.reg];
+    const col = d3.scaleOrdinal(['N', 'NE', 'CO', 'SE', 'S'], dash.colors.slice(0, 5));
+    const leg = $('#reg-legenda');
+    leg.replaceChildren(...regs.map((g) => {
+      const s = document.createElement('span');
+      const sw = document.createElement('span'); sw.className = 'st-sw'; sw.style.background = col(g);
+      s.append(sw, REG[g]);
+      return s;
+    }));
+    const W = Math.max(280, box.clientWidth);
+    const H = Math.round(Math.min(420, Math.max(260, W * 0.55)));
+    const m = { t: 10, r: 12, b: 34, l: 52 };
+    const xs = data.map((d) => d.x).sort(d3.ascending), ys = data.map((d) => d.y).sort(d3.ascending);
+    const x = d3.scaleLinear([0, d3.quantileSorted(xs, 0.995) || 0.01], [m.l, W - m.r]).nice().clamp(true);
+    const y = d3.scaleLinear([Math.min(0, d3.quantileSorted(ys, 0.005) || 0), d3.quantileSorted(ys, 0.995) || 0.01], [H - m.b, m.t]).nice().clamp(true);
+    const svg = d3.create('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Dispersão por cidade');
+    box.replaceChildren(svg.node());
+    box.style.minHeight = H + 'px';
+    x.ticks(Math.max(2, Math.floor(W / 100))).forEach((t) => {
+      svg.append('line').attr('x1', x(t)).attr('x2', x(t)).attr('y1', m.t).attr('y2', H - m.b).style('stroke', 'var(--cds-chart-grid)');
+      svg.append('text').attr('x', x(t)).attr('y', H - m.b + 16).attr('text-anchor', 'middle').attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text(nf0.format(t * 100) + '%');
+    });
+    y.ticks(5).forEach((t) => {
+      svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(t)).attr('y2', y(t)).style('stroke', t === 0 ? 'var(--cds-chart-axis)' : 'var(--cds-chart-grid)');
+      svg.append('text').attr('x', m.l - 6).attr('y', y(t)).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text(nf0.format(t * 100) + '%');
+    });
+    svg.append('text').attr('x', W - m.r).attr('y', H - 4).attr('text-anchor', 'end').attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text('3ª via / eleitores');
+    svg.append('text').attr('x', m.l + 4).attr('y', m.t + 10).attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text('ganho do PT / eleitores');
+    svg.append('g').selectAll('circle').data(data).join('circle')
+      .attr('cx', (d) => x(d.x)).attr('cy', (d) => y(d.y)).attr('r', 2.2).style('fill', (d) => col(d.r.regiao)).attr('fill-opacity', 0.55);
+    const hi = svg.append('circle').attr('r', 5).style('fill', 'none').style('stroke', 'var(--color-fg)').attr('stroke-width', 1.5).attr('visibility', 'hidden');
+    const tip = document.createElement('div'); tip.className = 'st-tip'; tip.hidden = true; box.appendChild(tip);
+    const del = d3.Delaunay.from(data, (d) => x(d.x), (d) => y(d.y));
+    svg.on('mousemove', (ev) => {
+      const [mx, my] = d3.pointer(ev);
+      const i = del.find(mx, my);
+      const d = data[i];
+      if (!d) return;
+      hi.attr('cx', x(d.x)).attr('cy', y(d.y)).attr('visibility', 'visible');
+      tip.replaceChildren();
+      const h = document.createElement('div'); h.className = 'st-tip-h'; h.textContent = d.r.municipio + ' – ' + d.r.uf;
+      const l1 = document.createElement('div'); l1.textContent = '3ª via: ' + F.int(d.r.terceira_via) + ' votos (' + F.pct(d.x) + ' do eleitorado)';
+      const l2 = document.createElement('div'); l2.textContent = NOMES[p.ano].pt + ' ganhou ' + F.sint(d.r.ganho_pt) + ' (' + F.pct(d.y) + ' do eleitorado)';
+      tip.append(h, l1, l2);
+      tip.hidden = false;
+      const [bx, by] = d3.pointer(ev, box);
+      tip.style.left = Math.max(0, Math.min(box.clientWidth - tip.offsetWidth, bx + 12)) + 'px';
+      tip.style.top = (by + 14) + 'px';
+    }).on('mouseleave', () => { tip.hidden = true; hi.attr('visibility', 'hidden'); });
+  }
+
+  // ---------- desenho ----------
+  function draw() {
+    const p = P();
+    drawHead(p);
+    if (st.tab === 'geral') drawGeral(p);
+    else if (st.tab === 'estados') drawEstados(p);
+    else if (st.tab === 'cenarios') drawCenarios(p);
+    else if (st.tab === 'cidades') drawCidades(p);
+    else if (st.tab === 'regressao') drawRegressao(p);
+  }
+
+  const start = location.hash.slice(1);
+  showTab(TABS.includes(start) ? start : 'geral', false);
+  dash.onData(draw);
+})();
+</script>
