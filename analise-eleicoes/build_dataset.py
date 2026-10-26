@@ -1,10 +1,11 @@
-"""Monta as bases 1T x 2T (Brasil, regiões, UFs e municípios) das eleições presidenciais
-de 2018, 2022 e 2026, os cenários de transferência e a regressão ecológica.
+"""Monta as bases 1º × 2º turno das eleições presidenciais de 2002 a 2026: Brasil, regiões, UFs e municípios,
+cenários de transferência, regressão ecológica, porte, viradas, perdas e top 100, e os arquivos do mapa.
 
 Fontes (TSE):
-  2018/2022: dados abertos (detalhe_votacao_munzona + votacao_partido_munzona), zips em <od_dir>
-  2026:      API de resultados (ele2026/6257 = 1T, 6258 = 2T):
-             <api_dir>/<uf>-<cd>.json (UFs) e <mun_dir>/files/<uf><mun>-<cd>.json + <mun_dir>/cm.json
+  2002–2022: dados abertos (detalhe_votacao_munzona + votacao_partido_munzona), zips em <od_dir>
+  2026:      API de resultados (6257 = 1º turno, 6258 = 2º turno): <api_dir>/<uf>-<cd>.json (UFs),
+             <mun_dir>/files/<uf><mun>-<cd>.json (municípios) e <mun_dir>/cm.json (lista de municípios);
+             líder do 1º turno entre todos os candidatos: votacao_partido_munzona_2026.zip
 
 Uso: python3 -I build_dataset.py <od_dir> <api_dir> <mun_dir> <out_dir>
 """
@@ -23,21 +24,29 @@ UF_NOME = {"AC": "Acre", "AL": "Alagoas", "AM": "Amazonas", "AP": "Amapá", "BA"
            "MG": "Minas Gerais", "MS": "Mato Grosso do Sul", "MT": "Mato Grosso", "PA": "Pará",
            "PB": "Paraíba", "PE": "Pernambuco", "PI": "Piauí", "PR": "Paraná", "RJ": "Rio de Janeiro",
            "RN": "Rio Grande do Norte", "RO": "Rondônia", "RR": "Roraima", "RS": "Rio Grande do Sul",
-           "SC": "Santa Catarina", "SE": "Sergipe", "SP": "São Paulo", "TO": "Tocantins", "ZZ": "Exterior"}
+           "SC": "Santa Catarina", "SE": "Sergipe", "SP": "São Paulo", "TO": "Tocantins", "ZZ": "Exterior",
+           "VT": "Voto em trânsito"}  # VT: seções de trânsito que o TSE publicou à parte em 2010
 UFS = list(UF_NOME)
 REGIAO = {"AC": "N", "AM": "N", "AP": "N", "PA": "N", "RO": "N", "RR": "N", "TO": "N",
           "AL": "NE", "BA": "NE", "CE": "NE", "MA": "NE", "PB": "NE", "PE": "NE", "PI": "NE", "RN": "NE", "SE": "NE",
           "DF": "CO", "GO": "CO", "MS": "CO", "MT": "CO",
           "ES": "SE", "MG": "SE", "RJ": "SE", "SP": "SE",
-          "PR": "S", "RS": "S", "SC": "S", "ZZ": "EX"}
+          "PR": "S", "RS": "S", "SC": "S", "ZZ": "EX", "VT": "EX"}
 REGIAO_NOME = {"N": "Norte", "NE": "Nordeste", "CO": "Centro-Oeste", "SE": "Sudeste", "S": "Sul", "EX": "Exterior"}
-# ano: (nº PT, nome PT, nº direita, nome direita)
-CANDS = {2018: (13, "Haddad", 17, "Bolsonaro"),
-         2022: (13, "Lula", 22, "Bolsonaro"),
-         2026: (13, "Lula", 22, "Flávio")}
+# ano: (nº do PT, candidato do PT, nº do adversário no 2º turno, adversário). Nos campos, "dir" = adversário.
+FINAIS = {2002: (13, "Lula", 45, "Serra"), 2006: (13, "Lula", 45, "Alckmin"), 2010: (13, "Dilma", 45, "Serra"),
+          2014: (13, "Dilma", 45, "Aécio"), 2018: (13, "Haddad", 17, "Bolsonaro"),
+          2022: (13, "Lula", 22, "Bolsonaro"), 2026: (13, "Lula", 22, "Flávio")}
+ANOS = sorted(FINAIS)
 CENARIOS_X = [40, 50, 60, 70, 80]
 CAMPOS = ("aptos", "comp", "abst", "validos", "brancos", "pt", "dir")
+PORTES = [(10_000, "1 · até 10 mil"), (50_000, "2 · 10 a 50 mil"), (200_000, "3 · 50 a 200 mil"),
+          (1_000_000, "4 · 200 mil a 1 milhão"), (float("inf"), "5 · mais de 1 milhão")]
+TOP_N = 100
+MIN_APTOS_PCT = 10_000  # ranking por % só entre cidades com 10 mil+ eleitores (base pequena distorce %)
 
+
+# ---------- leitura ----------
 
 def read_brasil_csv(zip_path):
     with zipfile.ZipFile(zip_path) as z:
@@ -46,9 +55,16 @@ def read_brasil_csv(zip_path):
             yield from csv.DictReader(io.TextIOWrapper(f, encoding="latin1"), delimiter=";")
 
 
+def votos_partido(r):
+    """Votos válidos de um partido numa linha de votacao_partido_munzona (esquema novo ou antigo)."""
+    if "QT_VOTOS_NOMINAIS_VALIDOS" in r:
+        return int(r["QT_VOTOS_NOMINAIS_VALIDOS"]) + int(r.get("QT_TOTAL_VOTOS_LEG_VALIDOS") or 0)
+    return int(r["QT_VOTOS_NOMINAIS"]) + int(r.get("QT_VOTOS_LEGENDA") or 0)
+
+
 def load_open_data(od_dir, ano):
-    """Retorna ({(turno, uf, cod_mun): contagens}, {cod_mun: nome})."""
-    pt_nr, _, dir_nr, _ = CANDS[ano]
+    """({(turno, uf, cod_mun): contagens}, {cod_mun: nome}) para presidente."""
+    pt_nr, _, dir_nr, _ = FINAIS[ano]
     agg = defaultdict(lambda: defaultdict(int))
     nomes = {}
     for r in read_brasil_csv(Path(od_dir) / f"detalhe_votacao_munzona_{ano}.zip"):
@@ -67,12 +83,12 @@ def load_open_data(od_dir, ano):
         nr = int(r["NR_PARTIDO"])
         if nr in (pt_nr, dir_nr):
             k = (int(r["NR_TURNO"]), r["SG_UF"], r["CD_MUNICIPIO"].zfill(5))
-            agg[k]["pt" if nr == pt_nr else "dir"] += int(r["QT_VOTOS_NOMINAIS_VALIDOS"])
+            agg[k]["pt" if nr == pt_nr else "dir"] += votos_partido(r)
     return agg, nomes
 
 
 def parse_api(path):
-    pt_nr, _, dir_nr, _ = CANDS[2026]
+    pt_nr, _, dir_nr, _ = FINAIS[2026]
     d = json.load(open(path, encoding="utf-8"))
     votos = {int(c["n"]): int(c["vap"]) for a in d["carg"][0]["agr"] for p in a["par"] for c in p["cand"]}
     return {"aptos": int(d["e"]["te"]), "comp": int(d["e"]["c"]), "abst": int(d["e"]["a"]),
@@ -81,7 +97,7 @@ def parse_api(path):
 
 
 def load_api_2026(api_dir, mun_dir):
-    """Municípios da API; confere a soma por UF contra o arquivo estadual."""
+    """Municípios da API de 2026; confere a soma por UF contra o arquivo estadual."""
     cm = json.load(open(Path(mun_dir) / "cm.json", encoding="utf-8"))
     agg, nomes = {}, {}
     for a in cm["abr"]:
@@ -91,11 +107,28 @@ def load_api_2026(api_dir, mun_dir):
             for turno, cd in ((1, 6257), (2, 6258)):
                 agg[(turno, uf, m["cd"])] = parse_api(Path(mun_dir) / "files" / f"{a['cd']}{m['cd']}-{cd}.json")
     for turno, cd in ((1, 6257), (2, 6258)):
-        for uf in UFS:
+        for uf in [u for u in UFS if u != "VT"]:
             oficial = parse_api(Path(api_dir) / f"{uf.lower()}-{cd}.json")
             soma = {c: sum(v[c] for k, v in agg.items() if k[0] == turno and k[1] == uf) for c in CAMPOS}
             assert soma == oficial, (uf, turno, soma, oficial)
     return agg, nomes
+
+
+def lideres_1t(od_dir, ano):
+    """{cod_mun: (nº, sigla, fatia dos válidos)} do mais votado no 1º turno entre todos os candidatos."""
+    votos = defaultdict(lambda: defaultdict(int))
+    sigla = {}
+    for r in read_brasil_csv(Path(od_dir) / f"votacao_partido_munzona_{ano}.zip"):
+        if r["CD_CARGO"] == "1" and r["NR_TURNO"] == "1":
+            nr = int(r["NR_PARTIDO"])
+            sigla[nr] = r["SG_PARTIDO"]
+            votos[r["CD_MUNICIPIO"].zfill(5)][nr] += votos_partido(r)
+    out = {}
+    for cod, vs in votos.items():
+        nr, v = max(vs.items(), key=lambda kv: kv[1])
+        tot = sum(vs.values())
+        out[cod] = (nr, sigla[nr], v / tot if tot else None)
+    return out
 
 
 def nome_mun(nome):
@@ -103,6 +136,8 @@ def nome_mun(nome):
     partes = nome.title().split(" ")
     return " ".join(w.lower() if i and w.lower() in minus else w for i, w in enumerate(partes))
 
+
+# ---------- métricas ----------
 
 def somar(itens):
     tot = defaultdict(int)
@@ -112,13 +147,18 @@ def somar(itens):
     return tot
 
 
+def div(a, b):
+    return a / b if b else None
+
+
 def metricas(t1, t2):
     v1, v2 = t1["validos"], t2["validos"]
-    bn1, bn2 = t1["comp"] - v1, t2["comp"] - v2  # brancos + nulos (inclui nulos técnicos e anulados)
+    nu1 = t1["comp"] - v1 - t1["brancos"]   # nulos inclui nulos técnicos e anulados
+    nu2 = t2["comp"] - v2 - t2["brancos"]
+    bn1, bn2 = t1["brancos"] + nu1, t2["brancos"] + nu2
     terceira = v1 - t1["pt"] - t1["dir"]
     delta = (t1["abst"] + bn1) - (t2["abst"] + bn2)
     g_pt, g_dir = t2["pt"] - t1["pt"], t2["dir"] - t1["dir"]
-    div = lambda a, b: a / b if b else None
     return {
         "aptos": t1["aptos"], "validos_1t": v1, "validos_2t": v2,
         "pt_1t": t1["pt"], "pt_2t": t2["pt"], "dir_1t": t1["dir"], "dir_2t": t2["dir"],
@@ -129,41 +169,44 @@ def metricas(t1, t2):
         "pp_pt": div(t2["pt"], v2) - div(t1["pt"], v1) if v1 and v2 else None,
         "pp_dir": div(t2["dir"], v2) - div(t1["dir"], v1) if v1 and v2 else None,
         "terceira_via": terceira, "pct_terceira": div(terceira, v1),
-        "abst_1t": t1["abst"], "abst_2t": t2["abst"], "bn_1t": bn1, "bn_2t": bn2,
+        "abst_1t": t1["abst"], "abst_2t": t2["abst"], "brancos_1t": t1["brancos"], "brancos_2t": t2["brancos"],
+        "nulos_1t": nu1, "nulos_2t": nu2, "bn_1t": bn1, "bn_2t": bn2,
         "pct_abst_1t": div(t1["abst"], t1["aptos"]), "pct_abst_2t": div(t2["abst"], t2["aptos"]),
         "pct_bn_1t": div(bn1, t1["comp"]), "pct_bn_2t": div(bn2, t2["comp"]),
-        "delta_abst": t1["abst"] - t2["abst"], "delta_bn": bn1 - bn2, "delta": delta,
+        "pct_brancos_1t": div(t1["brancos"], t1["comp"]), "pct_brancos_2t": div(t2["brancos"], t2["comp"]),
+        "pct_nulos_1t": div(nu1, t1["comp"]), "pct_nulos_2t": div(nu2, t2["comp"]),
+        # quedas entre turnos (positivo = menos abstenção, brancos ou nulos no 2º turno)
+        "delta_abst": t1["abst"] - t2["abst"], "delta_brancos": t1["brancos"] - t2["brancos"],
+        "delta_nulos": nu1 - nu2, "delta_bn": bn1 - bn2, "delta": delta,
+        "delta_pct": div(delta, t1["aptos"]),
         "pool": terceira + delta,
         "captura_pt": div(g_pt, g_pt + g_dir),
-        # % da 3ª via que o PT precisaria ter levado mesmo ficando com 100% do Δ positivo
         "x_min": div(g_pt - max(delta, 0), terceira),
-        # transferência da 3ª via implícita supondo Δ dividido 50/50
         "x_impl_50": div(g_pt - 0.5 * delta, terceira),
         "estoque_2t": t2["abst"] + bn2,
         "gap_vitoria": v2 / 2 - t1["pt"],
         "venceu_pt": int(t2["pt"] > t2["dir"]),
+        "margem_2t": div(t2["pt"], v2) - div(t2["dir"], v2) if v2 else None,
     }
 
 
-def cenarios(m):
-    """Para cada X: Y = % do Δ que o PT precisaria para 50% dos válidos; Y implícito no resultado real."""
-    out = []
-    for x in CENARIOS_X:
-        need = m["gap_vitoria"] - x / 100 * m["terceira_via"]
-        d = m["delta"]
-        if need <= 0:
-            status = "dispensa"
-        elif d <= 0:
-            status = "delta_negativo"
-        elif need > d:
-            status = "inviavel"
-        else:
-            status = "viavel"
-        out.append({"x": x, "need": round(need), "status": status,
-                    "y_win": need / d if d > 0 else None,
-                    "y_estoque": need / m["estoque_2t"],
-                    "y_impl": (m["ganho_pt"] - x / 100 * m["terceira_via"]) / d if d else None})
-    return out
+def cenario(m, cand, x):
+    """Se o candidato levou X% da 3ª via, quanto ainda faltava para 50% dos válidos do 2º turno e que fatia
+    disso teria de vir do saldo recuperado (Δ) e do restante disponível (pool − X% da 3ª via)."""
+    need = m["validos_2t"] / 2 - m[f"{cand}_1t"] - x / 100 * m["terceira_via"]
+    d = m["delta"]
+    resto = m["pool"] - x / 100 * m["terceira_via"]
+    if need <= 0:
+        status = "dispensa"
+    elif resto <= 0 or need > resto:
+        status = "inviavel"
+    else:
+        status = "viavel"
+    return {"need": round(need), "status": status,
+            "y_saldo": need / d if d > 0 else None,
+            "y_resto": need / resto if resto > 0 else None,
+            "y_estoque": need / m["estoque_2t"] if m["estoque_2t"] else None,
+            "y_impl": (m[f"ganho_{cand}"] - x / 100 * m["terceira_via"]) / d if d else None}
 
 
 def regressao(rows):
@@ -179,98 +222,81 @@ def regressao(rows):
     n, k = X.shape
     s2 = (W * e ** 2).sum() * n / (n - k)
     se = np.sqrt(np.diag(s2 * np.linalg.inv(XtW @ X)) / n)
-    ybar = (W * y).sum()
-    r2 = 1 - (W * e ** 2).sum() / (W * (y - ybar) ** 2).sum()
+    r2 = 1 - (W * e ** 2).sum() / (W * (y - (W * y).sum()) ** 2).sum()
     return {"n": n, "c_hat": beta[0], "x_hat": beta[1], "x_se": se[1], "y_hat": beta[2], "y_se": se[2], "r2": r2}
-
-
-def r4(v):
-    return round(v, 5) if isinstance(v, float) else v
-
-
-def write_csv(path, rows):
-    with open(path, "w", newline="", encoding="utf-8") as f:
-        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()))
-        w.writeheader()
-        w.writerows({k: r4(v) for k, v in r.items()} for r in rows)
-
-
-def main(od_dir, api_dir, mun_dir, out_dir):
-    out = Path(out_dir)
-    out.mkdir(parents=True, exist_ok=True)
-    uf_rows, cen_rows, mun_rows, reg_rows = [], [], [], []
-    for ano in (2018, 2022, 2026):
-        agg, nomes = load_api_2026(api_dir, mun_dir) if ano == 2026 else load_open_data(od_dir, ano)
-        muns = sorted({(k[1], k[2]) for k in agg})
-        cidades = []
-        for uf, cod in muns:
-            t1, t2 = agg.get((1, uf, cod)), agg.get((2, uf, cod))
-            if not t1 or not t2 or not t1["aptos"]:
-                continue
-            m = metricas(t1, t2)
-            cidades.append({"id": f"{ano}-{cod}", "ano": ano, "cod": cod, "municipio": nome_mun(nomes[cod]),
-                            "uf": uf, "regiao": REGIAO[uf], **m})
-        # agregados: UF, região, Brasil
-        grupos = [("UF", uf, UF_NOME[uf], REGIAO[uf], lambda k, uf=uf: k[1] == uf) for uf in UFS]
-        grupos += [("REGIAO", r, REGIAO_NOME[r], r, lambda k, r=r: REGIAO[k[1]] == r) for r in REGIAO_NOME if r != "EX"]
-        grupos += [("BR", "BR", "Brasil", "BR", lambda k: True)]
-        for nivel, cod, nome, reg, sel in grupos:
-            t1 = somar(v for k, v in agg.items() if k[0] == 1 and sel(k))
-            t2 = somar(v for k, v in agg.items() if k[0] == 2 and sel(k))
-            m = metricas(t1, t2)
-            uf_rows.append({"id": f"{ano}-{cod}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome,
-                            "regiao": reg, **m})
-            for c in cenarios(m):
-                cen_rows.append({"id": f"{ano}-{cod}-{c['x']}", "ano": ano, "nivel": nivel, "uf": cod,
-                                 "nome": nome, "regiao": reg, **c})
-        for escopo in ["BR", "N", "NE", "CO", "SE", "S"]:
-            sub = [c for c in cidades if c["uf"] != "ZZ" and (escopo == "BR" or c["regiao"] == escopo)]
-            reg_rows.append({"id": f"{ano}-{escopo}", "ano": ano, "escopo": escopo,
-                             "nome": "Brasil" if escopo == "BR" else REGIAO_NOME[escopo], **regressao(sub)})
-        mun_rows += cidades
-        print(ano, "municípios:", len(cidades))
-    capitais = {m["cd"] for a in json.load(open(Path(mun_dir) / "cm.json", encoding="utf-8"))["abr"]
-                for m in a["mu"] if m.get("c") == "s"}
-    vir_rows, top_rows, top_res = viradas_e_top(mun_rows, capitais)
-    write_csv(out / "uf.csv", uf_rows)
-    write_csv(out / "cenarios.csv", cen_rows)
-    write_csv(out / "regressao.csv", reg_rows)
-    write_csv(out / "viradas.csv", vir_rows)
-    write_csv(out / "top100.csv", top_rows)
-    write_csv(out / "top100_resumo.csv", top_res)
-    keep = ["id", "ano", "cod", "municipio", "uf", "regiao", "aptos", "pt_1t", "pt_2t", "dir_1t", "dir_2t",
-            "validos_1t", "validos_2t", "terceira_via", "delta", "ganho_pt", "ganho_dir", "pct_pt_1t",
-            "pct_pt_2t", "pp_pt", "pp_dir", "cresc_pt", "cresc_dir", "pct_terceira", "captura_pt",
-            "lider_1t", "venc_2t", "virou", "venc_2t_ant", "mudou_vs_ant"]
-    write_csv(out / "cidades.csv", [{k: r[k] for k in keep} for r in mun_rows])
-    print("ok ->", out)
 
 
 def lider(pt, dr):
     return "PT" if pt > dr else "DIR" if dr > pt else "EMP"
 
 
-TOP_N = 100
-MIN_APTOS_PCT = 10_000  # ranking por % só entre cidades com 10 mil+ eleitores (base pequena distorce %)
+def porte(aptos):
+    """Porte da cidade pelo eleitorado (aptos), não pela população."""
+    return next(nome for lim, nome in PORTES if aptos < lim)
+
+
+# ---------- saída ----------
+
+def r5(v):
+    return round(v, 5) if isinstance(v, float) else v
+
+
+def write_csv(path, rows, campos=None):
+    campos = campos or list(dict.fromkeys(k for r in rows for k in r))
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=campos, extrasaction="ignore")
+        w.writeheader()
+        w.writerows({k: r5(r.get(k)) for k in campos} for r in rows)
+
+
+def por_porte(mun_rows):
+    out = []
+    for ano in ANOS:
+        base = [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")]
+        for esc in ["BR", "N", "NE", "CO", "SE", "S"]:
+            sub_esc = [r for r in base if esc == "BR" or r["regiao"] == esc]
+            tot_pt = sum(r["ganho_pt"] for r in sub_esc)
+            tot_dir = sum(r["ganho_dir"] for r in sub_esc)
+            tot_apt = sum(r["aptos"] for r in sub_esc)
+            for _, nome in PORTES:
+                sub = [r for r in sub_esc if r["porte"] == nome]
+                if not sub:
+                    continue
+                t = {c: sum(r[c] for r in sub) for c in ("aptos", "pt_1t", "pt_2t", "dir_1t", "dir_2t", "validos_1t",
+                                                          "validos_2t", "terceira_via", "delta", "ganho_pt", "ganho_dir")}
+                out.append({
+                    "id": f"{ano}-{esc}-{nome[0]}", "ano": ano, "escopo": esc, "porte": nome, "cidades": len(sub),
+                    "eleitores": t["aptos"], "pct_eleitores": t["aptos"] / tot_apt,
+                    "pct_pt_1t": t["pt_1t"] / t["validos_1t"], "pct_pt_2t": t["pt_2t"] / t["validos_2t"],
+                    "pp_pt": t["pt_2t"] / t["validos_2t"] - t["pt_1t"] / t["validos_1t"],
+                    "cresc_pt": div(t["ganho_pt"], t["pt_1t"]),
+                    "pct_dir_1t": t["dir_1t"] / t["validos_1t"], "pct_dir_2t": t["dir_2t"] / t["validos_2t"],
+                    "pp_dir": t["dir_2t"] / t["validos_2t"] - t["dir_1t"] / t["validos_1t"],
+                    "cresc_dir": div(t["ganho_dir"], t["dir_1t"]),
+                    "ganho_pt": t["ganho_pt"], "ganho_dir": t["ganho_dir"],
+                    "pct_ganho_pt": div(t["ganho_pt"], tot_pt), "pct_ganho_dir": div(t["ganho_dir"], tot_dir),
+                    "captura_pt": div(t["ganho_pt"], t["ganho_pt"] + t["ganho_dir"]),
+                    "pct_terceira": t["terceira_via"] / t["validos_1t"], "delta_pct": t["delta"] / t["aptos"],
+                    "venc_pt": sum(r["venc_2t"] == "PT" for r in sub), "venc_dir": sum(r["venc_2t"] == "DIR" for r in sub),
+                    "viradas_pt": sum(r["virou"] and r["venc_2t"] == "PT" for r in sub),
+                    "viradas_dir": sum(r["virou"] and r["venc_2t"] == "DIR" for r in sub),
+                    "perdeu_pt": sum(r["ganho_pt"] < 0 for r in sub), "perdeu_dir": sum(r["ganho_dir"] < 0 for r in sub),
+                })
+    return out
 
 
 def viradas_e_top(mun_rows, capitais):
-    """Marca viradas por cidade e monta o resumo de viradas e os rankings top 100."""
-    venc = defaultdict(dict)  # ano -> cod -> vencedor 2T
+    venc = defaultdict(dict)
     for r in mun_rows:
-        r["lider_1t"] = lider(r["pt_1t"], r["dir_1t"])
-        r["venc_2t"] = lider(r["pt_2t"], r["dir_2t"])
-        r["virou"] = int(r["lider_1t"] != r["venc_2t"])
         venc[r["ano"]][r["cod"]] = r["venc_2t"]
-    anos = sorted(venc)
     for r in mun_rows:
-        i = anos.index(r["ano"])
-        ant = venc[anos[i - 1]].get(r["cod"]) if i else None
+        i = ANOS.index(r["ano"])
+        ant = venc[ANOS[i - 1]].get(r["cod"]) if i else None
         r["venc_2t_ant"] = ant or ""
         r["mudou_vs_ant"] = "" if not ant else int(ant != r["venc_2t"])
 
     vir = []
-    for ano in anos:
+    for ano in ANOS:
         for esc in ["BR", "N", "NE", "CO", "SE", "S", "EX"]:
             sub = [r for r in mun_rows if r["ano"] == ano and (esc == "BR" or r["regiao"] == esc)]
             comp = [r for r in sub if r["mudou_vs_ant"] != ""]
@@ -288,7 +314,6 @@ def viradas_e_top(mun_rows, capitais):
                 "mudou_vs_ant": sum(r["mudou_vs_ant"] == 1 for r in comp) if comp else None,
                 "mudou_para_pt": sum(r["mudou_vs_ant"] == 1 and r["venc_2t"] == "PT" for r in comp) if comp else None,
                 "mudou_para_dir": sum(r["mudou_vs_ant"] == 1 and r["venc_2t"] == "DIR" for r in comp) if comp else None,
-                # cidades onde um ou ambos os finalistas tiveram MENOS votos no 2T que no 1T
                 "perdeu_pt": sum(r["ganho_pt"] < 0 for r in sub),
                 "perdeu_dir": sum(r["ganho_dir"] < 0 for r in sub),
                 "perdeu_so_pt": sum(r["ganho_pt"] < 0 <= r["ganho_dir"] for r in sub),
@@ -296,14 +321,18 @@ def viradas_e_top(mun_rows, capitais):
                 "perdeu_ambos": sum(r["ganho_pt"] < 0 and r["ganho_dir"] < 0 for r in sub),
                 "votos_perdidos_pt": -sum(r["ganho_pt"] for r in sub if r["ganho_pt"] < 0),
                 "votos_perdidos_dir": -sum(r["ganho_dir"] for r in sub if r["ganho_dir"] < 0),
-                "eleitores_perda_pt": sum(r["aptos"] for r in sub if r["ganho_pt"] < 0),
-                "eleitores_perda_dir": sum(r["aptos"] for r in sub if r["ganho_dir"] < 0),
+                # perdas que a queda de comparecimento não explica: o candidato perdeu votos onde o saldo foi positivo
+                "perda_dir_saldo_pos": sum(r["ganho_dir"] < 0 < r["delta"] for r in sub),
+                "perda_pt_saldo_pos": sum(r["ganho_pt"] < 0 < r["delta"] for r in sub),
+                # ganhos que só fecham com eleitor trocando de lado: maiores que 3ª via + saldo positivo
+                "pt_acima_pool": sum(r["ganho_pt"] > r["terceira_via"] + max(r["delta"], 0) for r in sub),
+                "dir_acima_pool": sum(r["ganho_dir"] > r["terceira_via"] + max(r["delta"], 0) for r in sub),
             })
 
     top, res = [], []
-    tops = {}  # (ano, cand, crit) -> set de códigos
-    for ano in anos:
-        base = [r for r in mun_rows if r["ano"] == ano and r["uf"] != "ZZ"]
+    tops = {}
+    for ano in ANOS:
+        base = [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")]
         for cand in ("pt", "dir"):
             for crit in ("abs", "pct", "perda"):
                 if crit == "abs":
@@ -311,7 +340,7 @@ def viradas_e_top(mun_rows, capitais):
                 elif crit == "pct":
                     pool = [r for r in base if r["aptos"] >= MIN_APTOS_PCT and r[f"{cand}_1t"]]
                     sel = sorted(pool, key=lambda r: r[f"cresc_{cand}"], reverse=True)[:TOP_N]
-                else:  # maiores perdas absolutas de votos entre 1T e 2T
+                else:
                     sel = sorted((r for r in base if r[f"ganho_{cand}"] < 0), key=lambda r: r[f"ganho_{cand}"])[:TOP_N]
                 tops[(ano, cand, crit)] = {r["cod"] for r in sel}
                 for i, r in enumerate(sel, 1):
@@ -322,19 +351,97 @@ def viradas_e_top(mun_rows, capitais):
                                 "ganho": r[f"ganho_{cand}"], "cresc": r[f"cresc_{cand}"], "pp": r[f"pp_{cand}"],
                                 "virou": r["virou"], "venc_2t": r["venc_2t"]})
                 ganho_total = sum(r[f"ganho_{cand}"] for r in base)
-                i = anos.index(ano)
-                prev = tops.get((anos[i - 1], cand, crit)) if i else None
-                res.append({"id": f"{ano}-{cand}-{crit}", "ano": ano, "cand": cand, "crit": crit,
+                i = ANOS.index(ano)
+                prev = tops.get((ANOS[i - 1], cand, crit)) if i else None
+                res.append({"id": f"{ano}-{cand}-{crit}", "ano": ano, "cand": cand, "crit": crit, "cidades": len(sel),
                             "ganho_top": sum(r[f"ganho_{cand}"] for r in sel),
                             "pct_ganho_total": (sum(r[f"ganho_{cand}"] for r in sel) / ganho_total
                                                 if ganho_total and crit != "perda" else None),
                             "ganho_total": ganho_total,
-                            "cidades": len(sel),
                             "mediana_cresc": float(np.median([r[f"cresc_{cand}"] for r in sel])) if sel else None,
                             "capitais": sum(r["cod"] in capitais for r in sel),
                             **{f"reg_{g}": sum(r["regiao"] == g for r in sel) for g in ["N", "NE", "CO", "SE", "S"]},
                             "repetidas_ant": len(tops[(ano, cand, crit)] & prev) if prev else None})
     return vir, top, res
+
+
+MAPA = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
+        "pct_dir_2t", "pp_pt", "pp_dir", "cresc_pt", "cresc_dir", "ganho_pt", "ganho_dir", "pct_terceira", "delta_pct",
+        "captura_pt", "margem_2t", "lider_1t", "lider1_nr", "lider1_sigla", "lider1_pct", "venc_2t", "virou",
+        "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50"]
+HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
+        "pt_1t", "pt_2t", "dir_1t", "dir_2t", "validos_1t", "validos_2t", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
+        "pct_dir_2t", "pp_pt", "pp_dir", "ganho_pt", "ganho_dir", "cresc_pt", "cresc_dir",
+        "terceira_via", "pct_terceira", "abst_1t", "abst_2t", "brancos_1t", "brancos_2t", "nulos_1t", "nulos_2t",
+        "pct_abst_1t", "pct_abst_2t", "pct_brancos_1t", "pct_brancos_2t", "pct_nulos_1t", "pct_nulos_2t",
+        "delta_abst", "delta_brancos", "delta_nulos", "delta", "pool", "captura_pt", "lider1_sigla", "lider1_pct",
+        "lider_1t", "venc_2t", "virou", "mudou_vs_ant"] + \
+       [f"{k}_{c}_{x}" for c in ("pt", "dir") for x in CENARIOS_X for k in ("need", "status", "y_saldo", "y_resto")]
+
+
+def main(od_dir, api_dir, mun_dir, out_dir):
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    uf_rows, cen_rows, mun_rows, reg_rows = [], [], [], []
+    for ano in ANOS:
+        agg, nomes = load_api_2026(api_dir, mun_dir) if ano == 2026 else load_open_data(od_dir, ano)
+        lid = lideres_1t(od_dir, ano)
+        cidades = []
+        for uf, cod in sorted({(k[1], k[2]) for k in agg}):
+            t1, t2 = agg.get((1, uf, cod)), agg.get((2, uf, cod))
+            if not t1 or not t2 or not t1["aptos"] or not t1["validos"] or not t2["validos"]:
+                continue
+            m = metricas(t1, t2)
+            ln, ls, lp = lid.get(cod, (None, "", None))
+            c = {"id": f"{ano}-{cod}", "ano": ano, "cod": cod, "municipio": nome_mun(nomes[cod]), "uf": uf,
+                 "regiao": REGIAO[uf], **m, "porte": porte(m["aptos"]),
+                 "lider_1t": lider(m["pt_1t"], m["dir_1t"]), "venc_2t": lider(m["pt_2t"], m["dir_2t"]),
+                 "lider1_nr": ln, "lider1_sigla": ls, "lider1_pct": lp,
+                 "perda": "ambos" if m["ganho_pt"] < 0 and m["ganho_dir"] < 0 else "pt" if m["ganho_pt"] < 0
+                 else "dir" if m["ganho_dir"] < 0 else ""}
+            c["virou"] = int(c["lider_1t"] != c["venc_2t"])
+            for cand in ("pt", "dir"):
+                for x in CENARIOS_X:
+                    for k, v in cenario(m, cand, x).items():
+                        c[f"{k}_{cand}_{x}"] = v
+            cidades.append(c)
+        grupos = [("UF", uf, UF_NOME[uf], REGIAO[uf], lambda k, uf=uf: k[1] == uf) for uf in UFS]
+        grupos += [("REGIAO", r, REGIAO_NOME[r], r, lambda k, r=r: REGIAO[k[1]] == r) for r in REGIAO_NOME if r != "EX"]
+        grupos += [("BR", "BR", "Brasil", "BR", lambda k: True)]
+        for nivel, cod, nome, reg, sel in grupos:
+            t1 = somar(v for k, v in agg.items() if k[0] == 1 and sel(k))
+            t2 = somar(v for k, v in agg.items() if k[0] == 2 and sel(k))
+            if not t1["validos"] or not t2["validos"]:
+                continue
+            m = metricas(t1, t2)
+            uf_rows.append({"id": f"{ano}-{cod}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome, "regiao": reg, **m})
+            for cand in ("pt", "dir"):
+                for x in CENARIOS_X:
+                    cen_rows.append({"id": f"{ano}-{cod}-{cand}-{x}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome,
+                                     "regiao": reg, "cand": cand, "x": x, **cenario(m, cand, x)})
+        for escopo in ["BR", "N", "NE", "CO", "SE", "S"]:
+            sub = [c for c in cidades if c["uf"] not in ("ZZ", "VT") and (escopo == "BR" or c["regiao"] == escopo)]
+            reg_rows.append({"id": f"{ano}-{escopo}", "ano": ano, "escopo": escopo,
+                             "nome": "Brasil" if escopo == "BR" else REGIAO_NOME[escopo], **regressao(sub)})
+        mun_rows += cidades
+        print(ano, "municípios:", len(cidades))
+    capitais = {m["cd"] for a in json.load(open(Path(mun_dir) / "cm.json", encoding="utf-8"))["abr"]
+                for m in a["mu"] if m.get("c") == "s"}
+    vir_rows, top_rows, top_res = viradas_e_top(mun_rows, capitais)
+    write_csv(out / "uf.csv", uf_rows)
+    write_csv(out / "cenarios.csv", cen_rows)
+    write_csv(out / "regressao.csv", reg_rows)
+    write_csv(out / "viradas.csv", vir_rows)
+    write_csv(out / "top100.csv", top_rows)
+    write_csv(out / "top100_resumo.csv", top_res)
+    write_csv(out / "porte.csv", por_porte(mun_rows))
+    for ano in ANOS:
+        write_csv(out / f"mapa_{ano}.csv", [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")], MAPA)
+    for uf in UFS:
+        if uf not in ("ZZ", "VT"):
+            write_csv(out / f"hist_{uf}.csv", sorted((r for r in mun_rows if r["uf"] == uf),
+                                                     key=lambda r: (r["cod"], -r["ano"])), HIST)
+    print("ok ->", out)
 
 
 if __name__ == "__main__":
