@@ -2,6 +2,19 @@
 (() => {
   const { $, F, cls, isNum, tbl, failed, failLine, rowsTable, NOMES, ANOS, st, nf0, tipAt } = window.ST;
   st.audVar = 'd_abst';
+  st.flag = 'todas';
+  st.flagSort = { k: 'exc', d: -1 };
+  const PERDA_CURTO = { saida_caiu: 'troca: abstenção caiu', perda_maior: 'troca: perda > saída', oponente_acima: 'troca: oponente acima', explicavel: 'explicável' };
+  const FLAG_SEL = {
+    todas: (r) => r.flag_conv === 'pt_acima' || r.flag_conv === 'dir_acima' || r.flag_conv === 'pt_alto' || r.flag_conv === 'dir_alto' || +r.troca_min_pt > 0 || +r.troca_min_dir > 0,
+    pt_acima: (r) => r.flag_conv === 'pt_acima', pt_alto: (r) => r.flag_conv === 'pt_alto', dir_acima: (r) => r.flag_conv === 'dir_acima', dir_alto: (r) => r.flag_conv === 'dir_alto',
+    troca_dir: (r) => +r.troca_min_dir > 0, troca_pt: (r) => +r.troca_min_pt > 0,
+    perda_pt: (r) => !!r.flag_perda_pt, perda_dir: (r) => !!r.flag_perda_dir,
+    explicavel: (r) => r.flag_perda_pt === 'explicavel' || r.flag_perda_dir === 'explicavel',
+  };
+  const CHAVE = { municipio: (r) => r.municipio, uf: (r) => r.uf, aptos: (r) => +r.aptos, terceira_via: (r) => +r.terceira_via, rec_pt: (r) => +r.rec_pt,
+    rec_dir: (r) => +r.rec_dir, ganho_pt: (r) => +r.ganho_pt, ganho_dir: (r) => +r.ganho_dir, conv_pt: (r) => +r.x_levou_pt, conv_dir: (r) => -r.x_levou_pt,
+    exc: (r) => +r.exc_pt + +r.exc_dir, troca: (r) => +r.troca_min_pt + +r.troca_min_dir, venc: (r) => r.venc_2t };
   const fora = (v) => isNum(v) && (+v < -0.05 || +v > 1.05);
   const pctF = (v) => F.pct(v);
 
@@ -48,6 +61,7 @@
         ['outliers_z5_por_mil', (v) => (isNum(v) ? window.ST.nf1.format(+v) : '—')], ['corr_comparecimento_pt', F.dec2, 1], ['corr_mobilizacao', F.dec2, 1],
         ['klimek_cidades', F.int], ['benford2_p', F.dec], ['ultimo_digito_p', F.dec], ['x_hat', F.pct], ['y_hat', F.pct], ['c_hat', F.pp, 1]], sel);
     } else if (failed('auditoria_serie')) { failLine($('#aud-serie tbody')); failLine($('#aud-forense tbody')); }
+    sinais(p);
     dist(p);
     consistencia(p);
     const ou = tbl('auditoria_outliers');
@@ -56,6 +70,58 @@
         [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['z', (v) => window.ST.nf1.format(+v), 1],
           ['ganho_pt', F.sint, 1], ['esperado_pt', F.sint], ['ganho_adv', F.sint, 1], ['terceira', F.int], ['delta', F.sint, 1]]);
     } else if (failed('auditoria_outliers')) failLine($('#aud-out tbody'));
+  }
+
+  // conversão da 3ª via necessária para o resultado e perdas de votos: série e lista completa de cidades
+  function sinais(p) {
+    const cs = tbl('conversao_serie');
+    const sel = (tr, r) => tr.classList.toggle('st-sel', String(r.ano) === p.ano);
+    $('#aud-conv-h').textContent = `Conversão da 3ª via necessária para o resultado, 2002–2026 · ${window.ST.REG[p.reg]}`;
+    if (cs) {
+      const list = ANOS.map((a) => cs.by.get(`${a}-${p.reg}`)).filter(Boolean);
+      rowsTable($('#aud-conv tbody'), list, [['ano', F.txt, 0, 1], ['conv_pt', (v, r) => `${F.pct(v)} / ${isNum(v) ? F.pct(1 - +v) : '—'}`], ['flag_conv', (v) => window.ST.CONV_ROT[v] || '—', 0, 1],
+        ['cidades_avaliadas', F.int], ['n_pt_acima', F.int], ['n_pt_alto', F.int], ['n_dir_acima', F.int], ['n_dir_alto', F.int], ['exc_pt', F.int], ['exc_dir', F.int],
+        ['n_pt_acima_2t', F.int], ['n_dir_acima_2t', F.int]], (tr, r) => {
+        sel(tr, r);
+        const k = window.ST.CONV_CLS[r.flag_conv]; if (k) tr.children[1].classList.add(k);
+        if (+r.n_pt_acima > 0) tr.children[4].classList.add('neg');
+        if (+r.n_dir_acima > 0) tr.children[6].classList.add('neg');
+      });
+      rowsTable($('#aud-perda2 tbody'), list, [['ano', F.txt, 0, 1], ['perdeu_pt', F.int], ['votos_perdidos_pt', F.int], ['pt_saida_caiu', F.int], ['pt_perda_maior', F.int],
+        ['pt_oponente_acima', F.int], ['pt_explicavel', F.int], ['troca_min_pt', F.int], ['perdeu_dir', F.int], ['votos_perdidos_dir', F.int], ['dir_saida_caiu', F.int],
+        ['dir_perda_maior', F.int], ['dir_oponente_acima', F.int], ['dir_explicavel', F.int], ['troca_min_dir', F.int]], (tr, r) => {
+        sel(tr, r);
+        [3, 4, 5, 7, 10, 11, 12, 14].forEach((i) => { if (+tr.children[i].textContent.replace(/\D/g, '') > 0) tr.children[i].classList.add('neg'); });
+      });
+    } else if (failed('conversao_serie')) { failLine($('#aud-conv tbody')); failLine($('#aud-perda2 tbody')); }
+    // lista completa da eleição escolhida
+    const src = 'mapa_' + p.ano;
+    const t = $('#aud-flag');
+    t.dataset.source = src;
+    t.dataset.rowKey = 'id';
+    const n = NOMES[p.ano];
+    $('#aud-flag-h').textContent = `Cidades sinalizadas, ${p.ano} · ${n.pt} × ${n.dir}`;
+    $('#f-flag').value = st.flag;
+    const cid = tbl(src);
+    const tb = $('#aud-flag tbody');
+    if (!cid) { if (failed(src)) failLine(tb); return; }
+    const { k, d } = st.flagSort;
+    window.ST.$$('#aud-flag thead th').forEach((th) => th.setAttribute('aria-sort', th.dataset.sort === k ? (d > 0 ? 'ascending' : 'descending') : 'none'));
+    const fs = FLAG_SEL[st.flag] || FLAG_SEL.todas;
+    const all = cid.rows.filter((r) => window.ST.noFiltro(r, p) && fs(r));
+    const ch = CHAVE[k] || CHAVE.exc;
+    all.sort((a, b) => { const x = ch(a), y = ch(b); return (typeof x === 'string' ? x.localeCompare(y, 'pt-BR') : (x || 0) - (y || 0)) * d; });
+    $('#aud-flag-n').textContent = `${F.int(all.length)} cidades${all.length > 500 ? ', mostrando as 500 primeiras na ordem escolhida' : ''}. Recorte: ${p.uf ? window.ST.UF_NOME[p.uf] : window.ST.REG[p.reg]}.`;
+    const exc = (v, r) => (+r.exc_pt > 0 ? `${F.int(r.exc_pt)} (PT)` : +r.exc_dir > 0 ? `${F.int(r.exc_dir)} (adv.)` : '—');
+    const troca = (v, r) => (+r.troca_min_dir > 0 ? `${F.int(r.troca_min_dir)} adv.→PT` : +r.troca_min_pt > 0 ? `${F.int(r.troca_min_pt)} PT→adv.` : '—');
+    rowsTable(tb, all.slice(0, 500), [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['terceira_via', F.int], ['rec_pt', F.sint], ['rec_dir', F.sint],
+      ['ganho_pt', F.sint, 1], ['ganho_dir', F.sint, 1], ['x_levou_pt', F.pct], ['x_levou_pt', (v) => (isNum(v) ? F.pct(1 - +v) : '—')],
+      ['flag_conv', (v) => window.ST.CONV_ROT[v] || '—', 0, 1], ['exc_pt', exc], ['flag_perda_pt', (v) => PERDA_CURTO[v] || '—', 0, 1],
+      ['flag_perda_dir', (v) => PERDA_CURTO[v] || '—', 0, 1], ['troca_min_dir', troca], ['venc_2t', F.txt, 0, 1]], (tr, r) => {
+      const c = window.ST.CONV_CLS[r.flag_conv];
+      if (c) [8, 9].forEach((i) => tr.children[i].classList.add(c));
+      [12, 13].forEach((i) => { const v = r[i === 12 ? 'flag_perda_pt' : 'flag_perda_dir']; if (v && v !== 'explicavel') tr.children[i].classList.add('neg'); });
+    });
   }
 
   function consistencia(p) {
@@ -145,6 +211,15 @@
 
   window.ST.init.auditoria = () => {
     $('#f-aud-var').addEventListener('change', (e) => { st.audVar = e.target.value; window.ST.draw(); });
+    $('#f-flag').addEventListener('change', (e) => { st.flag = e.target.value; window.ST.draw(); });
+    $('#aud-flag thead').addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-k]');
+      if (!b) return;
+      const k = b.dataset.k;
+      st.flagSort = { k, d: st.flagSort.k === k ? -st.flagSort.d : (k === 'municipio' || k === 'uf' ? 1 : -1) };
+      window.ST.draw();
+    });
+    window.ST.clicavel($('#aud-flag tbody'));
     window.ST.clicavel($('#aud-out tbody'));
     window.ST.clicavel($('#aud-loc tbody'));
     window.ST.clicavel($('#aud-ext tbody'));

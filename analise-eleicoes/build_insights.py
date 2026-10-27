@@ -71,12 +71,13 @@ def main(data_dir):
     add("pool", "geral", "O pool de 2026",
         f"O 2º turno teve {mi(b['pool'])} de votos disponíveis: {mi(b['terceira_via'])} da 3ª via e {mi(b['delta'])} "
         f"de eleitores recuperados (abstenção {mi(-float(b['delta_abst']))}, brancos e nulos {mi(-float(b['delta_bn']))}). "
-        f"Lula ficou com {pct(b['captura_pt'])}. Mesmo levando 100% dos recuperados, ele precisaria de pelo menos "
-        f"{pct(b['x_min'])} da 3ª via.")
+        f"Lula ficou com {pct(b['captura_pt'])}. Seguindo a proporção do 1º turno de cada cidade, os recuperados dariam "
+        f"{mi(b['rec_pt'])} a Lula e {mi(b['rec_dir'])} a Flávio; para chegar ao resultado que teve, Lula precisou converter "
+        f"{pct(b['x_levou_pt'])} da 3ª via.")
     add("delta", "geral", "A abstenção decidiu desta vez",
         f"O saldo de abstenção, brancos e nulos foi {mi(b18['delta'], True)} em 2018 e {mi(b22['delta'], True)} em 2022. "
-        f"Em 2026 foi {mi(b['delta'], True)}, o maior das três eleições. Sem nenhum voto desse saldo, Lula precisaria de "
-        f"{pct(gap / float(b['terceira_via']))} da 3ª via para vencer.")
+        f"Em 2026 foi {mi(b['delta'], True)}, o maior das três eleições. Na proporção do 1º turno de cada cidade ele se dividiria quase "
+        f"ao meio ({mi(b['rec_pt'])} × {mi(b['rec_dir'])}); o que pesou foi ele ter ido para Lula além desse padrão (aba Seções).")
     r = {e: reg[f"2026-{e}"] for e in REG}
     xs = sorted(r.values(), key=lambda v: float(v["x_hat"]))
     pos = [e for e in REG if float(r[e]["c_hat"]) > 0]
@@ -255,48 +256,68 @@ def main(data_dir):
     dificil = max((r for r in cu.values() if r["ano"] == "2026" and r["venc_2t"] == c26["vencedor"]),
                   key=lambda r: float(r["swing_para_virar_pp"]))
     c22 = col["2022-colegio"]
+    k = {a: col[f"{a}-colegio_1t"] for a in NOMES}
     add("colegio", "colegio", "Se fosse colégio eleitoral",
-        f"Com cada estado valendo seus deputados federais mais 3 senadores e o vencedor levando tudo, Flávio teria "
-        f"{c26['dir']} votos eleitorais contra {c26['pt']} de Lula, e venceria. O colégio contraria o voto popular em "
-        f"{' e '.join(diverg)}; nas outras eleições da série os dois coincidem. Medido em pontos percentuais, virar o colégio de 2026 "
-        f"exigiria {pp(c26['swing_para_virar_pp'])[1:]} dos válidos trocando de lado em todos os estados ao mesmo tempo: o estado decisivo é "
-        f"{UFN.get(c26['decisivo_uf'], c26['decisivo_uf'])}, e com esse swing viram {c26['estados_swing'].replace(' ', ' e ')}. Para virar o voto "
-        f"popular no sentido oposto bastariam {pp(c26['swing_popular_pp'])[1:]} Em 2022 o colégio pedia {pp(c22['swing_para_virar_pp'])[1:]} "
-        f"({UFN.get(c22['decisivo_uf'], c22['decisivo_uf'])} decisivo). O mínimo absoluto de {num(c26['votos_para_virar'])} votos em "
-        f"{c26['estados_para_virar'].replace(' ', ' e ')} é só aritmética de estados pequenos: {UFN[dificil['uf']]} é o estado mais difícil de virar em "
-        f"2026 ({pp(dificil['swing_para_virar_pp'])[1:]}) e entra na conta porque tem poucos eleitores.")
+        f"Com cada estado valendo seus deputados federais mais 3 senadores e o mais votado do 1º turno levando o estado, só haveria 2º turno se "
+        f"ninguém tivesse a maioria ({k['2026']['maioria']} votos). Em 2026 Flávio teria {k['2026']['dir']} contra {k['2026']['pt']} de Lula e venceria "
+        f"sem 2º turno; Bolsonaro também, em 2022 ({k['2022']['dir']} × {k['2022']['pt']}) e em 2018 ({k['2018']['dir']} × {k['2018']['pt']}); de 2002 a 2014 "
+        f"o PT venceria no 1º turno. Lula precisaria de {pp(k['2026']['swing_pt_maioria_pp'])[1:]} dos válidos trocando de lado em todos os estados "
+        f"para ter a maioria no 1º turno de 2026 ({pp(k['2022']['swing_pt_maioria_pp'])[1:]} em 2022). Contado pelo 2º turno, como comparação, Flávio "
+        f"teria {c26['dir']} × {c26['pt']} e virar exigiria {pp(c26['swing_para_virar_pp'])[1:]} ({UFN.get(c26['decisivo_uf'], c26['decisivo_uf'])} decisivo); "
+        f"o mínimo absoluto de {num(c26['votos_para_virar'])} votos em {c26['estados_para_virar'].replace(' ', ' e ')} é só aritmética de estados pequenos "
+        f"({UFN[dificil['uf']]} precisaria de {pp(dificil['swing_para_virar_pp'])[1:]}).")
     u26 = [r for r in cu.values() if r["ano"] == "2026"]
-    fragil = min((r for r in u26 if r["venc_2t"] == "PT"), key=lambda r: float(r["swing_para_virar_pp"]))
-    dec = cu[f"2026-{c26['decisivo_uf']}"]
-    troca = int(c26["pt"]) + int(dec["peso_colegio"]) - int(fragil["peso_colegio"])
-    ppp = lambda r: int(r["peso_colegio"]) / (float(r["swing_para_virar_pp"]) * 100)
-    alvos = sorted((r for r in u26 if r["venc_2t"] != "PT"), key=lambda r: float(r["swing_para_virar_pp"]))[:2]
-    add("defesa", "colegio", "Ataque e defesa: Minas pesa mais que o Rio",
-        f"Num colégio, o estado mais frágil de Lula em 2026 seria {UFN[fragil['uf']]}: {pp(fragil['swing_para_virar_pp'])[1:]} trocando de lado viram o estado, "
-        f"que vale {fragil['peso_colegio']} votos. Virar {UFN[dec['uf']]} (+{dec['peso_colegio']}, {pp(dec['swing_para_virar_pp'])[1:]}) e perder "
-        f"{UFN[fragil['uf']]} deixaria Lula com {troca} × {int(c26['total']) - troca}, pior que o resultado real. Por ponto de swing exigido, "
-        f"{UFN[fragil['uf']]} vale {num(ppp(fragil))} votos no colégio, contra " + " e ".join(f"{num(ppp(r))} de {UFN[r['uf']]}" for r in alvos)
-        + f": a defesa de {UFN[fragil['uf']]} viria antes de qualquer ataque. O simulador da aba Vitória líquida faz qualquer combinação.")
-    # 3ª via necessária: o resto do disponível dividido pela proporção PT × adversário do 1º turno em cada cidade
-    def req_txt(r):
-        x = float(r["x_req_pt"])
-        if x <= 0:
-            return "vencia sem a 3ª via"
-        return f"precisava de {pct(x)}" + (" (mais que toda)" if x > 1 else "") + f", implícito {pct(r['x_levou_pt'])}"
-    regs = [(g, uf[f"2026-{g}"]) for g in ("NE", "N", "SE", "CO", "S")]
+    sw = lambda r: float(r["swing_1t_pp"])
+    adv1 = sorted((r for r in u26 if r["venc_1t"] == "DIR"), key=sw)
+    big = next(r for r in adv1 if int(r["peso_colegio"]) >= 30)
+    pt1 = sorted((r for r in u26 if r["venc_1t"] == "PT"), key=sw)[:3]
+    tot, cam = int(k["2026"]["pt"]), []
+    for r in adv1:
+        if tot >= int(k["2026"]["maioria"]):
+            break
+        tot += int(r["peso_colegio"])
+        cam.append(r)
+    mg2 = cu["2026-MG"]
+    ppx = lambda v: dc(float(v) * 100, 2 if float(v) < 0.001 else 1) + " p.p."
+    add("defesa", "colegio", "Ataque e defesa pelo 1º turno",
+        f"No 1º turno de 2026, {UFN[big['uf']]} era de Flávio, e é o estado dele mais fácil de perder: {pp(big['swing_1t_pp'])[1:]} trocando de lado o "
+        f"dariam a Lula, com {big['peso_colegio']} votos no colégio ({num(int(big['peso_colegio']) / (sw(big) * 100))} por ponto de swing). Seria a primeira defesa de Flávio. "
+        f"O caminho de Lula à maioria no 1º turno passaria, do mais fácil ao mais difícil, por " + ", ".join(f"{r['uf']} ({ppx(r['swing_1t_pp'])})" for r in cam)
+        + f". Do lado de Lula, os estados mais frágeis no 1º turno eram " + ", ".join(f"{r['uf']} ({ppx(r['swing_1t_pp'])})" for r in pt1)
+        + f". Contado pelo 2º turno, Minas passa a Lula por {pp(mg2['swing_para_virar_pp'])[1:]}, e aí a defesa seria dele. O simulador e a curva da aba "
+        f"Vitória líquida trocam entre as duas bases.")
+    # conversão da 3ª via necessária para o resultado obtido, com os recuperados na proporção do 1º turno de cada cidade
+    cv = {r["id"]: r for r in rd("conversao_serie.csv")}
+    c6, c2, c06 = cv["2026-BR"], cv["2022-BR"], cv["2006-BR"]
+    hist_n = [int(cv[f"{a}-BR"]["n_pt_acima"]) + int(cv[f"{a}-BR"]["n_dir_acima"]) for a in ("2010", "2014", "2018", "2022")]
     tr3 = ({r["id"]: r for r in rd("secao_transicao.csv")}.get("2026-BR-ter")
            if (d / "secao_transicao.csv").exists() else None)
-    add("req3", "geral", "Quanto da 3ª via Lula precisava converter",
-        f"Dividindo os votos recuperados (abstenção, brancos e nulos) entre Lula e Flávio na proporção de cada cidade no 1º turno, "
-        f"Lula ficaria com {mi(b['rec_pt'])} e Flávio com {mi(b['rec_dir'])}: o Nordeste pró-Lula ({mi(uf['2026-NE']['rec_pt'])} × "
-        f"{mi(uf['2026-NE']['rec_dir'])}) é compensado pelo Sudeste e pelo Sul. Com Flávio {mi(int(b['dir_1t']) - int(b['pt_1t']))} à frente no 1º turno "
-        f"e {mi(b['terceira_via'])} na 3ª via, Lula precisava converter {pct(b['x_req_pt'])} da 3ª via para empatar ({pct(b['x_req50_pt'])} com o resto "
-        f"meio a meio). O resultado implica {pct(b['x_levou_pt'])} na mesma regra"
-        + (f", mas as seções estimam que Lula levou {pct(tr3['para_pt'], 0)} da 3ª via e Flávio {pct(tr3['para_adv'], 0)}: o que fechou a conta foi o "
-           f"resto não seguir a proporção do 1º turno (brancos, nulos e abstenção foram mais para Lula)" if tr3 else "")
-        + ". Por região: " + "; ".join(f"{REG[g]} {req_txt(r)}" for g, r in regs) + ". "
-        f"Em 2022 Lula precisava de {pct(b22['x_req_pt'])} e o implícito foi {pct(b22['x_levou_pt'])}; em 2018 Haddad precisava de "
-        f"{pct(b18['x_req_pt'])} e o implícito foi {pct(b18['x_levou_pt'])}.")
+    FLAG = {"pt_acima": "improvável", "pt_alto": "muito alto", "dir_acima": "improvável para Flávio", "dir_alto": "muito alto para Flávio", "ok": "plausível"}
+    regs = [(g, uf[f"2026-{g}"]) for g in ("NE", "N", "SE", "CO", "S")]
+    add("conv", "geral", "Quanto da 3ª via Lula precisou converter",
+        f"Com abstenção, brancos e nulos recuperados seguindo a proporção do 1º turno de cada cidade ({mi(b['rec_pt'])} para Lula, "
+        f"{mi(b['rec_dir'])} para Flávio), Lula precisou converter {pct(b['x_levou_pt'])} da 3ª via para chegar ao resultado que teve, e Flávio "
+        f"{pct(1 - float(b['x_levou_pt']))}. Por região: " + "; ".join(f"{REG[g]} {pct(r['x_levou_pt'])} ({FLAG.get(r['flag_conv'], '')})" for g, r in regs) + ". "
+        f"Em {num(c6['n_pt_acima'])} cidades a conversão necessária a Lula passa de 100% — improvável pela regra — e em mais {num(c6['n_pt_alto'])} fica "
+        f"entre 90% e 100%. De 2010 a 2022 foram {min(hist_n)} a {max(hist_n)} cidades por eleição acima de 100% (somando os dois lados); só 2006 teve "
+        f"mais ({num(c06['n_pt_acima'])}, Lula contra Alckmin)."
+        + (f" As seções estimam que a 3ª via se dividiu {pct(tr3['para_pt'], 0)} × {pct(tr3['para_adv'], 0)}: o resultado veio dos recuperados "
+           f"indo para Lula além do padrão local, não da 3ª via." if tr3 else ""))
+    add("aud-conv", "auditoria", "Conversão da 3ª via acima de 100%: sinal de 2026",
+        f"Para chegar ao resultado, com os recuperados na proporção do 1º turno, Lula precisaria de mais de 100% da 3ª via em {num(c6['n_pt_acima'])} "
+        f"das {num(c6['cidades_avaliadas'])} cidades avaliadas ({pct(c6['eleit_pt_acima'], 0)} do eleitorado), somando {num(c6['exc_pt'])} votos acima da regra; "
+        f"Flávio, em {num(c6['n_dir_acima'])}. Em 2022 o sinal estava do outro lado: Bolsonaro acima de 100% em {num(c2['n_dir_acima'])} cidades "
+        f"({num(c2['exc_dir'])} votos), Lula em {num(c2['n_pt_acima'])}. Em 2006, Lula acima de 100% em {num(c06['n_pt_acima'])} cidades e "
+        f"{mi(c06['exc_pt'])} de votos. Com os recuperados na proporção do 2º turno, 2026 fica com {num(c6['n_pt_acima_2t'])} cidades. "
+        f"Acima de 100% quer dizer que os recuperados foram para Lula além do padrão local ou que eleitores de Flávio trocaram de lado; os "
+        f"dados por cidade não separam as duas coisas, e a lista completa está no cartão Cidades sinalizadas.")
+    add("aud-trocas", "auditoria", "Perdas de votos e troca de lado",
+        f"Flávio perdeu votos do 1º para o 2º turno em {num(c6['perdeu_dir'])} cidades ({num(c6['votos_perdidos_dir'])} votos). Em {num(c6['dir_saida_caiu'])} delas "
+        f"abstenção, brancos e nulos caíram — a perda só se explica com eleitores indo para Lula —, em {num(c6['dir_perda_maior'])} ele perdeu mais do que eles "
+        f"subiram e em {num(c6['dir_explicavel'])} a perda é explicável por quem deixou de votar. O piso de eleitores de Flávio que foram para Lula é "
+        f"{num(c6['troca_min_dir'])}, em {num(c6['cid_troca_dir'])} cidades. Na série: {mi(c06['troca_min_dir'])} de Alckmin para Lula em 2006 "
+        f"({num(c06['cid_troca_dir'])} cidades) e {num(c2['troca_min_pt'])} de Lula para Bolsonaro em 2022 ({num(c2['cid_troca_pt'])} cidades). Lula perdeu votos "
+        f"em {num(c6['perdeu_pt'])} cidades em 2026, {num(c6['pt_explicavel'])} explicáveis por quem deixou de votar.")
     # quedas de abstenção, nulos e brancos (top 100)
     qr = {r["id"]: r for r in rd("quedas_resumo.csv")}
     ql = rd("quedas.csv")

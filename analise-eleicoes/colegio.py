@@ -52,6 +52,39 @@ def deputados_por_uf(od_dir, apiuf_dir, ano):
     return out
 
 
+def votos_1t_uf(od_dir, ano):
+    """{UF: {"pt", "dir", "outro", "outro_sigla", "validos"}} no 1º turno; "outro" é o mais votado fora dos finalistas."""
+    pt_nr, _, dir_nr, _ = bd.FINAIS[ano]
+    v, sig = defaultdict(lambda: defaultdict(int)), {}
+    for r in bd.read_brasil_csv(Path(od_dir) / f"votacao_partido_munzona_{ano}.zip"):
+        if r["CD_CARGO"] == "1" and r["NR_TURNO"] == "1" and r["SG_UF"] not in ("ZZ", "VT"):
+            nr = int(r["NR_PARTIDO"])
+            sig[nr] = r["SG_PARTIDO"]
+            v[r["SG_UF"]][nr] += bd.votos_partido(r)
+    out = {}
+    for uf, vs in v.items():
+        outros = {nr: x for nr, x in vs.items() if nr not in (pt_nr, dir_nr)}
+        onr = max(outros, key=outros.get) if outros else None
+        out[uf] = {"pt": vs.get(pt_nr, 0), "dir": vs.get(dir_nr, 0), "outro": outros.get(onr, 0),
+                   "outro_sigla": sig.get(onr, ""), "validos": sum(vs.values())}
+    return out
+
+
+def venc_1t(d, s=0.0):
+    """Mais votado no estado no 1º turno com swing uniforme s (fração dos válidos indo do adversário para o PT)."""
+    pt, dr = d["pt"] + s * d["validos"], d["dir"] - s * d["validos"]
+    m = max(pt, dr, d["outro"])
+    return "PT" if pt == m else "DIR" if dr == m else "OUTRO"
+
+
+def swing_1t(d):
+    """Swing (fração dos válidos, PT ↔ adversário) que muda o dono do estado no 1º turno: o PT perde, ou passa a vencer."""
+    V = d["validos"]
+    if venc_1t(d) == "PT":
+        return min((d["pt"] - d["dir"]) / (2 * V), (d["pt"] - d["outro"]) / V)
+    return max((d["dir"] - d["pt"]) / (2 * V), (d["outro"] - d["pt"]) / V)
+
+
 def virar(ufs, peso, alvo):
     """Menor número de votos trocando de lado (margem // 2 + 1) nos estados do vencedor para dar ao perdedor `alvo` pesos."""
     # programação dinâmica sobre o peso: menor custo para somar pelo menos `alvo` pesos
@@ -127,6 +160,28 @@ def main(od_dir, apiuf_dir, data_dir):
                     "eleitores_swing": round(m_dec / 2 * int(br["validos_2t"])) if decisivo else None,
                     "votos_para_virar": res[0] if res else None, "estados_para_virar": " ".join(sorted(res[1])) if res else "",
                     "pct_validos_para_virar": res[0] / int(br["validos_2t"]) if res else None})
+        # colégio pelo 1º turno: o mais votado leva o estado; sem maioria, haveria 2º turno
+        v1 = votos_1t_uf(od_dir, ano)
+        p = pesos["colegio"]
+        tot = lambda s: {k: sum(p[u] for u in p if venc_1t(v1[u], s) == k) for k in ("PT", "DIR", "OUTRO")}
+        maioria = col["maioria"]
+        dono = lambda t: "PT" if t["PT"] >= maioria else "DIR" if t["DIR"] >= maioria else "2T"
+        t0 = tot(0)
+        passos = [i / 4000 for i in range(1, 1201)]  # até 30 p.p., de 0,025 em 0,025
+        primeiro = lambda cond, sinal: 0.0 if cond(t0) else next((s for s in passos if cond(tot(sinal * s))), None)
+        l1 = {"sistema": "colegio_1t", "pt": t0["PT"], "dir": t0["DIR"], "outros": t0["OUTRO"],
+              "outros_siglas": " ".join(sorted({f"{u} {v1[u]['outro_sigla']}" for u in p if venc_1t(v1[u]) == "OUTRO"})),
+              "resultado_1t": dono(t0),
+              "swing_pt_maioria_pp": primeiro(lambda t: t["PT"] >= maioria, 1),
+              "swing_dir_maioria_pp": primeiro(lambda t: t["DIR"] >= maioria, -1)}
+        if dono(t0) != "2T":
+            l1["swing_forcar_2t_pp"] = primeiro(lambda t: dono(t) != dono(t0), 1 if dono(t0) == "DIR" else -1)
+        tot1 = l1["pt"] + l1["dir"] + l1["outros"]
+        l1.update({"id": f"{ano}-colegio_1t", "ano": ano, "pt_nome": pt_nome, "adv_nome": adv_nome, "total": tot1,
+                   "maioria": maioria, "pct_pt": l1["pt"] / tot1,
+                   "vencedor": {"PT": "PT", "DIR": "DIR", "2T": "2T"}[dono(t0)],
+                   "igual_popular": int(dono(t0) == venc_pop)})
+        linhas.append(l1)
         sistemas += linhas
         ordem_v = {r["uf"]: i for i, r in enumerate(sorted((r for r in rows if r["venc"] == venc),
                                                            key=lambda r: abs(float(r["margem_2t"]))), 1)}
@@ -138,6 +193,9 @@ def main(od_dir, apiuf_dir, data_dir):
                             "net_votos": int(r["net_votos"]), "swing_margem": float(r["swing_margem"]),
                             "votos_para_virar": r["margem_votos"] // 2 + 1,
                             "swing_para_virar_pp": abs(float(r["margem_2t"])) / 2,
+                            "venc_1t": venc_1t(v1[r["uf"]]), "pt_1t_uf": v1[r["uf"]]["pt"], "dir_1t_uf": v1[r["uf"]]["dir"],
+                            "outro_1t": v1[r["uf"]]["outro"], "outro_sigla_1t": v1[r["uf"]]["outro_sigla"],
+                            "validos_1t_uf": v1[r["uf"]]["validos"], "swing_1t_pp": abs(swing_1t(v1[r["uf"]])),
                             "ordem_swing": ordem_v.get(r["uf"]),
                             "decisivo": int(bool(decisivo) and r["uf"] == decisivo["uf"])})
         print(ano, {l["sistema"]: f"{l['pt']}x{l['dir']}" for l in linhas}, "decisivo", col["decisivo_uf"],

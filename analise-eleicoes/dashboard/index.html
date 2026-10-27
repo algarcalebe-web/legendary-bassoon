@@ -113,6 +113,9 @@
           <option value="S">Sul</option>
         </select>
       </label>
+      <label class="st-field" for="f-uf">Estado
+        <select id="f-uf"><option value="">Todos</option></select>
+      </label>
     </div>
     <nav class="st-tabs" id="tabs" role="tablist" aria-label="Seções">
       <button type="button" role="tab" id="tab-mapa" data-tab="mapa">Mapa</button>
@@ -153,8 +156,9 @@
                 <option value="perda">Quem perdeu votos</option>
                 <option value="mudou">Mudou vs. eleição anterior</option>
                 <option value="cen50">PT com 50% da 3ª via: % do restante necessária</option>
-                <option value="x_req_pt">3ª via que o PT precisava (resto proporcional)</option>
-                <option value="x_levou_pt">3ª via que o PT levou (resto proporcional)</option>
+                <option value="conv">Conversão da 3ª via necessária: avaliação</option>
+                <option value="x_levou_pt">Conversão da 3ª via necessária ao PT (%)</option>
+                <option value="troca">Troca de lado mínima (perdas de votos)</option>
               </select>
             </label>
             <input type="search" id="f-cidade" list="lista-cidades" placeholder="Buscar município" aria-label="Buscar município">
@@ -191,17 +195,17 @@
     </div>
     <div class="st-card" id="cid-disp-card">
       <h2>Votos em disputa do 1º para o 2º turno</h2>
-      <p class="st-note">Recuperados = queda do 1º para o 2º turno; negativo quer dizer que subiu (votos perdidos). Total disponível = 3ª via + saldo recuperado, igual ao que os dois finalistas somaram juntos. 3ª via, resto proporcional: abstenção, brancos e nulos recuperados divididos entre PT e adversário na proporção do 1º turno na cidade; a fatia da 3ª via que o PT precisava converter para empatar e a que o resultado implica que levou (acima de 100% ou abaixo de 0% quer dizer que o resto não seguiu a proporção do 1º turno).</p>
+      <p class="st-note">Recuperados = queda do 1º para o 2º turno; negativo quer dizer que subiu (votos perdidos). Total disponível = 3ª via + saldo recuperado, igual ao que os dois finalistas somaram juntos. Conversão da 3ª via necessária: com abstenção, brancos e nulos recuperados seguindo a proporção PT × adversário do 1º turno na cidade, a fatia da 3ª via que cada finalista precisou converter para chegar ao resultado que teve. Acima de 100% é improvável pela regra (vermelho); 90–100%, muito alto (amarelo).</p>
       <div class="st-tbl short"><table id="cid-disp">
         <thead>
-          <tr class="grp"><th></th><th></th><th colspan="3">Abstenção</th><th colspan="3">Brancos</th><th colspan="3">Nulos</th><th colspan="3"></th><th colspan="2">3ª via, resto proporcional</th></tr>
+          <tr class="grp"><th></th><th></th><th colspan="3">Abstenção</th><th colspan="3">Brancos</th><th colspan="3">Nulos</th><th colspan="3"></th><th colspan="2">Conversão da 3ª via necessária</th></tr>
           <tr>
             <th class="txt" data-field="ano">Eleição</th><th data-field="terceira_via">3ª via</th>
             <th data-field="abst_1t">1º</th><th data-field="abst_2t">2º</th><th data-field="delta_abst">Recuperados</th>
             <th data-field="brancos_1t">1º</th><th data-field="brancos_2t">2º</th><th data-field="delta_brancos">Recuperados</th>
             <th data-field="nulos_1t">1º</th><th data-field="nulos_2t">2º</th><th data-field="delta_nulos">Recuperados</th>
             <th data-field="delta">Saldo recuperado</th><th data-field="pool">Total disponível</th><th data-field="captura_pt">Fatia do PT</th>
-            <th data-field="x_req_pt">PT precisava</th><th data-field="x_levou_pt">PT levou</th>
+            <th data-field="x_levou_pt">PT</th><th data-field="x_levou_pt">Adv.</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -232,8 +236,8 @@
       <div class="st-kpi"><span class="st-kpi-l">Crescimento de <span class="n-dir">Adversário</span></span><span class="st-kpi-v dash-skeleton" id="k-cdir">—</span><span class="st-kpi-s"><span id="k-gdir">—</span> votos</span></div>
       <div class="st-kpi"><span class="st-kpi-l">Crescimento líquido de <span class="n-pt">PT</span></span><span class="st-kpi-v dash-skeleton" id="k-net">—</span><span class="st-kpi-s">margem <span id="k-m1">—</span> → <span id="k-m2">—</span></span></div>
       <div class="st-kpi"><span class="st-kpi-l">Votos em disputa no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-pool">—</span><span class="st-kpi-s">3ª via <span id="k-t">—</span> · saldo <span id="k-d">—</span></span></div>
-      <div class="st-kpi"><span class="st-kpi-l">Fatia de <span class="n-pt">PT</span> nos votos novos</span><span class="st-kpi-v dash-skeleton" id="k-cap">—</span><span class="st-kpi-s">mínimo vindo da 3ª via: <span id="k-xmin">—</span></span></div>
-      <div class="st-kpi"><span class="st-kpi-l">3ª via que <span class="n-pt">PT</span> precisava converter</span><span class="st-kpi-v dash-skeleton" id="k-req">—</span><span class="st-kpi-s">levou <span id="k-levou">—</span> · <span id="k-req-st">—</span></span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Fatia de <span class="n-pt">PT</span> nos votos novos</span><span class="st-kpi-v dash-skeleton" id="k-cap">—</span><span class="st-kpi-s">recuperados, na proporção local, PT / adv.: <span id="k-xmin">—</span></span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Conversão da 3ª via necessária para o resultado: <span class="n-pt">PT</span></span><span class="st-kpi-v dash-skeleton" id="k-req">—</span><span class="st-kpi-s">adv. <span id="k-levou">—</span> · <span id="k-req-st">—</span></span></div>
     </div>
     <div class="st-grid">
       <div class="st-card" id="fluxo">
@@ -251,7 +255,7 @@
       <p class="st-note" id="comp-nota">Uma linha por eleição.</p>
       <div class="st-tbl short"><table id="comp-tabela" data-source="uf" data-row-key="id">
         <thead>
-          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="2">Líquido</th><th colspan="6">Votos em disputa</th><th colspan="2">3ª via, resto proporcional</th></tr>
+          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="2">Líquido</th><th colspan="6">Votos em disputa</th><th colspan="2">Conversão da 3ª via necessária</th></tr>
           <tr>
             <th class="txt" data-field="ano">Eleição</th><th class="txt">Disputa</th>
             <th data-field="pct_pt_1t">1º</th><th data-field="pct_pt_2t">2º</th><th data-field="ganho_pt">Votos ganhos</th><th data-field="cresc_pt">Cresc.</th>
@@ -259,7 +263,7 @@
             <th data-field="net_votos">Crescimento</th><th data-field="swing_margem">Var. margem</th>
             <th data-field="pct_terceira">3ª via</th><th data-field="delta_abst">Abstenção rec.</th><th data-field="delta_brancos">Brancos rec.</th>
             <th data-field="delta_nulos">Nulos rec.</th><th data-field="pool">Total disponível</th><th data-field="captura_pt">Fatia do PT</th>
-            <th data-field="x_req_pt">PT precisava</th><th data-field="x_levou_pt">PT levou</th>
+            <th data-field="x_levou_pt">PT</th><th data-field="x_levou_pt">Adv.</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -273,13 +277,19 @@
       <ul class="st-ins" id="liq-leituras"></ul>
     </div>
     <div class="st-card" id="col-card">
-      <h2>Quem venceria em cada regra, 2002–2026</h2>
-      <p class="st-note">Vencedor do 2º turno em cada unidade leva tudo. Colégio: cada estado vale seus deputados federais eleitos + 3 senadores, como os EUA (deputados + 2 senadores). Eleitorado: cada estado vale seu número de eleitores. Em vermelho o PT, em azul o adversário. Swing para virar = pontos percentuais dos válidos que teriam de trocar de lado em todos os estados ao mesmo tempo (metade da margem do estado decisivo): é a medida de quão perto o resultado esteve. Mínimo absoluto = a menor soma de votos que viraria o colégio; cai sempre em estados pequenos, mesmo com margens enormes (Roraima precisaria de 22 p.p. em 2026), então é conta, não cenário.</p>
+      <div class="st-card-h">
+        <h2>Quem venceria em cada regra, 2002–2026</h2>
+        <div class="st-seg" id="f-col-base" role="group" aria-label="Base do colégio">
+          <button type="button" data-v="1t">Colégio pelo 1º turno</button><button type="button" data-v="2t">Pelo 2º turno</button>
+        </div>
+      </div>
+      <p class="st-note">Cada estado vale seus deputados federais eleitos + 3 senadores, como os EUA (deputados + 2 senadores); quem vence o estado leva todos. Colégio pelo 1º turno: o mais votado no 1º turno leva o estado, e só haveria 2º turno se ninguém tivesse a maioria — a forma certa de aplicar a regra, porque com colégio o 2º turno poderia nem existir. Colégio pelo 2º turno: o vencedor do 2º turno em cada estado, como comparação. Entre parênteses, votos de terceiros. Swing = pontos percentuais dos válidos trocando de lado em todos os estados ao mesmo tempo. Mínimo absoluto = a menor soma de votos que viraria o colégio do 2º turno; cai em estados pequenos com margens enormes, então é conta, não cenário. Em vermelho o PT, em azul o adversário; negrito quando contraria o voto popular. O botão escolhe a base do mapa, das tabelas de estados, de ataque e defesa e do simulador abaixo.</p>
       <div class="st-tbl short"><table id="col-tabela">
         <thead><tr>
-          <th class="txt">Eleição</th><th class="txt">Voto popular</th><th class="txt">Colégio (dep. + 3)</th><th class="txt">Só deputados</th>
+          <th class="txt">Eleição</th><th class="txt">Voto popular (2º)</th><th class="txt">Colégio pelo 1º turno</th><th class="txt">Colégio pelo 2º turno</th><th class="txt">Só deputados</th>
           <th class="txt">Estados</th><th class="txt">Eleitorado (mi)</th><th class="txt">Regiões</th><th class="txt">Municípios</th>
-          <th class="txt">Estado decisivo</th><th>Swing para virar o colégio</th><th class="txt">Estados que virariam</th><th>Swing para virar o voto popular</th>
+          <th>1º turno: swing para o PT ter maioria</th><th>Para o adv. ter maioria</th>
+          <th class="txt">2º turno: estado decisivo</th><th>Swing para virar o colégio</th><th class="txt">Estados que virariam</th><th>Swing para virar o voto popular</th>
           <th>Mínimo absoluto de votos</th><th class="txt">Onde</th>
         </tr></thead>
         <tbody></tbody>
@@ -300,7 +310,7 @@
     </div>
     <div class="st-card" id="vira-card">
       <h2 id="vira-h">Quanto cada estado precisaria mudar para virar</h2>
-      <p class="st-note">Pontos percentuais dos válidos que teriam de trocar de lado (metade da margem do 2º turno). Cor: quem venceu o estado, mais forte quanto mais difícil de virar. Borda: estado decisivo do colégio naquele ano. Entre parênteses, o peso no colégio em 2026. Ordem: do mais fácil ao mais difícil de virar na eleição escolhida.</p>
+      <p class="st-note">Pontos percentuais dos válidos que teriam de trocar de lado entre PT e adversário para o estado mudar de dono, na base escolhida acima. Cor: dono do estado (cinza: terceiro), mais forte quanto mais difícil de virar. Borda (base do 2º turno): estado decisivo do colégio. Entre parênteses, o peso no colégio em 2026. Ordem: do mais fácil ao mais difícil de virar na eleição escolhida.</p>
       <div class="st-tbl"><table id="vira-uf">
         <thead><tr><th class="txt">Estado</th><th>2026</th><th>2022</th><th>2018</th><th>2014</th><th>2010</th><th>2006</th><th>2002</th></tr></thead>
         <tbody></tbody>
@@ -308,7 +318,7 @@
     </div>
     <div class="st-card" id="ad-card">
       <h2 id="ad-h">Ataque e defesa no colégio</h2>
-      <p class="st-note">Votos do PT no colégio se o mesmo swing (p.p. dos válidos) acontecesse em todos os estados: à direita, a favor do PT; à esquerda, do adversário. Cada degrau é um estado virando. Peso por p.p. = votos no colégio que o estado vale para cada ponto de swing que ele exige: é onde o esforço renderia mais. As listas acumulam: se os estados de cima viram, como fica o placar.</p>
+      <p class="st-note">Votos no colégio de cada lado (vermelho PT, azul adversário) se o mesmo swing (p.p. dos válidos) acontecesse em todos os estados: à direita, a favor do PT; à esquerda, do adversário. Cada degrau é um estado virando. Na base do 1º turno, quem passa da maioria venceria sem 2º turno. Peso por p.p. = votos no colégio que o estado vale para cada ponto de swing que ele exige: é onde o esforço renderia mais. As listas acumulam: se os estados de cima viram, como fica o placar.</p>
       <div class="st-chart" id="ad-chart" data-source="colegio_uf"></div>
       <div class="st-grid">
         <div>
@@ -332,7 +342,7 @@
         <h2>Simulador: escolha os estados que viram</h2>
         <button type="button" class="st-btn" id="sim-limpar">Limpar</button>
       </div>
-      <p class="st-note">Clique num estado para trocar o vencedor; clique de novo para desfazer. Borda vermelha: venceu o PT; azul: o adversário. Número: peso no colégio; entre parênteses, o swing em p.p. que a virada exige. Do mais fácil ao mais difícil de virar.</p>
+      <p class="st-note">Na base escolhida acima. Clique num estado para trocar o vencedor (um estado de terceiro passa ao PT); clique de novo para desfazer. Borda vermelha: PT; azul: adversário; cinza: terceiro. Número: peso no colégio; entre parênteses, o swing em p.p. que a virada exige. Do mais fácil ao mais difícil de virar.</p>
       <div class="st-sim" id="sim-ufs"></div>
       <p class="st-sim-r" id="sim-res"></p>
     </div>
@@ -375,7 +385,7 @@
     </div>
     <div class="st-card" id="estados-tabela-card">
       <h2>Estados na eleição escolhida</h2>
-      <p class="st-note">Rec. = queda do 1º para o 2º turno. Fatia do PT = votos que o PT somou sobre o que os dois somaram. 3ª via: fatia que o PT precisava converter (e levou), com abstenção, brancos e nulos recuperados divididos na proporção PT × adversário do 1º turno de cada cidade. Clique num cabeçalho para ordenar.</p>
+      <p class="st-note">Rec. = queda do 1º para o 2º turno. Fatia do PT = votos que o PT somou sobre o que os dois somaram. Conversão da 3ª via: fatia que cada finalista precisou converter para o resultado que teve, com abstenção, brancos e nulos recuperados na proporção PT × adversário do 1º turno de cada cidade; acima de 100% (vermelho) é improvável pela regra. Clique num cabeçalho para ordenar.</p>
       <div class="st-tbl"><table id="estados-tabela" data-source="uf" data-row-key="id">
         <thead><tr>
           <th class="txt" data-field="nome"><button type="button" data-sort="nome">Estado</button></th>
@@ -395,8 +405,8 @@
           <th data-field="delta_nulos"><button type="button" data-sort="delta_nulos">Nulos rec.</button></th>
           <th data-field="pool"><button type="button" data-sort="pool">Total disponível</button></th>
           <th data-field="captura_pt"><button type="button" data-sort="captura_pt">Fatia do PT</button></th>
-          <th data-field="x_req_pt"><button type="button" data-sort="x_req_pt">3ª via: PT precisava</button></th>
-          <th data-field="x_levou_pt"><button type="button" data-sort="x_levou_pt">PT levou</button></th>
+          <th data-field="x_levou_pt"><button type="button" data-sort="x_levou_pt">Conversão 3ª via: PT</button></th>
+          <th data-field="x_levou_pt">Adv.</th>
         </tr></thead>
         <tbody></tbody>
       </table></div>
@@ -424,8 +434,7 @@
             <option value="viradas_dir">Cidades viradas para o adversário</option>
             <option value="perdeu_dir">Cidades onde o adversário perdeu votos</option>
             <option value="perdeu_pt">Cidades onde o PT perdeu votos</option>
-            <option value="x_req_pt">3ª via que o PT precisava (resto proporcional)</option>
-            <option value="x_levou_pt">3ª via que o PT levou (resto proporcional)</option>
+            <option value="x_levou_pt">Conversão da 3ª via necessária ao PT</option>
           </select>
         </label>
       </div>
@@ -470,18 +479,18 @@
       </table></div>
     </div>
     <div class="st-card" id="req-card">
-      <h2 id="req-h">Quanto da 3ª via era preciso converter</h2>
-      <p class="st-note">O inverso dos cenários acima. Primeiro, os votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados) vão para cada lado na proporção PT × adversário do 1º turno de cada cidade, somados cidade a cidade. O que falta para empatar sai da 3ª via: precisava = 50% + (vantagem do outro no 1º + resto do outro − resto seu) ÷ (2 × 3ª via). Levou = a fatia da 3ª via que o resultado implica na mesma regra; acima de 100% ou abaixo de 0%, o resto não seguiu a proporção do 1º turno. Na última coluna, a mesma conta com o resto dividido 50/50. Mesmo recorte e candidato do cartão de cima.</p>
+      <h2 id="req-h">Quanto da 3ª via cada um precisou converter para o resultado</h2>
+      <p class="st-note">Os votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados) vão para cada lado na proporção PT × adversário do 1º turno de cada cidade, somados cidade a cidade; ninguém leva 100% deles. O resto do que cada um ganhou tem de ter vindo da 3ª via: conversão = (votos ganhos − parte dos recuperados) ÷ 3ª via. Acima de 100% é improvável pela regra: exige recuperados indo para um lado além do padrão local, ou eleitores trocando de lado. 90–100%: muito alto. Para empatar: a fatia que bastaria para igualar o outro, como referência. Mesmo recorte e candidato do cartão de cima.</p>
       <div class="st-tbl short"><table id="req-tres" data-source="uf" data-row-key="id">
-        <thead><tr><th class="txt">Eleição</th><th>3ª via</th><th>Vantagem do outro no 1º</th><th>Resto: seu / do outro</th><th>Precisava</th><th>Levou</th><th>Folga</th><th class="txt">Situação</th><th>Precisava (50/50)</th></tr></thead>
+        <thead><tr><th class="txt">Eleição</th><th>3ª via</th><th>Recuperados: seu / do outro</th><th>Conversão necessária: seu</th><th>Do outro</th><th class="txt">Avaliação</th><th>Para empatar (seu)</th></tr></thead>
         <tbody></tbody>
       </table></div>
     </div>
     <div class="st-card" id="req-uf-card">
       <h2 id="req-uf-h">Por região e estado</h2>
-      <p class="st-note">Brasil e regiões no topo; estados do que menos precisava ao que mais precisava. Filtro de região vale para os estados.</p>
+      <p class="st-note">Brasil e regiões no topo; estados da maior para a menor conversão necessária. Filtro de região vale para os estados.</p>
       <div class="st-tbl"><table id="req-uf" data-source="uf" data-row-key="id">
-        <thead><tr><th class="txt">Unidade</th><th>3ª via</th><th>Vantagem do outro no 1º</th><th>Resto: seu / do outro</th><th>Precisava</th><th>Levou</th><th>Folga</th><th class="txt">Situação</th><th>Precisava (50/50)</th></tr></thead>
+        <thead><tr><th class="txt">Unidade</th><th>3ª via</th><th>Recuperados: seu / do outro</th><th>Conversão necessária: seu</th><th>Do outro</th><th class="txt">Avaliação</th><th>Para empatar (seu)</th></tr></thead>
         <tbody></tbody>
       </table></div>
     </div>
@@ -590,7 +599,7 @@
           <th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th>
           <th data-field="pct_pt_1t">PT 1º</th><th data-field="pct_pt_2t">PT 2º</th><th data-field="cresc_pt">Cresc. PT</th><th data-field="ganho_pt">Votos PT</th>
           <th data-field="pct_dir_1t">Adv. 1º</th><th data-field="pct_dir_2t">Adv. 2º</th><th data-field="cresc_dir">Cresc. adv.</th><th data-field="ganho_dir">Votos adv.</th>
-          <th data-field="pct_terceira">3ª via</th><th data-field="x_req_pt">3ª via: PT precisava</th><th data-field="x_levou_pt">PT levou</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
+          <th data-field="pct_terceira">3ª via</th><th data-field="x_levou_pt">Conversão: PT</th><th data-field="x_levou_pt">Adv.</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
         </tr></thead>
         <tbody class="click"></tbody>
       </table></div>
@@ -645,6 +654,64 @@
       <h2>Auditoria estatística do 2º turno</h2>
       <p class="st-note">Só dados do TSE, por município, comparando 2026 com 2002–2022: crescimentos atípicos ou generalizados, conversões e perdas fora do histórico.</p>
       <ul class="st-ins lead" id="aud-leituras"></ul>
+    </div>
+    <div class="st-card" id="aud-conv-card">
+      <h2 id="aud-conv-h">Conversão da 3ª via necessária para o resultado</h2>
+      <p class="st-note">Com abstenção, brancos e nulos recuperados seguindo a proporção PT × adversário do 1º turno de cada cidade, quanto da 3ª via cada finalista precisou converter para chegar ao resultado que teve. Acima de 100%: improvável pela regra — exige recuperados indo para um lado além do padrão local ou eleitores trocando de lado. Acima da regra = votos além de 100% da 3ª via, somados nas cidades. Cidades com 3ª via abaixo de 100 votos ficam sem avaliação. Sensibilidade: recuperados na proporção do 2º turno. Recorte: filtro de região.</p>
+      <div class="st-tbl short"><table id="aud-conv" data-source="conversao_serie" data-row-key="id">
+        <thead>
+          <tr class="grp"><th></th><th colspan="2">Recorte inteiro</th><th></th><th colspan="4">Cidades</th><th colspan="2">Votos acima da regra</th><th colspan="2">Sensibilidade: acima de 100%</th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th><th data-field="conv_pt">Conversão PT / adv.</th><th class="txt" data-field="flag_conv">Avaliação</th><th data-field="cidades_avaliadas">Avaliadas</th>
+            <th data-field="n_pt_acima">PT acima de 100%</th><th data-field="n_pt_alto">PT 90–100%</th><th data-field="n_dir_acima">Adv. acima de 100%</th><th data-field="n_dir_alto">Adv. 90–100%</th>
+            <th data-field="exc_pt">PT</th><th data-field="exc_dir">Adv.</th><th data-field="n_pt_acima_2t">PT</th><th data-field="n_dir_acima_2t">Adv.</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="aud-perda2-card">
+      <h2>Perdas de votos entre turnos e troca de lado, 2002–2026</h2>
+      <p class="st-note">Cidades em que cada finalista perdeu votos do 1º para o 2º turno, pela explicação que os dados permitem. Saída = alta de abstenção + brancos + nulos. Abstenção caiu: perdeu votos com a saída caindo, só se explica com eleitores indo para o oponente (improvável). Perda maior que a saída: a diferença trocou de lado. Oponente acima: a perda cabe na saída, mas o oponente ganhou mais que 3ª via + recuperados. Explicável: quem deixou de votar cobre a perda. Troca mínima: piso de eleitores que foram para o oponente, somado nas cidades.</p>
+      <div class="st-tbl short"><table id="aud-perda2" data-source="conversao_serie" data-row-key="id">
+        <thead>
+          <tr class="grp"><th></th><th colspan="7">PT perdeu votos</th><th colspan="7">Adversário perdeu votos</th></tr>
+          <tr>
+            <th class="txt" data-field="ano">Eleição</th>
+            <th data-field="perdeu_pt">Cidades</th><th data-field="votos_perdidos_pt">Votos</th><th data-field="pt_saida_caiu">Abstenção caiu</th><th data-field="pt_perda_maior">Perda > saída</th>
+            <th data-field="pt_oponente_acima">Oponente acima</th><th data-field="pt_explicavel">Explicável</th><th data-field="troca_min_pt">Troca mínima</th>
+            <th data-field="perdeu_dir">Cidades</th><th data-field="votos_perdidos_dir">Votos</th><th data-field="dir_saida_caiu">Abstenção caiu</th><th data-field="dir_perda_maior">Perda > saída</th>
+            <th data-field="dir_oponente_acima">Oponente acima</th><th data-field="dir_explicavel">Explicável</th><th data-field="troca_min_dir">Troca mínima</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="aud-flag-card">
+      <div class="st-card-h">
+        <h2 id="aud-flag-h">Cidades sinalizadas</h2>
+        <label class="st-field" for="f-flag">Sinal
+          <select id="f-flag">
+            <option value="todas">Todas as sinalizadas</option>
+            <option value="pt_acima">PT: conversão acima de 100%</option>
+            <option value="pt_alto">PT: conversão 90–100%</option>
+            <option value="dir_acima">Adv.: conversão acima de 100%</option>
+            <option value="dir_alto">Adv.: conversão 90–100%</option>
+            <option value="troca_dir">Eleitores do adv. que foram para o PT</option>
+            <option value="troca_pt">Eleitores do PT que foram para o adv.</option>
+            <option value="perda_pt">PT perdeu votos</option>
+            <option value="perda_dir">Adv. perdeu votos</option>
+            <option value="explicavel">Perda explicável por quem deixou de votar</option>
+          </select>
+        </label>
+      </div>
+      <p class="st-note"><span id="aud-flag-n"></span> Eleição, região e estado dos filtros do topo. Clique num cabeçalho para ordenar e numa cidade para abri-la no mapa. Recuperados = queda de abstenção, brancos e nulos dividida na proporção do 1º turno.</p>
+      <div class="st-tbl"><table id="aud-flag">
+        <thead><tr>
+          <th class="txt" data-field="municipio" data-sort="municipio"><button type="button" data-k="municipio">Município</button></th><th class="txt" data-field="uf" data-sort="uf"><button type="button" data-k="uf">UF</button></th><th data-field="aptos" data-sort="aptos"><button type="button" data-k="aptos">Eleitores</button></th><th data-field="terceira_via" data-sort="terceira_via"><button type="button" data-k="terceira_via">3ª via</button></th><th data-field="rec_pt" data-sort="rec_pt"><button type="button" data-k="rec_pt">Recuperados PT</button></th><th data-field="rec_dir" data-sort="rec_dir"><button type="button" data-k="rec_dir">Recuperados adv.</button></th><th data-field="ganho_pt" data-sort="ganho_pt"><button type="button" data-k="ganho_pt">Ganho PT</button></th><th data-field="ganho_dir" data-sort="ganho_dir"><button type="button" data-k="ganho_dir">Ganho adv.</button></th><th data-field="x_levou_pt" data-sort="conv_pt"><button type="button" data-k="conv_pt">Conversão PT</button></th><th data-field="x_levou_pt" data-sort="conv_dir"><button type="button" data-k="conv_dir">Conversão adv.</button></th><th class="txt" data-field="flag_conv">Avaliação</th><th data-field="exc_pt" data-sort="exc"><button type="button" data-k="exc">Acima da regra</button></th><th class="txt" data-field="flag_perda_pt">Perda do PT</th><th class="txt" data-field="flag_perda_dir">Perda do adv.</th><th data-field="troca_min_dir" data-sort="troca"><button type="button" data-k="troca">Troca mínima</button></th><th class="txt" data-field="venc_2t" data-sort="venc"><button type="button" data-k="venc">Venceu</button></th>
+        </tr></thead>
+        <tbody class="click"></tbody>
+      </table></div>
     </div>
     <div class="st-card" id="aud-serie-card">
       <h2>Abstenção, brancos e nulos entre turnos, 2002–2026</h2>
@@ -917,7 +984,8 @@
           <li>Fatia do PT = votos que o PT somou ÷ total que os dois somaram.</li>
           <li>Crescimento líquido = votos ganhos pelo PT − votos ganhos pelo adversário entre os turnos = saldo do 2º turno − saldo do 1º. Saldo = votos do PT − votos do adversário.</li>
           <li>Colégio: cada UF vale deputados federais eleitos (cadastro do TSE) + 3 senadores; o vencedor do 2º turno na UF leva todos. Swing para virar: metade da margem do estado decisivo (o que completa a maioria, do estado mais seguro do vencedor para o menos seguro), em pontos percentuais dos válidos, aplicada a todos os estados. Mínimo absoluto: menor soma de (margem ÷ 2 + 1) nos estados do vencedor que dá a maioria ao outro lado; concentra-se em estados pequenos e não é um cenário plausível.</li>
-          <li>3ª via necessária: os votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados) vão para cada lado na proporção PT × adversário do 1º turno em cada cidade (estados, regiões e Brasil somam cidade a cidade). Precisava = 50% + (vantagem do outro no 1º turno + resto do outro − resto seu) ÷ (2 × 3ª via). Levou = (votos ganhos − resto seu) ÷ 3ª via. Referência: o mesmo com o resto 50/50.</li>
+          <li>Conversão da 3ª via necessária para o resultado: os votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados) vão para cada lado na proporção PT × adversário do 1º turno em cada cidade (estados, regiões e Brasil somam cidade a cidade). Conversão = (votos ganhos − parte dos recuperados) ÷ 3ª via. Acima de 100%: improvável pela regra; 90–100%: muito alto; cidades com 3ª via abaixo de 100 votos ficam sem avaliação. Sensibilidade: o mesmo com os recuperados na proporção do 2º turno.</li>
+          <li>Perdas de votos: saída = alta de abstenção + brancos + nulos. Um finalista que perdeu votos só se explica sem troca de lado se a saída cobre a perda e o oponente não ganhou mais que 3ª via + recuperados; senão, a diferença é o mínimo de eleitores que trocaram de lado (saldo por cidade, então é um piso).</li>
           <li>Quedas: abstenção, nulos ou brancos do 1º para o 2º turno; em % (sobre o 1º turno, cidades com 10 mil eleitores ou mais) e em votos.</li>
           <li>Cenários: votos que faltavam = válidos do 2º turno ÷ 2 − votos do candidato no 1º − X × 3ª via. % do restante = votos que faltavam ÷ (total disponível − X × 3ª via). % do saldo = votos que faltavam ÷ saldo recuperado.</li>
         </ul>

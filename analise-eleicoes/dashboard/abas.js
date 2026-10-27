@@ -37,10 +37,10 @@
       fill($('#k-t'), 'uf', 'terceira_via', id, F.mi(r.terceira_via));
       fill($('#k-d'), 'uf', 'delta', id, F.smi(r.delta));
       fill($('#k-cap'), 'uf', 'captura_pt', id, F.pct(r.captura_pt));
-      fill($('#k-xmin'), 'uf', 'x_min', id, F.pct(r.x_min));
-      fill($('#k-req'), 'uf', 'x_req_pt', id, F.req(r.x_req_pt));
-      fill($('#k-levou'), 'uf', 'x_levou_pt', id, F.pct(r.x_levou_pt));
-      fill($('#k-req-st'), 'uf', 'status_req_pt', id, window.ST.STATUS_REQ[r.status_req_pt] || '—');
+      fill($('#k-xmin'), 'uf', 'rec_pt', id, `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)}`);
+      fill($('#k-req'), 'uf', 'x_levou_pt', id, F.pct(r.x_levou_pt), window.ST.CONV_CLS[r.flag_conv] === 'inviavel' ? 'neg' : '');
+      fill($('#k-levou'), 'uf', 'x_levou_pt', id, isNum(r.x_levou_pt) ? F.pct(1 - +r.x_levou_pt) : '—');
+      fill($('#k-req-st'), 'uf', 'flag_conv', id, window.ST.CONV_ROT[r.flag_conv] || '—');
     }
     fluxo(p, r);
     leituras('#leituras', (x) => x.tema !== 'lede' && x.tema !== 'auditoria' && x.tema !== 'secoes');
@@ -52,15 +52,15 @@
       ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['ganho_dir', F.sint, 1], ['cresc_dir', F.spct, 1],
       ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1],
       ['pct_terceira', F.pct], ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct],
-      ['x_req_pt', F.req], ['x_levou_pt', F.pct]],
+      ['x_levou_pt', F.pct], ['x_levou_pt', convAdv]],
     (tr, x) => { tr.classList.toggle('st-sel', String(x.ano) === p.ano); reqCor(tr, x, 18); });
   }
 
-  // pinta a célula da 3ª via necessária pela situação (vence sem / viável / nem com toda)
+  // pinta as duas células de conversão da 3ª via pela avaliação (plausível / muito alto / improvável)
+  const convAdv = (v) => (isNum(v) ? F.pct(1 - +v) : '—');
   function reqCor(tr, x, i) {
-    const c = tr.children[i];
-    const s = window.ST.statusReq(x.x_req_pt);
-    if (c && s) { c.classList.add(s); c.title = window.ST.STATUS_REQ[s]; }
+    const f = x.flag_conv || window.ST.convFlag(x.x_levou_pt);
+    [i, i + 1].forEach((k) => { const c = tr.children[k]; if (c && window.ST.CONV_CLS[f]) { c.classList.add(window.ST.CONV_CLS[f]); c.title = window.ST.CONV_ROT[f]; } });
   }
 
   function leituras(sel, filtro) {
@@ -171,7 +171,7 @@
       ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['pp_dir', F.pp, 1], ['cresc_dir', F.spct, 1],
       ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1], ['pct_terceira', F.pct],
       ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct],
-      ['x_req_pt', F.req], ['x_levou_pt', F.pct]], (tr, x) => reqCor(tr, x, 17));
+      ['x_levou_pt', F.pct], ['x_levou_pt', convAdv]], (tr, x) => reqCor(tr, x, 17));
   }
 
   // ---------- porte ----------
@@ -217,7 +217,7 @@
       [1, 2, 3, 4, 5].forEach((k) => {
         const id = `${a}-${p.reg}-${k}`;
         const r = po.by.get(id);
-        const c = td(r ? PORTE_FMT[f](r[f]) : '—', f.startsWith('pp') || f === 'delta_pct' ? (r ? cls(r[f]) : '') : f === 'x_req_pt' && r ? window.ST.statusReq(r[f]) : '');
+        const c = td(r ? PORTE_FMT[f](r[f]) : '—', f.startsWith('pp') || f === 'delta_pct' ? (r ? cls(r[f]) : '') : f === 'x_levou_pt' && r ? (window.ST.CONV_CLS[window.ST.convFlag(r[f])] || '') : '');
         if (r) setMark(c, 'porte', f, id);
         tr.append(c);
       });
@@ -273,29 +273,28 @@
     const c = st.cenCand;
     const n = (a) => NOMES[a];
     const ehPt = c === 'pt';
-    const xr = (r) => (isNum(r.x_req_pt) ? (ehPt ? +r.x_req_pt : 1 - +r.x_req_pt) : null);
     const xl = (r) => (isNum(r.x_levou_pt) ? (ehPt ? +r.x_levou_pt : 1 - +r.x_levou_pt) : null);
-    const vant = (r) => (ehPt ? +r.dir_1t - +r.pt_1t : +r.pt_1t - +r.dir_1t);
-    const x50 = (r) => (isNum(r.x_req50_pt) ? (ehPt ? +r.x_req50_pt : 1 - +r.x_req50_pt) : null);
+    const xo = (r) => (isNum(r.x_levou_pt) ? (ehPt ? 1 - +r.x_levou_pt : +r.x_levou_pt) : null);
+    const xr = (r) => (isNum(r.x_req_pt) ? (ehPt ? +r.x_req_pt : 1 - +r.x_req_pt) : null);
     const resto = (r) => (ehPt ? `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)}` : `${F.smi(r.rec_dir)} / ${F.smi(r.rec_pt)}`);
     const linha = (r, rot) => {
       const tr = document.createElement('tr');
       tr.dataset.key = r.id;
-      const req = xr(r), lev = xl(r);
-      const s = window.ST.statusReq(req);
+      const f = r.flag_conv || window.ST.convFlag(r.x_levou_pt);
       tr.append(td(rot, 'txt'));
-      [[F.int(r.terceira_via), 'terceira_via'], [F.sint(vant(r)), 'pt_1t'], [resto(r), 'rec_pt'], [F.req(req), 'x_req_pt'], [F.pct(lev), 'x_levou_pt'],
-        [isNum(req) && isNum(lev) && req > 0 ? F.pp(lev - req) : '—', 'x_levou_pt']].forEach(([t, f], i) => {
-        const cell = td(t, i === 3 ? s : i === 5 && isNum(req) && isNum(lev) ? cls(lev - req) : '');
-        setMark(cell, 'uf', f, r.id);
+      [[F.int(r.terceira_via), 'terceira_via', ''], [resto(r), 'rec_pt', ''], [F.pct(xl(r)), 'x_levou_pt', window.ST.CONV_CLS[f] || ''],
+        [F.pct(xo(r)), 'x_levou_pt', window.ST.CONV_CLS[f] || '']].forEach(([t, fd, k]) => {
+        const cell = td(t, k);
+        setMark(cell, 'uf', fd, r.id);
         tr.append(cell);
       });
-      const chip = document.createElement('span'); chip.className = 'st-chip ' + s; chip.textContent = window.ST.STATUS_REQ[s] || '—';
+      const chip = document.createElement('span'); chip.className = 'st-chip ' + (window.ST.CONV_CLS[f] || ''); chip.textContent = window.ST.CONV_ROT[f] || '—';
+      setMark(chip, 'uf', 'flag_conv', r.id);
       const stc = td('', 'txt'); stc.append(chip); tr.append(stc);
-      const c50 = td(F.req(x50(r)), 'mut'); setMark(c50, 'uf', 'x_req50_pt', r.id); tr.append(c50);
+      const ce = td(F.req(xr(r)), 'mut'); setMark(ce, 'uf', 'x_req_pt', r.id); tr.append(ce);
       return tr;
     };
-    $('#req-h').textContent = `Quanto da 3ª via ${ehPt ? 'o PT' : 'o adversário'} precisava converter: ${REG[st.esc] || (uf.by.get(p.ano + '-' + st.esc) || {}).nome || st.esc}`;
+    $('#req-h').textContent = `Quanto da 3ª via ${ehPt ? 'o PT' : 'o adversário'} precisou converter para o resultado: ${REG[st.esc] || (uf.by.get(p.ano + '-' + st.esc) || {}).nome || st.esc}`;
     $('#req-tres tbody').replaceChildren(...ANOS.map((a) => uf.by.get(`${a}-${st.esc}`)).filter(Boolean).map((r) => {
       const tr = linha(r, `${r.ano} · ${n(r.ano)[c]}`);
       tr.classList.toggle('st-sel', String(r.ano) === p.ano);
@@ -304,7 +303,7 @@
     $('#req-uf-h').textContent = `Por região e estado, ${p.ano} · ${n(p.ano)[c]}`;
     const regs = ['BR', 'N', 'NE', 'CO', 'SE', 'S'].map((g) => uf.by.get(`${p.ano}-${g}`)).filter(Boolean);
     const ufs = uf.rows.filter((r) => r.nivel === 'UF' && r.uf !== 'VT' && r.uf !== 'ZZ' && String(r.ano) === p.ano && (p.reg === 'BR' || r.regiao === p.reg))
-      .sort((a, b) => (xr(a) ?? 9) - (xr(b) ?? 9));
+      .sort((a, b) => (xl(b) ?? -9) - (xl(a) ?? -9));
     $('#req-uf tbody').replaceChildren(...regs.map((r) => { const tr = linha(r, r.nome); tr.classList.add('st-sel'); return tr; }), ...ufs.map((r) => linha(r, r.nome)));
   }
 
@@ -331,7 +330,7 @@
     } else if (failed('top100_resumo')) failLine($('#top-resumo tbody'));
     const top = tbl('top100');
     if (top) {
-      const list = top.rows.filter((r) => String(r.ano) === p.ano && r.cand === st.cand && r.crit === st.crit && (p.reg === 'BR' || r.regiao === p.reg)).sort((a, b) => +a.rank - +b.rank);
+      const list = top.rows.filter((r) => String(r.ano) === p.ano && r.cand === st.cand && r.crit === st.crit && window.ST.noFiltro(r, p)).sort((a, b) => +a.rank - +b.rank);
       rowsTable($('#top-lista tbody'), list, [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['votos_1t', F.int], ['votos_2t', F.int],
         ['ganho', F.sint, 1], ['cresc', F.spct, 1], ['pp', F.pp, 1], ['venc_2t', F.txt, 0, 1]]);
     } else if (failed('top100')) failLine($('#top-lista tbody'));
@@ -348,11 +347,11 @@
     const q = norm(st.q.trim());
     const cond = { todas: () => true, pt: (r) => r.perda === 'pt' || r.perda === 'ambos', dir: (r) => r.perda === 'dir' || r.perda === 'ambos',
       ambos: (r) => r.perda === 'ambos', viradas: (r) => String(r.virou) === '1' }[st.filtro];
-    const list = cid.rows.filter((r) => (p.reg === 'BR' || r.regiao === p.reg) && cond(r) && (q.length < 2 || norm(r.municipio).includes(q)))
+    const list = cid.rows.filter((r) => window.ST.noFiltro(r, p) && cond(r) && (q.length < 2 || norm(r.municipio).includes(q)))
       .sort((a, b) => +b.aptos - +a.aptos).slice(0, 200);
     rowsTable(tb, list, [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct],
       ['cresc_pt', F.spct, 1], ['ganho_pt', F.sint, 1], ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['cresc_dir', F.spct, 1], ['ganho_dir', F.sint, 1],
-      ['pct_terceira', F.pct], ['x_req_pt', F.req], ['x_levou_pt', F.pct], ['venc_2t', F.txt, 0, 1]], (tr, x) => reqCor(tr, x, 12));
+      ['pct_terceira', F.pct], ['x_levou_pt', F.pct], ['x_levou_pt', convAdv], ['venc_2t', F.txt, 0, 1]], (tr, x) => reqCor(tr, x, 12));
     quedas(p);
   }
 
@@ -371,7 +370,7 @@
     $('#queda-h').textContent = `Top 100: maior queda de ${Q_ROT[st.qtipo]} ${st.qcrit === 'pct' ? 'em %' : 'em votos'}, ${p.ano}`;
     const q = tbl('quedas');
     if (q) {
-      const list = q.rows.filter((r) => String(r.ano) === p.ano && r.tipo === st.qtipo && r.crit === st.qcrit && (p.reg === 'BR' || r.regiao === p.reg)).sort((a, b) => +a.rank - +b.rank);
+      const list = q.rows.filter((r) => String(r.ano) === p.ano && r.tipo === st.qtipo && r.crit === st.qcrit && window.ST.noFiltro(r, p)).sort((a, b) => +a.rank - +b.rank);
       rowsTable($('#queda-lista tbody'), list, [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['v_1t', F.int], ['v_2t', F.int],
         ['queda', F.int], ['queda_pct', F.pct], ['taxa_1t', F.pct], ['taxa_2t', F.pct], ['queda_pp', F.ppu], ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1], ['venc_2t', F.txt, 0, 1]]);
     } else if (failed('quedas')) failLine($('#queda-lista tbody'));

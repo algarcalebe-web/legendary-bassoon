@@ -201,6 +201,47 @@ def metricas(t1, t2):
     }
 
 
+CONV_ALTO = 0.9      # conversão da 3ª via acima disso (ou abaixo de 1 − isso) é marcada como muito alta
+CONV_MIN_T = 100     # cidades com 3ª via menor que isso ficam sem avaliação de conversão (base pequena)
+
+
+def sinais(m, minimo=0):
+    """Sinais de auditoria de uma unidade, a partir das métricas já calculadas.
+    Conversão: fatia da 3ª via que cada finalista precisou converter para o resultado que teve, com o resto (abstenção,
+    brancos e nulos recuperados) seguindo a proporção do 1º turno; acima de 100% é improvável pela regra.
+    Perdas: quem perdeu votos entre os turnos. Saída = alta de abstenção + brancos + nulos (quem deixou de votar
+    validamente). A perda só se explica sem troca de lado se a saída cobre a perda e o oponente não ganhou mais que a
+    3ª via mais os recuperados; senão, a diferença é o mínimo de eleitores que trocaram de lado."""
+    T = m["terceira_via"]
+    x = m["x_levou_pt"]
+    out = {"flag_conv": "", "exc_pt": 0, "exc_dir": 0, "conv2_pt": None}
+    if x is not None and T >= minimo:
+        out["flag_conv"] = ("pt_acima" if x > 1 else "pt_alto" if x > CONV_ALTO else "dir_acima" if x < 0
+                            else "dir_alto" if x < 1 - CONV_ALTO else "ok")
+        out["exc_pt"], out["exc_dir"] = round(max(0, x - 1) * T), round(max(0, -x) * T)
+        tot2 = m["pt_2t"] + m["dir_2t"]
+        if tot2:
+            extra = tot2 - (m["pt_1t"] + m["dir_1t"]) - T
+            out["conv2_pt"] = (m["ganho_pt"] - m["pt_2t"] / tot2 * extra) / T
+    saida = -m["delta"]
+    rec = max(m["delta"], 0)
+    for c, o in (("pt", "dir"), ("dir", "pt")):
+        perda = max(0, -m[f"ganho_{c}"])
+        acima = m[f"ganho_{o}"] - T - rec  # o oponente ganhou mais que 3ª via + recuperados
+        out[f"troca_min_{c}"] = max(perda - max(saida, 0), acima, 0)  # mínimo de eleitores de c que foram para o oponente
+        if not perda:
+            out[f"flag_perda_{c}"] = ""
+        elif saida <= 0:
+            out[f"flag_perda_{c}"] = "saida_caiu"
+        elif saida < perda:
+            out[f"flag_perda_{c}"] = "perda_maior"
+        elif acima > 0:
+            out[f"flag_perda_{c}"] = "oponente_acima"
+        else:
+            out[f"flag_perda_{c}"] = "explicavel"
+    return out
+
+
 def rec_local(t1, t2):
     """Votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados), divididos pela
     proporção PT × adversário do 1º turno na própria cidade."""
@@ -413,7 +454,8 @@ MAPA = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte", "pct_
         "pct_dir_2t", "pp_pt", "pp_dir", "cresc_pt", "cresc_dir", "ganho_pt", "ganho_dir", "pct_terceira", "delta_pct",
         "captura_pt", "margem_2t", "lider_1t", "lider1_nr", "lider1_sigla", "lider1_pct", "venc_2t", "virou",
         "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50", "net_votos", "net_pct_aptos", "swing_margem", "d_comp_pp",
-        "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt"]
+        "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt", "flag_conv", "exc_pt", "exc_dir",
+        "flag_perda_pt", "flag_perda_dir", "troca_min_pt", "troca_min_dir", "terceira_via", "delta", "rec_pt", "rec_dir"]
 HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "pt_1t", "pt_2t", "dir_1t", "dir_2t", "validos_1t", "validos_2t", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
         "pct_dir_2t", "pp_pt", "pp_dir", "ganho_pt", "ganho_dir", "cresc_pt", "cresc_dir",
@@ -422,7 +464,8 @@ HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "delta_abst", "delta_brancos", "delta_nulos", "delta", "pool", "captura_pt", "lider1_sigla", "lider1_pct",
         "net_votos", "net_pct_aptos", "margem_1t", "margem_2t", "swing_margem", "pct_comp_1t", "pct_comp_2t", "d_comp_pp",
         "lider_1t", "venc_2t", "virou", "mudou_vs_ant", "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt",
-        "rec_pt", "rec_dir"] + \
+        "rec_pt", "rec_dir", "flag_conv", "exc_pt", "exc_dir", "conv2_pt", "flag_perda_pt", "flag_perda_dir",
+        "troca_min_pt", "troca_min_dir"] + \
        [f"{k}_{c}_{x}" for c in ("pt", "dir") for x in CENARIOS_X for k in ("need", "status", "y_saldo", "y_resto")]
 
 
@@ -482,6 +525,44 @@ def quedas(mun_rows, capitais):
     return top, res
 
 
+PERDA_ROT = {"saida_caiu": "perdeu votos com abstenção, brancos e nulos caindo",
+             "perda_maior": "perdeu mais do que subiram abstenção, brancos e nulos",
+             "oponente_acima": "perda cabe na abstenção, mas o oponente ganhou mais que 3ª via + recuperados",
+             "explicavel": "perda explicável por quem deixou de votar"}
+
+
+def conversao(mun_rows, uf_rows):
+    """Série por eleição e região dos sinais de conversão e de perda (a lista cidade a cidade está em mapa_<ano>)."""
+    ufi = {r["id"]: r for r in uf_rows}
+    serie = []
+    for ano in ANOS:
+        base_ano = [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")]
+        for esc in ["BR", "N", "NE", "CO", "SE", "S"]:
+            b = [r for r in base_ano if esc == "BR" or r["regiao"] == esc]
+            apt = sum(r["aptos"] for r in b)
+            av = [r for r in b if r["flag_conv"]]
+            u = ufi.get(f"{ano}-{esc}", {})
+            s = {"id": f"{ano}-{esc}", "ano": ano, "escopo": esc, "cidades": len(b), "cidades_avaliadas": len(av),
+                 "conv_pt": u.get("x_levou_pt"), "flag_conv": u.get("flag_conv", "")}
+            for f in ("pt_acima", "pt_alto", "dir_acima", "dir_alto"):
+                sel = [r for r in av if r["flag_conv"] == f]
+                s[f"n_{f}"] = len(sel)
+                s[f"eleit_{f}"] = div(sum(r["aptos"] for r in sel), apt)
+            s["exc_pt"] = sum(r["exc_pt"] for r in b)
+            s["exc_dir"] = sum(r["exc_dir"] for r in b)
+            s["n_pt_acima_2t"] = sum(1 for r in av if r["conv2_pt"] is not None and r["conv2_pt"] > 1)
+            s["n_dir_acima_2t"] = sum(1 for r in av if r["conv2_pt"] is not None and r["conv2_pt"] < 0)
+            for c in ("pt", "dir"):
+                s[f"perdeu_{c}"] = sum(r[f"ganho_{c}"] < 0 for r in b)
+                s[f"votos_perdidos_{c}"] = -sum(r[f"ganho_{c}"] for r in b if r[f"ganho_{c}"] < 0)
+                for f in PERDA_ROT:
+                    s[f"{c}_{f}"] = sum(r[f"flag_perda_{c}"] == f for r in b)
+                s[f"troca_min_{c}"] = sum(r[f"troca_min_{c}"] for r in b)
+                s[f"cid_troca_{c}"] = sum(r[f"troca_min_{c}"] > 0 for r in b)
+            serie.append(s)
+    return serie
+
+
 def main(od_dir, api_dir, mun_dir, out_dir):
     out = Path(out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -495,6 +576,7 @@ def main(od_dir, api_dir, mun_dir, out_dir):
             if not t1 or not t2 or not t1["aptos"] or not t1["validos"] or not t2["validos"]:
                 continue
             m = metricas(t1, t2)
+            m.update(sinais(m, CONV_MIN_T))
             ln, ls, lp = lid.get(cod, (None, "", None))
             c = {"id": f"{ano}-{cod}", "ano": ano, "cod": cod, "municipio": nome_mun(nomes[cod]), "uf": uf,
                  "regiao": REGIAO[uf], **m, "porte": porte(m["aptos"]),
@@ -520,6 +602,7 @@ def main(od_dir, api_dir, mun_dir, out_dir):
                 continue
             m = metricas(t1, t2)
             m.update(req_local(t1, t2, sum(rec[k][0] for k in rec if sel((1,) + k)), sum(rec[k][1] for k in rec if sel((1,) + k))))
+            m.update(sinais(m))
             uf_rows.append({"id": f"{ano}-{cod}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome, "regiao": reg, **m})
             for cand in ("pt", "dir"):
                 for x in CENARIOS_X:
@@ -540,6 +623,7 @@ def main(od_dir, api_dir, mun_dir, out_dir):
     write_csv(out / "viradas.csv", vir_rows)
     write_csv(out / "top100.csv", top_rows)
     write_csv(out / "top100_resumo.csv", top_res)
+    write_csv(out / "conversao_serie.csv", conversao(mun_rows, uf_rows))
     q_rows, q_res = quedas(mun_rows, capitais)
     write_csv(out / "quedas.csv", q_rows)
     write_csv(out / "quedas_resumo.csv", q_res)
