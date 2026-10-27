@@ -111,7 +111,7 @@ def main(data_dir):
         f"é tamanho de cidade. Em crescimento %, entre cidades com 10 mil+ eleitores, o top 100 de Lula tem "
         f"{tp['reg_CO']} cidades no Centro-Oeste, {tp['reg_SE']} no Sudeste e {tp['reg_NE']} no Nordeste; "
         f"só {tp['repetidas_ant']} repetem 2022.")
-    go = uf["2026-GO"]
+    go = uf["2026-UF-GO"]
     ufs = [u for u in uf.values() if u["ano"] == "2026" and u["nivel"] == "UF" and u["uf"] != "ZZ"]
     rk_pp = 1 + sum(float(u["pp_pt"]) > float(go["pp_pt"]) for u in ufs)
     rk_dir = 1 + sum(float(u["cresc_dir"]) > float(go["cresc_dir"]) for u in ufs)

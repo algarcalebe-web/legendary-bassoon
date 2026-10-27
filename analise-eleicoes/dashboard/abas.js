@@ -236,7 +236,7 @@
     if (!cen || !uf) { if (failed('cenarios') || failed('uf')) { failLine(tb); failLine(tt); } return; }
     const sel = $('#f-esc');
     const ufs = uf.rows.filter((r) => r.nivel === 'UF' && r.uf !== 'VT' && String(r.ano) === p.ano && (p.reg === 'BR' || r.regiao === p.reg)).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR'));
-    const opts = [[p.reg, REG[p.reg]], ...ufs.map((r) => [r.uf, r.nome])];
+    const opts = [[p.reg, REG[p.reg]], ...ufs.map((r) => ['UF-' + r.uf, r.nome])];
     if (!st.esc || !opts.some(([v]) => v === st.esc)) st.esc = p.reg;
     sel.replaceChildren(...opts.map(([v, t]) => new Option(t, v)));
     sel.value = st.esc;

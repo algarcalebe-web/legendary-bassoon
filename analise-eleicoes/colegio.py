@@ -210,7 +210,8 @@ def main(od_dir, apiuf_dir, data_dir):
         for r in (x for x in uf if int(x["ano"]) == ano and x["uf"] not in ("ZZ", "VT")):
             s1 = int(r["pt_1t"]) - int(r["dir_1t"])
             s2 = int(r["pt_2t"]) - int(r["dir_2t"])
-            saldos.append({"id": f"{ano}-{r['uf']}", "ano": ano, "nivel": r["nivel"], "uf": r["uf"], "nome": r["nome"],
+            saldos.append({"id": f"{ano}-UF-{r['uf']}" if r["nivel"] == "UF" else f"{ano}-{r['uf']}", "ano": ano,
+                           "nivel": r["nivel"], "uf": r["uf"], "nome": r["nome"],
                            "regiao": r["regiao"], "saldo_1t": s1, "saldo_2t": s2, "net_votos": s2 - s1,
                            "margem_1t": float(r["margem_1t"]), "margem_2t": float(r["margem_2t"]),
                            "swing_margem": float(r["swing_margem"]), "contrib_pct": s2 / nac if nac else None,

@@ -613,10 +613,12 @@ def main(od_dir, api_dir, mun_dir, out_dir):
             m = metricas(t1, t2)
             m.update(req_local(t1, t2, *(sum(rec[k][i] for k in rec if sel((1,) + k)) for i in range(3))))
             m.update(sinais(m))
-            uf_rows.append({"id": f"{ano}-{cod}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome, "regiao": reg, **m})
+            # estados com prefixo UF-: Sergipe e Sudeste têm o mesmo código (SE)
+            rid = f"{ano}-UF-{cod}" if nivel == "UF" else f"{ano}-{cod}"
+            uf_rows.append({"id": rid, "ano": ano, "nivel": nivel, "uf": cod, "nome": nome, "regiao": reg, **m})
             for cand in ("pt", "dir"):
                 for x in CENARIOS_X:
-                    cen_rows.append({"id": f"{ano}-{cod}-{cand}-{x}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome,
+                    cen_rows.append({"id": f"{rid}-{cand}-{x}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome,
                                      "regiao": reg, "cand": cand, "x": x, **cenario(m, cand, x)})
         for escopo in ["BR", "N", "NE", "CO", "SE", "S"]:
             sub = [c for c in cidades if c["uf"] not in ("ZZ", "VT") and (escopo == "BR" or c["regiao"] == escopo)]

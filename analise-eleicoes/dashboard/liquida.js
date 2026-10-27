@@ -198,13 +198,13 @@
       return tr;
     }));
     const maxUf = f === 'swing_margem' ? 0.15 : f === 'net_votos' ? 1e6 : 2.5e6;
-    const ufs = UFS.filter((u) => p.reg === 'BR' || (sa.by.get(`2026-${u}`) || {}).regiao === p.reg);
+    const ufs = UFS.filter((u) => p.reg === 'BR' || (sa.by.get(`2026-UF-${u}`) || {}).regiao === p.reg);
     tr2.replaceChildren(...ufs.map((u) => {
       const tr = document.createElement('tr');
-      const ref = sa.by.get(`2026-${u}`);
+      const ref = sa.by.get(`2026-UF-${u}`);
       tr.append(td(ref ? ref.nome : u, 'txt'));
       ANOS.forEach((a) => {
-        const id = `${a}-${u}`;
+        const id = `${a}-UF-${u}`;
         const r = sa.by.get(id);
         const c = td(r ? fm(r[f]) : '—');
         if (r) { setMark(c, 'saldos', f, id); c.style.cssText = tinta(r[f], maxUf); }
