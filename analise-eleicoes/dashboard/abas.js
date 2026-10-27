@@ -10,6 +10,8 @@
   st.crit = 'abs';
   st.q = '';
   st.filtro = 'todas';
+  st.qtipo = 'abst';
+  st.qcrit = 'pct';
   const disputa = (r) => `${NOMES[r.ano].pt} × ${NOMES[r.ano].dir}`;
 
   // ---------- visão geral ----------
@@ -36,9 +38,12 @@
       fill($('#k-d'), 'uf', 'delta', id, F.smi(r.delta));
       fill($('#k-cap'), 'uf', 'captura_pt', id, F.pct(r.captura_pt));
       fill($('#k-xmin'), 'uf', 'x_min', id, F.pct(r.x_min));
+      fill($('#k-req'), 'uf', 'x_req_pt', id, F.req(r.x_req_pt));
+      fill($('#k-levou'), 'uf', 'x_levou_pt', id, F.pct(r.x_levou_pt));
+      fill($('#k-req-st'), 'uf', 'status_req_pt', id, window.ST.STATUS_REQ[r.status_req_pt] || '—');
     }
     fluxo(p, r);
-    leituras('#leituras', (x) => x.tema !== 'lede' && x.tema !== 'auditoria');
+    leituras('#leituras', (x) => x.tema !== 'lede' && x.tema !== 'auditoria' && x.tema !== 'secoes');
     const tb = $('#comp-tabela tbody');
     $('#comp-nota').textContent = `Uma linha por eleição. Recorte: ${REG[p.reg]}.`;
     if (!uf) { if (failed('uf')) failLine(tb); return; }
@@ -46,8 +51,16 @@
       ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct], ['ganho_pt', F.sint, 1], ['cresc_pt', F.spct, 1],
       ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['ganho_dir', F.sint, 1], ['cresc_dir', F.spct, 1],
       ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1],
-      ['pct_terceira', F.pct], ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct]],
-    (tr, x) => tr.classList.toggle('st-sel', String(x.ano) === p.ano));
+      ['pct_terceira', F.pct], ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct],
+      ['x_req_pt', F.req], ['x_levou_pt', F.pct]],
+    (tr, x) => { tr.classList.toggle('st-sel', String(x.ano) === p.ano); reqCor(tr, x, 18); });
+  }
+
+  // pinta a célula da 3ª via necessária pela situação (vence sem / viável / nem com toda)
+  function reqCor(tr, x, i) {
+    const c = tr.children[i];
+    const s = window.ST.statusReq(x.x_req_pt);
+    if (c && s) { c.classList.add(s); c.title = window.ST.STATUS_REQ[s]; }
   }
 
   function leituras(sel, filtro) {
@@ -157,11 +170,13 @@
     rowsTable(tb, sorted, [['nome', F.txt, 0, 1], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct], ['pp_pt', F.pp, 1], ['cresc_pt', F.spct, 1],
       ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['pp_dir', F.pp, 1], ['cresc_dir', F.spct, 1],
       ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1], ['pct_terceira', F.pct],
-      ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct]]);
+      ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct],
+      ['x_req_pt', F.req], ['x_levou_pt', F.pct]], (tr, x) => reqCor(tr, x, 17));
   }
 
   // ---------- porte ----------
-  const PORTE_FMT = { pp_pt: F.pp, pp_dir: F.pp, captura_pt: F.pct, pct_terceira: F.pct, delta_pct: F.spct, viradas_pt: F.int, viradas_dir: F.int, perdeu_dir: F.int, perdeu_pt: F.int };
+  const PORTE_FMT = { pp_pt: F.pp, pp_dir: F.pp, captura_pt: F.pct, pct_terceira: F.pct, delta_pct: F.spct, viradas_pt: F.int, viradas_dir: F.int, perdeu_dir: F.int, perdeu_pt: F.int,
+    x_req_pt: F.req, x_levou_pt: F.pct };
   function porte(p) {
     const po = tbl('porte');
     const box = $('#porte-chart');
@@ -202,7 +217,7 @@
       [1, 2, 3, 4, 5].forEach((k) => {
         const id = `${a}-${p.reg}-${k}`;
         const r = po.by.get(id);
-        const c = td(r ? PORTE_FMT[f](r[f]) : '—', f.startsWith('pp') || f === 'delta_pct' ? (r ? cls(r[f]) : '') : '');
+        const c = td(r ? PORTE_FMT[f](r[f]) : '—', f.startsWith('pp') || f === 'delta_pct' ? (r ? cls(r[f]) : '') : f === 'x_req_pt' && r ? window.ST.statusReq(r[f]) : '');
         if (r) setMark(c, 'porte', f, id);
         tr.append(c);
       });
@@ -249,6 +264,48 @@
       });
       return tr;
     }));
+    req3(p, uf);
+  }
+
+  // 3ª via necessária com o resto do disponível (abstenção, brancos e nulos recuperados) dividido pela proporção
+  // PT × adversário do 1º turno de cada cidade; o 50/50 fica como referência
+  function req3(p, uf) {
+    const c = st.cenCand;
+    const n = (a) => NOMES[a];
+    const ehPt = c === 'pt';
+    const xr = (r) => (isNum(r.x_req_pt) ? (ehPt ? +r.x_req_pt : 1 - +r.x_req_pt) : null);
+    const xl = (r) => (isNum(r.x_levou_pt) ? (ehPt ? +r.x_levou_pt : 1 - +r.x_levou_pt) : null);
+    const vant = (r) => (ehPt ? +r.dir_1t - +r.pt_1t : +r.pt_1t - +r.dir_1t);
+    const x50 = (r) => (isNum(r.x_req50_pt) ? (ehPt ? +r.x_req50_pt : 1 - +r.x_req50_pt) : null);
+    const resto = (r) => (ehPt ? `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)}` : `${F.smi(r.rec_dir)} / ${F.smi(r.rec_pt)}`);
+    const linha = (r, rot) => {
+      const tr = document.createElement('tr');
+      tr.dataset.key = r.id;
+      const req = xr(r), lev = xl(r);
+      const s = window.ST.statusReq(req);
+      tr.append(td(rot, 'txt'));
+      [[F.int(r.terceira_via), 'terceira_via'], [F.sint(vant(r)), 'pt_1t'], [resto(r), 'rec_pt'], [F.req(req), 'x_req_pt'], [F.pct(lev), 'x_levou_pt'],
+        [isNum(req) && isNum(lev) && req > 0 ? F.pp(lev - req) : '—', 'x_levou_pt']].forEach(([t, f], i) => {
+        const cell = td(t, i === 3 ? s : i === 5 && isNum(req) && isNum(lev) ? cls(lev - req) : '');
+        setMark(cell, 'uf', f, r.id);
+        tr.append(cell);
+      });
+      const chip = document.createElement('span'); chip.className = 'st-chip ' + s; chip.textContent = window.ST.STATUS_REQ[s] || '—';
+      const stc = td('', 'txt'); stc.append(chip); tr.append(stc);
+      const c50 = td(F.req(x50(r)), 'mut'); setMark(c50, 'uf', 'x_req50_pt', r.id); tr.append(c50);
+      return tr;
+    };
+    $('#req-h').textContent = `Quanto da 3ª via ${ehPt ? 'o PT' : 'o adversário'} precisava converter: ${REG[st.esc] || (uf.by.get(p.ano + '-' + st.esc) || {}).nome || st.esc}`;
+    $('#req-tres tbody').replaceChildren(...ANOS.map((a) => uf.by.get(`${a}-${st.esc}`)).filter(Boolean).map((r) => {
+      const tr = linha(r, `${r.ano} · ${n(r.ano)[c]}`);
+      tr.classList.toggle('st-sel', String(r.ano) === p.ano);
+      return tr;
+    }));
+    $('#req-uf-h').textContent = `Por região e estado, ${p.ano} · ${n(p.ano)[c]}`;
+    const regs = ['BR', 'N', 'NE', 'CO', 'SE', 'S'].map((g) => uf.by.get(`${p.ano}-${g}`)).filter(Boolean);
+    const ufs = uf.rows.filter((r) => r.nivel === 'UF' && r.uf !== 'VT' && r.uf !== 'ZZ' && String(r.ano) === p.ano && (p.reg === 'BR' || r.regiao === p.reg))
+      .sort((a, b) => (xr(a) ?? 9) - (xr(b) ?? 9));
+    $('#req-uf tbody').replaceChildren(...regs.map((r) => { const tr = linha(r, r.nome); tr.classList.add('st-sel'); return tr; }), ...ufs.map((r) => linha(r, r.nome)));
   }
 
   // ---------- cidades ----------
@@ -295,7 +352,29 @@
       .sort((a, b) => +b.aptos - +a.aptos).slice(0, 200);
     rowsTable(tb, list, [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct],
       ['cresc_pt', F.spct, 1], ['ganho_pt', F.sint, 1], ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['cresc_dir', F.spct, 1], ['ganho_dir', F.sint, 1],
-      ['pct_terceira', F.pct], ['venc_2t', F.txt, 0, 1]]);
+      ['pct_terceira', F.pct], ['x_req_pt', F.req], ['x_levou_pt', F.pct], ['venc_2t', F.txt, 0, 1]], (tr, x) => reqCor(tr, x, 12));
+    quedas(p);
+  }
+
+  // top 100 cidades com maior queda de abstenção, nulos e brancos
+  const Q_ROT = { abst: 'abstenção', nulos: 'nulos', brancos: 'brancos' };
+  function quedas(p) {
+    segPressed('#f-qtipo', st.qtipo);
+    segPressed('#f-qcrit', st.qcrit);
+    const res = tbl('quedas_resumo');
+    const sel = (tr, x) => tr.classList.toggle('st-sel', String(x.ano) === p.ano);
+    if (res) {
+      rowsTable($('#queda-resumo tbody'), ANOS.map((a) => res.by.get(`${a}-${st.qtipo}-${st.qcrit}`)).filter(Boolean), [['ano', F.txt, 0, 1], ['cidades', F.int],
+        ['queda_top', F.int], ['pct_queda_total', F.pct], ['mediana_queda_pct', F.pct], ['capitais', F.int], ['reg_N', F.int], ['reg_NE', F.int], ['reg_CO', F.int],
+        ['reg_SE', F.int], ['reg_S', F.int], ['venc_pt', F.int], ['net_votos_top', F.sint, 1], ['swing_top', F.pp, 1], ['swing_resto', F.pp, 1], ['repetidas_ant', F.int]], sel);
+    } else if (failed('quedas_resumo')) failLine($('#queda-resumo tbody'));
+    $('#queda-h').textContent = `Top 100: maior queda de ${Q_ROT[st.qtipo]} ${st.qcrit === 'pct' ? 'em %' : 'em votos'}, ${p.ano}`;
+    const q = tbl('quedas');
+    if (q) {
+      const list = q.rows.filter((r) => String(r.ano) === p.ano && r.tipo === st.qtipo && r.crit === st.qcrit && (p.reg === 'BR' || r.regiao === p.reg)).sort((a, b) => +a.rank - +b.rank);
+      rowsTable($('#queda-lista tbody'), list, [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['v_1t', F.int], ['v_2t', F.int],
+        ['queda', F.int], ['queda_pct', F.pct], ['taxa_1t', F.pct], ['taxa_2t', F.pct], ['queda_pp', F.ppu], ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1], ['venc_2t', F.txt, 0, 1]]);
+    } else if (failed('quedas')) failLine($('#queda-lista tbody'));
   }
 
   window.ST.init.abas = () => {
@@ -316,6 +395,9 @@
     let t;
     $('#f-busca').addEventListener('input', (e) => { clearTimeout(t); t = setTimeout(() => { st.q = e.target.value; draw(); }, 200); });
     $('#f-filtro').addEventListener('change', (e) => { st.filtro = e.target.value; draw(); });
+    $('#f-qtipo').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.qtipo = b.dataset.v; draw(); } });
+    $('#f-qcrit').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.qcrit = b.dataset.v; draw(); } });
+    window.ST.clicavel($('#queda-lista tbody'));
     window.ST.clicavel($('#top-lista tbody'));
     window.ST.clicavel($('#busca-tabela tbody'));
   };

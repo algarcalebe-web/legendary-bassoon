@@ -8,8 +8,11 @@
   const ANOS = ['2026', '2022', '2018', '2014', '2010', '2006', '2002'];
   const REG = { BR: 'Brasil', N: 'Norte', NE: 'Nordeste', CO: 'Centro-Oeste', SE: 'Sudeste', S: 'Sul', EX: 'Exterior' };
   const UFS = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
-  const TABS = ['mapa', 'geral', 'liquida', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'metodo'];
+  const TABS = ['mapa', 'geral', 'liquida', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'secoes', 'metodo'];
   const STATUS = { dispensa: 'Basta a 3ª via', viavel: 'Viável', inviavel: 'Acima do disponível' };
+  // fatia da 3ª via necessária com o resto do disponível dividido pela proporção PT × adversário de cada cidade
+  const STATUS_REQ = { dispensa: 'Vence sem a 3ª via', viavel: 'Viável', inviavel: 'Nem com toda a 3ª via' };
+  const statusReq = (v) => (!isNum(v) ? '' : +v <= 0 ? 'dispensa' : +v > 1 ? 'inviavel' : 'viavel');
 
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -32,6 +35,8 @@
     dec: (v) => (isNum(v) ? neg(v) + nf3.format(Math.abs(+v)) : '—'),
     dec2: (v) => (isNum(v) ? sgn(v) + nf2.format(Math.abs(+v)) : '—'),
     txt: (v) => (v == null || v === '' ? '—' : String(v)),
+    req: (v) => (!isNum(v) ? '—' : +v <= 0 ? 'vence sem' : neg(v) + nf1.format(Math.abs(+v) * 100) + '%'),
+    ppu: (v) => (isNum(v) ? neg(v) + nf1.format(Math.abs(+v) * 100) + ' p.p.' : '—'),
   };
   const cls = (v) => (!isNum(v) ? '' : +v > 0 ? 'pos' : +v < 0 ? 'neg' : '');
 
@@ -165,6 +170,6 @@
     dash.onData(draw);
   }
 
-  window.ST = { NOMES, ANOS, REG, UFS, STATUS, F, cls, isNum, $, $$, tbl, failed, setMark, fill, failLine, td, rowsTable,
+  window.ST = { NOMES, ANOS, REG, UFS, STATUS, STATUS_REQ, statusReq, F, cls, isNum, $, $$, tbl, failed, setMark, fill, failLine, td, rowsTable,
     textWidth, segPressed, tipAt, st, P, abas, init: {}, draw, start, abrirCidade, clicavel, nf0, nf1 };
 })();

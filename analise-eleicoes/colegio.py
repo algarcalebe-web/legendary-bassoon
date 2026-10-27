@@ -8,7 +8,10 @@ Regras (todas pelo vencedor do 2º turno em cada unidade, o vencedor leva tudo, 
   eleitorado   cada UF vale seu eleitorado apto
   regioes      cada região vale 1
   municipios   cada município vale 1
-Para o colégio: estado decisivo (tipping point) e o menor número de votos que, trocando de lado, viraria o resultado.
+Para o colégio: estado decisivo (tipping point) e o swing uniforme que viraria o resultado (metade da margem do
+estado decisivo, em pontos percentuais dos válidos: é a medida de quão perto o resultado esteve). Também o menor
+número absoluto de votos que viraria — matematicamente mínimo, mas concentrado em estados pequenos com margens
+grandes, então não é um cenário plausível.
 
 Uso: python3 -I colegio.py <od_dir> <apiuf_dir> <data_dir>
 """
@@ -113,11 +116,20 @@ def main(od_dir, apiuf_dir, data_dir):
                 break
         perdedor_tem = col["pt"] if venc == "DIR" else col["dir"]
         res = virar([r for r in rows if r["venc"] == venc], p, col["maioria"] - perdedor_tem)
+        m_dec = abs(float(decisivo["margem_2t"])) if decisivo else None
+        cairiam = sorted((r for r in rows if r["venc"] == venc and abs(float(r["margem_2t"])) <= m_dec),
+                         key=lambda r: abs(float(r["margem_2t"]))) if decisivo else []
         col.update({"decisivo_uf": decisivo["uf"] if decisivo else "",
-                    "decisivo_margem_pp": abs(float(decisivo["margem_2t"])) if decisivo else None,
+                    "decisivo_margem_pp": m_dec,
+                    "swing_para_virar_pp": m_dec / 2 if decisivo else None,
+                    "swing_popular_pp": abs(int(br["pt_2t"]) - int(br["dir_2t"])) / int(br["validos_2t"]) / 2,
+                    "estados_swing": " ".join(r["uf"] for r in cairiam),
+                    "eleitores_swing": round(m_dec / 2 * int(br["validos_2t"])) if decisivo else None,
                     "votos_para_virar": res[0] if res else None, "estados_para_virar": " ".join(sorted(res[1])) if res else "",
                     "pct_validos_para_virar": res[0] / int(br["validos_2t"]) if res else None})
         sistemas += linhas
+        ordem_v = {r["uf"]: i for i, r in enumerate(sorted((r for r in rows if r["venc"] == venc),
+                                                           key=lambda r: abs(float(r["margem_2t"]))), 1)}
         for r in rows:
             estados.append({"id": f"{ano}-{r['uf']}", "ano": ano, "uf": r["uf"], "nome": r["nome"], "regiao": r["regiao"],
                             "deputados": r["deputados"], "peso_colegio": p[r["uf"]], "venc_2t": r["venc"],
@@ -125,8 +137,12 @@ def main(od_dir, apiuf_dir, data_dir):
                             "margem_2t": float(r["margem_2t"]), "margem_1t": float(r["margem_1t"]),
                             "net_votos": int(r["net_votos"]), "swing_margem": float(r["swing_margem"]),
                             "votos_para_virar": r["margem_votos"] // 2 + 1,
+                            "swing_para_virar_pp": abs(float(r["margem_2t"])) / 2,
+                            "ordem_swing": ordem_v.get(r["uf"]),
                             "decisivo": int(bool(decisivo) and r["uf"] == decisivo["uf"])})
-        print(ano, {l["sistema"]: f"{l['pt']}x{l['dir']}" for l in linhas}, "decisivo", col["decisivo_uf"], "virar", col["votos_para_virar"], col["estados_para_virar"])
+        print(ano, {l["sistema"]: f"{l['pt']}x{l['dir']}" for l in linhas}, "decisivo", col["decisivo_uf"],
+              "swing", col["swing_para_virar_pp"], col["estados_swing"], "| mínimo absoluto", col["votos_para_virar"],
+              col["estados_para_virar"])
     # vitória líquida: saldo (PT − adversário) de cada unidade e quanto ela contribui para o saldo nacional;
     # crescimento líquido = saldo do 2º turno − saldo do 1º turno
     saldos = []

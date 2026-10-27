@@ -183,6 +183,9 @@ def metricas(t1, t2):
         "captura_pt": div(g_pt, g_pt + g_dir),
         "x_min": div(g_pt - max(delta, 0), terceira),
         "x_impl_50": div(g_pt - 0.5 * delta, terceira),
+        # referência: o resto do disponível dividido 50/50 (o meio a meio se anula; só a vantagem do 1º turno conta)
+        "x_req50_pt": 0.5 + (t1["dir"] - t1["pt"]) / (2 * terceira) if terceira > 0 else None,
+        "x_levou50_pt": 0.5 + (g_pt - g_dir) / (2 * terceira) if terceira > 0 else None,
         "estoque_2t": t2["abst"] + bn2,
         "gap_vitoria": v2 / 2 - t1["pt"],
         "venceu_pt": int(t2["pt"] > t2["dir"]),
@@ -194,7 +197,33 @@ def metricas(t1, t2):
         "swing_margem": (div(t2["pt"], v2) - div(t2["dir"], v2)) - (div(t1["pt"], v1) - div(t1["dir"], v1)) if v1 and v2 else None,
         "pct_comp_1t": div(t1["comp"], t1["aptos"]), "pct_comp_2t": div(t2["comp"], t2["aptos"]),
         "d_comp_pp": div(t2["comp"], t2["aptos"]) - div(t1["comp"], t1["aptos"]) if t1["aptos"] and t2["aptos"] else None,
+        **req_local(t1, t2, *rec_local(t1, t2)),
     }
+
+
+def rec_local(t1, t2):
+    """Votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados), divididos pela
+    proporção PT × adversário do 1º turno na própria cidade."""
+    terceira = t1["validos"] - t1["pt"] - t1["dir"]
+    extra = (t2["pt"] + t2["dir"]) - (t1["pt"] + t1["dir"]) - terceira
+    s = t1["pt"] / (t1["pt"] + t1["dir"]) if t1["pt"] + t1["dir"] else 0.5
+    return s * extra, (1 - s) * extra
+
+
+def req_local(t1, t2, rec_pt, rec_dir):
+    """Com o resto dividido pela proporção local, a fatia da 3ª via que o PT precisava para empatar e a que levou.
+    Para estados, regiões e Brasil, rec_pt e rec_dir são somas cidade a cidade."""
+    terceira = t1["validos"] - t1["pt"] - t1["dir"]
+    if terceira <= 0:
+        return {"rec_pt": rec_pt, "rec_dir": rec_dir, "x_req_pt": None, "x_levou_pt": None, "status_req_pt": ""}
+    x = 0.5 + (t1["dir"] - t1["pt"] + rec_dir - rec_pt) / (2 * terceira)
+    return {"rec_pt": rec_pt, "rec_dir": rec_dir, "x_req_pt": x,
+            "x_levou_pt": (t2["pt"] - t1["pt"] - rec_pt) / terceira, "status_req_pt": status_req(x)}
+
+
+def status_req(x):
+    """dispensa: vence sem nenhum voto da 3ª via; inviavel: nem com toda a 3ª via, se o resto se divide 50/50."""
+    return "dispensa" if x <= 0 else "inviavel" if x > 1 else "viavel"
 
 
 def cenario(m, cand, x):
@@ -284,6 +313,8 @@ def por_porte(mun_rows):
                     "pct_ganho_pt": div(t["ganho_pt"], tot_pt), "pct_ganho_dir": div(t["ganho_dir"], tot_dir),
                     "captura_pt": div(t["ganho_pt"], t["ganho_pt"] + t["ganho_dir"]),
                     "pct_terceira": t["terceira_via"] / t["validos_1t"], "delta_pct": t["delta"] / t["aptos"],
+                    **req_local({"validos": t["validos_1t"], "pt": t["pt_1t"], "dir": t["dir_1t"]}, {"pt": t["pt_2t"], "dir": t["dir_2t"]},
+                                sum(r["rec_pt"] for r in sub), sum(r["rec_dir"] for r in sub)),
                     "venc_pt": sum(r["venc_2t"] == "PT" for r in sub), "venc_dir": sum(r["venc_2t"] == "DIR" for r in sub),
                     "viradas_pt": sum(r["virou"] and r["venc_2t"] == "PT" for r in sub),
                     "viradas_dir": sum(r["virou"] and r["venc_2t"] == "DIR" for r in sub),
@@ -381,7 +412,8 @@ def viradas_e_top(mun_rows, capitais):
 MAPA = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
         "pct_dir_2t", "pp_pt", "pp_dir", "cresc_pt", "cresc_dir", "ganho_pt", "ganho_dir", "pct_terceira", "delta_pct",
         "captura_pt", "margem_2t", "lider_1t", "lider1_nr", "lider1_sigla", "lider1_pct", "venc_2t", "virou",
-        "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50", "net_votos", "net_pct_aptos", "swing_margem", "d_comp_pp"]
+        "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50", "net_votos", "net_pct_aptos", "swing_margem", "d_comp_pp",
+        "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt"]
 HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "pt_1t", "pt_2t", "dir_1t", "dir_2t", "validos_1t", "validos_2t", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
         "pct_dir_2t", "pp_pt", "pp_dir", "ganho_pt", "ganho_dir", "cresc_pt", "cresc_dir",
@@ -389,8 +421,65 @@ HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "pct_abst_1t", "pct_abst_2t", "pct_brancos_1t", "pct_brancos_2t", "pct_nulos_1t", "pct_nulos_2t",
         "delta_abst", "delta_brancos", "delta_nulos", "delta", "pool", "captura_pt", "lider1_sigla", "lider1_pct",
         "net_votos", "net_pct_aptos", "margem_1t", "margem_2t", "swing_margem", "pct_comp_1t", "pct_comp_2t", "d_comp_pp",
-        "lider_1t", "venc_2t", "virou", "mudou_vs_ant"] + \
+        "lider_1t", "venc_2t", "virou", "mudou_vs_ant", "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt",
+        "rec_pt", "rec_dir"] + \
        [f"{k}_{c}_{x}" for c in ("pt", "dir") for x in CENARIOS_X for k in ("need", "status", "y_saldo", "y_resto")]
+
+
+QUEDAS = {"abst": ("abst", "aptos"), "nulos": ("nulos", "comp"), "brancos": ("brancos", "comp")}
+
+
+def quedas(mun_rows, capitais):
+    """Top 100 cidades com maior queda de abstenção, nulos e brancos do 1º para o 2º turno, em % (queda relativa,
+    só cidades com 10 mil+ eleitores) e em número de votos, e o que aconteceu no 2º turno nessas cidades."""
+    top, res, tops = [], [], {}
+    for ano in ANOS:
+        base = [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")]
+        for tipo, (campo, den) in QUEDAS.items():
+            def taxa(r, t, campo=campo, den=den):
+                d = r["aptos"] if den == "aptos" else r["validos_" + t] + r["brancos_" + t] + r["nulos_" + t]
+                return div(r[f"{campo}_{t}"], d)
+            for r in base:
+                r["_q"] = r[f"{campo}_1t"] - r[f"{campo}_2t"]
+                r["_qp"] = div(r["_q"], r[f"{campo}_1t"])
+            for crit in ("pct", "abs"):
+                if crit == "abs":
+                    sel = sorted((r for r in base if r["_q"] > 0), key=lambda r: r["_q"], reverse=True)[:TOP_N]
+                else:
+                    pool = [r for r in base if r["aptos"] >= MIN_APTOS_PCT and r[f"{campo}_1t"] > 0 and r["_q"] > 0]
+                    sel = sorted(pool, key=lambda r: r["_qp"], reverse=True)[:TOP_N]
+                for i, r in enumerate(sel, 1):
+                    t1, t2 = taxa(r, "1t"), taxa(r, "2t")
+                    top.append({"id": f"{ano}-{tipo}-{crit}-{i}", "ano": ano, "tipo": tipo, "crit": crit, "rank": i,
+                                "cod": r["cod"], "municipio": r["municipio"], "uf": r["uf"], "regiao": r["regiao"],
+                                "capital": int(r["cod"] in capitais), "aptos": r["aptos"],
+                                "v_1t": r[f"{campo}_1t"], "v_2t": r[f"{campo}_2t"], "queda": r["_q"],
+                                "queda_pct": r["_qp"], "taxa_1t": t1, "taxa_2t": t2,
+                                "queda_pp": t1 - t2 if t1 is not None and t2 is not None else None,
+                                "venc_2t": r["venc_2t"], "virou": r["virou"], "net_votos": r["net_votos"],
+                                "swing_margem": r["swing_margem"]})
+                cods = {r["cod"] for r in sel}
+                resto = [r for r in base if r["cod"] not in cods]
+                total = sum(r["_q"] for r in base)
+                i = ANOS.index(ano)
+                prev = tops.get((ANOS[i - 1], tipo, crit)) if i else None
+                tops[(ano, tipo, crit)] = cods
+                swing = lambda rs: (sum(r["swing_margem"] * r["aptos"] for r in rs) / sum(r["aptos"] for r in rs)
+                                    if rs else None)
+                res.append({"id": f"{ano}-{tipo}-{crit}", "ano": ano, "tipo": tipo, "crit": crit, "cidades": len(sel),
+                            "queda_top": sum(r["_q"] for r in sel), "queda_total": total,
+                            "pct_queda_total": div(sum(r["_q"] for r in sel), total) if total > 0 else None,
+                            "mediana_queda_pct": float(np.median([r["_qp"] for r in sel])) if sel else None,
+                            "capitais": sum(r["cod"] in capitais for r in sel),
+                            **{f"reg_{g}": sum(r["regiao"] == g for r in sel) for g in ("N", "NE", "CO", "SE", "S")},
+                            "venc_pt": sum(r["venc_2t"] == "PT" for r in sel),
+                            "net_votos_top": sum(r["net_votos"] for r in sel),
+                            "swing_top": swing(sel), "swing_resto": swing(resto),
+                            "repetidas_ant": len(cods & prev) if prev is not None else None})
+    for r in mun_rows:
+        r.pop("_q", None)
+        r.pop("_qp", None)
+    return top, res
 
 
 def main(od_dir, api_dir, mun_dir, out_dir):
@@ -419,6 +508,8 @@ def main(od_dir, api_dir, mun_dir, out_dir):
                     for k, v in cenario(m, cand, x).items():
                         c[f"{k}_{cand}_{x}"] = v
             cidades.append(c)
+        rec = {(uf, cod): rec_local(agg[(1, uf, cod)], agg[(2, uf, cod)]) for uf, cod in {(k[1], k[2]) for k in agg}
+               if (1, uf, cod) in agg and (2, uf, cod) in agg}
         grupos = [("UF", uf, UF_NOME[uf], REGIAO[uf], lambda k, uf=uf: k[1] == uf) for uf in UFS]
         grupos += [("REGIAO", r, REGIAO_NOME[r], r, lambda k, r=r: REGIAO[k[1]] == r) for r in REGIAO_NOME if r != "EX"]
         grupos += [("BR", "BR", "Brasil", "BR", lambda k: True)]
@@ -428,6 +519,7 @@ def main(od_dir, api_dir, mun_dir, out_dir):
             if not t1["validos"] or not t2["validos"]:
                 continue
             m = metricas(t1, t2)
+            m.update(req_local(t1, t2, sum(rec[k][0] for k in rec if sel((1,) + k)), sum(rec[k][1] for k in rec if sel((1,) + k))))
             uf_rows.append({"id": f"{ano}-{cod}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome, "regiao": reg, **m})
             for cand in ("pt", "dir"):
                 for x in CENARIOS_X:
@@ -448,6 +540,9 @@ def main(od_dir, api_dir, mun_dir, out_dir):
     write_csv(out / "viradas.csv", vir_rows)
     write_csv(out / "top100.csv", top_rows)
     write_csv(out / "top100_resumo.csv", top_res)
+    q_rows, q_res = quedas(mun_rows, capitais)
+    write_csv(out / "quedas.csv", q_rows)
+    write_csv(out / "quedas_resumo.csv", q_res)
     write_csv(out / "porte.csv", por_porte(mun_rows))
     for ano in ANOS:
         write_csv(out / f"mapa_{ano}.csv", [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")], MAPA)

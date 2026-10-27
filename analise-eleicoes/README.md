@@ -8,15 +8,16 @@ exceto a coluna de apoio formal no 2º turno (`APOIO` em `alinhamento.py`), que 
 
 | Script | Gera |
 |---|---|
-| `build_dataset.py` | `uf.csv`, `cenarios.csv`, `regressao.csv`, `viradas.csv`, `top100*.csv`, `porte.csv`, `mapa_<ano>.csv`, `hist_<UF>.csv` |
+| `build_dataset.py` | `uf.csv`, `cenarios.csv`, `regressao.csv`, `viradas.csv`, `top100*.csv`, `quedas*.csv` (top 100 quedas de abstenção, nulos e brancos), `porte.csv`, `mapa_<ano>.csv`, `hist_<UF>.csv` |
 | `build_mapa.py` | `malha_municipios.json`, `malha_estados.json` (caminhos SVG pré-projetados) |
 | `auditoria.py` | `auditoria_serie.csv`, `auditoria_hist.csv`, `auditoria_outliers.csv`, `auditoria_estados.csv` |
 | `alinhamento.py` | `bancadas.csv`, `eleitores_3a_via.csv` |
 | `consistencia.py` | `consistencia_serie.csv`, `consistencia_locais.csv`, `consistencia_extremos.csv` (identidades contábeis, cruzamento 2026 dados abertos × API, desvios locais, extremos) |
-| `colegio.py` | `colegio.csv`, `colegio_uf.csv`, `saldos.csv` (vitória líquida por UF/região e sistemas de apuração alternativos) |
+| `colegio.py` | `colegio.csv`, `colegio_uf.csv`, `saldos.csv` (vitória líquida por UF/região, sistemas de apuração alternativos, swing para virar) |
+| `secao.py` | `secao_serie.csv`, `secao_transicao.csv`, `secao_uf.csv`, `secao_tempo.csv`, `secao_modelo.csv`, `secao_extremos.csv`, `secao_dist.csv` (testes com as ~500 mil seções de 2018, 2022 e 2026) |
 | `build_insights.py` | `insights.json` (leituras em texto, todos os números tirados das tabelas) |
 
-`dashboard/` tem a página do dashboard (tipo Dashboard do claude.ai): `index.html`, `core.js`, `mapa.js`, `abas.js`, `auditoria.js`, `liquida.js`.
+`dashboard/` tem a página do dashboard (tipo Dashboard do claude.ai): `index.html`, `core.js`, `mapa.js`, `abas.js`, `auditoria.js`, `liquida.js`, `secoes.js`.
 
 ## Fontes
 
@@ -37,10 +38,11 @@ python -I auditoria.py <od_dir> <api_dir> <mun_dir> data            # numpy, sci
 python -I alinhamento.py <od_dir> <api_dir> <mun_dir> <apiuf_dir> data  # numpy
 python -I consistencia.py <od_dir> <api_dir> <mun_dir> <detalhe_munzona_2026.zip> data  # numpy
 python3 -I colegio.py <od_dir> <apiuf_dir> data
+python -I secao.py <od_dir> <api_dir> <mun_dir> <secao_dir> data  # numpy, scipy
 python3 -I build_insights.py data
 ```
 
-`<od_dir>`: zips do TSE. `<api_dir>`: `<uf>-6257.json` e `<uf>-6258.json`. `<mun_dir>`: `cm.json` e
+`<secao_dir>/<ano>/`: `detalhe.zip` (detalhe_votacao_secao_<ano>.zip) e `votos.zip` (votacao_secao_<ano>_BR.zip). `<od_dir>`: zips do TSE. `<api_dir>`: `<uf>-6257.json` e `<uf>-6258.json`. `<mun_dir>`: `cm.json` e
 `files/<uf><mun>-<cd>.json`. `<apiuf_dir>`: `<uf>-6259-<cargo>.json` e `<uf>-6260-0003.json`.
 
 ## Definições
@@ -55,3 +57,10 @@ python3 -I build_insights.py data
 - Vitória líquida = votos do vencedor − votos do perdedor no 2º turno, por UF, região e Brasil.
 - Colégio: cada UF pesa deputados federais eleitos naquele ano (contados nos dados do TSE) + 3 senadores; quem vence a UF
   leva o peso todo. "Votos para virar" = menor número de eleitores que, trocando de lado, inverteria o resultado.
+- Colégio, swing para virar: metade da margem do estado decisivo, em p.p. dos válidos, aplicada a todos os estados. O "mínimo
+  absoluto" de votos concentra-se em estados pequenos e não é cenário plausível.
+- 3ª via necessária: os votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados) vão para cada
+  lado na proporção PT × adversário do 1º turno de cada cidade (somados cidade a cidade para UF, região e Brasil); precisava =
+  50% + (vantagem do outro no 1º + resto do outro − resto seu) ÷ (2 × 3ª via). Referência: o mesmo com o resto 50/50.
+- Seções: transições por Goodman em cada UF (com e sem restrição de 0 a 100%) e regressão dentro da zona eleitoral; associação
+  entre seções, não voto individual.

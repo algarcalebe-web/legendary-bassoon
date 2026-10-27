@@ -214,27 +214,69 @@
   "ordem": 31,
   "tema": "colegio",
   "titulo": "Se fosse colégio eleitoral",
-  "texto": "Com cada estado valendo seus deputados federais mais 3 senadores e o vencedor levando tudo, Flávio teria 318 votos eleitorais contra 276 de Lula, e venceria. O colégio contraria o voto popular em 2022 e 2026; nas outras eleições da série os dois coincidem. Em 2026 o estado decisivo seria Rio de Janeiro, e bastariam 80.564 votos trocando de lado em RR e TO para Lula vencer também no colégio."
+  "texto": "Com cada estado valendo seus deputados federais mais 3 senadores e o vencedor levando tudo, Flávio teria 318 votos eleitorais contra 276 de Lula, e venceria. O colégio contraria o voto popular em 2022 e 2026; nas outras eleições da série os dois coincidem. Medido em pontos percentuais, virar o colégio de 2026 exigiria 3,1 p.p. dos válidos trocando de lado em todos os estados ao mesmo tempo: o estado decisivo é Rio de Janeiro, e com esse swing viram TO e RJ. Para virar o voto popular no sentido oposto bastariam 1,8 p.p. Em 2022 o colégio pedia 5,2 p.p. (São Paulo decisivo). O mínimo absoluto de 80.564 votos em RR e TO é só aritmética de estados pequenos: Roraima é o estado mais difícil de virar em 2026 (22,5 p.p.) e entra na conta porque tem poucos eleitores."
  },
  {
-  "id": "aud-contab",
+  "id": "defesa",
   "ordem": 32,
-  "tema": "auditoria",
-  "titulo": "Contabilidade e cruzamento de fontes",
-  "texto": "Nas 5.757 cidades do 2º turno de 2026, comparecimento = válidos + brancos + nulos e válidos = soma dos candidatos fecham sem nenhuma diferença; aptos = comparecimento + abstenção difere em 40 cidades (423 eleitores), dentro do que aparece em todas as eleições (369 a 1.457 eleitores). No arquivo de 2006, comparecimento não fecha em nenhuma das 12.584 zonas, por 37.752 votos no total, uma diferença pequena e uniforme que aponta para a definição de um campo do arquivo. As duas publicações do TSE do 1º turno de 2026, dados abertos e API de resultados, batem em todas as 5.757 cidades, campo a campo e candidato a candidato."
+  "tema": "colegio",
+  "titulo": "Ataque e defesa: Minas pesa mais que o Rio",
+  "texto": "Num colégio, o estado mais frágil de Lula em 2026 seria Minas Gerais: 0,4 p.p. trocando de lado viram o estado, que vale 56 votos. Virar Rio de Janeiro (+49, 3,1 p.p.) e perder Minas Gerais deixaria Lula com 269 × 325, pior que o resultado real. Por ponto de swing exigido, Minas Gerais vale 129 votos no colégio, contra 8 de Tocantins e 15 de Rio de Janeiro: a defesa de Minas Gerais viria antes de qualquer ataque. O simulador da aba Vitória líquida faz qualquer combinação."
  },
  {
-  "id": "aud-net",
+  "id": "req3",
   "ordem": 33,
-  "tema": "auditoria",
-  "titulo": "Crescimento líquido cidade a cidade",
-  "texto": "Cidades cujo swing destoa do próprio estado (mais de 4 desvios robustos): 2,0 por mil em 2026, o menor da série (3,1 a 5,6 antes). Dentro de cada estado, cada ponto de comparecimento a mais virou 0,34 ponto de margem líquida para Lula; de 2002 a 2022 esse número foi de −0,03 a 0,86. Votos inventados para um lado dariam perto de 1. A geografia do voto repetiu a de 2022 com correlação de 0,985, a mais alta da série."
+  "tema": "geral",
+  "titulo": "Quanto da 3ª via Lula precisava converter",
+  "texto": "Dividindo os votos recuperados (abstenção, brancos e nulos) entre Lula e Flávio na proporção de cada cidade no 1º turno, Lula ficaria com 2,40 mi e Flávio com 2,38 mi: o Nordeste pró-Lula (1,04 mi × 0,51 mi) é compensado pelo Sudeste e pelo Sul. Com Flávio 2,22 mi à frente no 1º turno e 9,32 mi na 3ª via, Lula precisava converter 61,9% da 3ª via para empatar (61,9% com o resto meio a meio). O resultado implica 85,6% na mesma regra, mas as seções estimam que Lula levou 42% da 3ª via e Flávio 38%: o que fechou a conta foi o resto não seguir a proporção do 1º turno (brancos, nulos e abstenção foram mais para Lula). Por região: Nordeste vencia sem a 3ª via; Norte precisava de 86,5%, implícito 86,6%; Sudeste precisava de 118,1% (mais que toda), implícito 85,8%; Centro-Oeste precisava de 163,5% (mais que toda), implícito 68,9%; Sul precisava de 222,9% (mais que toda), implícito 71,8%. Em 2022 Lula precisava de 19,7% e o implícito foi 30,5%; em 2018 Haddad precisava de 82,2% e o implícito foi 61,8%."
  },
  {
-  "id": "aud-extremos",
+  "id": "quedas",
   "ordem": 34,
-  "tema": "auditoria",
-  "titulo": "Pontos fora da curva",
-  "texto": "Em 2026, 66 cidades tiveram o comparecimento subir 5 p.p. ou mais, mais que em qualquer eleição anterior, espalhadas por 8 estados. Lula venceu 42 delas (64%), contra 47% de todas as cidades desses estados, e a margem nelas variou +0,6 p.p. a mais que a mediana do próprio estado. Isso é uma leve inclinação a Lula, mas menor do que a relação geral entre comparecimento e margem já prevê para saltos desse tamanho (+1,1 p.p.). 10 cidades ficaram com brancos + nulos abaixo de 1%, 3 vencidas por Lula. As listas estão na aba Auditoria."
+  "tema": "cidades",
+  "titulo": "Onde abstenção, nulos e brancos mais caíram",
+  "texto": "Em 2026, das 100 cidades com maior queda percentual da abstenção, 85 são do Nordeste e Lula venceu 91; a margem nelas variou +6,6 p.p., contra +5,3 p.p. no resto do país. Em votos, as maiores quedas são das capitais São Paulo (276.815) e Rio de Janeiro (156.161). Nulos em %: 69 das 100 no Norte, todas no Pará (Chaves −79%, Bagre −78%), e essas cidades variaram +4,7 p.p., abaixo do resto (+5,4 p.p.): a queda de nulos mais forte não veio junto com o maior ganho de Lula. Nas 100 maiores quedas de nulos em votos, a margem variou +6,5 p.p. contra +4,8 p.p. no resto. Brancos em %: 95 das 100 no Nordeste. Listas na aba Cidades."
+ },
+ {
+  "id": "sec-contab",
+  "ordem": 35,
+  "tema": "secoes",
+  "titulo": "As contas fecham seção a seção",
+  "texto": "A soma das 499.248 seções confere com o total de cada um dos 5.757 municípios nos dois turnos de 2026 (aptos, comparecimento, votos de cada finalista e brancos): 0 divergências, como em 2022 e 2018. O arquivo de votos por candidato e o de detalhe batem em todas as seções, e o comparecimento fecha com os votos em todas. O número de aptos muda entre os turnos em 55.722 seções (74.692 eleitores), perto de 2022 (49.710; 72.306)."
+ },
+ {
+  "id": "sec-espalhado",
+  "ordem": 36,
+  "tema": "secoes",
+  "titulo": "O líquido de 2026 foi o mais espalhado das três eleições",
+  "texto": "85% das seções deram líquido a Lula em 2026; em 2022, 77% deram a Bolsonaro e em 2018 73% a Haddad. As 10% seções com maior líquido responderam por 28% dele (34% em 2022, 43% em 2018), e as que destoam da própria zona são 0,36 por mil (0,42 e 0,71), 93 a favor do PT e 76 do adversário, somando 1.758 votos de líquido. Crescimento concentrado em poucas seções seria o sinal de alteração localizada; os dados mostram o oposto."
+ },
+ {
+  "id": "sec-comp",
+  "ordem": 37,
+  "tema": "secoes",
+  "titulo": "Comparecimento: alta grande e espalhada",
+  "texto": "O comparecimento subiu em 77% das seções (+1,8 p.p., 2,92 mi de eleitores), contra 55% em 2022 e 31% em 2018, e as 10% seções que mais subiram deram 30% da alta (42% e 64%). Dentro da zona, cada eleitor a mais rendeu 0,16 de líquido para Lula, quase igual a 2022 (0,15): os novos votantes se dividiram perto de 58% a 42%, como em 2022."
+ },
+ {
+  "id": "sec-bn",
+  "ordem": 38,
+  "tema": "secoes",
+  "titulo": "De onde veio o líquido: brancos e nulos do 1º turno",
+  "texto": "Pelo modelo restrito entre as seções de cada estado, o líquido de Lula (+6,64 mi) veio de quem votou branco ou nulo no 1º turno (+3,68 mi), da abstenção (+2,40 mi) e da 3ª via (+0,37 mi); trocas diretas entre os finalistas somam +0,14 mi. A 3ª via se dividiu perto do meio (42% Lula, 38% Flávio, 15% branco ou nulo). O que sai do padrão é o branco e nulo do 1º turno: 63% foram para Lula e 1% para Flávio, contra 16% e 27% em 2022 e 22% e 15% em 2018. As outras duas leituras concordam: sem restrição, 62% e 8%; dentro da zona, cada voto que saiu do branco rendeu +0,50 de líquido para Lula e do nulo +0,44, contra +0,04 e +0,22 em 2022. A taxa de nulos do 1º turno não foi atípica (2,9% contra 2,8% em 2022); em 2026 os nulos caíram no 2º turno (2,1%), enquanto em 2022 e 2018 subiram. É associação entre seções, não o voto de pessoas."
+ },
+ {
+  "id": "sec-chegada",
+  "ordem": 39,
+  "tema": "secoes",
+  "titulo": "A pausa na chegada dos boletins do 2º turno de 2026",
+  "texto": "No 2º turno de 2026, 0,2% das seções chegaram ao TSE até 17h30 e depois nenhuma faixa de 10 minutos teve 0,05% das seções por 110 minutos; a mediana foi 20:26 (1º turno 18:44; 2022 18:26; 2018 18:06). Em 2022 e 2018 o 2º turno não tem pausa (8% e 11% chegaram até 17h30). As seções que chegaram antes da pausa não diferem no líquido (−0,01 p.p. contra o estado) e a ordem de chegada quase não se relaciona com o líquido (correlação 0,02). O arquivo não traz o motivo e a contagem confere seção a seção; os boletins de urna do 2º turno, quando publicados, trazem o horário de encerramento de cada seção e separam fechamento de transmissão."
+ },
+ {
+  "id": "sec-forense",
+  "ordem": 40,
+  "tema": "secoes",
+  "titulo": "Forense por seção",
+  "texto": "Seções com comparecimento de 95% ou mais e 90% ou mais para um lado: 95 em 2026 (90 para Lula), 30 em 2022 e 64 em 2018, mais que antes mas 0,02% das seções. Brancos e nulos zerados no 2º turno: 1.071 seções (PA 292, MA 140, MT 86), contra 336 em 2022 com os mesmos estados no topo; Lula venceu 57% delas e o líquido delas ficou −0,1 p.p. contra a zona, sem puxar o resultado. A frequência do último dígito dos votos por seção desvia no máximo 0,5 p.p. dos 10% esperados, como em 2022 e 2018. Por modelo de urna, o líquido difere no máximo 0,03 p.p. da média do município."
  }
 ]

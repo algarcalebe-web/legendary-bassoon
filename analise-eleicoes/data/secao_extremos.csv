@@ -1,0 +1,252 @@
+id,ano,tipo,cod,uf,municipio,zona,secao,local,aptos,comp_1t,comp_2t,pt_1t,adv_1t,ter_1t,pt_2t,adv_2t,net_votos,bn_1t,bn_2t,net_pct_aptos,mediana_zona,z,chegada,modelo
+2026-AC-01554-3-160,2026,desvio da zona,01554,AC,Manoel Urbano,3,160,Posto De Saúde (Aldeia Buaçú),238,0.71429,0.72689,112,55,0,48,104,-113,3,21,-0.47479,0.03819,-12.6,19:19,UE 2020
+2026-AM-02097-18-37,2026,desvio da zona,02097,AM,Barcelos,18,37,E. M. Manuel Sales,377,0.61273,0.50398,37,171,8,84,71,147,15,35,0.38992,0.02433,12.1,19:03,UE 2022
+2026-PE-24910-117-16,2026,desvio da zona,24910,PE,Olinda,117,16,Centro De Convencoes - Voto Em Trânsito,220,0.95455,0.58636,147,51,11,86,42,-52,1,1,-0.23636,0.0615,-11.7,20:42,UE 2020
+2026-PE-24910-117-417,2026,desvio da zona,24910,PE,Olinda,117,417,Centro De Convencoes - Voto Em Trânsito,222,0.90541,0.57207,148,40,13,92,34,-50,0,1,-0.22523,0.0615,-11.2,20:42,UE 2020
+2026-BA-34134-170-262,2026,desvio da zona,34134,BA,Camaçari,170,262,Escola Luiz Pereira Costa,119,0.89916,0.52101,37,61,6,40,20,44,3,2,0.36975,0.06319,11.0,20:47,UE 2015
+2026-PA-05835-106-330,2026,desvio da zona,05835,PA,Parauapebas,106,330,Emef Indígena Bep Karoti Xikrin,325,0.39385,0.65231,126,2,0,212,0,88,0,0,0.27077,0.03374,9.3,19:44,UE 2020
+2026-PA-04723-80-254,2026,desvio da zona,04723,PA,Anapu,80,254,Emef Trincheira Bacajá,238,0.66387,0.68067,127,29,0,158,4,56,2,0,0.23529,0.02254,8.4,19:36,UE 2015
+2026-PA-05835-106-244,2026,desvio da zona,05835,PA,Parauapebas,106,244,Emef Indígena Bep Karoti Xikrin,289,0.45329,0.6955,129,1,0,200,1,71,1,0,0.24567,0.03374,8.3,19:40,UE 2020
+2026-MG-41572-59-12,2026,desvio da zona,41572,MG,Bom Repouso,59,12,Escola Municipal N. Sra Do Bom Conselho -  Cantuários,256,0.80469,0.85547,83,94,8,89,122,-22,21,8,-0.08594,0.01256,-8.3,20:59,UE 2020
+2026-PR-78514-130-87,2026,desvio da zona,78514,PR,Santa Izabel do Oeste,130,87,Colegio Estadual Marques De Maricá,338,0.7426,0.8284,70,160,12,86,193,-17,9,1,-0.0503,0.0407,-7.7,19:41,UE 2020
+2026-SC-80250-27-248,2026,desvio da zona,80250,SC,Araquari,27,248,Escola Municipal Amaro Coelho,124,0.80645,0.83871,18,66,12,36,66,18,4,2,0.14516,0.00515,7.4,20:58,UE 2015
+2026-AC-01139-7-67,2026,desvio da zona,01139,AC,Feijó,7,67,Aldeia Nova Floresta,155,0.63226,0.47097,35,59,0,52,14,62,4,7,0.4,0.04294,7.2,17:05,UE 2022
+2026-PI-10936-64-110,2026,desvio da zona,10936,PI,Inhuma,64,110,Escola Municipal Porfirio Mendes De Moura,222,0.77928,0.72973,127,36,4,115,43,-19,6,4,-0.08559,0.04604,-7.2,20:32,UE 2020
+2026-PI-11878-28-99,2026,desvio da zona,11878,PI,Santo Antônio de Lisboa,28,99,U.E.M. Pe. Joao Pedro (Pov. São Jose - Sitio Salvador),312,0.91987,0.875,214,56,5,146,122,-134,12,5,-0.42949,-0.11203,-6.9,20:25,UE 2022
+2026-GO-93599-11-147,2026,desvio da zona,93599,GO,Flores de Goiás,11,147,Escola Municipal Brejinho (Chapada) - Ue-Mun,144,0.77778,0.69444,45,33,31,69,28,29,3,3,0.20139,0.01125,6.9,20:29,UE 2022
+2026-MT-98655-26-209,2026,desvio da zona,98655,MT,Campinápolis,26,209,Escola Indígena Aldeia Estrela,156,0.73718,0.82051,103,9,1,120,7,19,2,1,0.12179,0.02273,6.8,19:03,UE 2020
+2026-PA-04359-15-338,2026,desvio da zona,04359,PA,Breves,15,338,Emef Nelson Rocha - Porto Cacique,161,0.88199,0.67081,125,13,1,92,15,-35,3,1,-0.21739,0.02402,-6.8,20:53,UE 2022
+2026-MG-43214-177-265,2026,desvio da zona,43214,MG,Chapada do Norte,177,265,Escola Municipal Minas Gerais - Antiga Frei Emílio,100,0.58,0.67,45,6,1,60,2,19,6,5,0.19,0.03958,6.8,20:17,UE 2020
+2026-SC-80470-3-765,2026,desvio da zona,80470,SC,Blumenau,3,765,Presídio Regional De Blumenau,106,0.79245,0.62264,40,39,2,43,23,19,3,0,0.17925,0.0,6.7,20:09,UE 2022
+2026-MA-08974-70-403,2026,desvio da zona,08974,MA,Santa Luzia,70,403,Zemuehan Tentenhar Terepiur,166,0.86145,0.77711,94,45,1,112,15,48,3,2,0.28916,0.04854,6.6,20:21,UE 2020
+2026-MT-98655-26-208,2026,desvio da zona,98655,MT,Campinápolis,26,208,Escola Estadual Indígena Aldeiona,300,0.85333,0.85333,250,2,2,239,13,-22,2,4,-0.07333,0.02273,-6.6,19:37,UE 2020
+2026-PR-77917-30-111,2026,desvio da zona,77917,PR,Prudentópolis,30,111,Pavilhão Da Igreja Brasileira De Linha Vitorino,125,0.832,0.736,32,47,16,45,39,21,9,8,0.168,0.0,6.5,20:23,UE 2022
+2026-GO-93360-56-177,2026,desvio da zona,93360,GO,Abadia de Goiás,56,177,Escola Municipal Hildebrando Cardoso Lourenço - Ue-Mun,126,0.92063,0.92857,30,60,22,33,81,-18,4,3,-0.14286,0.02027,-6.5,20:38,UE 2020
+2026-PR-79375-33-95,2026,desvio da zona,79375,PR,União da Vitória,33,95,Posto De Saúde Da Colônia Faxinal Marianos,125,0.688,0.712,40,32,10,58,26,24,4,5,0.192,0.01768,6.4,20:45,UE 2020
+2026-PA-04383-91-73,2026,desvio da zona,04383,PA,Novo Progresso,91,73,Emeif Escola Indígena Tapiety,132,0.60606,0.44697,2,72,2,3,56,17,4,0,0.12879,0.0,6.4,19:31,UE 2022
+2026-MT-90468-56-110,2026,desvio da zona,90468,MT,Brasnorte,56,110,Escola Estadual Myhyinymykyta Skiripi,257,0.80545,0.8249,165,33,2,189,17,40,7,6,0.15564,0.00539,6.4,21:22,UE 2020
+2026-MA-08133-74-66,2026,desvio da zona,08133,MA,Lago da Pedra,74,66,Unidade Escolar Nossa Senhora Das Gracas,299,0.77592,0.77926,124,86,10,170,62,70,12,1,0.23411,0.04131,6.3,19:54,UE 2020
+2026-MT-98655-26-198,2026,desvio da zona,98655,MT,Campinápolis,26,198,Escola Indígena Aldeia Estrela,321,0.67913,0.75701,192,14,7,228,13,37,5,2,0.11526,0.02273,6.3,19:32,UE 2020
+2026-PI-12149-71-49,2026,desvio da zona,12149,PI,Boqueirão do Piauí,71,49,Unid. Esc. João Lourenço Lira,255,0.76863,0.83529,152,15,9,191,15,39,20,7,0.15294,0.01475,6.3,20:30,UE 2020
+2026-ES-56065-36-176,2026,desvio da zona,56065,ES,Alto Rio Novo,36,176,Cmei Maria Venancio Amorim,304,0.81579,0.85855,137,83,17,163,77,32,11,21,0.10526,0.01509,6.3,19:38,UE 2022
+2026-DF-97012-14-424,2026,comparecimento 95%+ e 90%+ para um lado,97012,DF,Brasília,14,424,Unb - Pavilhao Joao Calmon,390,0.92564,0.95385,313,30,16,337,32,22,2,3,0.05641,0.02349,1.3,19:03,UE 2020
+2026-PE-25178-55-198,2026,comparecimento 95%+ e 90%+ para um lado,25178,PE,Pesqueira,55,198,Escola Estadual Urubá,385,0.8987,0.95844,332,3,9,359,3,27,2,7,0.07013,0.0708,-0.0,20:08,UE 2022
+2026-PE-25178-55-202,2026,comparecimento 95%+ e 90%+ para um lado,25178,PE,Pesqueira,55,202,Escola Estadual Urubá,384,0.91146,0.95052,338,4,4,357,6,17,4,2,0.04427,0.0708,-0.8,20:08,UE 2022
+2026-TO-95338-32-70,2026,comparecimento 95%+ e 90%+ para um lado,95338,TO,Goiatins,32,70,Escola Estadual Indígena Crokroc,345,0.92754,0.96522,314,3,0,300,5,-16,3,28,-0.04638,0.02009,-1.8,19:03,UE 2022
+2026-CE-14117-13-244,2026,comparecimento 95%+ e 90%+ para um lado,14117,CE,Iguatu,13,244,Escola De Ens Fund Joaquim De Sousa Pinto,338,0.92308,0.95858,273,32,2,290,32,17,5,2,0.0503,0.05724,-0.2,20:28,UE 2020
+2026-PA-04421-101-163,2026,comparecimento 95%+ e 90%+ para um lado,04421,PA,Novo Repartimento,101,163,Aldeia Paranatinga - Escola Yopaka,323,0.81424,0.95975,260,0,0,308,1,47,3,1,0.14551,0.02406,3.4,20:44,UE 2015
+2026-MT-90280-28-200,2026,comparecimento 95%+ e 90%+ para um lado,90280,MT,Confresa,28,200,Escola Estadual Tapiitawa,315,0.94286,0.98095,296,0,1,309,0,13,0,0,0.04127,0.01556,1.0,19:03,UE 2022
+2026-CE-13854-27-187,2026,comparecimento 95%+ e 90%+ para um lado,13854,CE,Crato,27,187,Eeief Sônia Callou De Sá,306,0.91176,0.95098,238,29,5,264,24,31,7,3,0.10131,0.06863,1.2,20:49,UE 2020
+2026-MA-07544-97-205,2026,comparecimento 95%+ e 90%+ para um lado,07544,MA,Fernando Falcão,97,205,C.E.E.I Raimundo Roberto Kapertyc Canela,306,0.90523,0.95425,266,7,0,284,7,18,4,1,0.05882,0.02195,1.4,19:51,UE 2020
+2026-MA-07315-23-329,2026,comparecimento 95%+ e 90%+ para um lado,07315,MA,Barra do Corda,23,329,Escola Indígena Ireno Rosa,302,0.96689,0.96689,280,9,0,289,3,15,3,0,0.04967,0.04144,0.2,19:38,UE 2022
+2026-PA-04014-7-244,2026,comparecimento 95%+ e 90%+ para um lado,04014,PA,Abaetetuba,7,244,Emeif 4 De Março,302,0.94702,0.95364,271,6,0,280,6,9,9,2,0.0298,0.03824,-0.3,20:26,UE 2020
+2026-BA-38431-158-176,2026,comparecimento 95%+ e 90%+ para um lado,38431,BA,Rodelas,158,176,Colégio Estadual Indígena Capitão Francisco Rodelas,299,0.94314,0.97659,272,5,3,285,6,12,2,1,0.04013,0.04549,-0.2,19:33,UE 2015
+2026-CE-13854-27-191,2026,comparecimento 95%+ e 90%+ para um lado,13854,CE,Crato,27,191,Eeief Pedro Nunes De Sousa,295,0.90847,0.95932,223,25,5,252,24,30,15,7,0.10169,0.06863,1.2,20:38,UE 2020
+2026-BA-33910-90-168,2026,comparecimento 95%+ e 90%+ para um lado,33910,BA,Brumado,90,168,Colégio Municipal Professora Míriam Azevedo Gondim Meira,294,0.90816,0.95918,224,21,9,249,27,19,13,6,0.06463,0.04074,0.8,20:35,UE 2022
+2026-AM-02135-20-112,2026,comparecimento 95%+ e 90%+ para um lado,02135,AM,Benjamin Constant,20,112,E. M. Indígena Pedro Alves,282,0.97163,0.9539,261,4,4,259,3,-1,5,7,-0.00355,0.0241,-0.9,20:39,UE 2022
+2026-CE-14290-17-349,2026,comparecimento 95%+ e 90%+ para um lado,14290,CE,Itapipoca,17,349,Eeb Jose Francisco Soares,274,0.91971,0.9562,234,8,2,253,7,20,8,2,0.07299,0.04245,0.9,21:00,UE 2020
+2026-PI-11096-24-122,2026,comparecimento 95%+ e 90%+ para um lado,11096,PI,José de Freitas,24,122,Unidade Básica De Saúde  - Josemar De Jesus Alves Araújo- Carimã,272,0.94118,0.95221,225,19,10,240,17,17,2,2,0.0625,0.04628,0.6,20:46,UE 2015
+2026-MA-07544-97-176,2026,comparecimento 95%+ e 90%+ para um lado,07544,MA,Fernando Falcão,97,176,Escola Moises Canela,271,0.94834,0.95941,238,16,2,246,14,10,1,0,0.0369,0.02195,0.6,19:20,UE 2020
+2026-PE-23639-130-110,2026,comparecimento 95%+ e 90%+ para um lado,23639,PE,Caetés,130,110,Escola Municipal Dom Hélder Câmara,268,0.91045,0.95149,192,17,15,226,19,32,20,10,0.1194,0.08375,1.1,20:48,UE 2013
+2026-CE-15415-44-101,2026,comparecimento 95%+ e 90%+ para um lado,15415,CE,Santana do Acaraú,44,101,Eef Lourenco Jose De Lira,263,0.92776,0.95437,206,22,9,220,23,13,7,8,0.04943,0.05179,-0.1,20:24,UE 2015
+2026-MA-07315-23-468,2026,comparecimento 95%+ e 90%+ para um lado,07315,MA,Barra do Corda,23,468,Unidade Integrada Da Aldeia Jatobá,260,0.95385,0.95385,229,4,0,236,4,7,15,8,0.02692,0.04144,-0.4,20:06,UE 2022
+2026-AM-02135-20-117,2026,comparecimento 95%+ e 90%+ para um lado,02135,AM,Benjamin Constant,20,117,E.M. Indígena Santos Dumont,251,0.96414,0.96813,237,1,1,231,0,-5,3,12,-0.01992,0.0241,-1.4,20:20,UE 2022
+2026-PI-10243-13-145,2026,comparecimento 95%+ e 90%+ para um lado,10243,PI,Coronel José Dias,13,145,Unidade Escolar Magdalia Da Silva Costa,249,0.93574,0.95181,193,19,11,213,22,17,10,2,0.06827,0.0285,1.0,20:58,UE 2020
+2026-RO-00019-1-213,2026,comparecimento 95%+ e 90%+ para um lado,00019,RO,Guajará-Mirim,1,213,Marechal Rondon - Escola Indígena,248,0.93952,0.95161,203,22,5,212,21,10,3,3,0.04032,0.01894,0.6,19:03,UE 2022
+2026-MA-09679-104-75,2026,comparecimento 95%+ e 90%+ para um lado,09679,MA,Arame,104,75,Centro De Ensino Indígena Zezinho Guajajara,244,0.90574,0.96721,210,5,3,227,8,14,3,1,0.05738,0.0407,0.5,20:22,UE 2022
+2026-MA-09679-104-70,2026,comparecimento 95%+ e 90%+ para um lado,09679,MA,Arame,104,70,Centro De Ensino Indígena Zezinho Guajajara,242,0.8843,0.95455,209,1,1,224,5,11,3,2,0.04545,0.0407,0.1,20:20,UE 2022
+2026-MA-07315-23-257,2026,comparecimento 95%+ e 90%+ para um lado,07315,MA,Barra do Corda,23,257,Posto De Saúde,237,0.93249,0.96624,213,4,0,221,5,7,4,3,0.02954,0.04144,-0.4,19:21,UE 2022
+2026-CE-15415-44-140,2026,comparecimento 95%+ e 90%+ para um lado,15415,CE,Santana do Acaraú,44,140,Grupo Escolar Jose Raimundo Cordeiro,236,0.94068,0.95763,196,15,7,213,9,23,4,4,0.09746,0.05179,1.2,20:47,UE 2015
+2026-BA-34657-184-84,2026,comparecimento 95%+ e 90%+ para um lado,34657,BA,Conceição do Almeida,184,84,Posto Médico Municipal Argemiro Barreto,235,0.91915,0.95319,181,24,8,197,21,19,3,6,0.08085,0.06803,0.4,21:04,UE 2020
+2026-SC-82937-44-55,2026,comparecimento 95%+ e 90%+ para um lado,82937,SC,Rio Fortuna,44,55,Centro Comunitario Santo Antonio,232,0.96121,0.95259,16,185,16,18,201,-14,6,2,-0.06034,-0.03778,,20:13,UE 2020
+2026-BA-30007-205-175,2026,brancos e nulos zerados no 2º turno,30007,BA,Luís Eduardo Magalhães,205,175,Escola Municipal Jardim Paraíso,397,0.88665,0.87406,31,309,11,37,310,5,1,0,0.01259,0.03653,-0.7,20:50,UE 2020
+2026-BA-37516-30-6,2026,brancos e nulos zerados no 2º turno,37516,BA,Nazaré,30,6,Escola Dr. Alexandre Bittencourt,405,0.82716,0.85185,207,96,17,237,108,18,15,0,0.04444,0.07756,-1.1,21:02,UE 2015
+2026-RS-86371-148-167,2026,brancos e nulos zerados no 2º turno,86371,RS,Erechim,148,167,Escola Estadual De Ensino Fundamental João Batista De La Sale,383,0.84334,0.87728,59,230,27,82,254,-1,7,0,-0.00261,0.01705,-0.7,20:01,UE 2015
+2026-PE-24392-63-89,2026,brancos e nulos zerados no 2º turno,24392,PE,Inajá,63,89,Escola Aimbere,375,0.85867,0.89333,306,10,3,324,11,17,3,0,0.04533,0.06091,-0.5,20:16,UE 2022
+2026-PE-25070-78-72,2026,brancos e nulos zerados no 2º turno,25070,PE,Parnamirim,78,72,Escola Municipal Antonio De Carvalho - Emac,393,0.77863,0.83461,275,20,7,306,22,29,4,0,0.07379,0.05755,0.6,20:51,UE 2022
+2026-RS-87866-107-66,2026,brancos e nulos zerados no 2º turno,87866,RS,São Valério do Sul,107,66,E. E. I. E. F. Marechal Cândido Rondon,367,0.85831,0.89101,264,44,1,290,37,33,6,0,0.08992,0.01492,,20:10,UE 2022
+2026-MT-89850-22-295,2026,brancos e nulos zerados no 2º turno,89850,MT,Sinop,22,295,Escola Municipal Vereador Rodolfo Walter Kunze,392,0.84439,0.83418,40,274,12,50,277,7,5,0,0.01786,0.00533,0.5,19:31,UE 2020
+2026-MT-89850-22-367,2026,brancos e nulos zerados no 2º turno,89850,MT,Sinop,22,367,Escola Estadual Professora Maria De Fátima Gimenes Lopes,388,0.82216,0.84021,65,239,15,76,250,0,0,0,0.0,0.00533,-0.2,19:52,UE 2020
+2026-MA-07331-56-138,2026,brancos e nulos zerados no 2º turno,07331,MA,Barreirinhas,56,138,Unidade Escolar Barreirinhas,397,0.83879,0.81864,218,90,12,234,91,15,13,0,0.03778,0.04777,-0.3,20:12,UE 2022
+2026-PA-04553-86-78,2026,brancos e nulos zerados no 2º turno,04553,PA,Curralinho,86,78,Emef Maçaranduba,396,0.81566,0.82071,266,46,1,272,53,-1,10,0,-0.00253,0.0,-0.1,19:03,UE 2022
+2026-MT-89850-22-477,2026,brancos e nulos zerados no 2º turno,89850,MT,Sinop,22,477,Escola Estadual De 1º E 2º Graus Enio Pipino,392,0.82908,0.82653,42,266,15,52,272,4,2,0,0.0102,0.00533,0.2,19:47,UE 2020
+2026-PA-04936-37-262,2026,brancos e nulos zerados no 2º turno,04936,PA,Moju,37,262,Emef São  Sebastião (Ribeira),387,0.88889,0.83721,250,68,21,243,81,-20,5,0,-0.05168,0.03527,-2.4,19:03,UE 2020
+2026-SP-66478-345-169,2026,brancos e nulos zerados no 2º turno,66478,SP,Louveira,345,169,Emef. Melissa Sicalhone,385,0.80519,0.83636,98,178,26,135,187,28,8,0,0.07273,0.02944,1.3,20:35,UE 2022
+2026-BA-30007-205-117,2026,brancos e nulos zerados no 2º turno,30007,BA,Luís Eduardo Magalhães,205,117,Escola Municipal Jardim Paraíso,397,0.8136,0.81108,27,280,13,38,284,7,3,0,0.01763,0.03653,-0.5,20:49,UE 2020
+2026-MT-91677-20-661,2026,brancos e nulos zerados no 2º turno,91677,MT,Várzea Grande,20,661,Escola Estadual Jaime Veríssimo De Campos Junior,393,0.76081,0.8117,81,197,16,108,211,13,5,0,0.03308,0.03871,-0.2,20:31,UE 2022
+2026-RJ-60011-214-71,2026,brancos e nulos zerados no 2º turno,60011,RJ,Rio de Janeiro,214,71,Colégio Zh Mais(Substituição Ao Kids Up),408,0.75735,0.77941,138,137,25,173,145,27,9,0,0.06618,0.05814,0.3,21:06,UE 2015
+2026-PA-04413-12-278,2026,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,278,Emeif De Mapirai - Mapirai De Cima,347,0.93372,0.91354,281,30,2,287,30,6,11,0,0.01729,0.01966,-0.1,20:54,UE 2020
+2026-MT-89850-22-469,2026,brancos e nulos zerados no 2º turno,89850,MT,Sinop,22,469,Escola Estadual De 1º E 2º Graus Enio Pipino,396,0.7601,0.80051,43,235,20,56,261,-13,3,0,-0.03283,0.00533,-1.4,19:54,UE 2020
+2026-RS-86436-132-52,2026,brancos e nulos zerados no 2º turno,86436,RS,Erval Seco,132,52,Escola Estadual De Ens. Medio Olivia De Paula Falcao,369,0.81301,0.85637,107,170,16,128,188,3,7,0,0.00813,0.02105,-0.3,19:32,UE 2022
+2026-MT-89850-22-186,2026,brancos e nulos zerados no 2º turno,89850,MT,Sinop,22,186,Eedieb - Benedito Santana Da S. Freire,382,0.81414,0.82723,43,253,14,53,263,0,1,0,0.0,0.00533,-0.2,19:55,UE 2020
+2026-MT-98892-40-216,2026,brancos e nulos zerados no 2º turno,98892,MT,Primavera do Leste,40,216,Escola Municipal Nossa Senhora Aparecida,398,0.72613,0.79146,64,202,15,87,228,-3,8,0,-0.00754,0.0066,-0.4,20:31,UE 2022
+2026-PA-04790-88-57,2026,brancos e nulos zerados no 2º turno,04790,PA,Limoeiro do Ajuru,88,57,Emef Joana Dilce Monteiro Barbosa,383,0.81723,0.82245,279,26,0,290,25,12,8,0,0.03133,0.00916,0.8,20:23,UE 2022
+2026-MT-98930-43-20,2026,brancos e nulos zerados no 2º turno,98930,MT,Sorriso,43,20,Escola Municipal Aureliano Pereira Da Silva,379,0.80211,0.8285,36,256,9,46,268,-2,3,0,-0.00528,0.01043,-0.5,20:15,UE 2020
+2026-PA-05177-82-52,2026,brancos e nulos zerados no 2º turno,05177,PA,Porto de Moz,82,52,Emef Sítia Lopes De Alencar - Vila Bom Jesus,399,0.77694,0.78446,170,135,1,186,127,24,4,0,0.06015,0.02509,0.9,19:22,UE 2015
+2026-MA-07331-56-96,2026,brancos e nulos zerados no 2º turno,07331,MA,Barreirinhas,56,96,Unidade Escolar Arcângela Lourenço Dos Reis,366,0.88525,0.85519,280,34,9,283,30,7,1,0,0.01913,0.04777,-0.9,20:39,UE 2022
+2026-BA-34533-158-156,2026,brancos e nulos zerados no 2º turno,34533,BA,Chorrochó,158,156,Escola Estadual Maria De Lourdes Lima Pereira,370,0.83243,0.84054,247,55,3,264,47,25,3,0,0.06757,0.04278,0.6,20:55,UE 2015
+2026-MT-90107-36-153,2026,brancos e nulos zerados no 2º turno,90107,MT,Santa Carmem,36,153,Escola Municipal Selvino Damian Preve,349,0.86819,0.88539,55,224,16,70,239,0,8,0,0.0,0.0,,19:58,UE 2020
+2026-SP-62910-423-191,2026,brancos e nulos zerados no 2º turno,62910,SP,Campinas,423,191,Sociedade Educ. Sagrado Coração De Jesus,375,0.78933,0.816,78,177,31,101,205,-5,10,0,-0.01333,0.02616,-1.3,20:44,UE 2015
+2026-SE-32476-23-124,2026,brancos e nulos zerados no 2º turno,32476,SE,Tobias Barreto,23,124,Emef Antonieta Das Virgens França,336,0.88095,0.91071,257,21,8,290,16,38,10,0,0.1131,0.07556,1.1,21:01,UE 2020
+2022-AC-01554-3-100,2022,desvio da zona,01554,AC,Manoel Urbano,3,100,Posto De Saúde,316,0.77215,0.67089,4,206,13,160,45,317,21,7,1.00316,-0.01208,25.3,17:38,UE 2013
+2022-PI-11576-12-172,2022,desvio da zona,11576,PI,Pedro Ii,12,172,Unidade Escolar Da Comunidade Carnaúba,172,0.84302,0.8314,74,59,2,125,14,96,10,4,0.55814,0.0,21.4,18:12,UE 2020
+2022-BA-38970-88-65,2022,desvio da zona,38970,BA,Seabra,88,65,Associação Conunitária De Campestre ,313,0.89137,0.86581,157,115,4,233,28,163,3,10,0.52077,-0.00254,17.9,18:39,UE 2011
+2022-RN-17434-30-77,2022,desvio da zona,17434,RN,Macau,30,77,"Instituto Federal De Educação, Ciência E Tecnologia Do Rn",236,0.23305,0.83898,45,7,2,156,36,82,1,6,0.34746,-0.00752,15.1,18:50,
+2022-MG-49050-196-173,2022,desvio da zona,49050,MG,Novo Cruzeiro,196,173,Escola Municipal José Maria Neiva,109,0.14679,0.62385,16,0,0,63,1,46,0,4,0.42202,0.01096,12.9,19:11,UE 2010
+2022-RR-03050-3-226,2022,desvio da zona,03050,RR,Alto Alegre,3,226,Posto De Saúde Da Sesai - Sikamabiu,148,0.59459,0.62162,13,75,0,47,45,64,0,0,0.43243,-0.01556,11.8,17:14,UE 2015
+2022-MA-08265-62-74,2022,desvio da zona,08265,MA,São Domingos do Azeitão,62,74,Escola Municipal São João,133,0.91729,0.90977,77,40,5,44,74,-67,0,3,-0.50376,-0.02591,-11.0,18:45,UE 2013
+2022-AM-02135-20-89,2022,desvio da zona,02135,AM,Benjamin Constant,20,89,E. M. Indigena Dom Pedro Ii,392,0.54847,0.8852,204,2,3,321,8,111,6,18,0.28316,-0.02987,11.0,19:32,UE 2010
+2022-AC-01139-7-67,2022,desvio da zona,01139,AC,Feijó,7,67,Aldeia Nova Floresta,185,0.37838,0.5027,25,41,1,55,9,62,3,29,0.33514,-0.04587,10.8,17:33,UE 2011
+2022-MG-49611-211-133,2022,desvio da zona,49611,MG,Patrocínio,211,133,Centro Comunitario De Samambaia,150,0.94667,0.94,52,61,23,38,99,-52,6,4,-0.34667,-0.05227,-10.6,18:17,UE 2010
+2022-RS-88013-111-349,2022,desvio da zona,88013,RS,Porto Alegre,111,349,Voto Em Trânsito - Aeroporto Salgado Filho,209,0.86124,0.65072,60,115,2,61,74,42,3,1,0.20096,-0.02799,10.1,17:47,UE 2020
+2022-MT-98710-32-278,2022,desvio da zona,98710,MT,Marcelândia,32,278,Escola Municipal De Educação Básica Jaytatá,100,0.9,0.9,49,34,2,62,25,22,5,3,0.22,-0.04522,9.9,17:16,UE 2009
+2022-AM-02879-3-251,2022,desvio da zona,02879,AM,Urucurituba,3,251,E. M. Sao Benedito,120,0.675,0.35833,73,8,0,36,6,-35,0,1,-0.29167,-0.04558,-9.5,17:19,UE 2010
+2022-PR-74055-144-18,2022,desvio da zona,74055,PR,Agudos do Sul,144,18,Unidade De Saúde Dorvalino Ferreiro De Melo,376,0.83245,0.79787,146,122,33,125,161,-60,12,14,-0.15957,-0.05794,-9.2,17:57,UE 2020
+2022-SP-71072-257-508,2022,desvio da zona,71072,SP,São Paulo,257,508,Cdp De Vila Independência,115,0.65217,0.42609,66,5,2,41,7,-27,2,1,-0.23478,-0.02222,-9.0,17:41,UE 2009
+2022-CE-14133-39-216,2022,desvio da zona,14133,CE,Independência,39,216,E.E.F. Ivaneide Bezerra De Oliveira,108,0.92593,0.88889,85,8,4,67,27,-37,3,2,-0.34259,-0.01149,-8.9,19:02,UE 2015
+2022-MA-07315-23-257,2022,desvio da zona,07315,MA,Barra do Corda,23,257,Posto De Saúde,264,0.96591,0.95076,139,111,3,172,70,74,2,9,0.2803,-0.00535,8.8,19:04,UE 2009
+2022-PE-25674-42-110,2022,desvio da zona,25674,PE,São José da Coroa Grande,42,110,Escola Municipal Abreu Do Una,376,0.77128,0.13298,190,85,8,30,17,-92,7,3,-0.24468,-0.01804,-8.8,19:25,UE 2013
+2022-CE-15440-38-140,2022,desvio da zona,15440,CE,Salitre,38,140,E.E.I.F. Manoel Cavalcante - Sítio Cavalcante,113,0.76106,0.84071,51,6,25,74,6,23,4,15,0.20354,0.01479,8.6,18:40,UE 2015
+2022-RN-17612-3-353,2022,desvio da zona,17612,RN,Natal,3,353,Cmei Haydee Monteiro De Melo,442,0.83937,0.63122,176,163,26,180,92,75,6,7,0.16968,-0.01211,8.3,17:55,UE 2020
+2022-SP-67890-315-336,2022,desvio da zona,67890,SP,Osasco,315,336,Centro De Detenção Provisória Osasco I - Asp Ederson Vieira De Jesus,202,0.72772,0.44554,142,2,2,89,0,-51,1,1,-0.25248,-0.03162,-8.2,18:20,UE 2015
+2022-MG-42790-197-204,2022,desvio da zona,42790,MG,Carmo da Mata,197,204,Posto De Atendimento Municipal Do Riacho,136,0.76471,0.77941,51,37,13,45,59,-28,3,2,-0.20588,-0.03873,-7.7,18:53,UE 2020
+2022-PR-74055-144-16,2022,desvio da zona,74055,PR,Agudos do Sul,144,16,Escola Rural Municipal Carlos Gomes,227,0.87225,0.88546,45,112,28,66,127,6,13,8,0.02643,-0.05794,7.6,17:57,UE 2020
+2022-RS-85090-144-66,2022,desvio da zona,85090,RS,Alpestre,144,66,Escola Munic De Ensino Fundamental Professor Luiz Primo Balbinotti,242,0.84711,0.85124,117,61,16,106,86,-36,11,14,-0.14876,-0.04288,-7.4,18:29,UE 2015
+2022-MG-50776-194-113,2022,desvio da zona,50776,MG,Raposos,194,113,Escola Estadual Sagrado Coracao De Jesus,236,0.88559,0.89407,111,61,23,109,86,-27,14,16,-0.11441,-0.01179,-7.3,19:04,UE 2020
+2022-RS-88390-40-52,2022,desvio da zona,88390,RS,Santa Cruz do Sul,40,52,Salão Wehner,179,0.86034,0.84358,91,41,11,72,71,-49,11,8,-0.27374,-0.0514,-7.0,18:57,UE 2020
+2022-PR-75337-153-46,2022,desvio da zona,75337,PR,Cruz Machado,153,46,Capela Nossa Senhora Aparecida,137,0.70803,0.70073,32,48,10,20,70,-34,7,6,-0.24818,-0.05263,-7.0,19:14,UE 2015
+2022-RS-85090-144-22,2022,desvio da zona,85090,RS,Alpestre,144,22,Escola Munic. De Ensino Fundamental Tiradentes,239,0.75314,0.79916,118,45,13,107,68,-34,4,16,-0.14226,-0.04288,-7.0,17:41,UE 2015
+2022-MG-45535-118-278,2022,desvio da zona,45535,MG,Governador Valadares,118,278,Colégio Genoma,131,0.89313,0.81679,74,35,8,59,44,-24,0,4,-0.18321,-0.03168,-6.9,18:15,UE 2015
+2022-SC-81973-106-164,2022,desvio da zona,81973,SC,Luiz Alves,106,164,Escola Municipal Henrique Keunecke,318,0.80189,0.83962,48,170,27,49,211,-40,10,7,-0.12579,-0.04378,-6.9,18:53,UE 2010
+2022-MT-90280-28-158,2022,comparecimento 95%+ e 90%+ para um lado,90280,MT,Confresa,28,158,Escola Estadual Tapiitawa,401,0.93516,0.95761,375,0,0,383,0,8,0,1,0.01995,-0.03884,2.1,18:17,UE 2009
+2022-PI-12505-90-79,2022,comparecimento 95%+ e 90%+ para um lado,12505,PI,São Francisco de Assis do Piauí,90,79,Unidade Escolar Rozendo De Sousa Coelho - Traz Da Serra,355,0.95493,0.96056,296,20,13,304,26,2,10,11,0.00563,-0.0301,,18:07,UE 2009
+2022-PI-11630-29-62,2022,comparecimento 95%+ e 90%+ para um lado,11630,PI,Pio Ix,29,62,Escola Municipal Laurindo Paulo De Oliveira,326,0.90184,0.95399,267,11,8,284,13,15,8,14,0.04601,-0.00383,1.3,18:50,UE 2010
+2022-MA-07544-97-205,2022,comparecimento 95%+ e 90%+ para um lado,07544,MA,Fernando Falcão,97,205,Centro Educação Indigena General Bandeira De Melo,322,0.93168,0.96273,300,0,0,310,0,10,0,0,0.03106,0.0,0.8,18:59,UE 2015
+2022-MA-07544-97-186,2022,comparecimento 95%+ e 90%+ para um lado,07544,MA,Fernando Falcão,97,186,Centro Educação Indigena General Bandeira De Melo,311,0.89711,0.95177,278,0,0,294,1,15,1,1,0.04823,0.0,1.3,18:57,UE 2015
+2022-RS-87173-118-184,2022,comparecimento 95%+ e 90%+ para um lado,87173,RS,Ivoti,118,184,E.M.E.F. Nelda Julieta Schneck,272,0.92647,0.95221,20,206,17,23,224,-15,9,12,-0.05515,-0.05897,0.1,18:16,UE 2013
+2022-AM-02135-20-107,2022,comparecimento 95%+ e 90%+ para um lado,02135,AM,Benjamin Constant,20,107,E. M. Indígena Prof. Lisbão Galdino Meraucu,270,0.97778,0.95926,249,3,4,243,1,-4,8,15,-0.01481,-0.02987,0.5,19:25,UE 2010
+2022-MA-07315-23-253,2022,comparecimento 95%+ e 90%+ para um lado,07315,MA,Barra do Corda,23,253,Escola Indígena José Alderico Pompeu,262,0.92748,0.9542,224,4,1,230,9,1,14,11,0.00382,-0.00535,0.3,19:52,UE 2011
+2022-PI-12327-38-21,2022,comparecimento 95%+ e 90%+ para um lado,12327,PI,Acauã,38,21,Unidade Escolar Antônio Rodrigues Filho,259,0.96525,0.95753,217,18,8,222,16,7,7,10,0.02703,-0.00298,0.8,18:05,UE 2010
+2022-MA-07544-97-176,2022,comparecimento 95%+ e 90%+ para um lado,07544,MA,Fernando Falcão,97,176,Escola Moises Canela,228,0.95614,0.9693,194,23,1,212,9,32,0,0,0.14035,0.0,3.7,19:28,UE 2015
+2022-MA-07161-73-182,2022,comparecimento 95%+ e 90%+ para um lado,07161,MA,Belágua,73,182,Unidade Integrada Jose Alves Saminez,224,0.96875,0.95089,194,8,4,202,8,8,11,3,0.03571,-0.00906,1.0,19:03,UE 2015
+2022-MG-41319-4-152,2022,comparecimento 95%+ e 90%+ para um lado,41319,MG,Bertópolis,4,152,Ubs - Pradinho,223,0.95067,0.95516,195,1,0,207,0,13,16,6,0.0583,0.01493,,19:35,UE 2013
+2022-CE-98531-13-295,2022,comparecimento 95%+ e 90%+ para um lado,98531,CE,Quixelô,13,295,Escola De Ens Fund Antonio Alves Ribeiro,220,0.90909,0.95455,173,15,9,189,17,14,3,4,0.06364,0.00697,1.7,19:13,UE 2009
+2022-BA-38970-88-171,2022,comparecimento 95%+ e 90%+ para um lado,38970,BA,Seabra,88,171,Predio Escolar Santo Antonio,205,0.94146,0.95122,178,6,5,178,14,-8,4,3,-0.03902,-0.00254,-1.2,19:01,UE 2011
+2022-PA-04146-41-190,2022,comparecimento 95%+ e 90%+ para um lado,04146,PA,Santa Luzia do Pará,41,190,Eeef Francisco Magno,200,0.94,0.95,175,2,7,174,5,-4,4,11,-0.02,-0.02068,0.0,17:44,UE 2020
+2022-MT-99015-61-102,2022,comparecimento 95%+ e 90%+ para um lado,99015,MT,Comodoro,61,102,Posto De Saúde Enawene-Nawe,195,0.95385,0.95385,144,13,5,167,16,20,24,3,0.10256,-0.03268,3.8,17:19,UE 2015
+2022-MG-41319-4-178,2022,comparecimento 95%+ e 90%+ para um lado,41319,MG,Bertópolis,4,178,Ubs - Pradinho,182,0.9011,0.95055,152,0,1,165,0,13,11,8,0.07143,0.01493,,19:35,UE 2013
+2022-PA-05932-57-187,2022,comparecimento 95%+ e 90%+ para um lado,05932,PA,Brejo Grande do Araguaia,57,187,Emef Indígena Sawarapy Suruí,175,0.98286,0.97143,170,1,1,169,1,-1,0,0,-0.00571,-0.0255,1.2,18:29,UE 2010
+2022-AM-98477-36-98,2022,comparecimento 95%+ e 90%+ para um lado,98477,AM,Tabatinga,36,98,E. M. Indígena Aicuna I,166,0.94578,0.95783,142,0,6,146,0,4,9,13,0.0241,-0.02636,1.6,17:25,UE 2010
+2022-CE-14290-17-437,2022,comparecimento 95%+ e 90%+ para um lado,14290,CE,Itapipoca,17,437,Eeb De São Cosmo,162,0.97531,0.95062,155,0,1,150,2,-7,2,2,-0.04321,-0.01579,-0.8,19:58,UE 2009
+2022-PI-12211-16-163,2022,comparecimento 95%+ e 90%+ para um lado,12211,PI,União,16,163,Unidade Escolar Joana Maria Da Conceição,143,0.95804,0.95804,123,9,3,121,11,-4,2,5,-0.02797,-0.00936,-0.6,19:13,UE 2020
+2022-CE-13951-25-180,2022,comparecimento 95%+ e 90%+ para um lado,13951,CE,Granja,25,180,E.E.F. Joao Fontenele De Araujo,139,0.94964,0.96403,114,6,8,116,12,-4,4,6,-0.02878,0.02339,-1.6,19:15,UE 2010
+2022-SC-82937-44-63,2022,comparecimento 95%+ e 90%+ para um lado,82937,SC,Rio Fortuna,44,63,Centro Comunitário Bernardo Heidemann,136,0.93382,0.96324,4,108,12,10,117,-3,3,4,-0.02206,-0.06879,,19:07,UE 2009
+2022-RS-85839-166-82,2022,comparecimento 95%+ e 90%+ para um lado,85839,RS,Cândido Godói,166,82,Escola Haroldo Kegler (Pederneiras),133,0.96992,0.97744,5,119,3,3,122,-5,2,5,-0.03759,-0.03479,-0.1,18:59,UE 2010
+2022-CE-14591-25-233,2022,comparecimento 95%+ e 90%+ para um lado,14591,CE,Martinópole,25,233,E.E.I.F.Rosa Brito,126,0.98413,1.0,119,1,3,121,3,0,1,2,0.0,0.0,0.0,17:51,UE 2010
+2022-BA-34436-66-115,2022,comparecimento 95%+ e 90%+ para um lado,34436,BA,Casa Nova,66,115,Predio Escolar Municipal De Barracas,125,0.96,0.968,109,3,2,110,4,0,6,7,0.0,0.00543,-0.2,19:57,UE 2009
+2022-CE-14290-17-501,2022,comparecimento 95%+ e 90%+ para um lado,14290,CE,Itapipoca,17,501,Salão Comunitário Cacilda Beck,125,0.952,0.968,104,8,5,109,10,3,2,2,0.024,-0.01579,1.2,19:38,UE 2009
+2022-CE-14117-13-293,2022,comparecimento 95%+ e 90%+ para um lado,14117,CE,Iguatu,13,293,Igreja Do Sítio Baixas,118,0.97458,0.97458,100,7,3,102,11,-2,5,2,-0.01695,0.00373,-0.7,19:10,UE 2009
+2022-MG-53414-262-147,2022,comparecimento 95%+ e 90%+ para um lado,53414,MG,Serro,262,147,Associação Dos Moradores Da Comunidade De Ribeirão,111,0.97297,0.98198,95,5,1,101,5,6,7,3,0.05405,0.0,1.5,18:30,UE 2013
+2022-PE-25070-78-106,2022,comparecimento 95%+ e 90%+ para um lado,25070,PE,Parnamirim,78,106,Escola Municipal André Fidelis De Araújo,107,0.99065,0.97196,101,4,1,99,4,-2,0,1,-0.01869,-0.01058,-0.3,18:32,UE 2010
+2022-PA-04766-14-187,2022,brancos e nulos zerados no 2º turno,04766,PA,Cachoeira do Piriá,14,187,Em Seringal,488,0.84426,0.82377,360,37,15,375,27,25,0,0,0.05123,-0.02444,2.0,18:00,UE 2015
+2022-PA-04413-12-278,2022,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,278,Emeif De Mapirai - Mapirai De Cima,439,0.89066,0.89522,338,43,8,346,47,4,2,0,0.00911,-0.02251,1.1,18:56,UE 2015
+2022-PA-04413-12-222,2022,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,222,Emeif Maria Regina Aquime- Mapirai De Baixo,391,0.88235,0.87724,299,28,14,309,34,4,4,0,0.01023,-0.02251,1.1,18:57,UE 2015
+2022-MA-07935-15-73,2022,brancos e nulos zerados no 2º turno,07935,MA,Grajaú,15,73,Escola Municipal Santa Uniao,377,0.87268,0.86472,284,40,3,268,58,-34,2,0,-0.09019,-0.02663,-2.3,19:29,UE 2011
+2022-PA-04413-12-337,2022,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,337,Emeif Francisca Xavier Alves Vasconcelos,374,0.87968,0.86898,252,63,11,248,77,-18,3,0,-0.04813,-0.02251,-0.9,18:42,UE 2015
+2022-MT-90603-21-240,2022,brancos e nulos zerados no 2º turno,90603,MT,Lucas do Rio Verde,21,240,Escola Estadual Ângelo Nadin,385,0.84156,0.83636,23,289,9,24,298,-8,3,0,-0.02078,-0.04737,1.1,17:37,UE 2011
+2022-PA-04413-12-40,2022,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,40,Emeif Prof. Raimundo Pontes - Joroca Grande,421,0.7886,0.76485,262,53,13,259,63,-13,4,0,-0.03088,-0.02251,-0.3,20:04,UE 2015
+2022-MA-09237-84-182,2022,brancos e nulos zerados no 2º turno,09237,MA,São Mateus do Maranhão,84,182,Grupo Escolar Antero Boueres,425,0.76471,0.74824,215,85,18,220,98,-8,7,0,-0.01882,0.0046,-0.7,18:33,UE 2010
+2022-PA-04359-15-231,2022,brancos e nulos zerados no 2º turno,04359,PA,Breves,15,231,Emef Profa. Odizia Correa Farias,403,0.83375,0.7866,178,138,9,175,142,-7,11,0,-0.01737,-0.02354,0.2,18:15,UE 2015
+2022-MA-07617-42-182,2022,brancos e nulos zerados no 2º turno,07617,MA,Chapadinha,42,182,Centro De Ensino Do 2 Grau Rdo Araujo,402,0.80348,0.78109,194,111,13,197,117,-3,5,0,-0.00746,-0.00491,-0.1,18:45,UE 2020
+2022-MT-89850-22-483,2022,brancos e nulos zerados no 2º turno,89850,MT,Sinop,22,483,Escola Estadual Paulo Freire,393,0.71756,0.78626,81,180,13,104,205,-2,8,0,-0.00509,-0.05385,1.8,17:20,UE 2010
+2022-PI-11517-26-3,2022,brancos e nulos zerados no 2º turno,11517,PI,Parnaguá,26,3,Unidade Escolar Edvaldo Mascarenhas,389,0.79949,0.79434,259,42,7,264,45,2,3,0,0.00514,-0.01506,0.7,17:55,UE 2015
+2022-PA-05355-104-279,2022,brancos e nulos zerados no 2º turno,05355,PA,Santarém,104,279,Emef São José,391,0.78517,0.79028,76,207,18,86,223,-6,6,0,-0.01535,-0.02914,0.4,18:31,UE 2009
+2022-AP-06092-4-48,2022,brancos e nulos zerados no 2º turno,06092,AP,Oiapoque,4,48,Escola De Primeiro Grau Kumaruma,488,0.82172,0.6291,371,7,20,300,7,-71,3,0,-0.14549,-0.03972,-3.6,17:42,UE 2015
+2022-MA-08052-35-60,2022,brancos e nulos zerados no 2º turno,08052,MA,São Luís Gonzaga do Maranhão,35,60,Escola Municipal D. Pedro I,419,0.71838,0.7327,256,34,3,266,41,3,8,0,0.00716,0.0352,-0.9,18:26,UE 2011
+2022-MA-07927-101-78,2022,brancos e nulos zerados no 2º turno,07927,MA,Maranhãozinho,101,78,Escola Indígena Ywytuhu,327,0.92966,0.93884,303,0,1,307,0,4,0,0,0.01223,0.01223,0.0,19:45,UE 2011
+2022-PA-04413-12-315,2022,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,315,Emeif Juvenal Viana Teles - Cuxipiari Furo Grande,360,0.85833,0.85,299,7,3,296,10,-6,0,0,-0.01667,-0.02251,0.2,19:25,UE 2009
+2022-SC-81051-13-332,2022,brancos e nulos zerados no 2º turno,81051,SC,Florianópolis,13,332,Escola Basica Municipal Dilma Lucia Dos Santos,383,0.80418,0.79634,151,125,28,161,144,-9,4,0,-0.0235,-0.0209,-0.1,19:20,UE 2020
+2022-MA-08133-74-61,2022,brancos e nulos zerados no 2º turno,08133,MA,Lago da Pedra,74,61,Unidade Escolar Ruy Barbosa,360,0.86389,0.84444,232,61,5,233,71,-9,13,0,-0.025,-0.02623,0.0,19:49,UE 2015
+2022-PA-04839-100-88,2022,brancos e nulos zerados no 2º turno,04839,PA,Marabá,100,88,Emefm Dr. Geraldo Mendes De Castro Veloso,364,0.82692,0.83242,82,205,12,86,217,-8,2,0,-0.02198,-0.02825,0.2,18:18,UE 2010
+2022-MT-90646-5-162,2022,brancos e nulos zerados no 2º turno,90646,MT,Nova Mutum,5,162,Escola Municipal 4 De Julho,386,0.76943,0.78238,72,206,14,63,239,-42,5,0,-0.10881,-0.03911,-3.0,18:51,UE 2010
+2022-PA-04936-37-231,2022,brancos e nulos zerados no 2º turno,04936,PA,Moju,37,231,Emef Santa Luzia,427,0.72834,0.70258,226,69,14,227,73,-3,2,0,-0.00703,-0.0163,0.3,17:13,UE 2010
+2022-PA-04413-12-45,2022,brancos e nulos zerados no 2º turno,04413,PA,Cametá,12,45,Emeif Prof. Benício Moura,379,0.83377,0.79156,270,35,9,256,44,-23,2,0,-0.06069,-0.02251,-1.3,18:47,UE 2015
+2022-GO-92665-31-113,2022,brancos e nulos zerados no 2º turno,92665,GO,São Miguel do Passa Quatro,31,113,Escola Estadual Adonias Lemes Do Prado,343,0.84548,0.85714,148,117,20,167,127,9,5,0,0.02624,-0.02601,,17:19,UE 2020
+2022-PA-05819-87-38,2022,brancos e nulos zerados no 2º turno,05819,PA,Concórdia do Pará,87,38,Emef João Braga De Cristo,370,0.81351,0.79459,236,54,9,234,60,-8,2,0,-0.02162,-0.00888,-0.4,17:30,UE 2020
+2022-MG-47430-156-19,2022,brancos e nulos zerados no 2º turno,47430,MG,Lagoa da Prata,156,19,Escola Estadual Nossa Senhora De Guadalupe,354,0.80791,0.83051,84,176,16,96,198,-10,10,0,-0.02825,-0.05141,0.7,17:51,UE 2020
+2022-MA-08346-6-133,2022,brancos e nulos zerados no 2º turno,08346,MA,São João do Soter,6,133,Unidade Escolar Municipal Pedro Alves Barbosa,392,0.72194,0.74745,256,20,2,272,21,15,5,0,0.03827,0.00768,0.9,19:01,UE 2020
+2022-MT-98930-43-242,2022,brancos e nulos zerados no 2º turno,98930,MT,Sorriso,43,242,Escola Municipal Professora Ivete Lourdes Arenhardt,325,0.86462,0.90154,32,241,7,28,265,-28,1,0,-0.08615,-0.04688,-1.5,18:48,UE 2013
+2022-PI-12190-1-424,2022,brancos e nulos zerados no 2º turno,12190,PI,Teresina,1,424,Escola Municipal Conselheiro Saraiva,349,0.86246,0.83668,243,36,13,250,42,1,9,0,0.00287,-0.008,0.4,17:28,UE 2020
+2018-AC-01554-3-100,2018,desvio da zona,01554,AC,Manoel Urbano,3,100,Posto De Saúde,184,0.75543,0.80978,62,16,58,0,147,-193,3,2,-1.04891,-0.02857,-27.2,19:11,
+2018-RR-03050-3-226,2018,desvio da zona,03050,RR,Alto Alegre,3,226,Posto De Saúde Da Sesai - Sikamabiu,155,0.60645,0.19355,92,0,2,1,27,-118,0,2,-0.76129,0.06854,-20.4,18:11,
+2018-MT-98817-33-255,2018,desvio da zona,98817,MT,Peixoto de Azevedo,33,255,Escola Estadual Indigena Metuktire,136,0.65441,0.71324,42,2,45,95,2,53,0,0,0.38971,0.02083,13.0,18:40,
+2018-PI-11851-59-65,2018,desvio da zona,11851,PI,Santa Luz,59,65,Unidade Escolar Antonio Prudencio Dos Santos,162,0.91358,0.91975,64,13,55,79,61,-33,16,9,-0.2037,0.02872,-11.9,17:39,
+2018-PA-04200-102-10,2018,desvio da zona,04200,PA,Jacareacanga,102,10,Emef Katô,260,0.85769,0.83077,29,0,184,209,1,179,10,6,0.68846,0.02835,10.8,17:06,
+2018-SP-64254-46-310,2018,desvio da zona,64254,SP,Franca,46,310,13ª Subseção Da Oab,262,0.95038,0.92748,43,75,129,152,78,106,2,13,0.40458,-0.00276,10.7,17:22,
+2018-MT-91170-3-171,2018,desvio da zona,91170,MT,Nobres,3,171,E.M. Cel. Olavo Mendes Duarte,122,0.86885,0.84426,49,8,48,88,11,36,1,4,0.29508,0.01781,10.5,18:11,
+2018-CE-14290-17-554,2018,desvio da zona,14290,CE,Itapipoca,17,554,Salão Comunitário Do Sítio São José,111,0.92793,0.83784,8,17,75,5,82,-68,3,6,-0.61261,0.27124,-10.5,19:14,
+2018-ES-57037-55-521,2018,desvio da zona,57037,ES,Vila Velha,55,521,Cdpvv - Centro De Detenção Provisória De Vila Velha,113,0.80531,0.75221,19,25,33,63,19,50,14,3,0.44248,0.05215,10.4,18:12,
+2018-PA-04200-102-11,2018,desvio da zona,04200,PA,Jacareacanga,102,11,Emef Katô,230,0.88696,0.87391,27,1,171,184,6,152,5,11,0.66087,0.02835,10.4,17:06,
+2018-PA-04200-102-31,2018,desvio da zona,04200,PA,Jacareacanga,102,31,Aldeia Biriba,152,0.80263,0.79605,18,1,85,110,1,92,18,10,0.60526,0.02835,9.4,16:58,
+2018-MA-09555-78-272,2018,desvio da zona,09555,MA,Bom Jardim,78,272,Escola Januária,217,0.80184,0.8894,89,2,81,191,2,102,2,0,0.47005,0.04524,9.4,18:28,
+2018-SP-62197-23-357,2018,desvio da zona,62197,SP,Bauru,23,357,Faculdade De Odontologia Da Usp,268,0.94403,0.91045,27,71,154,159,78,125,1,7,0.46642,0.01799,9.3,17:37,
+2018-SP-61662-216-346,2018,desvio da zona,61662,SP,Estiva Gerbi,216,346,Ee Capitao Agenor De Carvalho,285,0.81754,0.81053,32,130,49,72,136,34,22,23,0.1193,-0.01536,9.1,18:50,
+2018-SP-70793-121-422,2018,desvio da zona,70793,SP,São Carlos,121,422,Escola De Eng De Sao Carlos - U.S.P,257,0.95331,0.94163,20,60,163,155,74,121,2,13,0.47082,0.04324,8.7,18:24,
+2018-AC-01473-5-103,2018,desvio da zona,01473,AC,Tarauacá,5,103,Escola Estadual São José,150,0.61333,0.55333,26,3,56,78,3,52,7,2,0.34667,-0.07884,8.7,19:08,
+2018-SP-62197-23-415,2018,desvio da zona,62197,SP,Bauru,23,415,Faculdade De Odontologia Da Usp,269,0.94052,0.91078,19,76,157,147,88,116,1,10,0.43123,0.01799,8.5,17:37,
+2018-SP-70793-121-421,2018,desvio da zona,70793,SP,São Carlos,121,421,Escola De Eng De Sao Carlos - U.S.P,258,0.9845,0.93798,28,67,158,154,78,115,1,10,0.44574,0.04324,8.2,18:24,
+2018-MG-41238-33-282,2018,desvio da zona,41238,MG,Belo Horizonte,33,282,Emei Delfim Moreira,216,0.95833,0.86574,37,51,117,120,55,79,2,12,0.36574,0.08295,8.2,17:33,
+2018-TO-92436-10-88,2018,desvio da zona,92436,TO,Araguatins,10,88,Escola Municipal Santa Cruz Ii,112,0.88393,0.86607,53,22,20,54,39,-16,4,4,-0.14286,0.06539,-8.1,18:24,
+2018-PB-21911-40-44,2018,desvio da zona,21911,PB,São José de Piranhas,40,44,E.M.E.I.F. João Batista Campos,179,0.87151,0.65363,142,2,5,114,2,-28,7,1,-0.15642,0.10364,-8.1,18:15,
+2018-MT-91855-19-224,2018,desvio da zona,91855,MT,Tangará da Serra,19,224,Escola Estadual Indigena Malamalali,358,0.73464,0.7514,141,1,116,248,14,94,5,7,0.26257,-0.00332,7.9,18:18,
+2018-PE-23590-77-105,2018,desvio da zona,23590,PE,Cabrobó,77,105,Escola Municipal Furtunato Alves De Souza,147,0.85714,0.84354,55,8,43,106,13,46,20,5,0.31293,0.0721,7.9,18:16,
+2018-MG-49816-99-107,2018,desvio da zona,49816,MG,Pedralva,99,107,Escola Municipal Joaquim Goncalves Da Silva Braga,218,0.80275,0.79358,19,83,58,21,134,-49,15,18,-0.22477,0.01187,-7.9,17:48,
+2018-RO-00574-28-153,2018,desvio da zona,00574,RO,Mirante da Serra,28,153,Escola Indígena Amondawa,112,0.89286,0.82143,23,12,61,55,22,22,4,15,0.19643,0.0,7.8,20:19,
+2018-PB-21911-40-45,2018,desvio da zona,21911,PB,São José de Piranhas,40,45,E.M.E.I.F. João Batista Campos,227,0.90308,0.71366,181,2,11,152,7,-34,11,3,-0.14978,0.10364,-7.8,18:15,
+2018-MA-09555-78-167,2018,desvio da zona,09555,MA,Bom Jardim,78,167,Escola Januária,343,0.72886,0.76676,116,0,114,254,1,137,20,8,0.39942,0.04524,7.8,18:08,
+2018-PI-12190-98-202,2018,desvio da zona,12190,PI,Teresina,98,202,Escola Municipal Raimundo Adão,244,0.91393,0.84426,167,25,21,149,47,-40,10,10,-0.16393,0.08966,-7.7,18:11,
+2018-BA-38393-111-119,2018,desvio da zona,38393,BA,Rio do Pires,111,119,Prédio Escolar De Curralinho,391,0.54476,0.49361,154,22,19,125,61,-68,18,7,-0.17391,0.01975,-7.4,19:48,
+2018-MT-91936-31-63,2018,desvio da zona,91936,MT,Canarana,31,63,E.M.E.B. Serra Dourada,154,0.79221,0.80519,38,43,29,75,45,35,12,4,0.22727,0.00678,7.4,18:52,
+2018-SC-81752-17-224,2018,comparecimento 95%+ e 90%+ para um lado,81752,SC,Jaraguá do Sul,17,224,Escola De Educação Básica Professor José Duarte Magalhães,411,0.93917,0.9562,28,286,48,36,335,-41,24,22,-0.09976,-0.03162,-1.9,18:02,
+2018-SC-80551-5-257,2018,comparecimento 95%+ e 90%+ para um lado,80551,SC,Brusque,5,257,Centro De Educação Infantil Prefeito Hylario Zen,379,0.9314,0.95251,22,281,34,31,305,-15,16,25,-0.03958,-0.02011,-0.7,17:51,
+2018-SC-81230-5-156,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,156,Escola Municipal De Educação Básica Padre Germano Brandt,343,0.93878,0.95627,18,249,29,28,276,-17,26,24,-0.04956,-0.03662,-0.4,18:13,
+2018-PI-11630-29-62,2018,comparecimento 95%+ e 90%+ para um lado,11630,PI,Pio Ix,29,62,Escola Municipal Laurindo Paulo De Oliveira,337,0.93175,0.96736,253,4,37,303,12,42,20,11,0.12463,0.14643,-0.5,18:09,
+2018-SC-81230-5-159,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,159,Escola Municipal De Educação Básica Professora Anna Otília Schlindwein,336,0.96726,0.96726,12,254,37,24,283,-17,22,18,-0.0506,-0.03662,-0.4,18:13,
+2018-MA-07315-23-329,2018,comparecimento 95%+ e 90%+ para um lado,07315,MA,Barra do Corda,23,329,Escola Indígena Ireno Rosa,334,0.92814,0.98204,295,0,7,327,0,32,8,1,0.09581,0.0821,0.3,20:02,
+2018-SC-81230-5-196,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,196,Escola De Educação Básica Municipal Professor Arthur Wippel,334,0.96407,0.9521,18,253,33,30,274,-9,18,14,-0.02695,-0.03662,0.3,18:39,
+2018-CE-13854-27-286,2018,comparecimento 95%+ e 90%+ para um lado,13854,CE,Crato,27,286,Eeief Viturino Da Costa Vilar,329,0.91793,0.95441,178,18,97,288,21,107,9,5,0.32523,0.3125,0.2,18:42,
+2018-SC-81230-5-225,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,225,Escola Municipal De Educação Básica Professora Anna Otília Schlindwein,324,0.95988,0.95679,12,245,34,21,267,-13,20,22,-0.04012,-0.03662,-0.1,18:39,
+2018-PI-10626-37-90,2018,comparecimento 95%+ e 90%+ para um lado,10626,PI,Bela Vista do Piauí,37,90,Unidade Escolar Dr.Nelson Fialho,319,0.95611,0.95925,253,2,33,277,6,20,17,23,0.0627,0.11224,,18:29,
+2018-SC-81230-5-150,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,150,Escola Municipal Vadislau Schmitt,319,0.94984,0.95925,15,227,35,26,257,-19,26,23,-0.05956,-0.03662,-0.7,18:38,
+2018-SC-80233-2-110,2018,comparecimento 95%+ e 90%+ para um lado,80233,SC,Antônio Carlos,2,110,Núcleo Escolar Municipal Verônica Guesser Pauli,316,0.95253,0.95253,10,253,31,21,269,-5,7,11,-0.01582,-0.01596,0.0,18:34,
+2018-SC-81230-5-151,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,151,Escola De Educação Básica Professor João Boos,316,0.95253,0.9557,16,232,36,28,256,-12,17,18,-0.03797,-0.03662,-0.0,18:13,
+2018-MT-90280-28-158,2018,comparecimento 95%+ e 90%+ para um lado,90280,MT,Confresa,28,158,Escola Estadual Tapiitawa,314,0.94904,0.96497,294,0,3,302,0,8,1,1,0.02548,0.01337,0.4,19:15,
+2018-CE-14931-49-168,2018,comparecimento 95%+ e 90%+ para um lado,14931,CE,Pacajus,49,168,Eef Neli Gama (Ant. Raimundo Agostinho),313,0.92332,0.95208,150,10,114,246,20,86,15,32,0.27476,0.24655,0.6,19:09,
+2018-SC-81230-5-165,2018,comparecimento 95%+ e 90%+ para um lado,81230,SC,Guabiruba,5,165,Escola Municipal Professora Rosa Rudolf Nicoletti,295,0.96949,0.95932,9,226,26,23,240,0,25,20,0.0,-0.03662,1.1,18:13,
+2018-BA-33529-110-154,2018,comparecimento 95%+ e 90%+ para um lado,33529,BA,Banzaê,110,154,Escola Estadual Indigena José Pedro Batista,292,0.94863,0.95205,243,3,5,255,3,12,26,20,0.0411,0.02672,0.3,17:59,
+2018-RS-86614-68-27,2018,comparecimento 95%+ e 90%+ para um lado,86614,RS,Flores da Cunha,68,27,Mato Perso - Salão Comunitário,284,0.96127,0.96479,4,227,33,12,246,-11,9,16,-0.03873,-0.04374,0.2,18:05,
+2018-PI-10359-28-173,2018,comparecimento 95%+ e 90%+ para um lado,10359,PI,Bocaina,28,173,Grupo Escolar Maria Vitória (Pov. Cajueiro),281,0.97153,0.9573,212,7,43,239,24,10,11,6,0.03559,0.03802,,18:46,
+2018-PR-79278-75-291,2018,comparecimento 95%+ e 90%+ para um lado,79278,PR,Toledo,75,291,Escola Rural Municipal São Pedro (Cerro Da Lola),276,0.92754,0.9529,12,203,30,14,243,-38,11,6,-0.13768,0.00344,-3.9,17:51,
+2018-SC-80519-5-1,2018,comparecimento 95%+ e 90%+ para um lado,80519,SC,Botuverá,5,1,Escola De Educação Básica Padre João Stolte,274,0.96715,0.95255,16,196,36,20,222,-22,17,19,-0.08029,-0.01626,,18:50,
+2018-SC-80233-2-97,2018,comparecimento 95%+ e 90%+ para um lado,80233,SC,Antônio Carlos,2,97,Núcleo Escolar Municipal Professora Xênia Göedert Kremer,266,0.96241,0.95865,10,214,25,23,224,3,7,8,0.01128,-0.01596,1.3,18:34,
+2018-MA-08397-103-28,2018,comparecimento 95%+ e 90%+ para um lado,08397,MA,Montes Altos,103,28,Escola Municipal Sao Jose,258,0.95736,0.95349,239,0,7,243,0,4,1,3,0.0155,0.05351,-0.9,17:52,
+2018-RS-89591-88-26,2018,comparecimento 95%+ e 90%+ para um lado,89591,RS,Veranópolis,88,26,Salão Paroquial Vila Azul,254,0.97244,0.9685,11,176,43,22,208,-21,17,16,-0.08268,-0.02417,-1.9,17:38,
+2018-RS-87173-118-16,2018,comparecimento 95%+ e 90%+ para um lado,87173,RS,Ivoti,118,16,E.M.E.F. Nelda Julieta Schneck,251,0.95219,0.95618,6,184,34,10,208,-20,15,22,-0.07968,-0.01098,-1.8,17:32,
+2018-SC-81752-17-67,2018,comparecimento 95%+ e 90%+ para um lado,81752,SC,Jaraguá do Sul,17,67,Escola Municipal De Educação Básica Santo Estêvão,250,0.984,0.98,13,185,23,16,213,-25,25,16,-0.1,-0.03162,-1.9,18:21,
+2018-SC-80519-5-10,2018,comparecimento 95%+ e 90%+ para um lado,80519,SC,Botuverá,5,10,Escola Municipal De Lageado Alto,235,0.95319,0.95319,6,185,14,21,195,5,19,8,0.02128,-0.01626,,18:50,
+2018-PI-10626-37-89,2018,comparecimento 95%+ e 90%+ para um lado,10626,PI,Bela Vista do Piauí,37,89,Unidade Escolar De Caraibas,233,0.96996,0.97854,186,9,22,213,11,25,9,4,0.1073,0.11224,,17:54,
+2018-RS-86690-98-35,2018,comparecimento 95%+ e 90%+ para um lado,86690,RS,Garibaldi,98,35,Salão Comunitário Linha São Jorge,221,0.94118,0.95023,13,162,29,19,179,-11,4,12,-0.04977,-0.02629,-0.6,17:47,
+2018-BA-30775-150-151,2018,comparecimento 95%+ e 90%+ para um lado,30775,BA,Barrocas,150,151,Escola Municipal Maria Quitéria,213,0.95305,0.95775,165,11,11,177,10,13,16,17,0.06103,0.06866,-0.2,18:27,
+2018-MA-08150-74-28,2018,brancos e nulos zerados no 2º turno,08150,MA,Lago do Junco,74,28,Centro De Ensino Medio Joana Alves Da Silva,380,0.73421,0.86053,211,36,19,272,55,42,13,0,0.11053,0.01765,1.5,21:50,
+2018-MA-07498-64-16,2018,brancos e nulos zerados no 2º turno,07498,MA,Cândido Mendes,64,16,Escola Municipal Raimundo Leite De Araujo,365,0.75342,0.72329,244,16,8,253,11,14,7,0,0.03836,0.01024,0.8,18:05,
+2018-MA-09679-104-70,2018,brancos e nulos zerados no 2º turno,09679,MA,Arame,104,70,Centro De Ensino Indígena Zezinho Guajajara,316,0.7943,0.82278,217,0,23,260,0,43,11,0,0.13608,0.03435,2.6,18:33,
+2018-PE-24392-63-89,2018,brancos e nulos zerados no 2º turno,24392,PE,Inajá,63,89,Escola Aimbere,309,0.8479,0.83819,252,0,5,259,0,7,5,0,0.02265,0.07304,-1.5,18:16,
+2018-PE-23264-89-85,2018,brancos e nulos zerados no 2º turno,23264,PE,Jatobá,89,85,Escola Indigena Pankararu,286,0.85664,0.88112,215,11,10,239,13,22,9,0,0.07692,0.0864,-0.2,18:41,
+2018-MA-07331-56-96,2018,brancos e nulos zerados no 2º turno,07331,MA,Barreirinhas,56,96,Unidade Escolar Arcângela Lourenço Dos Reis,267,0.95506,0.90637,238,12,1,231,11,-6,4,0,-0.02247,0.05407,-1.5,19:23,
+2018-RR-03107-7-61,2018,brancos e nulos zerados no 2º turno,03107,RR,Uiramutã,7,61,Sales Ingarico E.E.,257,0.92218,0.92996,222,0,4,239,0,17,11,0,0.06615,0.04981,0.4,18:12,
+2018-BA-33693-177-128,2018,brancos e nulos zerados no 2º turno,33693,BA,Belo Campo,177,128,Escola Municipal Juarez Hortelio,357,0.71148,0.63866,211,29,9,191,37,-28,5,0,-0.07843,0.0587,-3.5,18:12,
+2018-PR-74047-143-241,2018,brancos e nulos zerados no 2º turno,74047,PR,Lindoeste,143,241,Colégio Estadual Santa Luzia,265,0.87547,0.8566,184,25,15,195,32,4,8,0,0.01509,0.0061,,17:16,
+2018-MT-90646-5-131,2018,brancos e nulos zerados no 2º turno,90646,MT,Nova Mutum,5,131,Unemat,272,0.8125,0.78309,26,174,19,28,185,-9,2,0,-0.03309,-0.00681,-1.1,18:50,
+2018-PI-12629-28-149,2018,brancos e nulos zerados no 2º turno,12629,PI,São Luis do Piauí,28,149,Posto De Saúde Mariano Melquiades (São Cristovão),240,0.91667,0.88333,183,5,24,195,17,0,8,0,0.0,0.04679,,18:35,
+2018-MA-07978-32-82,2018,brancos e nulos zerados no 2º turno,07978,MA,Humberto de Campos,32,82,Escola Municipal Canario Do Porto,366,0.76503,0.54918,237,23,9,180,21,-55,11,0,-0.15027,-0.0058,-2.6,19:09,
+2018-CE-13579-105-31,2018,brancos e nulos zerados no 2º turno,13579,CE,Capistrano,105,31,Escola De Ensino Fundamental Jorge Furtado Leite 3,231,0.88745,0.8658,87,13,101,182,18,90,4,0,0.38961,0.24601,2.4,17:55,

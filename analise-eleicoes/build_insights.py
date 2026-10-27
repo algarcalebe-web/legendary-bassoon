@@ -251,52 +251,127 @@ def main(data_dir):
     col = {r["id"]: r for r in rd("colegio.csv")}
     diverg = [a for a in NOMES if col[f"{a}-colegio"]["igual_popular"] == "0"]
     c26 = col["2026-colegio"]
+    cu = {r["id"]: r for r in rd("colegio_uf.csv")}
+    dificil = max((r for r in cu.values() if r["ano"] == "2026" and r["venc_2t"] == c26["vencedor"]),
+                  key=lambda r: float(r["swing_para_virar_pp"]))
+    c22 = col["2022-colegio"]
     add("colegio", "colegio", "Se fosse colégio eleitoral",
         f"Com cada estado valendo seus deputados federais mais 3 senadores e o vencedor levando tudo, Flávio teria "
         f"{c26['dir']} votos eleitorais contra {c26['pt']} de Lula, e venceria. O colégio contraria o voto popular em "
-        f"{' e '.join(diverg)}; nas outras eleições da série os dois coincidem. Em 2026 o estado decisivo seria "
-        f"{UFN.get(c26['decisivo_uf'], c26['decisivo_uf'])}, e bastariam {num(c26['votos_para_virar'])} votos trocando de lado em "
-        f"{c26['estados_para_virar'].replace(' ', ' e ')} para Lula vencer também no colégio.")
-    cs_ = {r["ano"]: r for r in rd("consistencia_serie.csv")}
-    c = cs_["2026"]
-    hist_loc = [float(cs_[a]["locais_z4_por_mil"]) for a in NOMES if a != "2026"]
-    hist_inc = [float(cs_[a]["inclinacao_net_comparecimento"]) for a in NOMES if a != "2026"]
-    add("aud-contab", "auditoria", "Contabilidade e cruzamento de fontes",
-        f"Nas {num(c['t2_zonas'])} cidades do 2º turno de 2026, comparecimento = válidos + brancos + nulos e válidos = soma dos candidatos "
-        f"fecham sem nenhuma diferença; aptos = comparecimento + abstenção difere em {num(c['t2_z_aptos'])} cidades "
-        f"({num(c['t2_v_aptos'])} eleitores), dentro do que aparece em todas as eleições ({num(min(int(cs_[a]['t12_v_aptos']) for a in NOMES if a != '2026'))} "
-        f"a {num(max(int(cs_[a]['t12_v_aptos']) for a in NOMES if a != '2026'))} eleitores). No arquivo de 2006, comparecimento não fecha em "
-        f"nenhuma das {num(cs_['2006']['t12_zonas'])} zonas, por {num(cs_['2006']['t12_v_comp'])} votos no total, uma diferença pequena e "
-        f"uniforme que aponta para a definição de um campo do arquivo. As duas publicações do TSE do 1º turno de 2026, "
-        f"dados abertos e API de resultados, batem em todas as {num(c['cruz_cidades'])} cidades, campo a campo e candidato a candidato.")
-    add("aud-net", "auditoria", "Crescimento líquido cidade a cidade",
-        f"Cidades cujo swing destoa do próprio estado (mais de 4 desvios robustos): {dc(c['locais_z4_por_mil'], 1)} por mil em 2026, "
-        f"o menor da série ({dc(min(hist_loc), 1)} a {dc(max(hist_loc), 1)} antes). Dentro de cada estado, cada ponto de comparecimento a mais "
-        f"virou {dc(c['inclinacao_net_comparecimento'])} ponto de margem líquida para Lula; de 2002 a 2022 esse número foi de "
-        f"{dc(min(hist_inc))} a {dc(max(hist_inc))}. Votos inventados para um lado dariam perto de 1. A geografia do voto repetiu a de 2022 "
-        f"com correlação de {dc(c['corr_pt2_anterior'], 3)}, a mais alta da série.")
-    ext = rd("consistencia_extremos.csv") if (d / "consistencia_extremos.csv").exists() else []
-    e26 = [r for r in ext if r["ano"] == "2026"]
-    sobe = [r for r in e26 if r["tipo"].startswith("comparecimento")]
-    if sobe:
-        import statistics as stt
-        m26 = [r for r in cid if r["ano"] == "2026"]
-        por_uf = {}
-        for r in m26:
-            por_uf.setdefault(r["uf"], []).append(r)
-        med_sw = {u: stt.median(float(r["swing_margem"]) for r in rs) for u, rs in por_uf.items()}
-        med_dc = {u: stt.mean(float(r["d_comp_pp"]) for r in rs) for u, rs in por_uf.items()}
-        obs = stt.mean(float(r["swing_margem"]) - med_sw[r["uf"]] for r in sobe)
-        prev_sw = float(c["inclinacao_net_comparecimento"]) * stt.mean(float(r["d_comp_pp"]) - med_dc[r["uf"]] for r in sobe)
-        ufs_s = {r["uf"] for r in sobe}
-        base_pt = sum(r["venc_2t"] == "PT" for r in m26 if r["uf"] in ufs_s) / sum(1 for r in m26 if r["uf"] in ufs_s)
-        add("aud-extremos", "auditoria", "Pontos fora da curva",
-            f"Em 2026, {len(sobe)} cidades tiveram o comparecimento subir 5 p.p. ou mais, mais que em qualquer eleição anterior, espalhadas por "
-            f"{len(ufs_s)} estados. Lula venceu {sum(r['venc_2t'] == 'PT' for r in sobe)} delas ({pct(sum(r['venc_2t'] == 'PT' for r in sobe) / len(sobe), 0)}), "
-            f"contra {pct(base_pt, 0)} de todas as cidades desses estados, e a margem nelas variou {pp(obs)} a mais que a mediana do próprio estado. "
-            f"Isso é uma leve inclinação a Lula, mas menor do que a relação geral entre comparecimento e margem já prevê para saltos desse tamanho "
-            f"({pp(prev_sw)}). {len(e26) - len(sobe)} cidades ficaram com brancos + nulos abaixo de 1%, "
-            f"{sum(r['venc_2t'] == 'PT' for r in e26 if not r['tipo'].startswith('comparecimento'))} vencidas por Lula. As listas estão na aba Auditoria.")
+        f"{' e '.join(diverg)}; nas outras eleições da série os dois coincidem. Medido em pontos percentuais, virar o colégio de 2026 "
+        f"exigiria {pp(c26['swing_para_virar_pp'])[1:]} dos válidos trocando de lado em todos os estados ao mesmo tempo: o estado decisivo é "
+        f"{UFN.get(c26['decisivo_uf'], c26['decisivo_uf'])}, e com esse swing viram {c26['estados_swing'].replace(' ', ' e ')}. Para virar o voto "
+        f"popular no sentido oposto bastariam {pp(c26['swing_popular_pp'])[1:]} Em 2022 o colégio pedia {pp(c22['swing_para_virar_pp'])[1:]} "
+        f"({UFN.get(c22['decisivo_uf'], c22['decisivo_uf'])} decisivo). O mínimo absoluto de {num(c26['votos_para_virar'])} votos em "
+        f"{c26['estados_para_virar'].replace(' ', ' e ')} é só aritmética de estados pequenos: {UFN[dificil['uf']]} é o estado mais difícil de virar em "
+        f"2026 ({pp(dificil['swing_para_virar_pp'])[1:]}) e entra na conta porque tem poucos eleitores.")
+    u26 = [r for r in cu.values() if r["ano"] == "2026"]
+    fragil = min((r for r in u26 if r["venc_2t"] == "PT"), key=lambda r: float(r["swing_para_virar_pp"]))
+    dec = cu[f"2026-{c26['decisivo_uf']}"]
+    troca = int(c26["pt"]) + int(dec["peso_colegio"]) - int(fragil["peso_colegio"])
+    ppp = lambda r: int(r["peso_colegio"]) / (float(r["swing_para_virar_pp"]) * 100)
+    alvos = sorted((r for r in u26 if r["venc_2t"] != "PT"), key=lambda r: float(r["swing_para_virar_pp"]))[:2]
+    add("defesa", "colegio", "Ataque e defesa: Minas pesa mais que o Rio",
+        f"Num colégio, o estado mais frágil de Lula em 2026 seria {UFN[fragil['uf']]}: {pp(fragil['swing_para_virar_pp'])[1:]} trocando de lado viram o estado, "
+        f"que vale {fragil['peso_colegio']} votos. Virar {UFN[dec['uf']]} (+{dec['peso_colegio']}, {pp(dec['swing_para_virar_pp'])[1:]}) e perder "
+        f"{UFN[fragil['uf']]} deixaria Lula com {troca} × {int(c26['total']) - troca}, pior que o resultado real. Por ponto de swing exigido, "
+        f"{UFN[fragil['uf']]} vale {num(ppp(fragil))} votos no colégio, contra " + " e ".join(f"{num(ppp(r))} de {UFN[r['uf']]}" for r in alvos)
+        + f": a defesa de {UFN[fragil['uf']]} viria antes de qualquer ataque. O simulador da aba Vitória líquida faz qualquer combinação.")
+    # 3ª via necessária: o resto do disponível dividido pela proporção PT × adversário do 1º turno em cada cidade
+    def req_txt(r):
+        x = float(r["x_req_pt"])
+        if x <= 0:
+            return "vencia sem a 3ª via"
+        return f"precisava de {pct(x)}" + (" (mais que toda)" if x > 1 else "") + f", implícito {pct(r['x_levou_pt'])}"
+    regs = [(g, uf[f"2026-{g}"]) for g in ("NE", "N", "SE", "CO", "S")]
+    tr3 = ({r["id"]: r for r in rd("secao_transicao.csv")}.get("2026-BR-ter")
+           if (d / "secao_transicao.csv").exists() else None)
+    add("req3", "geral", "Quanto da 3ª via Lula precisava converter",
+        f"Dividindo os votos recuperados (abstenção, brancos e nulos) entre Lula e Flávio na proporção de cada cidade no 1º turno, "
+        f"Lula ficaria com {mi(b['rec_pt'])} e Flávio com {mi(b['rec_dir'])}: o Nordeste pró-Lula ({mi(uf['2026-NE']['rec_pt'])} × "
+        f"{mi(uf['2026-NE']['rec_dir'])}) é compensado pelo Sudeste e pelo Sul. Com Flávio {mi(int(b['dir_1t']) - int(b['pt_1t']))} à frente no 1º turno "
+        f"e {mi(b['terceira_via'])} na 3ª via, Lula precisava converter {pct(b['x_req_pt'])} da 3ª via para empatar ({pct(b['x_req50_pt'])} com o resto "
+        f"meio a meio). O resultado implica {pct(b['x_levou_pt'])} na mesma regra"
+        + (f", mas as seções estimam que Lula levou {pct(tr3['para_pt'], 0)} da 3ª via e Flávio {pct(tr3['para_adv'], 0)}: o que fechou a conta foi o "
+           f"resto não seguir a proporção do 1º turno (brancos, nulos e abstenção foram mais para Lula)" if tr3 else "")
+        + ". Por região: " + "; ".join(f"{REG[g]} {req_txt(r)}" for g, r in regs) + ". "
+        f"Em 2022 Lula precisava de {pct(b22['x_req_pt'])} e o implícito foi {pct(b22['x_levou_pt'])}; em 2018 Haddad precisava de "
+        f"{pct(b18['x_req_pt'])} e o implícito foi {pct(b18['x_levou_pt'])}.")
+    # quedas de abstenção, nulos e brancos (top 100)
+    qr = {r["id"]: r for r in rd("quedas_resumo.csv")}
+    ql = rd("quedas.csv")
+    top = lambda tipo, crit, n=2: [r for r in ql if r["ano"] == "2026" and r["tipo"] == tipo and r["crit"] == crit][:n]
+    regmax = lambda r: max(("N", "NE", "CO", "SE", "S"), key=lambda g: int(r[f"reg_{g}"]))
+    qa, qn, qb, qna = qr["2026-abst-pct"], qr["2026-nulos-pct"], qr["2026-brancos-pct"], qr["2026-nulos-abs"]
+    ufs_n = {}
+    for r in top("nulos", "pct", 100):
+        ufs_n[r["uf"]] = ufs_n.get(r["uf"], 0) + 1
+    uf_n = max(ufs_n, key=ufs_n.get)
+    add("quedas", "cidades", "Onde abstenção, nulos e brancos mais caíram",
+        f"Em 2026, das 100 cidades com maior queda percentual da abstenção, {qa['reg_' + regmax(qa)]} são do {REG[regmax(qa)]} e Lula venceu {qa['venc_pt']}; "
+        f"a margem nelas variou {pp(qa['swing_top'])}, contra {pp(qa['swing_resto'])} no resto do país. Em votos, as maiores quedas são das capitais "
+        + " e ".join(f"{r['municipio']} ({num(r['queda'])})" for r in top("abst", "abs")) + ". "
+        f"Nulos em %: {qn['reg_' + regmax(qn)]} das 100 no {REG[regmax(qn)]}, "
+        + (f"todas no {UFN[uf_n]}" if ufs_n[uf_n] == int(qn['reg_' + regmax(qn)]) else f"{ufs_n[uf_n]} no {UFN[uf_n]}") + " ("
+        + ", ".join(f"{r['municipio']} {pct(-float(r['queda_pct']), 0)}" for r in top("nulos", "pct")) + "), e essas cidades variaram "
+        f"{pp(qn['swing_top'])}, abaixo do resto ({pp(qn['swing_resto'])}): a queda de nulos mais forte não veio junto com o maior ganho de Lula. "
+        f"Nas 100 maiores quedas de nulos em votos, a margem variou {pp(qna['swing_top'])} contra {pp(qna['swing_resto'])} no resto. "
+        f"Brancos em %: {qb['reg_' + regmax(qb)]} das 100 no {REG[regmax(qb)]}. Listas na aba Cidades.")
+    # seções
+    if (d / "secao_serie.csv").exists():
+        ss = {r["ano"]: r for r in rd("secao_serie.csv")}
+        tr = {r["id"]: r for r in rd("secao_transicao.csv")}
+        sm = rd("secao_modelo.csv")
+        s6, s2, s8 = ss["2026"], ss["2022"], ss["2018"]
+        t = lambda a, o: tr[f"{a}-BR-{o}"]
+        add("sec-contab", "secoes", "As contas fecham seção a seção",
+            f"A soma das {num(s6['secoes_2t'])} seções confere com o total de cada um dos {num(s6['mun_conferidos'])} municípios nos dois turnos de 2026 "
+            f"(aptos, comparecimento, votos de cada finalista e brancos): {num(s6['mun_divergentes'])} divergências, como em 2022 e 2018. O arquivo de votos "
+            f"por candidato e o de detalhe batem em todas as seções, e o comparecimento fecha com os votos em todas. O número de aptos muda entre os turnos "
+            f"em {num(s6['aptos_diferentes'])} seções ({num(s6['aptos_diferentes_soma'])} eleitores), perto de 2022 ({num(s2['aptos_diferentes'])}; "
+            f"{num(s2['aptos_diferentes_soma'])}).")
+        add("sec-espalhado", "secoes", "O líquido de 2026 foi o mais espalhado das três eleições",
+            f"{pct(s6['pct_secoes_net_vencedor'], 0)} das seções deram líquido a Lula em 2026; em 2022, {pct(s2['pct_secoes_net_vencedor'], 0)} deram a Bolsonaro "
+            f"e em 2018 {pct(s8['pct_secoes_net_vencedor'], 0)} a Haddad. As 10% seções com maior líquido responderam por {pct(s6['top10_net'], 0)} dele "
+            f"({pct(s2['top10_net'], 0)} em 2022, {pct(s8['top10_net'], 0)} em 2018), e as que destoam da própria zona são {dc(s6['z5_por_mil'])} por mil "
+            f"({dc(s2['z5_por_mil'])} e {dc(s8['z5_por_mil'])}), {s6['z5_pro_pt']} a favor do PT e {s6['z5_pro_adv']} do adversário, somando "
+            f"{num(abs(int(s6['z5_votos_net'])))} votos de líquido. Crescimento concentrado em poucas seções seria o sinal de alteração localizada; os dados "
+            f"mostram o oposto.")
+        add("sec-comp", "secoes", "Comparecimento: alta grande e espalhada",
+            f"O comparecimento subiu em {pct(s6['pct_secoes_comp_sobe'], 0)} das seções ({pp(s6['d_comp_media'])}, {mi(s6['d_comp_votos'])} de eleitores), "
+            f"contra {pct(s2['pct_secoes_comp_sobe'], 0)} em 2022 e {pct(s8['pct_secoes_comp_sobe'], 0)} em 2018, e as 10% seções que mais subiram deram "
+            f"{pct(s6['top10_comp_alta'], 0)} da alta ({pct(s2['top10_comp_alta'], 0)} e {pct(s8['top10_comp_alta'], 0)}). Dentro da zona, cada eleitor a mais "
+            f"rendeu {dc(s6['incl_net_comp'])} de líquido para Lula, quase igual a 2022 ({dc(s2['incl_net_comp'])}): os novos votantes se dividiram perto de "
+            f"{pct(s6['novos_para_pt'], 0)} a {pct(1 - float(s6['novos_para_pt']), 0)}, como em 2022.")
+        add("sec-bn", "secoes", "De onde veio o líquido: brancos e nulos do 1º turno",
+            f"Pelo modelo restrito entre as seções de cada estado, o líquido de Lula ({mi(s6['net_votos'], True)}) veio de quem votou branco ou nulo no "
+            f"1º turno ({mi(s6['contrib_bn'], True)}), da abstenção ({mi(s6['contrib_abst'], True)}) e da 3ª via ({mi(s6['contrib_ter'], True)}); trocas "
+            f"diretas entre os finalistas somam {mi(int(s6['contrib_pt']) + int(s6['contrib_adv']), True)}. A 3ª via se dividiu perto do meio "
+            f"({pct(t('2026', 'ter')['para_pt'], 0)} Lula, {pct(t('2026', 'ter')['para_adv'], 0)} Flávio, {pct(t('2026', 'ter')['para_bn'], 0)} branco ou nulo). "
+            f"O que sai do padrão é o branco e nulo do 1º turno: {pct(t('2026', 'bn')['para_pt'], 0)} foram para Lula e {pct(t('2026', 'bn')['para_adv'], 0)} "
+            f"para Flávio, contra {pct(t('2022', 'bn')['para_pt'], 0)} e {pct(t('2022', 'bn')['para_adv'], 0)} em 2022 e {pct(t('2018', 'bn')['para_pt'], 0)} e "
+            f"{pct(t('2018', 'bn')['para_adv'], 0)} em 2018. As outras duas leituras concordam: sem restrição, {pct(t('2026', 'bn')['para_pt_ols'], 0)} e "
+            f"{pct(t('2026', 'bn')['para_adv_ols'], 0)}; dentro da zona, cada voto que saiu do branco rendeu {dc(s6['fe_branco'], sinal=True)} de líquido para Lula "
+            f"e do nulo {dc(s6['fe_nulo'], sinal=True)}, contra {dc(s2['fe_branco'], sinal=True)} e {dc(s2['fe_nulo'], sinal=True)} em 2022. A taxa de nulos do "
+            f"1º turno não foi atípica ({pct(s6['nulos_1t'])} contra {pct(s2['nulos_1t'])} em 2022); em 2026 os nulos caíram no 2º turno "
+            f"({pct(s6['nulos_2t'])}), enquanto em 2022 e 2018 subiram. É associação entre seções, não o voto de pessoas.")
+        add("sec-chegada", "secoes", "A pausa na chegada dos boletins do 2º turno de 2026",
+            f"No 2º turno de 2026, {pct(s6['pct_ate_17h30_2t'])} das seções chegaram ao TSE até 17h30 e depois nenhuma faixa de 10 minutos teve 0,05% das "
+            f"seções por {s6['pausa_min_2t']} minutos; a mediana foi {s6['chegada_mediana_2t']} (1º turno {s6['chegada_mediana_1t']}; 2022 "
+            f"{s2['chegada_mediana_2t']}; 2018 {s8['chegada_mediana_2t']}). Em 2022 e 2018 o 2º turno não tem pausa ({pct(s2['pct_ate_17h30_2t'], 0)} e "
+            f"{pct(s8['pct_ate_17h30_2t'], 0)} chegaram até 17h30). As seções que chegaram antes da pausa não diferem no líquido "
+            f"({dc(float(s6['net_dm_ate_17h30_2t']) * 100, 2, True)} p.p. contra o estado) e a ordem de chegada quase não se relaciona com o líquido (correlação {dc(s6['corr_chegada_net'])}). O arquivo não traz o motivo "
+            f"e a contagem confere seção a seção; os boletins de urna do 2º turno, quando publicados, trazem o horário de encerramento de cada seção e "
+            f"separam fechamento de transmissão.")
+        mods = [abs(float(r["net_dm"])) for r in sm if r["ano"] == "2026"]
+        lista_uf = lambda txt: ", ".join(" ".join(p) for p in zip(txt.split()[::2], txt.split()[1::2]))
+        add("sec-forense", "secoes", "Forense por seção",
+            f"Seções com comparecimento de 95% ou mais e 90% ou mais para um lado: {s6['klimek_n']} em 2026 ({s6['klimek_pt']} para Lula), "
+            f"{s2['klimek_n']} em 2022 e {s8['klimek_n']} em 2018, mais que antes mas {pct(float(s6['klimek_n']) / float(s6['secoes_analisadas']), 2)} das seções. "
+            f"Brancos e nulos zerados no 2º turno: {num(s6['bn2_zero_n'])} seções ({lista_uf(s6['bn2_zero_ufs'])}), contra {num(s2['bn2_zero_n'])} em 2022 "
+            f"com os mesmos estados no topo; Lula venceu {pct(s6['bn2_zero_pt_venceu'], 0)} delas e o líquido delas ficou {pp(s6['bn2_zero_net_dm'])} contra a "
+            f"zona, sem puxar o resultado. A frequência do último dígito dos votos por seção desvia no máximo {dc(float(s6['dig_ult_pt_desvio']) * 100, 1)} p.p. "
+            f"dos 10% esperados, como em 2022 e 2018. Por modelo de urna, o líquido difere no máximo {dc(max(mods) * 100, 2)} p.p. da média do município.")
     json.dump(out, open(d / "insights.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for o in out:
         print(f"[{o['id']}] {o['texto']}\n")

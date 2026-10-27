@@ -67,6 +67,11 @@
         fill: (r) => (String(r.mudou_vs_ant) === '' ? vazio() : String(r.mudou_vs_ant) === '1' ? (r.venc_2t === 'PT' ? C.pt : C.dir) : N),
         legenda: { cat: [[C.pt, 'passou ao PT'], [C.dir, 'passou ao adversário'], [N, 'manteve o lado']], nota: ano === '2002' ? 'sem eleição anterior na série' : '' },
         rotulo: 'Vencedor do 2º turno vs. eleição anterior', texto: (r) => (String(r.mudou_vs_ant) === '1' ? 'mudou de lado' : String(r.mudou_vs_ant) === '0' ? 'manteve' : 'sem comparação') };
+      case 'x_req_pt': return {
+        fill: (r) => (r.status_req_pt === 'dispensa' ? C.ok : r.status_req_pt === 'inviavel' ? C.ruim : isNum(r.x_req_pt) ? mix('#f1c453', C.ruim, +r.x_req_pt) : null),
+        legenda: { cat: [[C.ok, 'vence sem a 3ª via'], ['#f1c453', 'precisa de pouco da 3ª via'], [C.ruim, 'precisa de quase toda ou mais']], nota: 'abstenção, brancos e nulos recuperados divididos pela proporção PT × adversário do 1º turno na cidade' },
+        rotulo: `3ª via que ${n.pt} precisava`, texto: (r) => reqTxt(r) };
+      case 'x_levou_pt': return div('x_levou_pt', C.dir, C.pt, 0.5, `3ª via que ${n.pt} levou (resto proporcional)`, F.pct, 0.5);
       case 'cen50': return {
         fill: (r) => (r.status_pt_50 === 'dispensa' ? C.ok : r.status_pt_50 === 'inviavel' ? C.ruim : isNum(r.y_resto_pt_50) ? mix('#f1c453', C.ruim, +r.y_resto_pt_50) : null),
         legenda: { cat: [[C.ok, 'basta a 3ª via'], ['#f1c453', 'precisa de pouco do restante'], [C.ruim, 'precisa de quase tudo ou mais']] },
@@ -74,6 +79,9 @@
       default: return esquema('venc2', ano, rows);
     }
   }
+
+  const reqTxt = (r) => (r.status_req_pt === 'dispensa' ? 'vencia sem a 3ª via' : !isNum(r.x_req_pt) ? '—'
+    : `precisava de ${F.pct(r.x_req_pt)} da 3ª via${r.status_req_pt === 'inviavel' ? ' (mais que toda)' : ''}; levou ${F.pct(r.x_levou_pt)}`);
 
   function legenda(e) {
     const el = $('#mapa-legenda');
@@ -250,6 +258,9 @@
         fato('Variação da margem', src, 'swing_margem', r.id, F.pp(r.swing_margem), cls(r.swing_margem)),
         fato('3ª via no 1º turno', src, 'terceira_via', r.id, F.int(r.terceira_via)),
         fato('Total disponível', src, 'pool', r.id, F.int(r.pool)),
+        fato(`Resto do disponível: ${n.pt} / ${n.dir} (proporção do 1º turno)`, src, 'rec_pt', r.id, `${F.sint(r.rec_pt)} / ${F.sint(r.rec_dir)}`),
+        fato(`3ª via que ${n.pt} precisava (resto proporcional)`, src, 'x_req_pt', r.id, F.req(r.x_req_pt), r.status_req_pt === 'inviavel' ? 'neg' : ''),
+        fato(`3ª via que ${n.pt} levou (resto proporcional)`, src, 'x_levou_pt', r.id, F.pct(r.x_levou_pt)),
       );
     } else fatos.replaceChildren(fato(`${p.ano}`, null, null, null, 'sem dado nesta eleição'));
     graficoCidade(linhas);
@@ -261,8 +272,13 @@
       ['lider1_sigla', F.txt, 0, 1], ['venc_2t', F.txt, 0, 1]], (tr, x) => tr.classList.toggle('st-sel', String(x.ano) === p.ano));
     window.ST.rowsTable($('#cid-disp tbody'), linhas, [['ano', F.txt, 0, 1], ['terceira_via', F.int],
       ['abst_1t', F.int], ['abst_2t', F.int], ['delta_abst', F.sint, 1], ['brancos_1t', F.int], ['brancos_2t', F.int], ['delta_brancos', F.sint, 1],
-      ['nulos_1t', F.int], ['nulos_2t', F.int], ['delta_nulos', F.sint, 1], ['delta', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct]],
-    (tr, x) => tr.classList.toggle('st-sel', String(x.ano) === p.ano));
+      ['nulos_1t', F.int], ['nulos_2t', F.int], ['delta_nulos', F.sint, 1], ['delta', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct],
+      ['x_req_pt', F.req], ['x_levou_pt', F.pct]],
+    (tr, x) => {
+      tr.classList.toggle('st-sel', String(x.ano) === p.ano);
+      const c = tr.children[14];
+      if (c && x.status_req_pt) c.classList.add(x.status_req_pt);
+    });
     // cenários da eleição escolhida
     $('#cid-cen-h').textContent = `Cenários em ${ult.municipio}, ${p.ano}`;
     $('#cid-cen-pt').textContent = n.pt;

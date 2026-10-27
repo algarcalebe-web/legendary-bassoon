@@ -36,7 +36,8 @@
         tr.append(c);
       });
       const r = col.by.get(`${a}-colegio`);
-      [['decisivo_uf', F.txt, 'txt'], ['votos_para_virar', F.int, ''], ['estados_para_virar', F.txt, 'txt']].forEach(([f, fm, k]) => {
+      [['decisivo_uf', F.txt, 'txt'], ['swing_para_virar_pp', F.ppu, ''], ['estados_swing', F.txt, 'txt'], ['swing_popular_pp', F.ppu, ''],
+        ['votos_para_virar', F.int, 'mut'], ['estados_para_virar', F.txt, 'txt mut']].forEach(([f, fm, k]) => {
         const c = td(r ? fm(r[f]) : '—', k);
         if (r) setMark(c, 'colegio', f, `${a}-colegio`);
         tr.append(c);
@@ -82,7 +83,7 @@
         if (!r) return;
         const h = document.createElement('div'); h.className = 'st-tip-h'; h.textContent = `${r.nome}: ${F.int(r.peso_colegio)} votos no colégio`;
         const l1 = document.createElement('div'); l1.textContent = `${n.pt} ${F.int(r.pt_2t)} × ${F.int(r.dir_2t)} ${n.dir} (margem ${F.pp(r.margem_2t)})`;
-        const l2 = document.createElement('div'); l2.textContent = `virar o estado: ${F.int(r.votos_para_virar)} votos trocando de lado`;
+        const l2 = document.createElement('div'); l2.textContent = `virar o estado: ${F.ppu(r.swing_para_virar_pp)} dos válidos trocando de lado (${F.int(r.votos_para_virar)} votos)${r.ordem_swing ? ` · ${r.ordem_swing}º mais fácil de virar` : ''}`;
         tip.replaceChildren(h, l1, l2);
         tipAt(box, tip, ev);
       })
@@ -182,15 +183,171 @@
     }));
   }
 
+  // swing (p.p. dos válidos) que viraria cada estado em cada eleição; cor pelo vencedor, borda no estado decisivo
+  function viraUf(p) {
+    const cu = tbl('colegio_uf');
+    const tb = $('#vira-uf tbody');
+    if (!cu) { if (failed('colegio_uf')) failLine(tb); return; }
+    $('#vira-h').textContent = `Quanto cada estado precisaria mudar para virar, ordenado por ${p.ano}`;
+    const ufs = UFS.filter((u) => p.reg === 'BR' || (cu.by.get(`2026-${u}`) || {}).regiao === p.reg)
+      .sort((a, b) => (+(cu.by.get(`${p.ano}-${a}`) || {}).swing_para_virar_pp || 9) - (+(cu.by.get(`${p.ano}-${b}`) || {}).swing_para_virar_pp || 9));
+    tb.replaceChildren(...ufs.map((u) => {
+      const tr = document.createElement('tr');
+      const ref = cu.by.get(`2026-${u}`);
+      tr.append(td(ref ? `${ref.nome} (${ref.peso_colegio})` : u, 'txt'));
+      ANOS.forEach((a) => {
+        const id = `${a}-${u}`;
+        const r = cu.by.get(id);
+        const c = td(r ? F.ppu(r.swing_para_virar_pp) : '—');
+        if (r) {
+          setMark(c, 'colegio_uf', 'swing_para_virar_pp', id);
+          c.style.cssText = tinta((r.venc_2t === 'PT' ? 1 : -1) * Math.max(0.005, +r.swing_para_virar_pp), 0.25);
+          c.title = `${r.venc_2t === 'PT' ? NOMES[a].pt : NOMES[a].dir} venceu; ${F.int(r.votos_para_virar)} votos trocando de lado viram o estado`;
+          if (String(r.decisivo) === '1') { c.style.fontWeight = '600'; c.style.outline = '2px solid var(--color-fg)'; c.style.outlineOffset = '-2px'; c.title += ' · estado decisivo do colégio'; }
+        }
+        if (a === p.ano) c.style.fontWeight = '600';
+        tr.append(c);
+      });
+      return tr;
+    }));
+  }
+
+  // ataque e defesa: votos do PT no colégio sob swing uniforme, estados mais frágeis de cada lado e simulador de viradas.
+  // Com swing s (p.p. dos válidos indo do adversário para o PT), o estado fica com o PT se margem + 2s > 0: limiar t = −margem / 2.
+  function limiares(cu, ano) {
+    return cu.rows.filter((r) => String(r.ano) === ano).map((r) => ({ r, uf: r.uf, w: +r.peso_colegio, t: -(+r.margem_2t) / 2, pt: r.venc_2t === 'PT' }));
+  }
+
+  function curva(p, cu, c) {
+    const box = $('#ad-chart');
+    const L0 = limiares(cu, p.ano);
+    const maj = +c.maioria, tot = +c.total;
+    const n = NOMES[p.ano];
+    const dec = Math.abs(+c.swing_para_virar_pp || 0.05);
+    const L = Math.min(0.25, Math.max(0.08, Math.ceil(dec * 2.5 * 100) / 100));
+    const W = Math.max(280, box.clientWidth);
+    const H = 280;
+    const m = { t: 16, r: 14, b: 34, l: 44 };
+    const x = d3.scaleLinear([-L, L], [m.l, W - m.r]);
+    const y = d3.scaleLinear([0, tot], [H - m.b, m.t]);
+    const votos = (s) => L0.reduce((a, d) => a + (s > d.t ? d.w : 0), 0);
+    const ts = L0.map((d) => d.t).filter((t) => t > -L && t < L).sort(d3.ascending);
+    const pts = [[-L, votos(-L)]];
+    ts.forEach((t) => { pts.push([t, votos(t - 1e-9)], [t, votos(t + 1e-9)]); });
+    pts.push([L, votos(L)]);
+    const svg = d3.create('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`).attr('role', 'img').attr('aria-label', 'Votos do PT no colégio sob swing uniforme');
+    box.replaceChildren(svg.node());
+    box.style.minHeight = H + 'px';
+    x.ticks(Math.max(4, Math.floor(W / 80))).forEach((t) => {
+      svg.append('line').attr('x1', x(t)).attr('x2', x(t)).attr('y1', m.t).attr('y2', H - m.b).style('stroke', t === 0 ? 'var(--cds-chart-axis)' : 'var(--cds-chart-grid)');
+      svg.append('text').attr('x', x(t)).attr('y', H - m.b + 15).attr('text-anchor', 'middle').attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text(t === 0 ? 'real' : (t > 0 ? '+' : '−') + nf0.format(Math.abs(t) * 100));
+    });
+    svg.append('text').attr('x', W - m.r).attr('y', H - 4).attr('text-anchor', 'end').attr('font-size', 10).style('fill', 'var(--color-fg-muted)').text(`p.p. para ${n.pt} →`);
+    svg.append('text').attr('x', m.l).attr('y', H - 4).attr('font-size', 10).style('fill', 'var(--color-fg-muted)').text(`← p.p. para ${n.dir}`);
+    y.ticks(5).forEach((t) => svg.append('text').attr('x', m.l - 6).attr('y', y(t)).attr('dy', '0.35em').attr('text-anchor', 'end').attr('font-size', 11).style('fill', 'var(--color-fg-muted)').text(nf0.format(t)));
+    svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(maj)).attr('y2', y(maj)).style('stroke', 'var(--color-fg)').attr('stroke-dasharray', '4 3').attr('stroke-width', 1);
+    svg.append('text').attr('x', m.l + 4).attr('y', y(maj) - 4).attr('font-size', 10).style('fill', 'var(--color-fg-muted)').text(`maioria ${F.int(maj)}`);
+    svg.append('path').attr('d', d3.line()(pts.map(([s, v]) => [x(s), y(v)]))).style('fill', 'none').style('stroke', 'var(--st-pt)').attr('stroke-width', 2.2);
+    L0.filter((d) => d.t > -L && d.t < L).sort((a, b) => a.t - b.t).forEach((d, i) => {
+      const v = votos(d.t + 1e-9);
+      svg.append('text').attr('x', x(d.t) + 3).attr('y', y(v) + (i % 2 ? 12 : -5)).attr('font-size', 9).style('fill', d.pt ? 'var(--st-pt)' : 'var(--st-dir)').text(d.uf);
+    });
+    const tip = document.createElement('div'); tip.className = 'st-tip'; tip.hidden = true; box.appendChild(tip);
+    svg.on('mousemove', (ev) => {
+      const s = x.invert(d3.pointer(ev)[0]);
+      const v = votos(s);
+      const h = document.createElement('div'); h.className = 'st-tip-h'; h.textContent = Math.abs(s) < 0.0005 ? 'resultado real' : `${F.ppu(Math.abs(s))} para ${s > 0 ? n.pt : n.dir} em todos os estados`;
+      const l = document.createElement('div'); l.textContent = `${n.pt} ${F.int(v)} × ${F.int(tot - v)} ${n.dir}`;
+      tip.replaceChildren(h, l);
+      tipAt(box, tip, ev);
+    }).on('mouseleave', () => { tip.hidden = true; });
+  }
+
+  function ataqueDefesa(p) {
+    const cu = tbl('colegio_uf');
+    const col = tbl('colegio');
+    const box = $('#ad-chart');
+    const tbs = [$('#ad-def tbody'), $('#ad-atq tbody')];
+    if (!cu || !col) { if (failed('colegio_uf') || failed('colegio')) { failLine(box); tbs.forEach(failLine); } return; }
+    const c = col.by.get(`${p.ano}-colegio`);
+    if (!c) return;
+    const n = NOMES[p.ano];
+    $('#ad-h').textContent = `Ataque e defesa no colégio, ${p.ano}`;
+    $('#ad-def-h').textContent = `Defesa de ${n.pt}: estados do PT mais fáceis de perder`;
+    $('#ad-atq-h').textContent = `Ataque de ${n.pt}: estados de ${n.dir} mais fáceis de ganhar`;
+    curva(p, cu, c);
+    const L0 = limiares(cu, p.ano);
+    const lista = (tb, sel, sinal) => {
+      let acum = +c.pt;
+      tb.replaceChildren(...sel.slice(0, 10).map((d) => {
+        acum += sinal * d.w;
+        const tr = document.createElement('tr');
+        tr.dataset.key = d.r.id;
+        tr.append(td(`${d.r.nome}`, 'txt'));
+        [[F.int(d.w), 'peso_colegio'], [F.ppu(Math.abs(d.t)), 'swing_para_virar_pp'], [nf0.format(d.w / Math.max(Math.abs(d.t) * 100, 0.01)), 'peso_colegio']].forEach(([t, f]) => {
+          const cell = td(t); setMark(cell, 'colegio_uf', f, d.r.id); tr.append(cell);
+        });
+        const res = td(`${F.int(acum)} × ${F.int(+c.total - acum)}`, acum >= +c.maioria ? 'pos' : 'neg');
+        res.title = acum >= +c.maioria ? `${n.pt} com maioria` : `${n.dir} com maioria`;
+        tr.append(res);
+        return tr;
+      }));
+    };
+    lista(tbs[0], L0.filter((d) => d.pt).sort((a, b) => b.t - a.t), -1);
+    lista(tbs[1], L0.filter((d) => !d.pt).sort((a, b) => a.t - b.t), 1);
+    simulador(p, L0, c);
+  }
+
+  function simulador(p, L0, c) {
+    if (!st.sim || st.sim.ano !== p.ano) st.sim = { ano: p.ano, set: new Set() };
+    const n = NOMES[p.ano];
+    const box = $('#sim-ufs');
+    const ordem = L0.slice().sort((a, b) => Math.abs(a.t) - Math.abs(b.t));
+    box.replaceChildren(...ordem.map((d) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.dataset.uf = d.uf;
+      const on = st.sim.set.has(d.uf);
+      b.setAttribute('aria-pressed', String(on));
+      const lado = on ? !d.pt : d.pt;
+      b.style.borderColor = d.pt ? 'var(--st-pt)' : 'var(--st-dir)';
+      if (on) b.style.background = `color-mix(in srgb, var(${lado ? '--st-pt' : '--st-dir'}) 24%, transparent)`;
+      b.textContent = `${d.uf} ${d.w} (${F.ppu(Math.abs(d.t)).replace(' p.p.', '')})`;
+      b.title = `${d.r.nome}: ${d.pt ? n.pt : n.dir} venceu; virar exige ${F.ppu(Math.abs(d.t))} dos válidos trocando de lado`;
+      setMark(b, 'colegio_uf', 'venc_2t', d.r.id);
+      return b;
+    }));
+    const viradas = L0.filter((d) => st.sim.set.has(d.uf));
+    const pt = +c.pt + viradas.reduce((a, d) => a + (d.pt ? -d.w : d.w), 0);
+    const dir = +c.total - pt;
+    const res = $('#sim-res');
+    if (!viradas.length) { res.textContent = `Resultado real: ${n.pt} ${F.int(c.pt)} × ${F.int(c.dir)} ${n.dir} (maioria ${F.int(c.maioria)}). Clique nos estados para virar.`; return; }
+    const pro = viradas.filter((d) => !d.pt), contra = viradas.filter((d) => d.pt);
+    const maxS = (ds) => (ds.length ? Math.max(...ds.map((d) => Math.abs(d.t))) : 0);
+    const venc = pt >= +c.maioria ? n.pt : dir >= +c.maioria ? n.dir : 'ninguém (empate)';
+    res.textContent = `${n.pt} ${F.int(pt)} × ${F.int(dir)} ${n.dir}: ${venc} vence. `
+      + (pro.length ? `Para ${n.pt}: ${pro.map((d) => d.uf).join(', ')} (swing de até ${F.ppu(maxS(pro))}). ` : '')
+      + (contra.length ? `Para ${n.dir}: ${contra.map((d) => d.uf).join(', ')} (swing de até ${F.ppu(maxS(contra))}).` : '');
+  }
+
   function liquida(p) {
     window.ST.leituras('#liq-leituras', (x) => x.id === 'saldo' || x.id === 'colegio' || x.id === 'net');
     sistemas(p);
     mapaEstados(p);
+    viraUf(p);
+    ataqueDefesa(p);
     barras(p);
     tabelas(p);
   }
 
   window.ST.init.liquida = () => {
+    $('#sim-ufs').addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-uf]');
+      if (!b || !st.sim) return;
+      if (st.sim.set.has(b.dataset.uf)) st.sim.set.delete(b.dataset.uf); else st.sim.set.add(b.dataset.uf);
+      window.ST.draw();
+    });
+    $('#sim-limpar').addEventListener('click', () => { if (st.sim) st.sim.set.clear(); window.ST.draw(); });
     $('#f-saldo-m').addEventListener('click', (e) => { const b = e.target.closest('button[data-v]'); if (b) { st.saldoM = b.dataset.v; window.ST.draw(); } });
   };
   window.ST.abas.liquida = liquida;
