@@ -1,0 +1,17 @@
+id,nivel,teste,n,valor,p,leitura
+cid-razao,"Cidade, 1º turno",Spearman: razão de ganho × % sem biometria,4619,-0.18657,0.0,negativa: cidades com razão maior tiveram menos voto sem biometria no 1º turno
+cid-fatia,"Cidade, 1º turno",Spearman: fatia do PT no ganho × % sem biometria (todas as cidades),5571,-0.1217,0.0,
+cid-razao-uf,"Cidade, 1º turno",Mesmo teste dentro de cada estado (postos por UF),4619,-0.06824,0.0,quase nula: a maior parte da correlação nacional é diferença entre estados
+cid-q1,"Cidade, 1º turno","Quintil 1 de voto sem biometria (2,6% a 5,7%)",1115,3.06348,,"razão mediana; adversário perdeu votos em 28%, conversão acima de 100% em 44% das cidades"
+cid-q2,"Cidade, 1º turno","Quintil 2 de voto sem biometria (5,7% a 6,8%)",1115,2.45485,,"razão mediana; adversário perdeu votos em 14%, conversão acima de 100% em 31% das cidades"
+cid-q3,"Cidade, 1º turno","Quintil 3 de voto sem biometria (6,8% a 8,1%)",1115,2.2,,"razão mediana; adversário perdeu votos em 15%, conversão acima de 100% em 28% das cidades"
+cid-q4,"Cidade, 1º turno","Quintil 4 de voto sem biometria (8,1% a 10,1%)",1115,2.38636,,"razão mediana; adversário perdeu votos em 12%, conversão acima de 100% em 25% das cidades"
+cid-q5,"Cidade, 1º turno","Quintil 5 de voto sem biometria (10,1% a 24,1%)",1115,1.86591,,"razão mediana; adversário perdeu votos em 9%, conversão acima de 100% em 19% das cidades"
+sec-nb,"Seção, logs 1º e 2º",Votos sem biometria: 1º → 2º turno,3905,0.12191,,"11,9% → 12,2% dos votos; +4.611 votos sem biometria"
+sec-mes,"Seção, logs 1º e 2º",Liberados pelo mesário: 1º → 2º turno,3905,0.04821,,"4,2% → 4,8% dos votos; +6.421 votos"
+sec-saldo,"Seção, logs 1º e 2º",Saldo líquido do PT nas mesmas seções,3905,52564.0,,"PT +68.940, adversário +16.376; o aumento de votos sem biometria equivale a 9% do saldo"
+sec-reg-pt,"Seção, logs 1º e 2º",PT ganha por voto novo com biometria / sem biometria,3905,0.72401,,"0,69 com × 0,72 sem: o voto novo sem biometria rende ao PT o mesmo que o com biometria"
+sec-reg-dir,"Seção, logs 1º e 2º",Adversário ganha por voto novo com biometria / sem biometria,3905,0.36689,,"0,40 com × 0,37 sem"
+sec-rho-nb,"Seção, logs 1º e 2º",Spearman: variação de votos sem biometria × saldo do PT,3905,0.10188,0.0,
+sec-rho-bi,"Seção, logs 1º e 2º",Spearman: variação de votos com biometria × saldo do PT,3905,0.1928,0.0,
+sec-razao,"Seção, logs 1º e 2º",Spearman: razão de ganho × variação da taxa sem biometria,2435,0.00772,0.70322,

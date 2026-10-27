@@ -351,7 +351,8 @@
       .sort((a, b) => +b.aptos - +a.aptos).slice(0, 200);
     rowsTable(tb, list, [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct],
       ['cresc_pt', F.spct, 1], ['ganho_pt', F.sint, 1], ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['cresc_dir', F.spct, 1], ['ganho_dir', F.sint, 1],
-      ['pct_terceira', F.pct], ['x_levou_pt', F.pct], ['x_levou_pt', convAdv], ['venc_2t', F.txt, 0, 1]], (tr, x) => reqCor(tr, x, 12));
+      [null, window.ST.razaoTxt], ['pct_terceira', F.pct], ['x_levou_pt', F.pct], ['x_levou_pt', convAdv], ['venc_2t', F.txt, 0, 1]],
+    (tr, x) => { reqCor(tr, x, 13); const c = window.ST.razaoCls(x); if (c) tr.children[11].classList.add(c); });
     quedas(p);
   }
 

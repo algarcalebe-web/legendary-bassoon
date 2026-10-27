@@ -15,6 +15,7 @@ exceto a coluna de apoio formal no 2º turno (`APOIO` em `alinhamento.py`), que 
 | `consistencia.py` | `consistencia_serie.csv`, `consistencia_locais.csv`, `consistencia_extremos.csv` (identidades contábeis, cruzamento 2026 dados abertos × API, desvios locais, extremos) |
 | `colegio.py` | `colegio.csv`, `colegio_uf.csv`, `saldos.csv` (vitória líquida por UF/região, colégio pelo 1º e pelo 2º turno, sistemas alternativos, swing para virar) |
 | `secao.py` | `secao_serie.csv`, `secao_transicao.csv`, `secao_uf.csv`, `secao_tempo.csv`, `secao_modelo.csv`, `secao_extremos.csv`, `secao_dist.csv` (testes com as ~500 mil seções de 2018, 2022 e 2026) |
+| `razao_biometria.py` | `razao_ganho.csv`, `biometria_teste.csv`, `biometria_cidade.csv` (votos ganhos pelo PT ÷ votos ganhos pelo adversário por cidade, 2002–2026, e a relação com o voto sem biometria em 2026: bweb do 1º turno por cidade e logs de urna dos dois turnos por seção) |
 | `seguranca.py` | `seg_resumo.csv`, `seg_camadas.csv`, `seg_grupos.csv`, `seg_urna.csv`, `seg_secoes.csv`, `seg_uf.csv` (segurança em camadas: seções e cidades sinalizadas × correspondências, logs do GEDAI, boletins de urna, logs das urnas e RDV, 2026) |
 | `build_insights.py` | `insights.json` (leituras em texto, todos os números tirados das tabelas) |
 
@@ -45,6 +46,7 @@ python -I consistencia.py <od_dir> <api_dir> <mun_dir> <detalhe_munzona_2026.zip
 python3 -I colegio.py <od_dir> <apiuf_dir> data
 python -I secao.py <od_dir> <api_dir> <mun_dir> <secao_dir> data  # numpy, scipy
 python -I seguranca.py <secao_dir> <seg_raw_dir> <bweb_dir> data data <cache_dir>  # numpy; curl para o portal
+python -I razao_biometria.py <bweb_dir> data  # depois de seguranca.py; numpy, scipy
 python3 -I build_insights.py data
 ```
 

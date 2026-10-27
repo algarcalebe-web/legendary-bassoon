@@ -58,6 +58,11 @@
     ppu: (v) => (isNum(v) ? neg(v) + nf1.format(Math.abs(+v) * 100) + ' p.p.' : '—'),
   };
   const cls = (v) => (!isNum(v) ? '' : +v > 0 ? 'pos' : +v < 0 ? 'neg' : '');
+  // razão de ganho: votos ganhos pelo PT ÷ votos ganhos pelo adversário (Araruama 2026: 5.581 ÷ 11 = 50.736%). Só existe com os dois
+  // ganhando; adversário perdendo votos = infinita (vai para o topo), PT perdendo = fim da fila
+  const razaoChave = (r) => (+r.ganho_pt <= 0 ? -Infinity : +r.ganho_dir <= 0 ? Infinity : +r.ganho_pt / +r.ganho_dir);
+  const razaoTxt = (v, r) => { const x = razaoChave(r || v); return x === -Infinity ? 'PT perdeu' : x === Infinity ? 'adv. perdeu' : nf0.format(x * 100) + '%'; };
+  const razaoCls = (r) => (razaoChave(r) >= 10 ? 'neg' : '');
 
   // dados: índice por id, refeito só quando o dataset muda
   const cache = new Map();
@@ -201,6 +206,6 @@
     dash.onData(draw);
   }
 
-  window.ST = { NOMES, ANOS, REG, UFS, UF_NOME, UF_REG, noFiltro, STATUS, STATUS_REQ, statusReq, CONV_ROT, CONV_CLS, CONV_EXPL, convFlag, PERDA_ROT, F, cls, isNum, $, $$, tbl, failed, setMark, fill, failLine, td, rowsTable,
+  window.ST = { NOMES, ANOS, REG, UFS, UF_NOME, UF_REG, noFiltro, STATUS, STATUS_REQ, statusReq, CONV_ROT, CONV_CLS, CONV_EXPL, convFlag, PERDA_ROT, F, cls, razaoChave, razaoTxt, razaoCls, isNum, $, $$, tbl, failed, setMark, fill, failLine, td, rowsTable,
     textWidth, segPressed, tipAt, st, P, abas, init: {}, draw, start, abrirCidade, clicavel, nf0, nf1 };
 })();

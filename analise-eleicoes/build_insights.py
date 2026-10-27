@@ -197,9 +197,9 @@ def main(data_dir):
         f"somada ao saldo: ali eleitores de Flávio no 1º turno necessariamente saíram. Quando o saldo é parecido em todas as cidades, "
         f"os dados municipais não distinguem eleitor recuperado de eleitor que trocou de lado.")
     add("aud-limites", "auditoria", "Limite desta auditoria",
-        "Dados por município não detectam alteração localizada em seções. O teste definitivo compara cada boletim de urna "
-        "com a totalização e repete estes testes por seção; os dados abertos do 2º turno de 2026 por seção ainda não estavam "
-        "publicados quando esta análise foi feita.")
+        "Dados por município não detectam alteração localizada em seções: esses testes estão nas abas Seções (votação por seção "
+        "dos dois turnos) e Segurança (log e RDV de urna de uma amostra dirigida). Nenhum dado público identifica o eleitor, então "
+        "não dá para saber, voto a voto, quem trocou de lado, quem voltou a votar e quem votou branco ou nulo no 1º turno.")
     vb = {a: vir[f"{a}-BR"] for a in NOMES}
     iv = lambda a, k: int(float(vb[a][k]))
     add("aud-perdas", "auditoria", "Perdas e conversões entre turnos, 2002–2026",
@@ -322,6 +322,22 @@ def main(data_dir):
         f"recuperados foram para Lula muito além da distribuição do 1º turno ou se Lula obteve outros votos além da 3ª via; sem uma delas, é "
         f"alerta de possível fraude. Os "
         f"dados por cidade não separam essas explicações; a lista completa está no cartão Cidades sinalizadas.")
+    if (d / "razao_ganho.csv").exists() and (d / "biometria_teste.csv").exists():
+        rz = {r["id"]: r for r in rd("razao_ganho.csv")}
+        bt = {r["id"]: r for r in rd("biometria_teste.csv")}
+        dec = lambda v: f"{float(v):.2f}".replace(".", ",").replace("-", "−")  # noqa: E731
+        topo = lambda a: sum(int(rz[f"{a}-{k}"]["cidades"]) for k in ("dir_perdeu", "r100", "r10"))  # noqa: E731
+        topo_el = lambda a: sum(float(rz[f"{a}-{k}"]["pct_aptos"]) for k in ("dir_perdeu", "r100", "r10"))  # noqa: E731
+        add("aud-razao", "auditoria", "Ganho de Lula ÷ ganho de Flávio, cidade a cidade",
+            f"Na mediana das cidades, Lula ganhou {pct(rz['2026-total']['razao_mediana'], 0)} dos votos que Flávio ganhou entre os turnos "
+            f"(Araruama/RJ: 5.581 ÷ 11 = 50.736%). Em {num(topo('2026'))} cidades ({pct(topo_el('2026'), 0)} do eleitorado) Lula ganhou 10 vezes ou mais o que "
+            f"Flávio ganhou, ou Flávio perdeu votos; {num(rz['2026-r100']['cidades'])} passam de 100 vezes. Na série: {num(topo('2022'))} cidades em 2022, "
+            f"{num(topo('2018'))} em 2018, {num(topo('2014'))} em 2014 e {num(topo('2006'))} em 2006, quando Alckmin perdeu votos em "
+            f"{num(rz['2006-dir_perdeu']['cidades'])}. Biometria: a correlação entre a razão e o voto sem biometria do 1º turno é negativa "
+            f"({dec(bt['cid-razao']['valor'])}; {dec(bt['cid-razao-uf']['valor'])} dentro de cada estado) — as cidades de razão alta não são as de mais voto sem biometria. "
+            f"Nas {num(bt['sec-nb']['n'])} seções com log dos dois turnos, o voto sem biometria foi de {bt['sec-nb']['leitura'].split(' dos')[0]}; o aumento "
+            f"equivale a {bt['sec-saldo']['leitura'].split('equivale a ')[1]} de Lula, e cada voto novo sem biometria rendeu a Lula o mesmo que um com biometria "
+            f"({bt['sec-reg-pt']['leitura'].split(':')[0]}). O bweb do 2º turno ainda não foi publicado; a amostra de seções é dirigida aos grupos sinalizados.")
     add("aud-trocas", "auditoria", "Perdas de votos e troca de lado",
         f"Flávio perdeu votos do 1º para o 2º turno em {num(c6['perdeu_dir'])} cidades ({num(c6['votos_perdidos_dir'])} votos). Em {num(c6['dir_saida_caiu'])} delas "
         f"abstenção, brancos e nulos caíram — a perda só se explica com eleitores indo para Lula —, em {num(c6['dir_perda_maior'])} ele perdeu mais do que eles "

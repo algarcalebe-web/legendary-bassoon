@@ -12,10 +12,16 @@
     troca_dir: (r) => +r.troca_min_dir > 0, troca_pt: (r) => +r.troca_min_pt > 0,
     perda_pt: (r) => !!r.flag_perda_pt, perda_dir: (r) => !!r.flag_perda_dir,
     explicavel: (r) => r.flag_perda_pt === 'explicavel' || r.flag_perda_dir === 'explicavel',
+    razao10: (r) => window.ST.razaoChave(r) >= 10,
   };
+  // % do comparecimento do 1º turno sem biometria (bweb), só 2026
+  const semBiom = (r) => { const b = String(r.ano) === '2026' && tbl('biometria_cidade'); const x = b && b.by.get(String(r.id)); return x && isNum(x.sem_biom_1t) ? +x.sem_biom_1t : null; };
   const CHAVE = { municipio: (r) => r.municipio, uf: (r) => r.uf, aptos: (r) => +r.aptos, terceira_via: (r) => +r.terceira_via, rec_pt: (r) => +r.rec_pt,
     rec_dir: (r) => +r.rec_dir, rec_ter: (r) => +r.rec_ter, ganho_pt: (r) => +r.ganho_pt, ganho_dir: (r) => +r.ganho_dir, conv_pt: (r) => +r.x_levou_pt, conv_dir: (r) => -r.x_levou_pt,
-    exc: (r) => +r.exc_pt + +r.exc_dir, troca: (r) => +r.troca_min_pt + +r.troca_min_dir, venc: (r) => r.venc_2t };
+    exc: (r) => +r.exc_pt + +r.exc_dir, troca: (r) => +r.troca_min_pt + +r.troca_min_dir, venc: (r) => r.venc_2t,
+    // razão infinita (adversário perdeu) ordenada pelo saldo; PT perdendo vai para o fim
+    razao: (r) => { const x = window.ST.razaoChave(r); return x === Infinity ? 1e9 + +r.ganho_pt - +r.ganho_dir : x === -Infinity ? -1e9 + +r.ganho_pt : x; },
+    sem_biom: (r) => semBiom(r) };
   const fora = (v) => isNum(v) && (+v < -0.05 || +v > 1.05);
   const pctF = (v) => F.pct(v);
 
@@ -63,6 +69,7 @@
         ['klimek_cidades', F.int], ['benford2_p', F.dec], ['ultimo_digito_p', F.dec], ['x_hat', F.pct], ['y_hat', F.pct], ['c_hat', F.pp, 1]], sel);
     } else if (failed('auditoria_serie')) { failLine($('#aud-serie tbody')); failLine($('#aud-forense tbody')); }
     sinais(p);
+    razaoBio(p);
     dist(p);
     consistencia(p);
     const ou = tbl('auditoria_outliers');
@@ -112,18 +119,53 @@
     const fs = FLAG_SEL[st.flag] || FLAG_SEL.todas;
     const all = cid.rows.filter((r) => window.ST.noFiltro(r, p) && fs(r));
     const ch = CHAVE[k] || CHAVE.exc;
-    all.sort((a, b) => { const x = ch(a), y = ch(b); return (typeof x === 'string' ? x.localeCompare(y, 'pt-BR') : (x || 0) - (y || 0)) * d; });
+    all.sort((a, b) => { const x = ch(a), y = ch(b); return (typeof x === 'string' ? x.localeCompare(y, 'pt-BR') : x === y ? 0 : (x || 0) - (y || 0)) * d; });
     $('#aud-flag-n').textContent = `${F.int(all.length)} cidades${all.length > 500 ? ', mostrando as 500 primeiras na ordem escolhida' : ''}. Recorte: ${p.uf ? window.ST.UF_NOME[p.uf] : window.ST.REG[p.reg]}.`;
     const exc = (v, r) => (+r.exc_pt > 0 ? `${F.int(r.exc_pt)} (PT)` : +r.exc_dir > 0 ? `${F.int(r.exc_dir)} (adv.)` : '—');
     const troca = (v, r) => (+r.troca_min_dir > 0 ? `${F.int(r.troca_min_dir)} adv.→PT` : +r.troca_min_pt > 0 ? `${F.int(r.troca_min_pt)} PT→adv.` : '—');
     rowsTable(tb, all.slice(0, 500), [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['terceira_via', F.int], ['rec_pt', F.sint], ['rec_dir', F.sint], ['rec_ter', F.sint],
-      ['ganho_pt', F.sint, 1], ['ganho_dir', F.sint, 1], ['x_levou_pt', F.pct], ['x_levou_pt', (v) => (isNum(v) ? F.pct(1 - +v) : '—')],
+      ['ganho_pt', F.sint, 1], ['ganho_dir', F.sint, 1], [null, window.ST.razaoTxt], ['x_levou_pt', F.pct], ['x_levou_pt', (v) => (isNum(v) ? F.pct(1 - +v) : '—')],
       ['flag_conv', (v) => window.ST.CONV_ROT[v] || '—', 0, 1], ['exc_pt', exc], ['flag_perda_pt', (v) => PERDA_CURTO[v] || '—', 0, 1],
-      ['flag_perda_dir', (v) => PERDA_CURTO[v] || '—', 0, 1], ['troca_min_dir', troca], ['venc_2t', F.txt, 0, 1]], (tr, r) => {
+      ['flag_perda_dir', (v) => PERDA_CURTO[v] || '—', 0, 1], ['troca_min_dir', troca], [null, (r) => F.pct(semBiom(r))], ['venc_2t', F.txt, 0, 1]], (tr, r) => {
       const c = window.ST.CONV_CLS[r.flag_conv];
-      if (c) [9, 10].forEach((i) => tr.children[i].classList.add(c));
-      [13, 14].forEach((i) => { const v = r[i === 13 ? 'flag_perda_pt' : 'flag_perda_dir']; if (v && v !== 'explicavel') tr.children[i].classList.add('neg'); });
+      if (c) [10, 11].forEach((i) => tr.children[i].classList.add(c));
+      const rc = window.ST.razaoCls(r); if (rc) tr.children[9].classList.add(rc);
+      [14, 15].forEach((i) => { const v = r[i === 14 ? 'flag_perda_pt' : 'flag_perda_dir']; if (v && v !== 'explicavel') tr.children[i].classList.add('neg'); });
     });
+  }
+
+  // ganho do PT ÷ ganho do adversário por cidade, série 2002–2026, e a relação com o voto sem biometria (2026)
+  const RAZAO_CL = ['dir_perdeu', 'r100', 'r10', 'r3', 'r1', 'r0', 'pt_perdeu'];
+  function razaoBio(p) {
+    const rz = tbl('razao_ganho');
+    const n = NOMES[p.ano];
+    $('#aud-razao-cl-h').textContent = `Classes de razão em ${p.ano}: votos ganhos por ${n.pt} ÷ votos ganhos por ${n.dir}`;
+    if (rz) {
+      const tb = $('#aud-razao tbody');
+      tb.replaceChildren(...ANOS.map((a) => {
+        const tr = document.createElement('tr');
+        const t = rz.by.get(`${a}-total`);
+        if (!t) return tr;
+        tr.classList.toggle('st-sel', a === p.ano);
+        tr.append(window.ST.td(`${a} · ${NOMES[a].pt} × ${NOMES[a].dir}`, 'txt'), window.ST.td(window.ST.nf1.format(+t.razao_mediana * 100) + '%'));
+        RAZAO_CL.forEach((k) => {
+          const x = rz.by.get(`${a}-${k}`);
+          const c = window.ST.td(x ? `${F.int(x.cidades)} (${F.pct(x.pct_aptos)})` : '—');
+          if (x && +x.cidades > 0 && (k === 'dir_perdeu' || k === 'r100' || k === 'r10')) c.classList.add('neg');
+          tr.append(c);
+        });
+        return tr;
+      }));
+      rowsTable($('#aud-razao-cl tbody'), RAZAO_CL.map((k) => rz.by.get(`${p.ano}-${k}`)).filter(Boolean),
+        [['rotulo', F.txt, 0, 1], ['cidades', F.int], ['pct_aptos', F.pct], ['ganho_pt', F.sint, 1], ['ganho_dir', F.sint, 1],
+          ['razao_mediana', (v) => (isNum(v) ? nf0.format(+v * 100) + '%' : '—')], ['pct_alerta', F.pct], ['sem_biom_1t', F.pct]]);
+    } else if (failed('razao_ganho')) { failLine($('#aud-razao tbody')); failLine($('#aud-razao-cl tbody')); }
+    const bt = tbl('biometria_teste');
+    if (bt) {
+      rowsTable($('#aud-bio tbody'), bt.rows, [['nivel', F.txt, 0, 1], ['teste', F.txt, 0, 1], ['n', F.int],
+        ['valor', (v, r) => (!isNum(v) ? '—' : r.id === 'sec-saldo' ? F.sint(v) : r.id.startsWith('cid-q') ? nf0.format(+v * 100) + '%' : r.id === 'sec-nb' || r.id === 'sec-mes' ? F.pct(v) : F.dec2(v))],
+        ['p', (v) => (!isNum(v) ? '—' : +v < 0.001 ? '< 0,001' : F.dec(v))], ['leitura', F.txt, 0, 1]]);
+    } else if (failed('biometria_teste')) failLine($('#aud-bio tbody'));
   }
 
   function consistencia(p) {

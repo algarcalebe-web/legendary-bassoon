@@ -600,7 +600,7 @@
           <th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th>
           <th data-field="pct_pt_1t">PT 1º</th><th data-field="pct_pt_2t">PT 2º</th><th data-field="cresc_pt">Cresc. PT</th><th data-field="ganho_pt">Votos PT</th>
           <th data-field="pct_dir_1t">Adv. 1º</th><th data-field="pct_dir_2t">Adv. 2º</th><th data-field="cresc_dir">Cresc. adv.</th><th data-field="ganho_dir">Votos adv.</th>
-          <th data-field="pct_terceira">3ª via</th><th data-field="x_levou_pt">Conversão: PT</th><th data-field="x_levou_pt">Adv.</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
+          <th data-field="ganho_pt" title="Votos ganhos pelo PT ÷ votos ganhos pelo adversário entre os turnos (Araruama 2026: 5.581 ÷ 11 = 50.736%)">Ganho PT ÷ ganho adv.</th><th data-field="pct_terceira">3ª via</th><th data-field="x_levou_pt">Conversão: PT</th><th data-field="x_levou_pt">Adv.</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
         </tr></thead>
         <tbody class="click"></tbody>
       </table></div>
@@ -688,6 +688,33 @@
         <tbody></tbody>
       </table></div>
     </div>
+    <div class="st-card" id="aud-razao-card">
+      <h2>Ganho do PT ÷ ganho do adversário, por cidade, 2002–2026</h2>
+      <p class="st-note">Votos ganhos pelo PT do 1º para o 2º turno divididos pelos ganhos pelo adversário. Araruama (RJ), 2026: 5.581 ÷ 11 = 507× ou 50.736%. Quando o adversário perde votos a razão não existe (infinita) e a cidade conta à parte. Denominador pequeno explode a razão: vale para ordenar, não para somar; por isso mediana e classes. Cada célula: cidades (% do eleitorado). Ordene a lista de cidades sinalizadas por esta coluna para ver caso a caso.</p>
+      <div class="st-tbl short"><table id="aud-razao" data-source="razao_ganho" data-row-key="id">
+        <thead>
+          <tr><th class="txt">Eleição</th><th>Razão mediana</th><th>Adv. perdeu votos</th><th>100× ou mais</th><th>10× a 100×</th><th>3× a 10×</th><th>1× a 3×</th><th>Abaixo de 1×</th><th>PT perdeu votos</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+      <h3 id="aud-razao-cl-h">Classes de razão</h3>
+      <div class="st-tbl short"><table id="aud-razao-cl" data-source="razao_ganho" data-row-key="id">
+        <thead>
+          <tr><th class="txt" data-field="rotulo">Classe</th><th data-field="cidades">Cidades</th><th data-field="pct_aptos">% do eleitorado</th><th data-field="ganho_pt">Ganho PT</th><th data-field="ganho_dir">Ganho adv.</th><th data-field="razao_mediana">Razão mediana</th><th data-field="pct_alerta">Em alerta de conversão (90%+)</th><th data-field="sem_biom_1t">Sem biometria no 1º (2026)</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="aud-bio-card">
+      <h2>Razão de ganho × voto com e sem biometria, 2026</h2>
+      <p class="st-note">Se os votos a mais do PT tivessem vindo de eleitores liberados sem biometria, as cidades e seções com razão maior teriam mais voto sem biometria, e o voto novo sem biometria renderia mais ao PT que o com biometria. Cidade: bweb do 1º turno (eleitor com biometria liberado sem ela ÷ comparecimento), todas as cidades; o bweb do 2º turno ainda não foi publicado pelo TSE. Seção: logs de urna dos dois turnos nas seções lidas na aba Segurança (amostra dirigida aos grupos sinalizados, não aleatória). Spearman: correlação de postos, de −1 a +1.</p>
+      <div class="st-tbl short"><table id="aud-bio" data-source="biometria_teste" data-row-key="id">
+        <thead>
+          <tr><th class="txt" data-field="nivel">Nível</th><th class="txt" data-field="teste">Teste</th><th data-field="n">n</th><th data-field="valor">Valor</th><th data-field="p">p</th><th class="txt" data-field="leitura">Leitura</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
     <div class="st-card" id="aud-flag-card">
       <div class="st-card-h">
         <h2 id="aud-flag-h">Cidades sinalizadas</h2>
@@ -705,13 +732,14 @@
             <option value="perda_pt">PT perdeu votos</option>
             <option value="perda_dir">Adv. perdeu votos</option>
             <option value="explicavel">Perda explicável por quem deixou de votar</option>
+            <option value="razao10">Ganho do PT 10× o do adv. ou mais (ou adv. perdeu)</option>
           </select>
         </label>
       </div>
       <p class="st-note"><span id="aud-flag-n"></span> Eleição, região e estado dos filtros do topo. Clique num cabeçalho para ordenar e numa cidade para abri-la no mapa. Recuperados = queda de abstenção, brancos e nulos dividida pela distribuição do 1º turno (PT, adversário e bolo da 3ª via).</p>
       <div class="st-tbl"><table id="aud-flag">
         <thead><tr>
-          <th class="txt" data-field="municipio" data-sort="municipio"><button type="button" data-k="municipio">Município</button></th><th class="txt" data-field="uf" data-sort="uf"><button type="button" data-k="uf">UF</button></th><th data-field="aptos" data-sort="aptos"><button type="button" data-k="aptos">Eleitores</button></th><th data-field="terceira_via" data-sort="terceira_via"><button type="button" data-k="terceira_via">3ª via</button></th><th data-field="rec_pt" data-sort="rec_pt"><button type="button" data-k="rec_pt">Recuperados PT</button></th><th data-field="rec_dir" data-sort="rec_dir"><button type="button" data-k="rec_dir">Recuperados adv.</button></th><th data-field="rec_ter" data-sort="rec_ter"><button type="button" data-k="rec_ter">Recuperados → bolo 3ª via</button></th><th data-field="ganho_pt" data-sort="ganho_pt"><button type="button" data-k="ganho_pt">Ganho PT</button></th><th data-field="ganho_dir" data-sort="ganho_dir"><button type="button" data-k="ganho_dir">Ganho adv.</button></th><th data-field="x_levou_pt" data-sort="conv_pt"><button type="button" data-k="conv_pt">Conversão PT</button></th><th data-field="x_levou_pt" data-sort="conv_dir"><button type="button" data-k="conv_dir">Conversão adv.</button></th><th class="txt" data-field="flag_conv">Avaliação</th><th data-field="exc_pt" data-sort="exc"><button type="button" data-k="exc">Acima da regra</button></th><th class="txt" data-field="flag_perda_pt">Perda do PT</th><th class="txt" data-field="flag_perda_dir">Perda do adv.</th><th data-field="troca_min_dir" data-sort="troca"><button type="button" data-k="troca">Troca mínima</button></th><th class="txt" data-field="venc_2t" data-sort="venc"><button type="button" data-k="venc">Venceu</button></th>
+          <th class="txt" data-field="municipio" data-sort="municipio"><button type="button" data-k="municipio">Município</button></th><th class="txt" data-field="uf" data-sort="uf"><button type="button" data-k="uf">UF</button></th><th data-field="aptos" data-sort="aptos"><button type="button" data-k="aptos">Eleitores</button></th><th data-field="terceira_via" data-sort="terceira_via"><button type="button" data-k="terceira_via">3ª via</button></th><th data-field="rec_pt" data-sort="rec_pt"><button type="button" data-k="rec_pt">Recuperados PT</button></th><th data-field="rec_dir" data-sort="rec_dir"><button type="button" data-k="rec_dir">Recuperados adv.</button></th><th data-field="rec_ter" data-sort="rec_ter"><button type="button" data-k="rec_ter">Recuperados → bolo 3ª via</button></th><th data-field="ganho_pt" data-sort="ganho_pt"><button type="button" data-k="ganho_pt">Ganho PT</button></th><th data-field="ganho_dir" data-sort="ganho_dir"><button type="button" data-k="ganho_dir">Ganho adv.</button></th><th data-field="ganho_pt" data-sort="razao" title="Votos ganhos pelo PT ÷ votos ganhos pelo adversário (Araruama 2026: 5.581 ÷ 11 = 50.736%)"><button type="button" data-k="razao">Ganho PT ÷ ganho adv.</button></th><th data-field="x_levou_pt" data-sort="conv_pt"><button type="button" data-k="conv_pt">Conversão PT</button></th><th data-field="x_levou_pt" data-sort="conv_dir"><button type="button" data-k="conv_dir">Conversão adv.</button></th><th class="txt" data-field="flag_conv">Avaliação</th><th data-field="exc_pt" data-sort="exc"><button type="button" data-k="exc">Acima da regra</button></th><th class="txt" data-field="flag_perda_pt">Perda do PT</th><th class="txt" data-field="flag_perda_dir">Perda do adv.</th><th data-field="troca_min_dir" data-sort="troca"><button type="button" data-k="troca">Troca mínima</button></th><th data-field="sem_biom_1t" data-source="biometria_cidade" data-sort="sem_biom"><button type="button" data-k="sem_biom">Sem biometria 1º (2026)</button></th><th class="txt" data-field="venc_2t" data-sort="venc"><button type="button" data-k="venc">Venceu</button></th>
         </tr></thead>
         <tbody class="click"></tbody>
       </table></div>

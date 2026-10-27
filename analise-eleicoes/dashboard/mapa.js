@@ -264,6 +264,7 @@
         fato(`${n.dir} no 1º → 2º`, src, 'pct_dir_2t', r.id, `${F.pct(r.pct_dir_1t)} → ${F.pct(r.pct_dir_2t)}`),
         fato(`Votos ganhos por ${n.pt}`, src, 'ganho_pt', r.id, F.sint(r.ganho_pt), cls(r.ganho_pt)),
         fato(`Votos ganhos por ${n.dir}`, src, 'ganho_dir', r.id, F.sint(r.ganho_dir), cls(r.ganho_dir)),
+        fato(`Votos ganhos por ${n.pt} ÷ votos ganhos por ${n.dir}`, src, 'ganho_pt', r.id, window.ST.razaoTxt(r), window.ST.razaoCls(r)),
         fato(`Crescimento líquido de ${n.pt}`, src, 'net_votos', r.id, F.sint(r.net_votos), cls(r.net_votos)),
         fato('Variação da margem', src, 'swing_margem', r.id, F.pp(r.swing_margem), cls(r.swing_margem)),
         fato('3ª via no 1º turno', src, 'terceira_via', r.id, F.int(r.terceira_via)),
