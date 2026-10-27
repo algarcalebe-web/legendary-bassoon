@@ -130,7 +130,7 @@
   "ordem": 19,
   "tema": "auditoria",
   "titulo": "O que é inédito",
-  "texto": "Saldo recuperado de 3,0% do eleitorado, contra no máximo 1,1% antes (2014). Brancos+nulos no 2º turno em 3,2%, o menor da série (antes, mínimo de 4,6% em 2022). Abstenção caindo entre turnos em 80% das cidades; em 2022 foram 65% e, de 2002 a 2018, entre 2% e 13%. Onde a 3ª via era maior a abstenção caiu mais (coeficiente -0.18, o mais negativo da série)."
+  "texto": "Saldo recuperado de 3,0% do eleitorado, contra no máximo 1,1% antes (2014). Brancos+nulos no 2º turno em 3,2%, o menor da série (antes, mínimo de 4,6% em 2022). Abstenção caindo entre turnos em 80% das cidades; em 2022 foram 65% e, de 2002 a 2018, entre 2% e 13%. Onde a 3ª via era maior a abstenção caiu mais (coeficiente −0,18, o mais negativo da série)."
  },
  {
   "id": "aud-contexto",
@@ -158,7 +158,7 @@
   "ordem": 23,
   "tema": "auditoria",
   "titulo": "Testes forenses",
-  "texto": "Comparecimento maior não vem com mais voto em Lula: correlação de -0,07 no país, -0,41 no Sudeste e -0,53 no Sul, A abstenção caiu mais onde o PT era mais fraco no 1º turno (-0,14). Cidades atípicas: 9,7 por mil, contra 11,0 a 30,9 de 2002 a 2018, Segundo dígito (p = 0,62) e último dígito (p = 0,75) sem desvio,"
+  "texto": "Comparecimento maior não vem com mais voto em Lula: correlação de −0,07 no país, −0,41 no Sudeste e −0,53 no Sul. A abstenção caiu mais onde o PT era mais fraco no 1º turno (−0,14). Cidades atípicas: 9,7 por mil, contra 11,0 a 30,9 de 2002 a 2018. Segundo dígito (p = 0,62) e último dígito (p = 0,75) sem desvio."
  },
  {
   "id": "aud-separar",
@@ -194,5 +194,47 @@
   "tema": "auditoria",
   "titulo": "Conversão da 3ª via comparada ao histórico",
   "texto": "Conversão = fatia da 3ª via que foi ao PT no 2º turno menos a fatia que tinha votado no PT na eleição anterior. 2026: +28,3 p.p. (ou +11,7 p.p. no modelo alternativo). 2018: +18,2 p.p.; 2014: −17,5 p.p. Movimentos dessa ordem, para os dois lados, aparecem em outras eleições; 2026 está entre os maiores a favor do PT, ao lado de 2018."
+ },
+ {
+  "id": "net",
+  "ordem": 29,
+  "tema": "geral",
+  "titulo": "Crescimento líquido",
+  "texto": "Lula somou 10,38 mi e Flávio 3,72 mi: crescimento líquido de +6,66 mi para Lula e margem de −1,9 p.p. para +3,6 p.p. (+5,4 p.p.). A maior parte veio do Sudeste (+2,86 mi) e do Nordeste (+2,56 mi). Na série, as maiores viradas de margem entre turnos foram 2006 (+14,7 p.p.), 2018 (+6,5 p.p.), 2026 (+5,4 p.p.)."
+ },
+ {
+  "id": "saldo",
+  "ordem": 30,
+  "tema": "colegio",
+  "titulo": "Vitória líquida por região",
+  "texto": "Lula venceu com saldo nacional de +4,43 mi: o Nordeste deu +13,65 mi e compensou Sul (−4,58 mi), Sudeste (−2,81 mi), Centro-Oeste (−1,87 mi). O Norte terminou praticamente empatado (1.079 votos de diferença)."
+ },
+ {
+  "id": "colegio",
+  "ordem": 31,
+  "tema": "colegio",
+  "titulo": "Se fosse colégio eleitoral",
+  "texto": "Com cada estado valendo seus deputados federais mais 3 senadores e o vencedor levando tudo, Flávio teria 318 votos eleitorais contra 276 de Lula, e venceria. O colégio contraria o voto popular em 2022 e 2026; nas outras eleições da série os dois coincidem. Em 2026 o estado decisivo seria Rio de Janeiro, e bastariam 80.564 votos trocando de lado em RR e TO para Lula vencer também no colégio."
+ },
+ {
+  "id": "aud-contab",
+  "ordem": 32,
+  "tema": "auditoria",
+  "titulo": "Contabilidade e cruzamento de fontes",
+  "texto": "Nas 5.757 cidades do 2º turno de 2026, comparecimento = válidos + brancos + nulos e válidos = soma dos candidatos fecham sem nenhuma diferença; aptos = comparecimento + abstenção difere em 40 cidades (423 eleitores), dentro do que aparece em todas as eleições (369 a 1.457 eleitores). No arquivo de 2006, comparecimento não fecha em nenhuma das 12.584 zonas, por 37.752 votos no total, uma diferença pequena e uniforme que aponta para a definição de um campo do arquivo. As duas publicações do TSE do 1º turno de 2026, dados abertos e API de resultados, batem em todas as 5.757 cidades, campo a campo e candidato a candidato."
+ },
+ {
+  "id": "aud-net",
+  "ordem": 33,
+  "tema": "auditoria",
+  "titulo": "Crescimento líquido cidade a cidade",
+  "texto": "Cidades cujo swing destoa do próprio estado (mais de 4 desvios robustos): 2,0 por mil em 2026, o menor da série (3,1 a 5,6 antes). Dentro de cada estado, cada ponto de comparecimento a mais virou 0,34 ponto de margem líquida para Lula; de 2002 a 2022 esse número foi de −0,03 a 0,86. Votos inventados para um lado dariam perto de 1. A geografia do voto repetiu a de 2022 com correlação de 0,985, a mais alta da série."
+ },
+ {
+  "id": "aud-extremos",
+  "ordem": 34,
+  "tema": "auditoria",
+  "titulo": "Pontos fora da curva",
+  "texto": "Em 2026, 66 cidades tiveram o comparecimento subir 5 p.p. ou mais, mais que em qualquer eleição anterior, espalhadas por 8 estados. Lula venceu 42 delas (64%), contra 47% de todas as cidades desses estados, e a margem nelas variou +0,6 p.p. a mais que a mediana do próprio estado. Isso é uma leve inclinação a Lula, mas menor do que a relação geral entre comparecimento e margem já prevê para saltos desse tamanho (+1,1 p.p.). 10 cidades ficaram com brancos + nulos abaixo de 1%, 3 vencidas por Lula. As listas estão na aba Auditoria."
  }
 ]

@@ -8,7 +8,7 @@
   const ANOS = ['2026', '2022', '2018', '2014', '2010', '2006', '2002'];
   const REG = { BR: 'Brasil', N: 'Norte', NE: 'Nordeste', CO: 'Centro-Oeste', SE: 'Sudeste', S: 'Sul', EX: 'Exterior' };
   const UFS = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
-  const TABS = ['mapa', 'geral', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'metodo'];
+  const TABS = ['mapa', 'geral', 'liquida', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'metodo'];
   const STATUS = { dispensa: 'Basta a 3ª via', viavel: 'Viável', inviavel: 'Acima do disponível' };
 
   const $ = (s, el = document) => el.querySelector(s);

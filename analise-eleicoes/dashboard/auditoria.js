@@ -49,12 +49,50 @@
         ['klimek_cidades', F.int], ['benford2_p', F.dec], ['ultimo_digito_p', F.dec], ['x_hat', F.pct], ['y_hat', F.pct], ['c_hat', F.pp, 1]], sel);
     } else if (failed('auditoria_serie')) { failLine($('#aud-serie tbody')); failLine($('#aud-forense tbody')); }
     dist(p);
+    consistencia(p);
     const ou = tbl('auditoria_outliers');
     if (ou) {
       rowsTable($('#aud-out tbody'), ou.rows.filter((r) => String(r.ano) === p.ano).sort((a, b) => +a.rank - +b.rank),
         [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['z', (v) => window.ST.nf1.format(+v), 1],
           ['ganho_pt', F.sint, 1], ['esperado_pt', F.sint], ['ganho_adv', F.sint, 1], ['terceira', F.int], ['delta', F.sint, 1]]);
     } else if (failed('auditoria_outliers')) failLine($('#aud-out tbody'));
+  }
+
+  function consistencia(p) {
+    const cs = tbl('consistencia_serie');
+    const tb = $('#aud-contab tbody');
+    const sel = (tr, r) => tr.classList.toggle('st-sel', String(r.ano) === p.ano);
+    if (!cs) { if (failed('consistencia_serie')) { failLine(tb); failLine($('#aud-net tbody')); } return; }
+    tb.replaceChildren(...ANOS.map((a) => {
+      const r = cs.by.get(a);
+      const tr = document.createElement('tr');
+      if (!r) return tr;
+      tr.classList.toggle('st-sel', a === p.ano);
+      const pre = a === '2026' ? 't2_' : 't12_';
+      tr.append(window.ST.td(a === '2026' ? '2026 (2º turno)' : a, 'txt'));
+      [['zonas', F.int], ['z_aptos', F.int], ['v_aptos', F.int], ['z_comp', F.int], ['v_comp', F.int], ['z_validos', F.int], ['v_validos', F.int]].forEach(([k, fm]) => {
+        const c = window.ST.td(fm(r[pre + k]), +r[pre + k] > 0 && k !== 'zonas' ? 'neg' : '');
+        window.ST.setMark(c, 'consistencia_serie', pre + k, a);
+        tr.append(c);
+      });
+      const cz = window.ST.td(a === '2026' ? F.int(+r.cruz_aptos + +r.cruz_comp + +r.cruz_abst + +r.cruz_validos + +r.cruz_brancos + +r.cruz_candidatos + +r.cruz_so_um_lado) : '—');
+      if (a === '2026') window.ST.setMark(cz, 'consistencia_serie', 'cruz_candidatos', a);
+      tr.append(cz);
+      return tr;
+    }));
+    rowsTable($('#aud-net tbody'), ANOS.map((a) => cs.by.get(a)).filter(Boolean), [['ano', F.txt, 0, 1], ['net_votos', F.sint, 1], ['pct_cid_net_pt', F.pct0],
+      ['sd_swing_margem', (v) => F.pp(v).replace('+', '')], ['locais_z4_por_mil', (v) => window.ST.nf1.format(+v)], ['locais_z4_pro_pt', F.int], ['locais_z4_pro_adv', F.int],
+      ['inclinacao_net_comparecimento', F.dec2], ['corr_net_pt_1t', F.dec2], ['corr_pt2_anterior', F.dec], ['pct_cid_comp_sobe_5pp', F.pct], ['pct_cid_bn2_1pct', F.pct]], sel);
+    const lo = tbl('consistencia_locais');
+    if (lo) rowsTable($('#aud-loc tbody'), lo.rows.filter((r) => String(r.ano) === p.ano).sort((a, b) => +a.rank - +b.rank),
+      [['rank', F.int], ['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['z_local', (v) => window.ST.nf1.format(+v), 1],
+        ['swing_margem', F.pp, 1], ['mediana_uf', F.pp], ['net_votos', F.sint, 1]]);
+    else if (failed('consistencia_locais')) failLine($('#aud-loc tbody'));
+    const ex = tbl('consistencia_extremos');
+    if (ex) rowsTable($('#aud-ext tbody'), ex.rows.filter((r) => String(r.ano) === p.ano).sort((a, b) => +b.d_comp_pp - +a.d_comp_pp),
+      [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['tipo', F.txt, 0, 1], ['d_comp_pp', F.pp, 1], ['bn_2t', F.pct],
+        ['swing_margem', F.pp, 1], ['venc_2t', F.txt, 0, 1]]);
+    else if (failed('consistencia_extremos')) failLine($('#aud-ext tbody'));
   }
 
   function dist(p) {
@@ -108,6 +146,8 @@
   window.ST.init.auditoria = () => {
     $('#f-aud-var').addEventListener('change', (e) => { st.audVar = e.target.value; window.ST.draw(); });
     window.ST.clicavel($('#aud-out tbody'));
+    window.ST.clicavel($('#aud-loc tbody'));
+    window.ST.clicavel($('#aud-ext tbody'));
   };
   Object.assign(window.ST.abas, { terceira, auditoria });
 })();

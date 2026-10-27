@@ -10,6 +10,11 @@ from pathlib import Path
 NOMES = {"2002": ("Lula", "Serra"), "2006": ("Lula", "Alckmin"), "2010": ("Dilma", "Serra"), "2014": ("Dilma", "Aécio"),
          "2018": ("Haddad", "Bolsonaro"), "2022": ("Lula", "Bolsonaro"), "2026": ("Lula", "Flávio")}
 REG = {"N": "Norte", "NE": "Nordeste", "CO": "Centro-Oeste", "SE": "Sudeste", "S": "Sul"}
+UFN = {"AC": "Acre", "AL": "Alagoas", "AM": "Amazonas", "AP": "Amapá", "BA": "Bahia", "CE": "Ceará", "DF": "Distrito Federal",
+       "ES": "Espírito Santo", "GO": "Goiás", "MA": "Maranhão", "MG": "Minas Gerais", "MS": "Mato Grosso do Sul",
+       "MT": "Mato Grosso", "PA": "Pará", "PB": "Paraíba", "PE": "Pernambuco", "PI": "Piauí", "PR": "Paraná",
+       "RJ": "Rio de Janeiro", "RN": "Rio Grande do Norte", "RO": "Rondônia", "RR": "Roraima", "RS": "Rio Grande do Sul",
+       "SC": "Santa Catarina", "SE": "Sergipe", "SP": "São Paulo", "TO": "Tocantins"}
 
 
 def pct(v, casas=1):
@@ -20,6 +25,12 @@ def pct(v, casas=1):
 def pp(v):
     v = float(v) * 100
     return ("+" if v >= 0 else "−") + f"{abs(v):.1f}".replace(".", ",") + " p.p."
+
+
+def dc(v, casas=2, sinal=False):
+    v = float(v)
+    txt = f"{abs(v):.{casas}f}".replace(".", ",")
+    return ("−" if v < 0 else "+" if sinal else "") + txt
 
 
 def mi(v, sinal=False):
@@ -147,12 +158,12 @@ def main(data_dir):
         f"{pct(min_bn2_ant['bn_2t'])} em {min_bn2_ant['ano']}). Abstenção caindo entre turnos em {pct(a26['pct_cid_abst_caiu'], 0)} "
         f"das cidades; em 2022 foram {pct(a22['pct_cid_abst_caiu'], 0)} e, de 2002 a 2018, entre "
         f"{pct(rng('pct_cid_abst_caiu')[0], 0)} e {pct(rng('pct_cid_abst_caiu')[1], 0)}. Onde a 3ª via era maior a abstenção "
-        f"caiu mais (coeficiente {f(a26, 'abst_por_terceira'):.2f}, o mais negativo da série).".replace(".", ",", 0))
+        f"caiu mais (coeficiente {dc(f(a26, 'abst_por_terceira'))}, o mais negativo da série).")
     add("aud-contexto", "auditoria", "O tamanho da queda, em perspectiva",
         f"A abstenção do 1º turno de 2026 ({pct(a26['abst_1t'])}) foi a maior da série; a do 2º ({pct(a26['abst_2t'])}) "
         f"é igual à de 2006 ({pct(a06['abst_2t'])}). A variação entre turnos vem caindo a cada eleição desde 2010 e a tendência "
         f"de 2002–2022 previa {pp(a26['d_abst_tendencia'])} para 2026; o observado foi {pp(a26['d_abst_pp'])}, "
-        f"{abs(f(a26, 'z_d_abst_tendencia')):.1f} desvios-padrão abaixo da tendência.".replace("1.", "1,").replace("2.", "2,"))
+        f"{dc(abs(f(a26, 'z_d_abst_tendencia')), 1)} desvios-padrão abaixo da tendência.")
     add("aud-nao-inedito", "auditoria", "O que não é inédito",
         f"Brancos+nulos caírem entre turnos é a regra: aconteceu em {pct(rng('pct_cid_bn_caiu')[0], 0)} a "
         f"{pct(rng('pct_cid_bn_caiu')[1], 0)} das cidades de 2002 a 2018 (exceção: 2018) e em {pct(a26['pct_cid_bn_caiu'], 0)} em 2026. "
@@ -166,12 +177,12 @@ def main(data_dir):
         f"{pp(min(f(r, 'sd_swing') for r in antes)).lstrip('+')} a {pp(max(f(r, 'sd_swing') for r in antes)).lstrip('+')} até 2018: "
         f"swing uniforme é marca das duas últimas eleições, não só de 2026.")
     add("aud-forense", "auditoria", "Testes forenses",
-        f"Comparecimento maior não vem com mais voto em Lula: correlação de {f(a26, 'corr_comparecimento_pt'):+.2f} no país, "
-        f"{f(a26, 'corr_comparecimento_pt_se'):+.2f} no Sudeste e {f(a26, 'corr_comparecimento_pt_s'):+.2f} no Sul. A abstenção caiu "
-        f"mais onde o PT era mais fraco no 1º turno ({f(a26, 'corr_mobilizacao'):+.2f}). Cidades atípicas: "
-        f"{f(a26, 'outliers_z5_por_mil'):.1f} por mil, contra {min(f(r, 'outliers_z5_por_mil') for r in antes):.1f} a "
-        f"{max(f(r, 'outliers_z5_por_mil') for r in antes):.1f} de 2002 a 2018. Segundo dígito (p = {f(a26, 'benford2_p'):.2f}) e último "
-        f"dígito (p = {f(a26, 'ultimo_digito_p'):.2f}) sem desvio.".replace(".", ","). replace(", Cidades", ". Cidades"))
+        f"Comparecimento maior não vem com mais voto em Lula: correlação de {dc(f(a26, 'corr_comparecimento_pt'), 2, True)} no país, "
+        f"{dc(f(a26, 'corr_comparecimento_pt_se'), 2, True)} no Sudeste e {dc(f(a26, 'corr_comparecimento_pt_s'), 2, True)} no Sul. A abstenção caiu "
+        f"mais onde o PT era mais fraco no 1º turno ({dc(f(a26, 'corr_mobilizacao'), 2, True)}). Cidades atípicas: "
+        f"{dc(f(a26, 'outliers_z5_por_mil'), 1)} por mil, contra {dc(min(f(r, 'outliers_z5_por_mil') for r in antes), 1)} a "
+        f"{dc(max(f(r, 'outliers_z5_por_mil') for r in antes), 1)} de 2002 a 2018. Segundo dígito (p = {dc(f(a26, 'benford2_p'))}) e último "
+        f"dígito (p = {dc(f(a26, 'ultimo_digito_p'))}) sem desvio.")
     add("aud-separar", "auditoria", "O que os dados não separam",
         f"A regressão por cidade estima que {pct(a26['x_hat'], 0)} da 3ª via foi para Lula (menor da série) e {pct(a26['y_hat'], 0)} "
         f"do saldo recuperado, mais um ganho uniforme de {pp(a26['c_hat']).replace(' p.p.', '')} p.p. do eleitorado (2006: "
@@ -219,6 +230,73 @@ def main(data_dir):
         f"2026: {pp(f(e26, 'transf_pt') - f(e26, 'origem_pt'))} (ou {pp(f(e26, 'transf_pt_alt') - f(e26, 'origem_pt'))} no modelo alternativo). "
         f"2018: {pp(f(e18, 'transf_pt') - f(e18, 'origem_pt'))}; 2014: {pp(f(e14, 'transf_pt') - f(e14, 'origem_pt'))} Movimentos dessa ordem, "
         f"para os dois lados, aparecem em outras eleições; 2026 está entre os maiores a favor do PT, ao lado de 2018.")
+    # crescimento e vitória líquidos
+    sal = {r["id"]: r for r in rd("saldos.csv")}
+    s26 = {g: sal[f"2026-{g}"] for g in ("BR", "N", "NE", "CO", "SE", "S")}
+    reg_net = sorted(("N", "NE", "CO", "SE", "S"), key=lambda g: -int(s26[g]["net_votos"]))
+    nets = {a: float(uf[f"{a}-BR"]["swing_margem"]) for a in NOMES}
+    maiores = sorted(nets.items(), key=lambda kv: -abs(kv[1]))
+    add("net", "geral", "Crescimento líquido",
+        f"Lula somou {mi(uf['2026-BR']['ganho_pt'])} e Flávio {mi(uf['2026-BR']['ganho_dir'])}: crescimento líquido de "
+        f"{mi(uf['2026-BR']['net_votos'], True)} para Lula e margem de {pp(uf['2026-BR']['margem_1t'])} para {pp(uf['2026-BR']['margem_2t'])} "
+        f"({pp(nets['2026'])}). A maior parte veio do {REG[reg_net[0]]} ({mi(s26[reg_net[0]]['net_votos'], True)}) e do "
+        f"{REG[reg_net[1]]} ({mi(s26[reg_net[1]]['net_votos'], True)}). Na série, as maiores viradas de margem entre turnos foram "
+        + ", ".join(f"{a} ({pp(v)})" for a, v in maiores[:3]) + ".")
+    contra = [g for g in ("S", "SE", "CO", "N") if int(s26[g]["saldo_2t"]) < -50_000]
+    empate = [g for g in ("S", "SE", "CO", "N") if abs(int(s26[g]["saldo_2t"])) <= 50_000]
+    add("saldo", "colegio", "Vitória líquida por região",
+        f"Lula venceu com saldo nacional de {mi(int(s26['BR']['saldo_2t']), True)}: o Nordeste deu {mi(int(s26['NE']['saldo_2t']), True)} e "
+        f"compensou " + ", ".join(f"{REG[g]} ({mi(int(s26[g]['saldo_2t']), True)})" for g in contra) + "."
+        + (f" O {REG[empate[0]]} terminou praticamente empatado ({num(abs(int(s26[empate[0]]['saldo_2t'])))} votos de diferença)." if empate else ""))
+    col = {r["id"]: r for r in rd("colegio.csv")}
+    diverg = [a for a in NOMES if col[f"{a}-colegio"]["igual_popular"] == "0"]
+    c26 = col["2026-colegio"]
+    add("colegio", "colegio", "Se fosse colégio eleitoral",
+        f"Com cada estado valendo seus deputados federais mais 3 senadores e o vencedor levando tudo, Flávio teria "
+        f"{c26['dir']} votos eleitorais contra {c26['pt']} de Lula, e venceria. O colégio contraria o voto popular em "
+        f"{' e '.join(diverg)}; nas outras eleições da série os dois coincidem. Em 2026 o estado decisivo seria "
+        f"{UFN.get(c26['decisivo_uf'], c26['decisivo_uf'])}, e bastariam {num(c26['votos_para_virar'])} votos trocando de lado em "
+        f"{c26['estados_para_virar'].replace(' ', ' e ')} para Lula vencer também no colégio.")
+    cs_ = {r["ano"]: r for r in rd("consistencia_serie.csv")}
+    c = cs_["2026"]
+    hist_loc = [float(cs_[a]["locais_z4_por_mil"]) for a in NOMES if a != "2026"]
+    hist_inc = [float(cs_[a]["inclinacao_net_comparecimento"]) for a in NOMES if a != "2026"]
+    add("aud-contab", "auditoria", "Contabilidade e cruzamento de fontes",
+        f"Nas {num(c['t2_zonas'])} cidades do 2º turno de 2026, comparecimento = válidos + brancos + nulos e válidos = soma dos candidatos "
+        f"fecham sem nenhuma diferença; aptos = comparecimento + abstenção difere em {num(c['t2_z_aptos'])} cidades "
+        f"({num(c['t2_v_aptos'])} eleitores), dentro do que aparece em todas as eleições ({num(min(int(cs_[a]['t12_v_aptos']) for a in NOMES if a != '2026'))} "
+        f"a {num(max(int(cs_[a]['t12_v_aptos']) for a in NOMES if a != '2026'))} eleitores). No arquivo de 2006, comparecimento não fecha em "
+        f"nenhuma das {num(cs_['2006']['t12_zonas'])} zonas, por {num(cs_['2006']['t12_v_comp'])} votos no total, uma diferença pequena e "
+        f"uniforme que aponta para a definição de um campo do arquivo. As duas publicações do TSE do 1º turno de 2026, "
+        f"dados abertos e API de resultados, batem em todas as {num(c['cruz_cidades'])} cidades, campo a campo e candidato a candidato.")
+    add("aud-net", "auditoria", "Crescimento líquido cidade a cidade",
+        f"Cidades cujo swing destoa do próprio estado (mais de 4 desvios robustos): {dc(c['locais_z4_por_mil'], 1)} por mil em 2026, "
+        f"o menor da série ({dc(min(hist_loc), 1)} a {dc(max(hist_loc), 1)} antes). Dentro de cada estado, cada ponto de comparecimento a mais "
+        f"virou {dc(c['inclinacao_net_comparecimento'])} ponto de margem líquida para Lula; de 2002 a 2022 esse número foi de "
+        f"{dc(min(hist_inc))} a {dc(max(hist_inc))}. Votos inventados para um lado dariam perto de 1. A geografia do voto repetiu a de 2022 "
+        f"com correlação de {dc(c['corr_pt2_anterior'], 3)}, a mais alta da série.")
+    ext = rd("consistencia_extremos.csv") if (d / "consistencia_extremos.csv").exists() else []
+    e26 = [r for r in ext if r["ano"] == "2026"]
+    sobe = [r for r in e26 if r["tipo"].startswith("comparecimento")]
+    if sobe:
+        import statistics as stt
+        m26 = [r for r in cid if r["ano"] == "2026"]
+        por_uf = {}
+        for r in m26:
+            por_uf.setdefault(r["uf"], []).append(r)
+        med_sw = {u: stt.median(float(r["swing_margem"]) for r in rs) for u, rs in por_uf.items()}
+        med_dc = {u: stt.mean(float(r["d_comp_pp"]) for r in rs) for u, rs in por_uf.items()}
+        obs = stt.mean(float(r["swing_margem"]) - med_sw[r["uf"]] for r in sobe)
+        prev_sw = float(c["inclinacao_net_comparecimento"]) * stt.mean(float(r["d_comp_pp"]) - med_dc[r["uf"]] for r in sobe)
+        ufs_s = {r["uf"] for r in sobe}
+        base_pt = sum(r["venc_2t"] == "PT" for r in m26 if r["uf"] in ufs_s) / sum(1 for r in m26 if r["uf"] in ufs_s)
+        add("aud-extremos", "auditoria", "Pontos fora da curva",
+            f"Em 2026, {len(sobe)} cidades tiveram o comparecimento subir 5 p.p. ou mais, mais que em qualquer eleição anterior, espalhadas por "
+            f"{len(ufs_s)} estados. Lula venceu {sum(r['venc_2t'] == 'PT' for r in sobe)} delas ({pct(sum(r['venc_2t'] == 'PT' for r in sobe) / len(sobe), 0)}), "
+            f"contra {pct(base_pt, 0)} de todas as cidades desses estados, e a margem nelas variou {pp(obs)} a mais que a mediana do próprio estado. "
+            f"Isso é uma leve inclinação a Lula, mas menor do que a relação geral entre comparecimento e margem já prevê para saltos desse tamanho "
+            f"({pp(prev_sw)}). {len(e26) - len(sobe)} cidades ficaram com brancos + nulos abaixo de 1%, "
+            f"{sum(r['venc_2t'] == 'PT' for r in e26 if not r['tipo'].startswith('comparecimento'))} vencidas por Lula. As listas estão na aba Auditoria.")
     json.dump(out, open(d / "insights.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     for o in out:
         print(f"[{o['id']}] {o['texto']}\n")

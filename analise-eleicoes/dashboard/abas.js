@@ -28,6 +28,9 @@
       fill($('#k-gpt'), 'uf', 'ganho_pt', id, F.sint(r.ganho_pt));
       fill($('#k-cdir'), 'uf', 'cresc_dir', id, F.spct(r.cresc_dir));
       fill($('#k-gdir'), 'uf', 'ganho_dir', id, F.sint(r.ganho_dir));
+      fill($('#k-net'), 'uf', 'net_votos', id, F.smi(r.net_votos), cls(r.net_votos));
+      fill($('#k-m1'), 'uf', 'margem_1t', id, F.pp(r.margem_1t));
+      fill($('#k-m2'), 'uf', 'margem_2t', id, F.pp(r.margem_2t));
       fill($('#k-pool'), 'uf', 'pool', id, F.mi(r.pool));
       fill($('#k-t'), 'uf', 'terceira_via', id, F.mi(r.terceira_via));
       fill($('#k-d'), 'uf', 'delta', id, F.smi(r.delta));
@@ -42,6 +45,7 @@
     rowsTable(tb, ANOS.map((a) => uf.by.get(a + '-' + p.reg)).filter(Boolean), [['ano', F.txt, 0, 1], [null, disputa, 0, 1],
       ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct], ['ganho_pt', F.sint, 1], ['cresc_pt', F.spct, 1],
       ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['ganho_dir', F.sint, 1], ['cresc_dir', F.spct, 1],
+      ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1],
       ['pct_terceira', F.pct], ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct]],
     (tr, x) => tr.classList.toggle('st-sel', String(x.ano) === p.ano));
   }
@@ -151,7 +155,8 @@
     $$('#estados-tabela thead th').forEach((th) => th.setAttribute('aria-sort', th.dataset.field === k ? (dir > 0 ? 'ascending' : 'descending') : 'none'));
     const sorted = rows.slice().sort((a, b) => (k === 'nome' ? a.nome.localeCompare(b.nome, 'pt-BR') : (+a[k] - +b[k])) * dir);
     rowsTable(tb, sorted, [['nome', F.txt, 0, 1], ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct], ['pp_pt', F.pp, 1], ['cresc_pt', F.spct, 1],
-      ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['pp_dir', F.pp, 1], ['cresc_dir', F.spct, 1], ['pct_terceira', F.pct],
+      ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['pp_dir', F.pp, 1], ['cresc_dir', F.spct, 1],
+      ['net_votos', F.sint, 1], ['swing_margem', F.pp, 1], ['pct_terceira', F.pct],
       ['delta_abst', F.sint, 1], ['delta_brancos', F.sint, 1], ['delta_nulos', F.sint, 1], ['pool', F.int], ['captura_pt', F.pct]]);
   }
 

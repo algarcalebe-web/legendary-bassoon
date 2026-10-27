@@ -187,6 +187,13 @@ def metricas(t1, t2):
         "gap_vitoria": v2 / 2 - t1["pt"],
         "venceu_pt": int(t2["pt"] > t2["dir"]),
         "margem_2t": div(t2["pt"], v2) - div(t2["dir"], v2) if v2 else None,
+        "margem_1t": div(t1["pt"], v1) - div(t1["dir"], v1) if v1 else None,
+        # crescimento líquido: o que o PT ganhou menos o que o adversário ganhou entre os turnos
+        "net_votos": g_pt - g_dir,
+        "net_pct_aptos": div(g_pt - g_dir, t1["aptos"]),
+        "swing_margem": (div(t2["pt"], v2) - div(t2["dir"], v2)) - (div(t1["pt"], v1) - div(t1["dir"], v1)) if v1 and v2 else None,
+        "pct_comp_1t": div(t1["comp"], t1["aptos"]), "pct_comp_2t": div(t2["comp"], t2["aptos"]),
+        "d_comp_pp": div(t2["comp"], t2["aptos"]) - div(t1["comp"], t1["aptos"]) if t1["aptos"] and t2["aptos"] else None,
     }
 
 
@@ -334,9 +341,12 @@ def viradas_e_top(mun_rows, capitais):
     for ano in ANOS:
         base = [r for r in mun_rows if r["ano"] == ano and r["uf"] not in ("ZZ", "VT")]
         for cand in ("pt", "dir"):
-            for crit in ("abs", "pct", "perda"):
+            sinal = 1 if cand == "pt" else -1
+            for crit in ("abs", "pct", "perda", "net"):
                 if crit == "abs":
                     sel = sorted(base, key=lambda r: r[f"ganho_{cand}"], reverse=True)[:TOP_N]
+                elif crit == "net":  # maior crescimento líquido a favor do candidato
+                    sel = sorted(base, key=lambda r: sinal * r["net_votos"], reverse=True)[:TOP_N]
                 elif crit == "pct":
                     pool = [r for r in base if r["aptos"] >= MIN_APTOS_PCT and r[f"{cand}_1t"]]
                     sel = sorted(pool, key=lambda r: r[f"cresc_{cand}"], reverse=True)[:TOP_N]
@@ -348,15 +358,18 @@ def viradas_e_top(mun_rows, capitais):
                                 "rank": i, "cod": r["cod"], "municipio": r["municipio"], "uf": r["uf"],
                                 "regiao": r["regiao"], "capital": int(r["cod"] in capitais), "aptos": r["aptos"],
                                 "votos_1t": r[f"{cand}_1t"], "votos_2t": r[f"{cand}_2t"],
-                                "ganho": r[f"ganho_{cand}"], "cresc": r[f"cresc_{cand}"], "pp": r[f"pp_{cand}"],
+                                "ganho": sinal * r["net_votos"] if crit == "net" else r[f"ganho_{cand}"],
+                                "cresc": r[f"cresc_{cand}"],
+                                "pp": sinal * r["swing_margem"] if crit == "net" else r[f"pp_{cand}"],
                                 "virou": r["virou"], "venc_2t": r["venc_2t"]})
-                ganho_total = sum(r[f"ganho_{cand}"] for r in base)
+                val = (lambda r: sinal * r["net_votos"]) if crit == "net" else (lambda r: r[f"ganho_{cand}"])
+                ganho_total = sum(val(r) for r in base)
                 i = ANOS.index(ano)
                 prev = tops.get((ANOS[i - 1], cand, crit)) if i else None
                 res.append({"id": f"{ano}-{cand}-{crit}", "ano": ano, "cand": cand, "crit": crit, "cidades": len(sel),
-                            "ganho_top": sum(r[f"ganho_{cand}"] for r in sel),
-                            "pct_ganho_total": (sum(r[f"ganho_{cand}"] for r in sel) / ganho_total
-                                                if ganho_total and crit != "perda" else None),
+                            "ganho_top": sum(val(r) for r in sel),
+                            "pct_ganho_total": (sum(val(r) for r in sel) / ganho_total
+                                                if ganho_total > 0 and crit != "perda" else None),
                             "ganho_total": ganho_total,
                             "mediana_cresc": float(np.median([r[f"cresc_{cand}"] for r in sel])) if sel else None,
                             "capitais": sum(r["cod"] in capitais for r in sel),
@@ -368,13 +381,14 @@ def viradas_e_top(mun_rows, capitais):
 MAPA = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
         "pct_dir_2t", "pp_pt", "pp_dir", "cresc_pt", "cresc_dir", "ganho_pt", "ganho_dir", "pct_terceira", "delta_pct",
         "captura_pt", "margem_2t", "lider_1t", "lider1_nr", "lider1_sigla", "lider1_pct", "venc_2t", "virou",
-        "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50"]
+        "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50", "net_votos", "net_pct_aptos", "swing_margem", "d_comp_pp"]
 HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "pt_1t", "pt_2t", "dir_1t", "dir_2t", "validos_1t", "validos_2t", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
         "pct_dir_2t", "pp_pt", "pp_dir", "ganho_pt", "ganho_dir", "cresc_pt", "cresc_dir",
         "terceira_via", "pct_terceira", "abst_1t", "abst_2t", "brancos_1t", "brancos_2t", "nulos_1t", "nulos_2t",
         "pct_abst_1t", "pct_abst_2t", "pct_brancos_1t", "pct_brancos_2t", "pct_nulos_1t", "pct_nulos_2t",
         "delta_abst", "delta_brancos", "delta_nulos", "delta", "pool", "captura_pt", "lider1_sigla", "lider1_pct",
+        "net_votos", "net_pct_aptos", "margem_1t", "margem_2t", "swing_margem", "pct_comp_1t", "pct_comp_2t", "d_comp_pp",
         "lider_1t", "venc_2t", "virou", "mudou_vs_ant"] + \
        [f"{k}_{c}_{x}" for c in ("pt", "dir") for x in CENARIOS_X for k in ("need", "status", "y_saldo", "y_resto")]
 

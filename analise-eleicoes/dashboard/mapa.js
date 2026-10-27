@@ -46,6 +46,8 @@
           rotulo: 'Mais votado no 1º turno', texto: (r) => `${r.lider1_sigla} com ${F.pct(r.lider1_pct)}` };
       }
       case 'margem': return div('margem_2t', C.dir, C.pt, 0, 'Margem do PT no 2º turno', F.pp, 0.6);
+      case 'net': return div('net_pct_aptos', C.dir, C.pt, 0, `Crescimento líquido de ${n.pt} (% do eleitorado)`, F.spct);
+      case 'swing_margem': return div('swing_margem', C.dir, C.pt, 0, `Variação da margem de ${n.pt}`, F.pp);
       case 'cresc_pt': return seq('cresc_pt', C.pt, `Crescimento de ${n.pt} em votos`, F.spct);
       case 'cresc_dir': return seq('cresc_dir', C.dir, `Crescimento de ${n.dir} em votos`, F.spct);
       case 'pp_pt': return seq('pp_pt', C.pt, `Variação de ${n.pt}`, F.pp);
@@ -244,6 +246,8 @@
         fato(`${n.dir} no 1º → 2º`, src, 'pct_dir_2t', r.id, `${F.pct(r.pct_dir_1t)} → ${F.pct(r.pct_dir_2t)}`),
         fato(`Votos ganhos por ${n.pt}`, src, 'ganho_pt', r.id, F.sint(r.ganho_pt), cls(r.ganho_pt)),
         fato(`Votos ganhos por ${n.dir}`, src, 'ganho_dir', r.id, F.sint(r.ganho_dir), cls(r.ganho_dir)),
+        fato(`Crescimento líquido de ${n.pt}`, src, 'net_votos', r.id, F.sint(r.net_votos), cls(r.net_votos)),
+        fato('Variação da margem', src, 'swing_margem', r.id, F.pp(r.swing_margem), cls(r.swing_margem)),
         fato('3ª via no 1º turno', src, 'terceira_via', r.id, F.int(r.terceira_via)),
         fato('Total disponível', src, 'pool', r.id, F.int(r.pool)),
       );
@@ -253,6 +257,7 @@
     window.ST.rowsTable($('#cid-cand tbody'), linhas, [['ano', F.txt, 0, 1], [null, (x) => `${NOMES[x.ano].pt} × ${NOMES[x.ano].dir}`, 0, 1],
       ['pct_pt_1t', F.pct], ['pct_pt_2t', F.pct], ['ganho_pt', F.sint, 1], ['cresc_pt', F.spct, 1],
       ['pct_dir_1t', F.pct], ['pct_dir_2t', F.pct], ['ganho_dir', F.sint, 1], ['cresc_dir', F.spct, 1],
+      ['net_votos', F.sint, 1], ['margem_2t', F.pp, 1], ['swing_margem', F.pp, 1],
       ['lider1_sigla', F.txt, 0, 1], ['venc_2t', F.txt, 0, 1]], (tr, x) => tr.classList.toggle('st-sel', String(x.ano) === p.ano));
     window.ST.rowsTable($('#cid-disp tbody'), linhas, [['ano', F.txt, 0, 1], ['terceira_via', F.int],
       ['abst_1t', F.int], ['abst_2t', F.int], ['delta_abst', F.sint, 1], ['brancos_1t', F.int], ['brancos_2t', F.int], ['delta_brancos', F.sint, 1],

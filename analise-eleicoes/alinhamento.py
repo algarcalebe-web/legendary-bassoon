@@ -114,8 +114,10 @@ def eleitos(od_dir, ano, apiuf_dir):
         n = next(x for x in z.namelist() if x.endswith("_BRASIL.csv"))
         for r in csv.DictReader(io.TextIOWrapper(z.open(n), encoding="latin1"), delimiter=";"):
             cargo = int(r["CD_CARGO"])
-            if cargo in (3, 5, 6) and r["DS_SIT_TOT_TURNO"].startswith("ELEITO") and r["SQ_CANDIDATO"] not in vistos:
-                vistos.add(r["SQ_CANDIDATO"])
+            chave = (cargo, r["SG_UF"], r["NR_CANDIDATO"])  # SQ_CANDIDATO se repete entre UFs em anos antigos
+            sit = r["DS_SIT_TOT_TURNO"]
+            if cargo in (3, 5, 6) and (sit.startswith("ELEITO") or sit == "MÉDIA") and chave not in vistos:
+                vistos.add(chave)
                 out[(cargo, norm(r["SG_PARTIDO"]))] += 1
     return out
 

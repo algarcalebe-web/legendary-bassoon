@@ -113,6 +113,7 @@
     <nav class="st-tabs" id="tabs" role="tablist" aria-label="Seções">
       <button type="button" role="tab" id="tab-mapa" data-tab="mapa">Mapa</button>
       <button type="button" role="tab" id="tab-geral" data-tab="geral">Visão geral</button>
+      <button type="button" role="tab" id="tab-liquida" data-tab="liquida">Vitória líquida</button>
       <button type="button" role="tab" id="tab-estados" data-tab="estados">Estados</button>
       <button type="button" role="tab" id="tab-porte" data-tab="porte">Porte</button>
       <button type="button" role="tab" id="tab-cenarios" data-tab="cenarios">Cenários</button>
@@ -134,6 +135,8 @@
                 <option value="venc2">Vencedor do 2º turno</option>
                 <option value="venc1">Mais votado no 1º turno</option>
                 <option value="margem">Margem no 2º turno</option>
+                <option value="net">Crescimento líquido (% do eleitorado)</option>
+                <option value="swing_margem">Variação da margem (p.p.)</option>
                 <option value="cresc_pt">Crescimento do PT (votos)</option>
                 <option value="cresc_dir">Crescimento do adversário (votos)</option>
                 <option value="pp_pt">Variação do PT (p.p.)</option>
@@ -167,11 +170,12 @@
       <h2 id="cid-cand-h">Candidatos do 1º para o 2º turno</h2>
       <div class="st-tbl short"><table id="cid-cand">
         <thead>
-          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="2"></th></tr>
+          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="3">Líquido (PT − adversário)</th><th colspan="2"></th></tr>
           <tr>
             <th class="txt" data-field="ano">Eleição</th><th class="txt">Disputa</th>
             <th data-field="pct_pt_1t">1º</th><th data-field="pct_pt_2t">2º</th><th data-field="ganho_pt">Votos ganhos</th><th data-field="cresc_pt">Cresc.</th>
             <th data-field="pct_dir_1t">1º</th><th data-field="pct_dir_2t">2º</th><th data-field="ganho_dir">Votos ganhos</th><th data-field="cresc_dir">Cresc.</th>
+            <th data-field="net_votos">Crescimento</th><th data-field="margem_2t">Margem no 2º</th><th data-field="swing_margem">Variação da margem</th>
             <th class="txt" data-field="lider1_sigla">Mais votado no 1º</th><th class="txt" data-field="venc_2t">Venceu o 2º</th>
           </tr>
         </thead>
@@ -218,6 +222,7 @@
       <div class="st-kpi"><span class="st-kpi-l"><span class="st-sw st-sw-dir"></span><span class="n-dir">Adversário</span> no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-dir2">—</span><span class="st-kpi-s"><span id="k-dir1">—</span> no 1º · <span id="k-ppdir">—</span></span></div>
       <div class="st-kpi"><span class="st-kpi-l">Crescimento de <span class="n-pt">PT</span></span><span class="st-kpi-v dash-skeleton" id="k-cpt">—</span><span class="st-kpi-s"><span id="k-gpt">—</span> votos</span></div>
       <div class="st-kpi"><span class="st-kpi-l">Crescimento de <span class="n-dir">Adversário</span></span><span class="st-kpi-v dash-skeleton" id="k-cdir">—</span><span class="st-kpi-s"><span id="k-gdir">—</span> votos</span></div>
+      <div class="st-kpi"><span class="st-kpi-l">Crescimento líquido de <span class="n-pt">PT</span></span><span class="st-kpi-v dash-skeleton" id="k-net">—</span><span class="st-kpi-s">margem <span id="k-m1">—</span> → <span id="k-m2">—</span></span></div>
       <div class="st-kpi"><span class="st-kpi-l">Votos em disputa no 2º turno</span><span class="st-kpi-v dash-skeleton" id="k-pool">—</span><span class="st-kpi-s">3ª via <span id="k-t">—</span> · saldo <span id="k-d">—</span></span></div>
       <div class="st-kpi"><span class="st-kpi-l">Fatia de <span class="n-pt">PT</span> nos votos novos</span><span class="st-kpi-v dash-skeleton" id="k-cap">—</span><span class="st-kpi-s">mínimo vindo da 3ª via: <span id="k-xmin">—</span></span></div>
     </div>
@@ -237,15 +242,71 @@
       <p class="st-note" id="comp-nota">Uma linha por eleição.</p>
       <div class="st-tbl short"><table id="comp-tabela" data-source="uf" data-row-key="id">
         <thead>
-          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="6">Votos em disputa</th></tr>
+          <tr class="grp"><th></th><th></th><th colspan="4">PT</th><th colspan="4">Adversário</th><th colspan="2">Líquido</th><th colspan="6">Votos em disputa</th></tr>
           <tr>
             <th class="txt" data-field="ano">Eleição</th><th class="txt">Disputa</th>
             <th data-field="pct_pt_1t">1º</th><th data-field="pct_pt_2t">2º</th><th data-field="ganho_pt">Votos ganhos</th><th data-field="cresc_pt">Cresc.</th>
             <th data-field="pct_dir_1t">1º</th><th data-field="pct_dir_2t">2º</th><th data-field="ganho_dir">Votos ganhos</th><th data-field="cresc_dir">Cresc.</th>
+            <th data-field="net_votos">Crescimento</th><th data-field="swing_margem">Var. margem</th>
             <th data-field="pct_terceira">3ª via</th><th data-field="delta_abst">Abstenção rec.</th><th data-field="delta_brancos">Brancos rec.</th>
             <th data-field="delta_nulos">Nulos rec.</th><th data-field="pool">Total disponível</th><th data-field="captura_pt">Fatia do PT</th>
           </tr>
         </thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <section class="st-page" id="liquida" role="tabpanel" aria-labelledby="tab-liquida" hidden>
+    <div class="st-card" id="liq-leit">
+      <h2>Vitória líquida e outras formas de contar</h2>
+      <ul class="st-ins" id="liq-leituras"></ul>
+    </div>
+    <div class="st-card" id="col-card">
+      <h2>Quem venceria em cada regra, 2002–2026</h2>
+      <p class="st-note">Vencedor do 2º turno em cada unidade leva tudo. Colégio: cada estado vale seus deputados federais eleitos + 3 senadores, como os EUA (deputados + 2 senadores). Eleitorado: cada estado vale seu número de eleitores. Em vermelho o PT, em azul o adversário.</p>
+      <div class="st-tbl short"><table id="col-tabela">
+        <thead><tr>
+          <th class="txt">Eleição</th><th class="txt">Voto popular</th><th class="txt">Colégio (dep. + 3)</th><th class="txt">Só deputados</th>
+          <th class="txt">Estados</th><th class="txt">Eleitorado (mi)</th><th class="txt">Regiões</th><th class="txt">Municípios</th>
+          <th class="txt">Estado decisivo</th><th>Votos para virar o colégio</th><th class="txt">Onde</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-grid">
+      <div class="st-card" id="col-mapa-card">
+        <h2 id="col-mapa-h">Colégio eleitoral</h2>
+        <p class="st-note">Cor pelo vencedor do estado no 2º turno, mais forte quanto maior a margem. O número é o peso do estado no colégio.</p>
+        <div class="st-legend" id="col-legenda"></div>
+        <div class="st-mapa" id="col-mapa" data-source="malha_estados colegio_uf"></div>
+      </div>
+      <div class="st-card" id="saldo-card">
+        <h2 id="saldo-h">Saldo de votos por estado</h2>
+        <p class="st-note">Votos do PT menos votos do adversário. Barra cheia: 2º turno. Traço: 1º turno. A distância entre os dois é o crescimento líquido.</p>
+        <div class="st-chart" id="saldo-chart" data-source="saldos"></div>
+      </div>
+    </div>
+    <div class="st-card" id="saldo-reg-card">
+      <div class="st-card-h">
+        <h2>Por região, 2002–2026</h2>
+        <div class="st-seg" id="f-saldo-m" role="group" aria-label="Métrica">
+          <button type="button" data-v="saldo_2t">Saldo do 2º turno</button>
+          <button type="button" data-v="net_votos">Crescimento líquido</button>
+          <button type="button" data-v="swing_margem">Variação da margem</button>
+        </div>
+      </div>
+      <p class="st-note">Positivo: a favor do PT. Negativo: a favor do adversário.</p>
+      <div class="st-tbl short"><table id="saldo-reg">
+        <thead><tr><th class="txt">Eleição</th><th>Norte</th><th>Nordeste</th><th>Centro-Oeste</th><th>Sudeste</th><th>Sul</th><th>Brasil</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="saldo-uf-card">
+      <h2>Por estado, 2002–2026</h2>
+      <p class="st-note">Mesma métrica escolhida acima, um estado por linha. Vermelho: a favor do PT; azul: a favor do adversário.</p>
+      <div class="st-tbl"><table id="saldo-uf">
+        <thead><tr><th class="txt">Estado</th><th>2026</th><th>2022</th><th>2018</th><th>2014</th><th>2010</th><th>2006</th><th>2002</th></tr></thead>
         <tbody></tbody>
       </table></div>
     </div>
@@ -277,6 +338,8 @@
           <th data-field="pct_dir_2t"><button type="button" data-sort="pct_dir_2t" data-lab="dir" data-suf=" 2º">2º</button></th>
           <th data-field="pp_dir"><button type="button" data-sort="pp_dir">Var. p.p.</button></th>
           <th data-field="cresc_dir"><button type="button" data-sort="cresc_dir">Cresc.</button></th>
+          <th data-field="net_votos"><button type="button" data-sort="net_votos">Cresc. líquido</button></th>
+          <th data-field="swing_margem"><button type="button" data-sort="swing_margem">Var. margem</button></th>
           <th data-field="pct_terceira"><button type="button" data-sort="pct_terceira">3ª via</button></th>
           <th data-field="delta_abst"><button type="button" data-sort="delta_abst">Abstenção rec.</button></th>
           <th data-field="delta_brancos"><button type="button" data-sort="delta_brancos">Brancos rec.</button></th>
@@ -389,7 +452,7 @@
         <h2>Top 100 cidades</h2>
         <div class="st-controls">
           <div class="st-seg" id="f-cand" role="group" aria-label="Candidato"><button type="button" data-v="pt">PT</button><button type="button" data-v="dir">Adversário</button></div>
-          <div class="st-seg" id="f-crit" role="group" aria-label="Critério"><button type="button" data-v="abs">Votos ganhos</button><button type="button" data-v="pct">Crescimento %</button><button type="button" data-v="perda">Maiores perdas</button></div>
+          <div class="st-seg" id="f-crit" role="group" aria-label="Critério"><button type="button" data-v="abs">Votos ganhos</button><button type="button" data-v="pct">Crescimento %</button><button type="button" data-v="perda">Maiores perdas</button><button type="button" data-v="net">Crescimento líquido</button></div>
         </div>
       </div>
       <p class="st-note">Crescimento % só entre cidades com 10 mil eleitores ou mais. A lista é da eleição escolhida; clique numa cidade para abri-la no mapa.</p>
@@ -528,6 +591,56 @@
         <tbody></tbody>
       </table></div>
     </div>
+    <div class="st-card" id="aud-contab-card">
+      <h2>Contabilidade dos arquivos do TSE, 2002–2026</h2>
+      <p class="st-note">Unidades (zonas até 2022, municípios em 2026) em que cada identidade não fecha, e quantos votos ou eleitores de diferença. 2026: 1º e 2º turno da API de resultados, e cruzamento do 1º turno com os dados abertos, cidade a cidade.</p>
+      <div class="st-tbl short"><table id="aud-contab">
+        <thead><tr>
+          <th class="txt">Eleição</th><th>Unidades</th><th>Aptos ≠ comparec. + abst.</th><th>Eleitores de diferença</th>
+          <th>Comparec. ≠ válidos + brancos + nulos</th><th>Votos de diferença</th><th>Válidos ≠ soma dos candidatos</th><th>Votos de diferença</th>
+          <th>Cidades com fontes divergentes</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="aud-net-card">
+      <h2>Crescimento líquido cidade a cidade, 2002–2026</h2>
+      <p class="st-note">Destoam do estado: cidades com variação da margem a mais de 4 desvios robustos da mediana da sua UF, por mil. Comparecimento → margem: dentro de cada UF, quanto cada ponto de comparecimento a mais virou de margem líquida para o PT (votos criados para um lado dariam perto de 1). Estabilidade: correlação da votação do PT com a eleição anterior.</p>
+      <div class="st-tbl short"><table id="aud-net" data-source="consistencia_serie" data-row-key="id">
+        <thead><tr>
+          <th class="txt" data-field="ano">Eleição</th><th data-field="net_votos">Cresc. líquido do PT</th><th data-field="pct_cid_net_pt">Cidades a favor do PT</th>
+          <th data-field="sd_swing_margem">Dispersão da margem</th><th data-field="locais_z4_por_mil">Destoam do estado (por mil)</th>
+          <th data-field="locais_z4_pro_pt">→ PT</th><th data-field="locais_z4_pro_adv">→ adv.</th>
+          <th data-field="inclinacao_net_comparecimento">Comparecimento → margem</th><th data-field="corr_net_pt_1t">Líquido × PT no 1º</th>
+          <th data-field="corr_pt2_anterior">Estabilidade</th><th data-field="pct_cid_comp_sobe_5pp">Comparec. +5 p.p.</th><th data-field="pct_cid_bn2_1pct">Br. + nulos &lt; 1%</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-grid">
+      <div class="st-card" id="aud-loc-card">
+        <h2>Cidades que mais destoam do próprio estado</h2>
+        <p class="st-note">Eleição escolhida, cidades com 5 mil eleitores ou mais. Clique para abrir no mapa.</p>
+        <div class="st-tbl"><table id="aud-loc" data-source="consistencia_locais" data-row-key="id">
+          <thead><tr>
+            <th data-field="rank">#</th><th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th>
+            <th data-field="z_local">z</th><th data-field="swing_margem">Var. margem</th><th data-field="mediana_uf">Mediana da UF</th><th data-field="net_votos">Líquido</th>
+          </tr></thead>
+          <tbody class="click"></tbody>
+        </table></div>
+      </div>
+      <div class="st-card" id="aud-ext-card">
+        <h2>Pontos fora da curva</h2>
+        <p class="st-note">Eleição escolhida: comparecimento subindo 5 p.p. ou mais, ou brancos + nulos abaixo de 1% no 2º turno. Clique para abrir no mapa.</p>
+        <div class="st-tbl"><table id="aud-ext" data-source="consistencia_extremos" data-row-key="id">
+          <thead><tr>
+            <th class="txt" data-field="municipio">Município</th><th class="txt" data-field="uf">UF</th><th data-field="aptos">Eleitores</th><th class="txt" data-field="tipo">Tipo</th>
+            <th data-field="d_comp_pp">Var. comparec.</th><th data-field="bn_2t">Br. + nulos 2º</th><th data-field="swing_margem">Var. margem</th><th class="txt" data-field="venc_2t">Venceu</th>
+          </tr></thead>
+          <tbody class="click"></tbody>
+        </table></div>
+      </div>
+    </div>
     <div class="st-card" id="aud-out-card">
       <h2>Cidades mais atípicas na eleição escolhida</h2>
       <p class="st-note">Resíduo do modelo de transferência escalado pelo eleitorado: cidades grandes aparecem mais. Esperado = ganho do PT que o modelo previa. Clique para abrir no mapa.</p>
@@ -555,6 +668,8 @@
           <li>Recuperados = queda de abstenção, brancos ou nulos do 1º para o 2º turno. Saldo recuperado = soma das três.</li>
           <li>Total disponível = 3ª via + saldo recuperado; por construção, igual ao que os dois finalistas somaram juntos.</li>
           <li>Fatia do PT = votos que o PT somou ÷ total que os dois somaram.</li>
+          <li>Crescimento líquido = votos ganhos pelo PT − votos ganhos pelo adversário entre os turnos = saldo do 2º turno − saldo do 1º. Saldo = votos do PT − votos do adversário.</li>
+          <li>Colégio: cada UF vale deputados federais eleitos (cadastro do TSE) + 3 senadores; o vencedor do 2º turno na UF leva todos. Votos para virar: menor soma de (margem ÷ 2 + 1) nos estados do vencedor que dá a maioria ao outro lado.</li>
           <li>Cenários: votos que faltavam = válidos do 2º turno ÷ 2 − votos do candidato no 1º − X × 3ª via. % do restante = votos que faltavam ÷ (total disponível − X × 3ª via). % do saldo = votos que faltavam ÷ saldo recuperado.</li>
         </ul>
         <p><b>Testes.</b> Regressão ecológica (Goodman) entre municípios, ponderada pelo eleitorado. Swing = variação da fatia do PT entre os dois finalistas. Benford: segundo dígito das contagens por município (teste fraco para eleições; serve de comparação entre anos). Klimek: concentração de cidades com comparecimento e votação extremos.</p>
@@ -569,4 +684,5 @@
 <script src="mapa.js"></script>
 <script src="abas.js"></script>
 <script src="auditoria.js"></script>
+<script src="liquida.js"></script>
 <script>window.ST.start();</script>
