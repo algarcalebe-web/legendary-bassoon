@@ -14,7 +14,7 @@
   const UF_REG = { AC: 'N', AM: 'N', AP: 'N', PA: 'N', RO: 'N', RR: 'N', TO: 'N', AL: 'NE', BA: 'NE', CE: 'NE', MA: 'NE', PB: 'NE', PE: 'NE', PI: 'NE', RN: 'NE', SE: 'NE',
     DF: 'CO', GO: 'CO', MS: 'CO', MT: 'CO', ES: 'SE', MG: 'SE', RJ: 'SE', SP: 'SE', PR: 'S', RS: 'S', SC: 'S' };
   const UFS = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
-  const TABS = ['mapa', 'geral', 'liquida', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'secoes', 'metodo'];
+  const TABS = ['mapa', 'geral', 'liquida', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'secoes', 'seguranca', 'metodo'];
   const STATUS = { dispensa: 'Basta a 3ª via', viavel: 'Viável', inviavel: 'Acima do disponível' };
   // fatia da 3ª via necessária com o resto do disponível dividido pela proporção PT × adversário de cada cidade
   const STATUS_REQ = { dispensa: 'Vence sem a 3ª via', viavel: 'Viável', inviavel: 'Nem com toda a 3ª via' };

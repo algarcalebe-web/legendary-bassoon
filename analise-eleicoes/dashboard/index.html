@@ -128,6 +128,7 @@
       <button type="button" role="tab" id="tab-terceira" data-tab="terceira">3ª via</button>
       <button type="button" role="tab" id="tab-auditoria" data-tab="auditoria">Auditoria</button>
       <button type="button" role="tab" id="tab-secoes" data-tab="secoes">Seções</button>
+      <button type="button" role="tab" id="tab-seguranca" data-tab="seguranca">Segurança</button>
       <button type="button" role="tab" id="tab-metodo" data-tab="metodo">Método</button>
     </nav>
   </header>
@@ -969,6 +970,78 @@
     </div>
   </section>
 
+  <section class="st-page" id="seguranca" role="tabpanel" aria-labelledby="tab-seguranca" hidden>
+    <div class="st-card" id="seg-intro">
+      <h2>Segurança em camadas: o que os dados públicos permitem testar</h2>
+      <p class="st-note">2026. Todo sistema tem ameaças; a pergunta útil é o que cada camada deixa verificar de fora e o que os registros mostram. Cruza as seções e cidades sinalizadas (aqui e na aba Auditoria) com correspondências urna × seção, logs dos computadores que preparam as urnas (GEDAI), boletins de urna, logs das urnas e registro digital do voto (RDV). <span id="seg-ano"></span></p>
+      <div class="st-kpis">
+        <div class="st-kpi"><span class="st-kpi-l">Seções em urna de contingência, 1º turno</span><span class="st-kpi-v dash-skeleton" id="sk-cont">—</span><span class="st-kpi-s">urna que votou ≠ urna prevista</span></div>
+        <div class="st-kpi"><span class="st-kpi-l">Seções com urna trocada entre turnos</span><span class="st-kpi-v dash-skeleton" id="sk-mud">—</span><span class="st-kpi-s">esperada no 2º ≠ efetivada no 1º</span></div>
+        <div class="st-kpi"><span class="st-kpi-l">Logs do GEDAI lidos</span><span class="st-kpi-v dash-skeleton" id="sk-gedai">—</span><span class="st-kpi-s">computadores × turno</span></div>
+        <div class="st-kpi"><span class="st-kpi-l">Computadores com alerta de assinatura ou integridade</span><span class="st-kpi-v dash-skeleton" id="sk-alerta">—</span><span class="st-kpi-s">no próprio log do GEDAI</span></div>
+        <div class="st-kpi"><span class="st-kpi-l">Seções com log e RDV lidos</span><span class="st-kpi-v dash-skeleton" id="sk-amostra">—</span><span class="st-kpi-s">sinalizadas + controles, 1º e 2º turnos</span></div>
+        <div class="st-kpi"><span class="st-kpi-l">Eleitores sem habilitação biométrica, 1º turno</span><span class="st-kpi-v dash-skeleton" id="sk-biom">—</span><span class="st-kpi-s">do comparecimento (boletins de urna)</span></div>
+      </div>
+    </div>
+    <div class="st-card" id="seg-camadas-card">
+      <h2>Matriz de camadas</h2>
+      <p class="st-note">Risco de cada camada, o teste feito com dados públicos, o resultado e o que não dá para testar de fora.</p>
+      <div class="st-tbl"><table id="seg-camadas" data-source="seg_camadas" data-row-key="id">
+        <thead><tr><th class="txt" data-field="camada">Camada</th><th class="txt" data-field="risco">Risco</th><th class="txt" data-field="teste">Teste com dados públicos</th><th class="txt" data-field="resultado">Resultado</th><th class="txt" data-field="status">Situação</th><th class="txt" data-field="falta">O que não dá para testar</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="seg-grupos-card">
+      <h2>Seções e cidades sinalizadas × registros técnicos (todas as seções)</h2>
+      <p class="st-note">Cada linha é um grupo; a última, as seções fora de todos os grupos. Contingência e urna trocada: correspondências do TSE. Sem rastro no GEDAI: a carga da urna não aparece em nenhum log publicado do GEDAI. Computador com alerta: a mídia foi gerada num computador cujo log tem assinatura inválida ou falha de integridade do banco. Sem biometria: boletins de urna do 1º turno; "vs. zona" desconta a média da própria zona. Em vermelho: acima de 1,5 vez as demais seções.</p>
+      <div class="st-tbl"><table id="seg-grupos" data-source="seg_grupos" data-row-key="id">
+        <thead><tr><th class="txt" data-field="grupo">Grupo</th><th data-field="secoes">Seções</th><th data-field="eleitores">Eleitores</th><th data-field="pct_pt_2t">Lula 2º</th><th data-field="net_dz_pp">Líquido vs. zona</th>
+          <th data-field="contingencia_1t">Contingência 1º</th><th data-field="urna_mudou_2t">Urna trocada</th><th data-field="carga_nova_2t">Carga nova 2º</th><th data-field="sem_rastro_gedai_1t">Sem rastro no GEDAI</th><th data-field="maquina_com_alerta">Computador com alerta</th>
+          <th data-field="sem_biometria_1t">Sem biometria 1º</th><th data-field="sem_biometria_1t_dz_pp">vs. zona</th><th data-field="fecha_apos_17h30_1t">Encerrou após 17h30 (1º)</th><th data-field="chegada_2t_mediana">Chegada BU 2º</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="seg-urna-card">
+      <h2>Log da urna e RDV: sinalizadas × controle</h2>
+      <p class="st-note">Arquivos de cada seção no portal de resultados do TSE, 1º e 2º turnos. Grupos de seção: todas as sinalizadas, cada uma com uma seção de controle sorteada na mesma zona. Grupos de cidade: amostra sorteada (até 400 seções; nas listas curtas da Auditoria, até 8 por cidade), cada uma com controle na mesma UF fora de qualquer grupo. RDV = resultado: a recontagem do registro digital do voto dá exatamente os votos oficiais de Lula, Flávio e os demais na seção. Urna da correspondência no log: a urna prevista (efetivada no 1º turno, esperada no 2º) aparece entre as urnas que gravaram o log no dia; se não, verifica-se se a urna do log está na lista de contingência da zona. Os logs de urna substituída vêm arquivados dentro do pacote e são somados sem repetir linhas. Falha de assinatura: verificação com [ERRO] registrada pela urna no período do turno; "sem nova verificação ok" conta as que não tiveram, depois, uma verificação bem-sucedida do mesmo arquivo. Duração: da habilitação ao voto computado (o 1º turno tem mais cargos).</p>
+      <div class="st-tbl"><table id="seg-urna" data-source="seg_urna" data-row-key="id">
+        <thead><tr><th class="txt" data-field="grupo">Grupo</th><th class="txt" data-field="turno">Turno</th><th class="txt" data-field="lado">Lado</th><th data-field="secoes_lidas">Seções lidas</th>
+          <th data-field="log_bate_comp">Log = comparec.</th><th data-field="rdv_bate">RDV = resultado</th><th data-field="urna_confere">Urna da corresp. no log</th><th data-field="urna_contingencia">Urna de contingência registrada</th><th data-field="urna_nao_confere">Urna fora das listas</th><th data-field="assinatura_falha">Falha de assinatura (seções / sem nova verificação ok)</th><th data-field="mais_de_um_bu">Mais de um BU</th>
+          <th data-field="nao_biometrica">Não biométrica</th><th data-field="mesario">Liberada por mesário</th><th data-field="dur_mediana_s">Duração mediana</th><th data-field="lt20s">Votos em &lt; 20 s</th><th data-field="max_10min_media">Máx. em 10 min</th><th data-field="religada">Religada no dia</th><th data-field="erros_por_secao">Erros por seção</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="seg-sec-card">
+      <div class="st-card-h">
+        <h2>Seções lidas nos logs</h2>
+        <label class="st-field" for="f-seg-tipo">Mostrar
+          <select id="f-seg-tipo">
+            <option value="todas">Todas as lidas</option>
+            <option value="klimek">Comparecimento 95%+ e 90%+ para um lado</option>
+            <option value="bn0">Brancos e nulos zerados</option>
+            <option value="z5">Desvio da zona (z &gt; 5)</option>
+            <option value="urna">Algum registro que não confere</option>
+          </select>
+        </label>
+      </div>
+      <p class="st-note"><span id="seg-sec-n"></span> Região e estado dos filtros do topo. Clique num cabeçalho para ordenar e numa linha para abrir a cidade no mapa. Controle: seção sorteada na mesma zona (grupos de seção) ou na mesma UF (grupos de cidade).</p>
+      <div class="st-tbl"><table id="seg-sec" data-source="seg_secoes" data-row-key="id">
+        <thead><tr><th class="txt" data-field="municipio" data-sort="municipio"><button type="button" data-k="municipio">Município</button></th><th class="txt" data-field="uf" data-sort="uf"><button type="button" data-k="uf">UF</button></th><th data-field="secao">Zona / seção</th><th class="txt" data-field="tipos">Grupos</th><th data-field="aptos" data-sort="aptos"><button type="button" data-k="aptos">Eleitores</button></th><th data-field="comp_2t" data-sort="comp_2t"><button type="button" data-k="comp_2t">Comparec. 2º</button></th><th data-field="pt_2t" data-sort="pt2"><button type="button" data-k="pt2">Lula 2º</button></th><th data-field="bn_2t">Br. + nulos 2º</th><th data-field="z" data-sort="z"><button type="button" data-k="z">z</button></th><th class="txt" data-field="urna_mudou_2t">Urna trocada 1º→2º</th><th class="txt" data-field="contingencia_1t">Contingência 1º</th><th data-field="sem_biom_1t" data-sort="sem_biom"><button type="button" data-k="sem_biom">Sem biometria 1º (seção / zona)</button></th><th data-field="t2_nao_biom" data-sort="nb2"><button type="button" data-k="nb2">Não biométrica 2º (seção / controle)</button></th><th data-field="t2_mesario" data-sort="mes2"><button type="button" data-k="mes2">Liberada por mesário 2º</button></th><th data-field="t2_dur_s" data-sort="dur2"><button type="button" data-k="dur2">Duração do voto 2º (seção / controle)</button></th><th data-field="t2_max_10min" data-sort="max2"><button type="button" data-k="max2">Máx. em 10 min 2º</button></th><th class="txt" data-field="t1_log_bate">Log = comparec. (1º / 2º)</th><th class="txt" data-field="t1_rdv_bate">RDV = resultado (1º / 2º)</th><th class="txt" data-field="t1_urna">Urna do log × correspondência (1º / 2º)</th><th class="txt" data-field="t1_assin_falha">Falha de assinatura no log</th><th class="txt" data-field="chegada_2t" data-sort="chegada"><button type="button" data-k="chegada">Chegada BU 2º</button></th></tr></thead>
+        <tbody class="click"></tbody>
+      </table></div>
+    </div>
+    <div class="st-card" id="seg-uf-card">
+      <h2>GEDAI e correspondências por estado</h2>
+      <p class="st-note">Logs publicados dos computadores que geram as mídias das urnas (1º turno: versão de 04.10; 2º turno: 24.10). Madrugada: eventos entre 22h e 6h. Pacotes em mais de uma versão: o mesmo pacote importado com versões diferentes em computadores do estado. Correspondências: seções do estado.</p>
+      <div class="st-tbl"><table id="seg-uf" data-source="seg_uf" data-row-key="id">
+        <thead><tr><th class="txt" data-field="uf">UF</th><th class="txt" data-field="turno">Turno</th><th data-field="maquinas">Computadores</th><th data-field="linhas">Linhas de log</th><th data-field="ERRO">Erros</th><th data-field="ALERTA">Alertas</th>
+          <th data-field="assinatura_invalida">Assinatura inválida</th><th data-field="integridade_banco">Integridade do banco</th><th data-field="sem_perfil">Usuário sem perfil</th><th data-field="madrugada">Madrugada</th><th data-field="pacotes_multiversao">Pacotes em +1 versão</th>
+          <th data-field="urnas_contingencia">Urnas de contingência</th><th data-field="contingencia_1t">Seções em contingência 1º</th><th data-field="urna_mudou_2t">Urna trocada</th><th data-field="carga_nova_2t">Carga nova 2º</th><th data-field="sem_rastro_gedai">Sem rastro</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+    </div>
+  </section>
+
   <section class="st-page" id="metodo" role="tabpanel" aria-labelledby="tab-metodo" hidden>
     <div class="st-card">
       <h2>Como os números foram feitos</h2>
@@ -991,7 +1064,8 @@
         </ul>
         <p><b>Testes.</b> Regressão ecológica (Goodman) entre municípios, ponderada pelo eleitorado. Swing = variação da fatia do PT entre os dois finalistas. Benford: segundo dígito das contagens por município (teste fraco para eleições; serve de comparação entre anos). Klimek: concentração de cidades com comparecimento e votação extremos.</p>
         <p><b>Seções.</b> 2018, 2022 e 2026: votação por seção (presidente) e detalhe da seção (aptos, comparecimento, brancos, nulos, horário de recebimento do boletim, modelo da urna), dados abertos do TSE. A soma das seções confere com o total de cada município nos dois turnos. Transições por Goodman em cada estado, com e sem restrição de 0 a 100%, e uma regressão dentro da zona eleitoral como terceira leitura.</p>
-        <p><b>Limites.</b> Tudo é saldo líquido: movimentos opostos dentro de uma cidade ou seção se anulam. Regressões entre cidades ou seções mostram associação entre lugares, não o voto de pessoas. Boletins de urna do 2º turno de 2026 (com horário de encerramento de cada seção) ainda não publicados.</p>
+        <p><b>Limites.</b> Tudo é saldo líquido: movimentos opostos dentro de uma cidade ou seção se anulam. Regressões entre cidades ou seções mostram associação entre lugares, não o voto de pessoas. Boletins de urna web e correspondência efetivada do 2º turno de 2026 ainda não estão nos dados abertos; logs e RDV do 2º turno foram lidos seção a seção no portal de resultados, só para a amostra.</p>
+        <p><b>Segurança.</b> 2026. Correspondências esperadas (1º turno, gerações de 03.10 e 04.10; 2º turno, 24.10) e efetivadas (1º turno): urna, carga e computador previstos e usados por seção. Logs do GEDAI-UE (1º turno 03.10 e 04.10; 2º turno 24.10): erros, alertas, assinaturas, pacotes importados e as correspondências transmitidas, comparadas às cargas das seções; o log de 03.10 de cada computador é conferido como início do de 04.10. Boletins web do 1º turno: eleitores sem habilitação biométrica, abertura e encerramento. Portal de resultados (arquivo-urna, pleitos 3220 e 3221): log da urna (logd.dat) e RDV de cada seção lida. RDV decodificado em DER sem a especificação oficial: eleição 6257 (1º turno) e 6258 (2º), cargo 1, voto nominal = tipo 2; a recontagem é validada contra o resultado oficial seção a seção. Amostra: todas as seções Klimek, com brancos e nulos zerados e com z &gt; 5, cada uma com uma seção de controle sorteada na mesma zona; nos grupos de cidade (conversão acima de 100%, virada, troca, listas da aba Auditoria), amostra sorteada com controle na mesma UF. Semente fixa (2026).</p>
         <p><b>Reprodução.</b> Scripts em <code>analise-eleicoes/</code> no repositório <code>legendary-bassoon</code>, branch <code>claude/vigilant-hawking-2j8wd8</code>.</p>
       </div>
     </div>
@@ -1004,4 +1078,5 @@
 <script src="auditoria.js"></script>
 <script src="liquida.js"></script>
 <script src="secoes.js"></script>
+<script src="seguranca.js"></script>
 <script>window.ST.start();</script>

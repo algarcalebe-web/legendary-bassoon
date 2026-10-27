@@ -15,9 +15,10 @@ exceto a coluna de apoio formal no 2º turno (`APOIO` em `alinhamento.py`), que 
 | `consistencia.py` | `consistencia_serie.csv`, `consistencia_locais.csv`, `consistencia_extremos.csv` (identidades contábeis, cruzamento 2026 dados abertos × API, desvios locais, extremos) |
 | `colegio.py` | `colegio.csv`, `colegio_uf.csv`, `saldos.csv` (vitória líquida por UF/região, colégio pelo 1º e pelo 2º turno, sistemas alternativos, swing para virar) |
 | `secao.py` | `secao_serie.csv`, `secao_transicao.csv`, `secao_uf.csv`, `secao_tempo.csv`, `secao_modelo.csv`, `secao_extremos.csv`, `secao_dist.csv` (testes com as ~500 mil seções de 2018, 2022 e 2026) |
+| `seguranca.py` | `seg_resumo.csv`, `seg_camadas.csv`, `seg_grupos.csv`, `seg_urna.csv`, `seg_secoes.csv`, `seg_uf.csv` (segurança em camadas: seções e cidades sinalizadas × correspondências, logs do GEDAI, boletins de urna, logs das urnas e RDV, 2026) |
 | `build_insights.py` | `insights.json` (leituras em texto, todos os números tirados das tabelas) |
 
-`dashboard/` tem a página do dashboard (tipo Dashboard do claude.ai): `index.html`, `core.js`, `mapa.js`, `abas.js`, `auditoria.js`, `liquida.js`, `secoes.js`.
+`dashboard/` tem a página do dashboard (tipo Dashboard do claude.ai): `index.html`, `core.js`, `mapa.js`, `abas.js`, `auditoria.js`, `liquida.js`, `secoes.js`, `seguranca.js`.
 
 ## Fontes
 
@@ -27,6 +28,10 @@ exceto a coluna de apoio formal no 2º turno (`APOIO` em `alinhamento.py`), que 
   `https://resultados.tse.jus.br/oficial/ele2026/<cd>/dados/<uf>/<uf>[<mun>]-c<cargo>-e00<cd>-u.json`
   (6257/6258 presidente, 6259/6260 cargos estaduais) e `.../6258/config/mun-e006258-cm.json` (municípios e código IBGE).
   `build_dataset.py` confere que a soma dos municípios bate com o total oficial de cada UF.
+- Segurança (2026), dados abertos `https://cdn.tse.jus.br/estatistica/sead/eleicoes/eleicoes2026/`: `correspesp/CESP_<t>_<UF>_*.zip`,
+  `correspefet/CEFT_1t_<UF>_*.zip`, `logsgedai/log_gedai_<t>_<UF>_*.zip`, `buweb/bweb_1t_<UF>_*.zip`; e, por seção, o portal
+  `https://resultados.tse.jus.br/oficial/ele2026/arquivo-urna/<pleito>/dados/<uf>/<mun>/<zona>/<secao>/` (3220 = 1º turno,
+  3221 = 2º): `p00<pleito>-<uf>-m<mun>-z<zona>-s<secao>-aux.json` lista o hash e os arquivos (`-log.jez`, `-rdv.dat`, `-bu.dat`).
 - Malha: IBGE 2024 via geobr (Ipea), `municipality_2024_simplified.gpkg` por UF, simplificada e projetada com mapshaper.
 
 ## Reproduzir
@@ -39,11 +44,14 @@ python -I alinhamento.py <od_dir> <api_dir> <mun_dir> <apiuf_dir> data  # numpy
 python -I consistencia.py <od_dir> <api_dir> <mun_dir> <detalhe_munzona_2026.zip> data  # numpy
 python3 -I colegio.py <od_dir> <apiuf_dir> data
 python -I secao.py <od_dir> <api_dir> <mun_dir> <secao_dir> data  # numpy, scipy
+python -I seguranca.py <secao_dir> <seg_raw_dir> <bweb_dir> data data <cache_dir>  # numpy; curl para o portal
 python3 -I build_insights.py data
 ```
 
 `<secao_dir>/<ano>/`: `detalhe.zip` (detalhe_votacao_secao_<ano>.zip) e `votos.zip` (votacao_secao_<ano>_BR.zip). `<od_dir>`: zips do TSE. `<api_dir>`: `<uf>-6257.json` e `<uf>-6258.json`. `<mun_dir>`: `cm.json` e
 `files/<uf><mun>-<cd>.json`. `<apiuf_dir>`: `<uf>-6259-<cargo>.json` e `<uf>-6260-0003.json`.
+`<seg_raw_dir>`: os zips de correspondências e de logs do GEDAI. `<bweb_dir>`: `pres_1t_<UF>.csv` (`bweb_presidente.py`), só as linhas de Presidente
+de cada boletim web (extraídas em streaming do zip do TSE, uma por seção). `<cache_dir>`: métricas de log e RDV já lidas.
 
 ## Definições
 
