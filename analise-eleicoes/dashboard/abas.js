@@ -37,7 +37,7 @@
       fill($('#k-t'), 'uf', 'terceira_via', id, F.mi(r.terceira_via));
       fill($('#k-d'), 'uf', 'delta', id, F.smi(r.delta));
       fill($('#k-cap'), 'uf', 'captura_pt', id, F.pct(r.captura_pt));
-      fill($('#k-xmin'), 'uf', 'rec_pt', id, `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)}`);
+      fill($('#k-xmin'), 'uf', 'rec_pt', id, `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)} / ${F.smi(r.rec_ter)}`);
       fill($('#k-req'), 'uf', 'x_levou_pt', id, F.pct(r.x_levou_pt), window.ST.CONV_CLS[r.flag_conv] === 'inviavel' ? 'neg' : '');
       fill($('#k-levou'), 'uf', 'x_levou_pt', id, isNum(r.x_levou_pt) ? F.pct(1 - +r.x_levou_pt) : '—');
       fill($('#k-req-st'), 'uf', 'flag_conv', id, window.ST.CONV_ROT[r.flag_conv] || '—');
@@ -56,7 +56,7 @@
     (tr, x) => { tr.classList.toggle('st-sel', String(x.ano) === p.ano); reqCor(tr, x, 18); });
   }
 
-  // pinta as duas células de conversão da 3ª via pela avaliação (plausível / muito alto / improvável)
+  // pinta as duas células de conversão da 3ª via pela avaliação (plausível / improvável / alerta)
   const convAdv = (v) => (isNum(v) ? F.pct(1 - +v) : '—');
   function reqCor(tr, x, i) {
     const f = x.flag_conv || window.ST.convFlag(x.x_levou_pt);
@@ -276,7 +276,7 @@
     const xl = (r) => (isNum(r.x_levou_pt) ? (ehPt ? +r.x_levou_pt : 1 - +r.x_levou_pt) : null);
     const xo = (r) => (isNum(r.x_levou_pt) ? (ehPt ? 1 - +r.x_levou_pt : +r.x_levou_pt) : null);
     const xr = (r) => (isNum(r.x_req_pt) ? (ehPt ? +r.x_req_pt : 1 - +r.x_req_pt) : null);
-    const resto = (r) => (ehPt ? `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)}` : `${F.smi(r.rec_dir)} / ${F.smi(r.rec_pt)}`);
+    const resto = (r) => (ehPt ? `${F.smi(r.rec_pt)} / ${F.smi(r.rec_dir)}` : `${F.smi(r.rec_dir)} / ${F.smi(r.rec_pt)}`) + ` / ${F.smi(r.rec_ter)}`;
     const linha = (r, rot) => {
       const tr = document.createElement('tr');
       tr.dataset.key = r.id;

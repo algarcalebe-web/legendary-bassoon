@@ -201,26 +201,33 @@ def metricas(t1, t2):
     }
 
 
-CONV_ALTO = 0.9      # conversão da 3ª via acima disso (ou abaixo de 1 − isso) é marcada como muito alta
-CONV_MIN_T = 100     # cidades com 3ª via menor que isso ficam sem avaliação de conversão (base pequena)
+# conversão da 3ª via que cada lado precisou (x para o PT, 1 − x para o adversário): até 60% plausível; 60–90%
+# improvável; 90–100% alerta; acima de 100% alerta (impossível pela regra)
+CONV_PLAUS = 0.6
+CONV_ALERTA = 0.9
+CONV_MIN_T = 100     # cidades com bolo a converter menor que isso ficam sem avaliação de conversão (base pequena)
 
 
 def sinais(m, minimo=0):
     """Sinais de auditoria de uma unidade, a partir das métricas já calculadas.
-    Conversão: fatia da 3ª via que cada finalista precisou converter para o resultado que teve, com o resto (abstenção,
-    brancos e nulos recuperados) seguindo a proporção do 1º turno; acima de 100% é improvável pela regra.
+    Conversão: fatia do bolo a converter (3ª via + parte da 3ª via nos recuperados) que cada finalista precisou para o
+    resultado que teve, com abstenção, brancos e nulos recuperados divididos pela distribuição do 1º turno (PT,
+    adversário, 3ª via). Por lado: até 60% plausível, 60–90% improvável, 90–100% alerta, acima de 100% alerta de
+    possível fraude (salvo troca de lado, recuperados muito além da distribuição do 1º turno ou outros votos).
     Perdas: quem perdeu votos entre os turnos. Saída = alta de abstenção + brancos + nulos (quem deixou de votar
     validamente). A perda só se explica sem troca de lado se a saída cobre a perda e o oponente não ganhou mais que a
     3ª via mais os recuperados; senão, a diferença é o mínimo de eleitores que trocaram de lado."""
     T = m["terceira_via"]
+    B = m["bolo_conv"]
     x = m["x_levou_pt"]
     out = {"flag_conv": "", "exc_pt": 0, "exc_dir": 0, "conv2_pt": None}
-    if x is not None and T >= minimo:
-        out["flag_conv"] = ("pt_acima" if x > 1 else "pt_alto" if x > CONV_ALTO else "dir_acima" if x < 0
-                            else "dir_alto" if x < 1 - CONV_ALTO else "ok")
-        out["exc_pt"], out["exc_dir"] = round(max(0, x - 1) * T), round(max(0, -x) * T)
+    if x is not None and B >= minimo:
+        out["flag_conv"] = ("pt_acima" if x > 1 else "pt_alerta" if x > CONV_ALERTA else "pt_improv" if x > CONV_PLAUS
+                            else "dir_acima" if x < 0 else "dir_alerta" if x < 1 - CONV_ALERTA
+                            else "dir_improv" if x < 1 - CONV_PLAUS else "ok")
+        out["exc_pt"], out["exc_dir"] = round(max(0, x - 1) * B), round(max(0, -x) * B)
         tot2 = m["pt_2t"] + m["dir_2t"]
-        if tot2:
+        if tot2 and T:  # sensibilidade: recuperados na proporção do 2º turno, sobre a 3ª via
             extra = tot2 - (m["pt_1t"] + m["dir_1t"]) - T
             out["conv2_pt"] = (m["ganho_pt"] - m["pt_2t"] / tot2 * extra) / T
     saida = -m["delta"]
@@ -244,22 +251,24 @@ def sinais(m, minimo=0):
 
 def rec_local(t1, t2):
     """Votos que os finalistas somaram além da 3ª via (abstenção, brancos e nulos recuperados), divididos pela
-    proporção PT × adversário do 1º turno na própria cidade."""
+    distribuição do 1º turno na própria cidade: PT, adversário e 3ª via. A parte da 3ª via entra no bolo a converter."""
     terceira = t1["validos"] - t1["pt"] - t1["dir"]
     extra = (t2["pt"] + t2["dir"]) - (t1["pt"] + t1["dir"]) - terceira
-    s = t1["pt"] / (t1["pt"] + t1["dir"]) if t1["pt"] + t1["dir"] else 0.5
-    return s * extra, (1 - s) * extra
+    if not t1["validos"]:
+        return extra / 2, extra / 2, 0.0
+    return t1["pt"] / t1["validos"] * extra, t1["dir"] / t1["validos"] * extra, terceira / t1["validos"] * extra
 
 
-def req_local(t1, t2, rec_pt, rec_dir):
-    """Com o resto dividido pela proporção local, a fatia da 3ª via que o PT precisava para empatar e a que levou.
-    Para estados, regiões e Brasil, rec_pt e rec_dir são somas cidade a cidade."""
-    terceira = t1["validos"] - t1["pt"] - t1["dir"]
-    if terceira <= 0:
-        return {"rec_pt": rec_pt, "rec_dir": rec_dir, "x_req_pt": None, "x_levou_pt": None, "status_req_pt": ""}
-    x = 0.5 + (t1["dir"] - t1["pt"] + rec_dir - rec_pt) / (2 * terceira)
-    return {"rec_pt": rec_pt, "rec_dir": rec_dir, "x_req_pt": x,
-            "x_levou_pt": (t2["pt"] - t1["pt"] - rec_pt) / terceira, "status_req_pt": status_req(x)}
+def req_local(t1, t2, rec_pt, rec_dir, rec_ter):
+    """Com os recuperados divididos pela distribuição local do 1º turno, a fatia do bolo a converter (3ª via + parte da
+    3ª via nos recuperados) que o PT precisava para empatar e a que levou. Para estados, regiões e Brasil, rec_* são
+    somas cidade a cidade."""
+    bolo = t1["validos"] - t1["pt"] - t1["dir"] + rec_ter
+    base = {"rec_pt": rec_pt, "rec_dir": rec_dir, "rec_ter": rec_ter, "bolo_conv": bolo}
+    if bolo <= 0:
+        return {**base, "x_req_pt": None, "x_levou_pt": None, "status_req_pt": ""}
+    x = 0.5 + (t1["dir"] - t1["pt"] + rec_dir - rec_pt) / (2 * bolo)
+    return {**base, "x_req_pt": x, "x_levou_pt": (t2["pt"] - t1["pt"] - rec_pt) / bolo, "status_req_pt": status_req(x)}
 
 
 def status_req(x):
@@ -355,7 +364,7 @@ def por_porte(mun_rows):
                     "captura_pt": div(t["ganho_pt"], t["ganho_pt"] + t["ganho_dir"]),
                     "pct_terceira": t["terceira_via"] / t["validos_1t"], "delta_pct": t["delta"] / t["aptos"],
                     **req_local({"validos": t["validos_1t"], "pt": t["pt_1t"], "dir": t["dir_1t"]}, {"pt": t["pt_2t"], "dir": t["dir_2t"]},
-                                sum(r["rec_pt"] for r in sub), sum(r["rec_dir"] for r in sub)),
+                                sum(r["rec_pt"] for r in sub), sum(r["rec_dir"] for r in sub), sum(r["rec_ter"] for r in sub)),
                     "venc_pt": sum(r["venc_2t"] == "PT" for r in sub), "venc_dir": sum(r["venc_2t"] == "DIR" for r in sub),
                     "viradas_pt": sum(r["virou"] and r["venc_2t"] == "PT" for r in sub),
                     "viradas_dir": sum(r["virou"] and r["venc_2t"] == "DIR" for r in sub),
@@ -455,7 +464,8 @@ MAPA = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte", "pct_
         "captura_pt", "margem_2t", "lider_1t", "lider1_nr", "lider1_sigla", "lider1_pct", "venc_2t", "virou",
         "mudou_vs_ant", "perda", "y_resto_pt_50", "status_pt_50", "net_votos", "net_pct_aptos", "swing_margem", "d_comp_pp",
         "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt", "flag_conv", "exc_pt", "exc_dir",
-        "flag_perda_pt", "flag_perda_dir", "troca_min_pt", "troca_min_dir", "terceira_via", "delta", "rec_pt", "rec_dir"]
+        "flag_perda_pt", "flag_perda_dir", "troca_min_pt", "troca_min_dir", "terceira_via", "delta", "rec_pt", "rec_dir",
+        "rec_ter", "bolo_conv"]
 HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "pt_1t", "pt_2t", "dir_1t", "dir_2t", "validos_1t", "validos_2t", "pct_pt_1t", "pct_pt_2t", "pct_dir_1t",
         "pct_dir_2t", "pp_pt", "pp_dir", "ganho_pt", "ganho_dir", "cresc_pt", "cresc_dir",
@@ -464,7 +474,7 @@ HIST = ["id", "cod", "ano", "municipio", "uf", "regiao", "aptos", "porte",
         "delta_abst", "delta_brancos", "delta_nulos", "delta", "pool", "captura_pt", "lider1_sigla", "lider1_pct",
         "net_votos", "net_pct_aptos", "margem_1t", "margem_2t", "swing_margem", "pct_comp_1t", "pct_comp_2t", "d_comp_pp",
         "lider_1t", "venc_2t", "virou", "mudou_vs_ant", "x_req_pt", "x_levou_pt", "status_req_pt", "x_req50_pt", "x_levou50_pt",
-        "rec_pt", "rec_dir", "flag_conv", "exc_pt", "exc_dir", "conv2_pt", "flag_perda_pt", "flag_perda_dir",
+        "rec_pt", "rec_dir", "rec_ter", "bolo_conv", "flag_conv", "exc_pt", "exc_dir", "conv2_pt", "flag_perda_pt", "flag_perda_dir",
         "troca_min_pt", "troca_min_dir"] + \
        [f"{k}_{c}_{x}" for c in ("pt", "dir") for x in CENARIOS_X for k in ("need", "status", "y_saldo", "y_resto")]
 
@@ -544,7 +554,7 @@ def conversao(mun_rows, uf_rows):
             u = ufi.get(f"{ano}-{esc}", {})
             s = {"id": f"{ano}-{esc}", "ano": ano, "escopo": esc, "cidades": len(b), "cidades_avaliadas": len(av),
                  "conv_pt": u.get("x_levou_pt"), "flag_conv": u.get("flag_conv", "")}
-            for f in ("pt_acima", "pt_alto", "dir_acima", "dir_alto"):
+            for f in ("pt_acima", "pt_alerta", "pt_improv", "ok", "dir_improv", "dir_alerta", "dir_acima"):
                 sel = [r for r in av if r["flag_conv"] == f]
                 s[f"n_{f}"] = len(sel)
                 s[f"eleit_{f}"] = div(sum(r["aptos"] for r in sel), apt)
@@ -601,7 +611,7 @@ def main(od_dir, api_dir, mun_dir, out_dir):
             if not t1["validos"] or not t2["validos"]:
                 continue
             m = metricas(t1, t2)
-            m.update(req_local(t1, t2, sum(rec[k][0] for k in rec if sel((1,) + k)), sum(rec[k][1] for k in rec if sel((1,) + k))))
+            m.update(req_local(t1, t2, *(sum(rec[k][i] for k in rec if sel((1,) + k)) for i in range(3))))
             m.update(sinais(m))
             uf_rows.append({"id": f"{ano}-{cod}", "ano": ano, "nivel": nivel, "uf": cod, "nome": nome, "regiao": reg, **m})
             for cand in ("pt", "dir"):

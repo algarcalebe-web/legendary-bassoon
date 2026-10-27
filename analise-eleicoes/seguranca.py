@@ -10,8 +10,8 @@ Fontes (dadosabertos.tse.jus.br, 2026):
   A correspondência efetivada e o BU web do 2º turno ainda não estão no portal de dados abertos.
 
 Grupos sinalizados (2º turno 2026, conjunto analisado do secao.py): comparecimento 95%+ e 90%+ para um lado (Klimek),
-brancos+nulos zerados (200+ votantes), desvio da zona (z robusto > 5), seções de cidades com conversão acima de
-100%, com virada (líder do 1º turno perdeu o 2º) e com perda de votos explicável só por troca. Controle: demais
+brancos+nulos zerados (200+ votantes), desvio da zona (z robusto > 5), seções de cidades com conversão em alerta (acima
+de 90%), com virada (líder do 1º turno perdeu o 2º) e com perda de votos explicável só por troca. Controle: demais
 seções; nas comparações "dentro da zona" a métrica é medida contra a média ponderada da própria zona.
 
 Uso: python -I seguranca.py <secao_dir> <seg_raw_dir> <bweb_dir> <data_dir> <out_dir> <urna_dir>
@@ -41,7 +41,7 @@ import secao as sc  # noqa: E402
 ANO = 2026
 DIA_1T, DIA_2T = "04/10/2026", "25/10/2026"
 GRUPOS = (("klimek", "Comparecimento 95%+ e 90%+ para um lado"), ("bn0", "Brancos e nulos zerados"),
-          ("z5", "Desvio da zona (z > 5)"), ("cid_conv", "Cidades com conversão acima de 100%"),
+          ("z5", "Desvio da zona (z > 5)"), ("cid_conv", "Cidades com conversão em alerta (acima de 90%)"),
           ("cid_virada", "Cidades com virada"), ("cid_troca", "Cidades com perda de votos por troca"),
           ("cid_destoa", "Cidades que mais destoam do estado"), ("cid_local", "Cidades atípicas na vizinhança"),
           ("cid_extremo", "Cidades com resultado extremo"), ("cid_queda", "Maiores quedas de abstenção, nulos e brancos"),
@@ -116,7 +116,7 @@ def cidades(data_dir):
     with open(Path(data_dir) / f"mapa_{ANO}.csv", encoding="utf-8") as f:
         for r in csv.DictReader(f):
             k = (r["uf"], r["cod"].zfill(5))
-            if r["flag_conv"] in ("pt_acima", "dir_acima"):
+            if r["flag_conv"] in ("pt_acima", "dir_acima", "pt_alerta", "dir_alerta"):
                 out["cid_conv"].add(k)
             if r["virou"] == "1":
                 out["cid_virada"].add(k)
@@ -647,13 +647,23 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
         ok_g = m & np.isfinite(x)
         return ok_g, taxa_uf[ufi[ok_g]]
 
-    def sig_prop(x, m):
+    maq_id = np.unique(np.array([k[0] + "|" + corr.get(k, {}).get("maq_1t", "") for k in ch]), return_inverse=True)[1]
+
+    def sig_prop(x, m, agrupa=False):
         """1 se a taxa do grupo passa de 1,5 vez a esperada pelas demais seções do mesmo estado e o excesso é
-        significativo (soma de Bernoullis com a taxa de cada estado, aproximação normal, p < 0,01)."""
+        significativo (aproximação normal, p < 0,01). Com agrupa=True a variância trata cada computador do GEDAI como
+        uma unidade (todas as seções que ele preparou têm o mesmo valor), em vez de seções independentes."""
         ok_g, e = esperado(x, m)
         if not ok_g.any():
             return 0
-        k, mu, var = float(np.nansum(x[ok_g])), float(e.sum()), float((e * (1 - e)).sum())
+        k, mu = float(np.nansum(x[ok_g])), float(e.sum())
+        if agrupa:
+            c = maq_id[ok_g]
+            n_c = np.bincount(c)
+            e_c = np.bincount(c, e) / np.maximum(n_c, 1)
+            var = float((n_c ** 2 * e_c * (1 - e_c)).sum())
+        else:
+            var = float((e * (1 - e)).sum())
         if mu <= 0 or k <= 1.5 * mu:
             return 0
         return int(var > 0 and stats.norm.sf((k - 0.5 - mu) / math.sqrt(var)) < 0.01)
@@ -680,8 +690,8 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
             "chegada_2t_mediana": sc.hhmm(float(np.nanmedian(rec2[m]))) if m.any() and np.isfinite(rec2[m]).any() else "",
             **({} if g == "controle" else {
                 "sig_contingencia_1t": sig_prop(sub1, m), "sig_urna_mudou_2t": sig_prop(mud2, m),
-                "sig_carga_nova_2t": sig_prop(car2, m), "sig_sem_rastro_gedai_1t": sig_prop(sr1, m),
-                "sig_maquina_com_alerta": sig_prop(malr, m), "sig_sem_biometria_1t": sig_media(sbp, m)})})
+                "sig_carga_nova_2t": sig_prop(car2, m), "sig_sem_rastro_gedai_1t": sig_prop(sr1, m, True),
+                "sig_maquina_com_alerta": sig_prop(malr, m, True), "sig_sem_biometria_1t": sig_media(sbp, m)})})
 
     # arquivos da urna (log e RDV): sinalizadas + controles
     sinal_sec = gs["klimek"] | gs["bn0"] | gs["z5"]

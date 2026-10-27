@@ -16,14 +16,20 @@
   const UFS = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC', 'SE', 'SP', 'TO'];
   const TABS = ['mapa', 'geral', 'liquida', 'estados', 'porte', 'cenarios', 'cidades', 'terceira', 'auditoria', 'secoes', 'seguranca', 'metodo'];
   const STATUS = { dispensa: 'Basta a 3ª via', viavel: 'Viável', inviavel: 'Acima do disponível' };
-  // fatia da 3ª via necessária com o resto do disponível dividido pela proporção PT × adversário de cada cidade
+  // fatia do bolo necessária para empatar, com os recuperados na distribuição do 1º turno de cada cidade
   const STATUS_REQ = { dispensa: 'Vence sem a 3ª via', viavel: 'Viável', inviavel: 'Nem com toda a 3ª via' };
   const statusReq = (v) => (!isNum(v) ? '' : +v <= 0 ? 'dispensa' : +v > 1 ? 'inviavel' : 'viavel');
-  // conversão da 3ª via necessária para o resultado obtido (resto na proporção do 1º turno de cada cidade)
-  const CONV_ROT = { pt_acima: 'Improvável: PT acima de 100%', pt_alto: 'Muito alto: PT 90–100%', dir_acima: 'Improvável: adv. acima de 100%',
-    dir_alto: 'Muito alto: adv. 90–100%', ok: 'Plausível', '': 'Base pequena' };
-  const CONV_CLS = { pt_acima: 'inviavel', dir_acima: 'inviavel', pt_alto: 'viavel', dir_alto: 'viavel', ok: 'dispensa' };
-  const convFlag = (x) => (!isNum(x) ? '' : +x > 1 ? 'pt_acima' : +x > 0.9 ? 'pt_alto' : +x < 0 ? 'dir_acima' : +x < 0.1 ? 'dir_alto' : 'ok');
+  // conversão necessária para o resultado obtido: recuperados divididos pela distribuição do 1º turno de cada cidade (PT, adversário,
+  // 3ª via); a parte da 3ª via entra no bolo a converter.
+  // Por lado: até 60% plausível; 60–90% improvável; 90–100% alerta; acima de 100% alerta de possível fraude (ou explicações abaixo)
+  const CONV_ROT = { pt_acima: 'Alerta de possível fraude: PT acima de 100%', pt_alerta: 'Alerta: PT 90–100%', pt_improv: 'Improvável: PT 60–90%',
+    ok: 'Plausível: até 60% para os dois', dir_improv: 'Improvável: adv. 60–90%', dir_alerta: 'Alerta: adv. 90–100%',
+    dir_acima: 'Alerta de possível fraude: adv. acima de 100%', '': 'Base pequena' };
+  const CONV_CLS = { pt_acima: 'inviavel', dir_acima: 'inviavel', pt_alerta: 'inviavel', dir_alerta: 'inviavel', pt_improv: 'viavel', dir_improv: 'viavel', ok: 'dispensa' };
+  const CONV_EXPL = 'Acima de 100% só fecha se houver alguma destas: eleitores do adversário trocaram de lado (ele perde votos), abstenção, brancos e nulos '
+    + 'recuperados foram para o vencedor muito além da distribuição do 1º turno, ou ele obteve outros votos além da 3ª via. Sem uma delas, é alerta de possível fraude.';
+  const convFlag = (x) => (!isNum(x) ? '' : +x > 1 ? 'pt_acima' : +x > 0.9 ? 'pt_alerta' : +x > 0.6 ? 'pt_improv'
+    : +x < 0 ? 'dir_acima' : +x < 0.1 ? 'dir_alerta' : +x < 0.4 ? 'dir_improv' : 'ok');
   const PERDA_ROT = { saida_caiu: 'perdeu votos com abstenção, brancos e nulos caindo: troca de lado', perda_maior: 'perdeu mais do que subiram abstenção, brancos e nulos: troca de lado',
     oponente_acima: 'o oponente ganhou mais que 3ª via + recuperados: troca de lado', explicavel: 'perda explicável por quem deixou de votar' };
 
@@ -195,6 +201,6 @@
     dash.onData(draw);
   }
 
-  window.ST = { NOMES, ANOS, REG, UFS, UF_NOME, UF_REG, noFiltro, STATUS, STATUS_REQ, statusReq, CONV_ROT, CONV_CLS, convFlag, PERDA_ROT, F, cls, isNum, $, $$, tbl, failed, setMark, fill, failLine, td, rowsTable,
+  window.ST = { NOMES, ANOS, REG, UFS, UF_NOME, UF_REG, noFiltro, STATUS, STATUS_REQ, statusReq, CONV_ROT, CONV_CLS, CONV_EXPL, convFlag, PERDA_ROT, F, cls, isNum, $, $$, tbl, failed, setMark, fill, failLine, td, rowsTable,
     textWidth, segPressed, tipAt, st, P, abas, init: {}, draw, start, abrirCidade, clicavel, nf0, nf1 };
 })();

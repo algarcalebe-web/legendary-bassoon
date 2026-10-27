@@ -6,14 +6,15 @@
   st.flagSort = { k: 'exc', d: -1 };
   const PERDA_CURTO = { saida_caiu: 'troca: abstenção caiu', perda_maior: 'troca: perda > saída', oponente_acima: 'troca: oponente acima', explicavel: 'explicável' };
   const FLAG_SEL = {
-    todas: (r) => r.flag_conv === 'pt_acima' || r.flag_conv === 'dir_acima' || r.flag_conv === 'pt_alto' || r.flag_conv === 'dir_alto' || +r.troca_min_pt > 0 || +r.troca_min_dir > 0,
-    pt_acima: (r) => r.flag_conv === 'pt_acima', pt_alto: (r) => r.flag_conv === 'pt_alto', dir_acima: (r) => r.flag_conv === 'dir_acima', dir_alto: (r) => r.flag_conv === 'dir_alto',
+    todas: (r) => ['pt_acima', 'dir_acima', 'pt_alerta', 'dir_alerta'].includes(r.flag_conv) || +r.troca_min_pt > 0 || +r.troca_min_dir > 0,
+    pt_acima: (r) => r.flag_conv === 'pt_acima', pt_alerta: (r) => r.flag_conv === 'pt_alerta', pt_improv: (r) => r.flag_conv === 'pt_improv',
+    dir_acima: (r) => r.flag_conv === 'dir_acima', dir_alerta: (r) => r.flag_conv === 'dir_alerta', dir_improv: (r) => r.flag_conv === 'dir_improv',
     troca_dir: (r) => +r.troca_min_dir > 0, troca_pt: (r) => +r.troca_min_pt > 0,
     perda_pt: (r) => !!r.flag_perda_pt, perda_dir: (r) => !!r.flag_perda_dir,
     explicavel: (r) => r.flag_perda_pt === 'explicavel' || r.flag_perda_dir === 'explicavel',
   };
   const CHAVE = { municipio: (r) => r.municipio, uf: (r) => r.uf, aptos: (r) => +r.aptos, terceira_via: (r) => +r.terceira_via, rec_pt: (r) => +r.rec_pt,
-    rec_dir: (r) => +r.rec_dir, ganho_pt: (r) => +r.ganho_pt, ganho_dir: (r) => +r.ganho_dir, conv_pt: (r) => +r.x_levou_pt, conv_dir: (r) => -r.x_levou_pt,
+    rec_dir: (r) => +r.rec_dir, rec_ter: (r) => +r.rec_ter, ganho_pt: (r) => +r.ganho_pt, ganho_dir: (r) => +r.ganho_dir, conv_pt: (r) => +r.x_levou_pt, conv_dir: (r) => -r.x_levou_pt,
     exc: (r) => +r.exc_pt + +r.exc_dir, troca: (r) => +r.troca_min_pt + +r.troca_min_dir, venc: (r) => r.venc_2t };
   const fora = (v) => isNum(v) && (+v < -0.05 || +v > 1.05);
   const pctF = (v) => F.pct(v);
@@ -80,12 +81,13 @@
     if (cs) {
       const list = ANOS.map((a) => cs.by.get(`${a}-${p.reg}`)).filter(Boolean);
       rowsTable($('#aud-conv tbody'), list, [['ano', F.txt, 0, 1], ['conv_pt', (v, r) => `${F.pct(v)} / ${isNum(v) ? F.pct(1 - +v) : '—'}`], ['flag_conv', (v) => window.ST.CONV_ROT[v] || '—', 0, 1],
-        ['cidades_avaliadas', F.int], ['n_pt_acima', F.int], ['n_pt_alto', F.int], ['n_dir_acima', F.int], ['n_dir_alto', F.int], ['exc_pt', F.int], ['exc_dir', F.int],
+        ['cidades_avaliadas', F.int], ['n_pt_acima', F.int], ['n_pt_alerta', F.int], ['n_pt_improv', F.int], ['n_ok', F.int], ['n_dir_improv', F.int],
+        ['n_dir_alerta', F.int], ['n_dir_acima', F.int], ['exc_pt', F.int], ['exc_dir', F.int],
         ['n_pt_acima_2t', F.int], ['n_dir_acima_2t', F.int]], (tr, r) => {
         sel(tr, r);
         const k = window.ST.CONV_CLS[r.flag_conv]; if (k) tr.children[1].classList.add(k);
         if (+r.n_pt_acima > 0) tr.children[4].classList.add('neg');
-        if (+r.n_dir_acima > 0) tr.children[6].classList.add('neg');
+        if (+r.n_dir_acima > 0) tr.children[10].classList.add('neg');
       });
       rowsTable($('#aud-perda2 tbody'), list, [['ano', F.txt, 0, 1], ['perdeu_pt', F.int], ['votos_perdidos_pt', F.int], ['pt_saida_caiu', F.int], ['pt_perda_maior', F.int],
         ['pt_oponente_acima', F.int], ['pt_explicavel', F.int], ['troca_min_pt', F.int], ['perdeu_dir', F.int], ['votos_perdidos_dir', F.int], ['dir_saida_caiu', F.int],
@@ -114,13 +116,13 @@
     $('#aud-flag-n').textContent = `${F.int(all.length)} cidades${all.length > 500 ? ', mostrando as 500 primeiras na ordem escolhida' : ''}. Recorte: ${p.uf ? window.ST.UF_NOME[p.uf] : window.ST.REG[p.reg]}.`;
     const exc = (v, r) => (+r.exc_pt > 0 ? `${F.int(r.exc_pt)} (PT)` : +r.exc_dir > 0 ? `${F.int(r.exc_dir)} (adv.)` : '—');
     const troca = (v, r) => (+r.troca_min_dir > 0 ? `${F.int(r.troca_min_dir)} adv.→PT` : +r.troca_min_pt > 0 ? `${F.int(r.troca_min_pt)} PT→adv.` : '—');
-    rowsTable(tb, all.slice(0, 500), [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['terceira_via', F.int], ['rec_pt', F.sint], ['rec_dir', F.sint],
+    rowsTable(tb, all.slice(0, 500), [['municipio', F.txt, 0, 1], ['uf', F.txt, 0, 1], ['aptos', F.int], ['terceira_via', F.int], ['rec_pt', F.sint], ['rec_dir', F.sint], ['rec_ter', F.sint],
       ['ganho_pt', F.sint, 1], ['ganho_dir', F.sint, 1], ['x_levou_pt', F.pct], ['x_levou_pt', (v) => (isNum(v) ? F.pct(1 - +v) : '—')],
       ['flag_conv', (v) => window.ST.CONV_ROT[v] || '—', 0, 1], ['exc_pt', exc], ['flag_perda_pt', (v) => PERDA_CURTO[v] || '—', 0, 1],
       ['flag_perda_dir', (v) => PERDA_CURTO[v] || '—', 0, 1], ['troca_min_dir', troca], ['venc_2t', F.txt, 0, 1]], (tr, r) => {
       const c = window.ST.CONV_CLS[r.flag_conv];
-      if (c) [8, 9].forEach((i) => tr.children[i].classList.add(c));
-      [12, 13].forEach((i) => { const v = r[i === 12 ? 'flag_perda_pt' : 'flag_perda_dir']; if (v && v !== 'explicavel') tr.children[i].classList.add('neg'); });
+      if (c) [9, 10].forEach((i) => tr.children[i].classList.add(c));
+      [13, 14].forEach((i) => { const v = r[i === 13 ? 'flag_perda_pt' : 'flag_perda_dir']; if (v && v !== 'explicavel') tr.children[i].classList.add('neg'); });
     });
   }
 

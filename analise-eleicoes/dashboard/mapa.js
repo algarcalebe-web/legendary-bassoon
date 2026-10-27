@@ -68,10 +68,12 @@
         legenda: { cat: [[C.pt, 'passou ao PT'], [C.dir, 'passou ao adversário'], [N, 'manteve o lado']], nota: ano === '2002' ? 'sem eleição anterior na série' : '' },
         rotulo: 'Vencedor do 2º turno vs. eleição anterior', texto: (r) => (String(r.mudou_vs_ant) === '1' ? 'mudou de lado' : String(r.mudou_vs_ant) === '0' ? 'manteve' : 'sem comparação') };
       case 'conv': {
-        const cor = { pt_acima: '#8f1d14', pt_alto: '#e8907f', ok: N, dir_alto: '#8fb4ea', dir_acima: '#173f86' };
+        const cor = { pt_acima: '#8f1d14', pt_alerta: '#d4513f', pt_improv: '#f0b4a8', ok: N, dir_improv: '#b8cff2', dir_alerta: '#3d78d8', dir_acima: '#173f86' };
         return { fill: (r) => (r.flag_conv ? cor[r.flag_conv] : null),
-          legenda: { cat: [[cor.pt_acima, `${n.pt} precisou de mais de 100%`], [cor.pt_alto, `${n.pt} 90–100%`], [N, 'plausível'], [cor.dir_alto, `${n.dir} 90–100%`], [cor.dir_acima, `${n.dir} precisou de mais de 100%`]],
-            nota: 'fatia da 3ª via necessária para o resultado, com abstenção, brancos e nulos na proporção do 1º turno' },
+          legenda: { cat: [[cor.pt_acima, `${n.pt} acima de 100% (alerta de possível fraude)`], [cor.pt_alerta, `${n.pt} 90–100% (alerta)`],
+            [cor.pt_improv, `${n.pt} 60–90% (improvável)`], [N, 'plausível (até 60%)'], [cor.dir_improv, `${n.dir} 60–90% (improvável)`],
+            [cor.dir_alerta, `${n.dir} 90–100% (alerta)`], [cor.dir_acima, `${n.dir} acima de 100% (alerta de possível fraude)`]],
+            nota: 'fatia do bolo (3ª via + parte dela nos recuperados) necessária para o resultado, com abstenção, brancos e nulos na distribuição do 1º turno' },
           rotulo: 'Conversão da 3ª via necessária', texto: (r) => convTxt(r) };
       }
       case 'x_levou_pt': return div('x_levou_pt', C.dir, C.pt, 0.5, `Conversão da 3ª via necessária para ${n.pt}`, F.pct, 0.5);
@@ -266,10 +268,11 @@
         fato('Variação da margem', src, 'swing_margem', r.id, F.pp(r.swing_margem), cls(r.swing_margem)),
         fato('3ª via no 1º turno', src, 'terceira_via', r.id, F.int(r.terceira_via)),
         fato('Total disponível', src, 'pool', r.id, F.int(r.pool)),
-        fato(`Resto do disponível: ${n.pt} / ${n.dir} (proporção do 1º turno)`, src, 'rec_pt', r.id, `${F.sint(r.rec_pt)} / ${F.sint(r.rec_dir)}`),
+        fato(`Recuperados: ${n.pt} / ${n.dir} / bolo da 3ª via (distribuição do 1º turno)`, src, 'rec_pt', r.id, `${F.sint(r.rec_pt)} / ${F.sint(r.rec_dir)} / ${F.sint(r.rec_ter)}`),
         fato(`Conversão da 3ª via necessária: ${n.pt} / ${n.dir}`, src, 'x_levou_pt', r.id, isNum(r.x_levou_pt) ? `${F.pct(r.x_levou_pt)} / ${F.pct(1 - +r.x_levou_pt)}` : '—',
           r.flag_conv === 'pt_acima' || r.flag_conv === 'dir_acima' ? 'neg' : ''),
-        fato('Avaliação da conversão', src, 'flag_conv', r.id, window.ST.CONV_ROT[r.flag_conv] || '—'),
+        fato('Avaliação da conversão', src, 'flag_conv', r.id, (window.ST.CONV_ROT[r.flag_conv] || '—')
+          + (r.flag_conv === 'pt_acima' || r.flag_conv === 'dir_acima' ? '. ' + window.ST.CONV_EXPL : '')),
         ...['pt', 'dir'].filter((c) => r['flag_perda_' + c]).map((c) => fato(`${n[c]} perdeu ${F.int(-+r['ganho_' + c])} votos`, src, 'flag_perda_' + c, r.id,
           window.ST.PERDA_ROT[r['flag_perda_' + c]] + (+r['troca_min_' + c] > 0 ? ` (mínimo de ${F.int(r['troca_min_' + c])})` : ''), r['flag_perda_' + c] === 'explicavel' ? '' : 'neg')),
       );

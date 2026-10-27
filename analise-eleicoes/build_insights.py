@@ -17,6 +17,11 @@ UFN = {"AC": "Acre", "AL": "Alagoas", "AM": "Amazonas", "AP": "Amapá", "BA": "B
        "SC": "Santa Catarina", "SE": "Sergipe", "SP": "São Paulo", "TO": "Tocantins"}
 
 
+CONV_TXT = {"pt_acima": "alerta de possível fraude: acima de 100%", "pt_alerta": "alerta: 90–100%", "pt_improv": "improvável: 60–90%",
+            "ok": "plausível", "dir_improv": "improvável para o adversário: 60–90%", "dir_alerta": "alerta para o adversário: 90–100%",
+            "dir_acima": "alerta de possível fraude para o adversário: acima de 100%", "": "base pequena"}
+
+
 def pct(v, casas=1):
     v = float(v) * 100
     return ("−" if v < 0 else "") + f"{abs(v):.{casas}f}".replace(".", ",") + "%"
@@ -71,13 +76,14 @@ def main(data_dir):
     add("pool", "geral", "O pool de 2026",
         f"O 2º turno teve {mi(b['pool'])} de votos disponíveis: {mi(b['terceira_via'])} da 3ª via e {mi(b['delta'])} "
         f"de eleitores recuperados (abstenção {mi(-float(b['delta_abst']))}, brancos e nulos {mi(-float(b['delta_bn']))}). "
-        f"Lula ficou com {pct(b['captura_pt'])}. Seguindo a proporção do 1º turno de cada cidade, os recuperados dariam "
-        f"{mi(b['rec_pt'])} a Lula e {mi(b['rec_dir'])} a Flávio; para chegar ao resultado que teve, Lula precisou converter "
-        f"{pct(b['x_levou_pt'])} da 3ª via.")
-    add("delta", "geral", "A abstenção decidiu desta vez",
+        f"Lula ficou com {pct(b['captura_pt'])}. Divididos pela distribuição do 1º turno de cada cidade, os recuperados dariam "
+        f"{mi(b['rec_pt'])} a Lula, {mi(b['rec_dir'])} a Flávio e {mi(b['rec_ter'])} ao bolo da 3ª via; para chegar ao resultado que teve, "
+        f"Lula precisou converter {pct(b['x_levou_pt'])} desse bolo ({mi(b['bolo_conv'])}; {CONV_TXT[b['flag_conv']]}).")
+    add("delta", "geral", "Saldo de abstenção, brancos e nulos",
         f"O saldo de abstenção, brancos e nulos foi {mi(b18['delta'], True)} em 2018 e {mi(b22['delta'], True)} em 2022. "
-        f"Em 2026 foi {mi(b['delta'], True)}, o maior das três eleições. Na proporção do 1º turno de cada cidade ele se dividiria quase "
-        f"ao meio ({mi(b['rec_pt'])} × {mi(b['rec_dir'])}); o que pesou foi ele ter ido para Lula além desse padrão (aba Seções).")
+        f"Em 2026 foi {mi(b['delta'], True)}, o maior das três eleições. Dividido pela distribuição do 1º turno de cada cidade, daria "
+        f"{mi(b['rec_pt'])} a Lula, {mi(b['rec_dir'])} a Flávio e {mi(b['rec_ter'])} ao bolo da 3ª via, e não decide o placar: o resultado "
+        f"depende de quanto do bolo cada lado converteu ({pct(b['x_levou_pt'])} para Lula, {CONV_TXT[b['flag_conv']]}).")
     r = {e: reg[f"2026-{e}"] for e in REG}
     xs = sorted(r.values(), key=lambda v: float(v["x_hat"]))
     pos = [e for e in REG if float(r[e]["c_hat"]) > 0]
@@ -286,31 +292,36 @@ def main(data_dir):
         + f". Do lado de Lula, os estados mais frágeis no 1º turno eram " + ", ".join(f"{r['uf']} ({ppx(r['swing_1t_pp'])})" for r in pt1)
         + f". Contado pelo 2º turno, Minas passa a Lula por {pp(mg2['swing_para_virar_pp'])[1:]}, e aí a defesa seria dele. O simulador e a curva da aba "
         f"Vitória líquida trocam entre as duas bases.")
-    # conversão da 3ª via necessária para o resultado obtido, com os recuperados na proporção do 1º turno de cada cidade
+    # conversão necessária para o resultado obtido: recuperados na distribuição do 1º turno de cada cidade (PT, adversário, 3ª via)
     cv = {r["id"]: r for r in rd("conversao_serie.csv")}
     c6, c2, c06 = cv["2026-BR"], cv["2022-BR"], cv["2006-BR"]
     hist_n = [int(cv[f"{a}-BR"]["n_pt_acima"]) + int(cv[f"{a}-BR"]["n_dir_acima"]) for a in ("2010", "2014", "2018", "2022")]
     tr3 = ({r["id"]: r for r in rd("secao_transicao.csv")}.get("2026-BR-ter")
            if (d / "secao_transicao.csv").exists() else None)
-    FLAG = {"pt_acima": "improvável", "pt_alto": "muito alto", "dir_acima": "improvável para Flávio", "dir_alto": "muito alto para Flávio", "ok": "plausível"}
     regs = [(g, uf[f"2026-{g}"]) for g in ("NE", "N", "SE", "CO", "S")]
     add("conv", "geral", "Quanto da 3ª via Lula precisou converter",
-        f"Com abstenção, brancos e nulos recuperados seguindo a proporção do 1º turno de cada cidade ({mi(b['rec_pt'])} para Lula, "
-        f"{mi(b['rec_dir'])} para Flávio), Lula precisou converter {pct(b['x_levou_pt'])} da 3ª via para chegar ao resultado que teve, e Flávio "
-        f"{pct(1 - float(b['x_levou_pt']))}. Por região: " + "; ".join(f"{REG[g]} {pct(r['x_levou_pt'])} ({FLAG.get(r['flag_conv'], '')})" for g, r in regs) + ". "
-        f"Em {num(c6['n_pt_acima'])} cidades a conversão necessária a Lula passa de 100% — improvável pela regra — e em mais {num(c6['n_pt_alto'])} fica "
-        f"entre 90% e 100%. De 2010 a 2022 foram {min(hist_n)} a {max(hist_n)} cidades por eleição acima de 100% (somando os dois lados); só 2006 teve "
-        f"mais ({num(c06['n_pt_acima'])}, Lula contra Alckmin)."
-        + (f" As seções estimam que a 3ª via se dividiu {pct(tr3['para_pt'], 0)} × {pct(tr3['para_adv'], 0)}: o resultado veio dos recuperados "
-           f"indo para Lula além do padrão local, não da 3ª via." if tr3 else ""))
-    add("aud-conv", "auditoria", "Conversão da 3ª via acima de 100%: sinal de 2026",
-        f"Para chegar ao resultado, com os recuperados na proporção do 1º turno, Lula precisaria de mais de 100% da 3ª via em {num(c6['n_pt_acima'])} "
+        f"Com abstenção, brancos e nulos recuperados divididos pela distribuição do 1º turno de cada cidade ({mi(b['rec_pt'])} para Lula, "
+        f"{mi(b['rec_dir'])} para Flávio, {mi(b['rec_ter'])} para o bolo da 3ª via), Lula precisou converter {pct(b['x_levou_pt'])} do bolo "
+        f"(3ª via + essa parte, {mi(b['bolo_conv'])}) para chegar ao resultado que teve, e Flávio "
+        f"{pct(1 - float(b['x_levou_pt']))} — {CONV_TXT[b['flag_conv']]}. Escala, para cada lado: até 60% plausível, 60–90% improvável, acima de "
+        f"90% alerta, acima de 100% alerta de possível fraude (salvo troca de lado, recuperados muito além da distribuição do 1º turno ou "
+        f"outros votos além da 3ª via). Por região: " + "; ".join(f"{REG[g]} {pct(r['x_levou_pt'])} ({CONV_TXT.get(r['flag_conv'], '')})" for g, r in regs) + ". "
+        f"Cidades avaliadas ({num(c6['cidades_avaliadas'])}): Lula acima de 100% em {num(c6['n_pt_acima'])}, 90–100% em {num(c6['n_pt_alerta'])} e "
+        f"60–90% em {num(c6['n_pt_improv'])}; plausível para os dois em {num(c6['n_ok'])}; Flávio acima de 60% em "
+        f"{num(int(c6['n_dir_improv']) + int(c6['n_dir_alerta']) + int(c6['n_dir_acima']))}. De 2010 a 2022 foram {min(hist_n)} a {max(hist_n)} "
+        f"cidades por eleição acima de 100% (somando os dois lados); só 2006 teve mais ({num(c06['n_pt_acima'])}, Lula contra Alckmin)."
+        + (f" A estimativa por seção divide a 3ª via em {pct(tr3['para_pt'], 0)} × {pct(tr3['para_adv'], 0)}; com essa divisão, o resultado só fecha "
+           f"se brancos e nulos do 1º turno tiverem ido para Lula muito além da distribuição do 1º turno. Uma das duas premissas sai do padrão." if tr3 else ""))
+    add("aud-conv", "auditoria", "Conversão acima de 100%: alerta de possível fraude em 2026",
+        f"Para chegar ao resultado, com os recuperados na distribuição do 1º turno, Lula precisaria de mais de 100% do bolo da 3ª via em {num(c6['n_pt_acima'])} "
         f"das {num(c6['cidades_avaliadas'])} cidades avaliadas ({pct(c6['eleit_pt_acima'], 0)} do eleitorado), somando {num(c6['exc_pt'])} votos acima da regra; "
         f"Flávio, em {num(c6['n_dir_acima'])}. Em 2022 o sinal estava do outro lado: Bolsonaro acima de 100% em {num(c2['n_dir_acima'])} cidades "
         f"({num(c2['exc_dir'])} votos), Lula em {num(c2['n_pt_acima'])}. Em 2006, Lula acima de 100% em {num(c06['n_pt_acima'])} cidades e "
         f"{mi(c06['exc_pt'])} de votos. Com os recuperados na proporção do 2º turno, 2026 fica com {num(c6['n_pt_acima_2t'])} cidades. "
-        f"Acima de 100% quer dizer que os recuperados foram para Lula além do padrão local ou que eleitores de Flávio trocaram de lado; os "
-        f"dados por cidade não separam as duas coisas, e a lista completa está no cartão Cidades sinalizadas.")
+        f"Acima de 100% só fecha se eleitores de Flávio trocaram de lado (Flávio perdeu votos em {num(c6['perdeu_dir'])} cidades), se os "
+        f"recuperados foram para Lula muito além da distribuição do 1º turno ou se Lula obteve outros votos além da 3ª via; sem uma delas, é "
+        f"alerta de possível fraude. Os "
+        f"dados por cidade não separam essas explicações; a lista completa está no cartão Cidades sinalizadas.")
     add("aud-trocas", "auditoria", "Perdas de votos e troca de lado",
         f"Flávio perdeu votos do 1º para o 2º turno em {num(c6['perdeu_dir'])} cidades ({num(c6['votos_perdidos_dir'])} votos). Em {num(c6['dir_saida_caiu'])} delas "
         f"abstenção, brancos e nulos caíram — a perda só se explica com eleitores indo para Lula —, em {num(c6['dir_perda_maior'])} ele perdeu mais do que eles "
@@ -364,9 +375,9 @@ def main(data_dir):
             f"{pct(s6['top10_comp_alta'], 0)} da alta ({pct(s2['top10_comp_alta'], 0)} e {pct(s8['top10_comp_alta'], 0)}). Dentro da zona, cada eleitor a mais "
             f"rendeu {dc(s6['incl_net_comp'])} de líquido para Lula, quase igual a 2022 ({dc(s2['incl_net_comp'])}): os novos votantes se dividiram perto de "
             f"{pct(s6['novos_para_pt'], 0)} a {pct(1 - float(s6['novos_para_pt']), 0)}, como em 2022.")
-        add("sec-bn", "secoes", "De onde veio o líquido: brancos e nulos do 1º turno",
-            f"Pelo modelo restrito entre as seções de cada estado, o líquido de Lula ({mi(s6['net_votos'], True)}) veio de quem votou branco ou nulo no "
-            f"1º turno ({mi(s6['contrib_bn'], True)}), da abstenção ({mi(s6['contrib_abst'], True)}) e da 3ª via ({mi(s6['contrib_ter'], True)}); trocas "
+        add("sec-bn", "secoes", "Transições estimadas por seção: brancos e nulos do 1º turno",
+            f"Pelo modelo restrito entre as seções de cada estado, o líquido de Lula ({mi(s6['net_votos'], True)}) se decompõe em quem votou branco ou "
+            f"nulo no 1º turno ({mi(s6['contrib_bn'], True)}), abstenção ({mi(s6['contrib_abst'], True)}) e 3ª via ({mi(s6['contrib_ter'], True)}); trocas "
             f"diretas entre os finalistas somam {mi(int(s6['contrib_pt']) + int(s6['contrib_adv']), True)}. A 3ª via se dividiu perto do meio "
             f"({pct(t('2026', 'ter')['para_pt'], 0)} Lula, {pct(t('2026', 'ter')['para_adv'], 0)} Flávio, {pct(t('2026', 'ter')['para_bn'], 0)} branco ou nulo). "
             f"O que sai do padrão é o branco e nulo do 1º turno: {pct(t('2026', 'bn')['para_pt'], 0)} foram para Lula e {pct(t('2026', 'bn')['para_adv'], 0)} "
@@ -375,7 +386,8 @@ def main(data_dir):
             f"{pct(t('2026', 'bn')['para_adv_ols'], 0)}; dentro da zona, cada voto que saiu do branco rendeu {dc(s6['fe_branco'], sinal=True)} de líquido para Lula "
             f"e do nulo {dc(s6['fe_nulo'], sinal=True)}, contra {dc(s2['fe_branco'], sinal=True)} e {dc(s2['fe_nulo'], sinal=True)} em 2022. A taxa de nulos do "
             f"1º turno não foi atípica ({pct(s6['nulos_1t'])} contra {pct(s2['nulos_1t'])} em 2022); em 2026 os nulos caíram no 2º turno "
-            f"({pct(s6['nulos_2t'])}), enquanto em 2022 e 2018 subiram. É associação entre seções, não o voto de pessoas.")
+            f"({pct(s6['nulos_2t'])}), enquanto em 2022 e 2018 subiram. Na distribuição do 1º turno esse saldo iria "
+            f"a Lula, Flávio e 3ª via na mesma fatia que tiveram; a estimativa é associação entre seções, não o voto de pessoas.")
         add("sec-chegada", "secoes", "A pausa na chegada dos boletins do 2º turno de 2026",
             f"No 2º turno de 2026, {pct(s6['pct_ate_17h30_2t'])} das seções chegaram ao TSE até 17h30 e depois nenhuma faixa de 10 minutos teve 0,05% das "
             f"seções por {s6['pausa_min_2t']} minutos; a mediana foi {s6['chegada_mediana_2t']} (1º turno {s6['chegada_mediana_1t']}; 2022 "

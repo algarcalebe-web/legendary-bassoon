@@ -53,14 +53,14 @@
   "ordem": 8,
   "tema": "geral",
   "titulo": "O pool de 2026",
-  "texto": "O 2º turno teve 14,10 mi de votos disponíveis: 9,32 mi da 3ª via e 4,78 mi de eleitores recuperados (abstenção −2,96 mi, brancos e nulos −1,82 mi). Lula ficou com 73,6%. Seguindo a proporção do 1º turno de cada cidade, os recuperados dariam 2,40 mi a Lula e 2,38 mi a Flávio; para chegar ao resultado que teve, Lula precisou converter 85,6% da 3ª via."
+  "texto": "O 2º turno teve 14,10 mi de votos disponíveis: 9,32 mi da 3ª via e 4,78 mi de eleitores recuperados (abstenção −2,96 mi, brancos e nulos −1,82 mi). Lula ficou com 73,6%. Divididos pela distribuição do 1º turno de cada cidade, os recuperados dariam 2,21 mi a Lula, 2,18 mi a Flávio e 0,39 mi ao bolo da 3ª via; para chegar ao resultado que teve, Lula precisou converter 84,1% desse bolo (9,70 mi; improvável: 60–90%)."
  },
  {
   "id": "delta",
   "ordem": 9,
   "tema": "geral",
-  "titulo": "A abstenção decidiu desta vez",
-  "texto": "O saldo de abstenção, brancos e nulos foi −2,21 mi em 2018 e +0,32 mi em 2022. Em 2026 foi +4,78 mi, o maior das três eleições. Na proporção do 1º turno de cada cidade ele se dividiria quase ao meio (2,40 mi × 2,38 mi); o que pesou foi ele ter ido para Lula além desse padrão (aba Seções)."
+  "titulo": "Saldo de abstenção, brancos e nulos",
+  "texto": "O saldo de abstenção, brancos e nulos foi −2,21 mi em 2018 e +0,32 mi em 2022. Em 2026 foi +4,78 mi, o maior das três eleições. Dividido pela distribuição do 1º turno de cada cidade, daria 2,21 mi a Lula, 2,18 mi a Flávio e 0,39 mi ao bolo da 3ª via, e não decide o placar: o resultado depende de quanto do bolo cada lado converteu (84,1% para Lula, improvável: 60–90%)."
  },
  {
   "id": "regressao",
@@ -228,14 +228,14 @@
   "ordem": 33,
   "tema": "geral",
   "titulo": "Quanto da 3ª via Lula precisou converter",
-  "texto": "Com abstenção, brancos e nulos recuperados seguindo a proporção do 1º turno de cada cidade (2,40 mi para Lula, 2,38 mi para Flávio), Lula precisou converter 85,6% da 3ª via para chegar ao resultado que teve, e Flávio 14,4%. Por região: Nordeste 106,0% (improvável); Norte 86,6% (plausível); Sudeste 85,8% (plausível); Centro-Oeste 68,9% (plausível); Sul 71,8% (plausível). Em 1.770 cidades a conversão necessária a Lula passa de 100% — improvável pela regra — e em mais 884 fica entre 90% e 100%. De 2010 a 2022 foram 44 a 688 cidades por eleição acima de 100% (somando os dois lados); só 2006 teve mais (4.424, Lula contra Alckmin). As seções estimam que a 3ª via se dividiu 42% × 38%: o resultado veio dos recuperados indo para Lula além do padrão local, não da 3ª via."
+  "texto": "Com abstenção, brancos e nulos recuperados divididos pela distribuição do 1º turno de cada cidade (2,21 mi para Lula, 2,18 mi para Flávio, 0,39 mi para o bolo da 3ª via), Lula precisou converter 84,1% do bolo (3ª via + essa parte, 9,70 mi) para chegar ao resultado que teve, e Flávio 15,9% — improvável: 60–90%. Escala, para cada lado: até 60% plausível, 60–90% improvável, acima de 90% alerta, acima de 100% alerta de possível fraude (salvo troca de lado, recuperados muito além da distribuição do 1º turno ou outros votos além da 3ª via). Por região: Nordeste 104,1% (alerta de possível fraude: acima de 100%); Norte 87,0% (improvável: 60–90%); Sudeste 83,8% (improvável: 60–90%); Centro-Oeste 68,1% (improvável: 60–90%); Sul 70,4% (improvável: 60–90%). Cidades avaliadas (5.322): Lula acima de 100% em 1.635, 90–100% em 871 e 60–90% em 2.328; plausível para os dois em 442; Flávio acima de 60% em 46. De 2010 a 2022 foram 47 a 682 cidades por eleição acima de 100% (somando os dois lados); só 2006 teve mais (4.420, Lula contra Alckmin). A estimativa por seção divide a 3ª via em 42% × 38%; com essa divisão, o resultado só fecha se brancos e nulos do 1º turno tiverem ido para Lula muito além da distribuição do 1º turno. Uma das duas premissas sai do padrão."
  },
  {
   "id": "aud-conv",
   "ordem": 34,
   "tema": "auditoria",
-  "titulo": "Conversão da 3ª via acima de 100%: sinal de 2026",
-  "texto": "Para chegar ao resultado, com os recuperados na proporção do 1º turno, Lula precisaria de mais de 100% da 3ª via em 1.770 das 5.311 cidades avaliadas (26% do eleitorado), somando 220.924 votos acima da regra; Flávio, em 4. Em 2022 o sinal estava do outro lado: Bolsonaro acima de 100% em 576 cidades (20.268 votos), Lula em 3. Em 2006, Lula acima de 100% em 4.424 cidades e 2,74 mi de votos. Com os recuperados na proporção do 2º turno, 2026 fica com 1.636 cidades. Acima de 100% quer dizer que os recuperados foram para Lula além do padrão local ou que eleitores de Flávio trocaram de lado; os dados por cidade não separam as duas coisas, e a lista completa está no cartão Cidades sinalizadas."
+  "titulo": "Conversão acima de 100%: alerta de possível fraude em 2026",
+  "texto": "Para chegar ao resultado, com os recuperados na distribuição do 1º turno, Lula precisaria de mais de 100% do bolo da 3ª via em 1.635 das 5.322 cidades avaliadas (24% do eleitorado), somando 195.058 votos acima da regra; Flávio, em 4. Em 2022 o sinal estava do outro lado: Bolsonaro acima de 100% em 567 cidades (19.655 votos), Lula em 2. Em 2006, Lula acima de 100% em 4.420 cidades e 2,74 mi de votos. Com os recuperados na proporção do 2º turno, 2026 fica com 1.635 cidades. Acima de 100% só fecha se eleitores de Flávio trocaram de lado (Flávio perdeu votos em 938 cidades), se os recuperados foram para Lula muito além da distribuição do 1º turno ou se Lula obteve outros votos além da 3ª via; sem uma delas, é alerta de possível fraude. Os dados por cidade não separam essas explicações; a lista completa está no cartão Cidades sinalizadas."
  },
  {
   "id": "aud-trocas",
@@ -276,8 +276,8 @@
   "id": "sec-bn",
   "ordem": 40,
   "tema": "secoes",
-  "titulo": "De onde veio o líquido: brancos e nulos do 1º turno",
-  "texto": "Pelo modelo restrito entre as seções de cada estado, o líquido de Lula (+6,64 mi) veio de quem votou branco ou nulo no 1º turno (+3,68 mi), da abstenção (+2,40 mi) e da 3ª via (+0,37 mi); trocas diretas entre os finalistas somam +0,14 mi. A 3ª via se dividiu perto do meio (42% Lula, 38% Flávio, 15% branco ou nulo). O que sai do padrão é o branco e nulo do 1º turno: 63% foram para Lula e 1% para Flávio, contra 16% e 27% em 2022 e 22% e 15% em 2018. As outras duas leituras concordam: sem restrição, 62% e 8%; dentro da zona, cada voto que saiu do branco rendeu +0,50 de líquido para Lula e do nulo +0,44, contra +0,04 e +0,22 em 2022. A taxa de nulos do 1º turno não foi atípica (2,9% contra 2,8% em 2022); em 2026 os nulos caíram no 2º turno (2,1%), enquanto em 2022 e 2018 subiram. É associação entre seções, não o voto de pessoas."
+  "titulo": "Transições estimadas por seção: brancos e nulos do 1º turno",
+  "texto": "Pelo modelo restrito entre as seções de cada estado, o líquido de Lula (+6,64 mi) se decompõe em quem votou branco ou nulo no 1º turno (+3,68 mi), abstenção (+2,40 mi) e 3ª via (+0,37 mi); trocas diretas entre os finalistas somam +0,14 mi. A 3ª via se dividiu perto do meio (42% Lula, 38% Flávio, 15% branco ou nulo). O que sai do padrão é o branco e nulo do 1º turno: 63% foram para Lula e 1% para Flávio, contra 16% e 27% em 2022 e 22% e 15% em 2018. As outras duas leituras concordam: sem restrição, 62% e 8%; dentro da zona, cada voto que saiu do branco rendeu +0,50 de líquido para Lula e do nulo +0,44, contra +0,04 e +0,22 em 2022. A taxa de nulos do 1º turno não foi atípica (2,9% contra 2,8% em 2022); em 2026 os nulos caíram no 2º turno (2,1%), enquanto em 2022 e 2018 subiram. Na distribuição do 1º turno esse saldo iria a Lula, Flávio e 3ª via na mesma fatia que tiveram; a estimativa é associação entre seções, não o voto de pessoas."
  },
  {
   "id": "sec-chegada",
