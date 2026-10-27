@@ -993,7 +993,7 @@
     </div>
     <div class="st-card" id="seg-grupos-card">
       <h2>Seções e cidades sinalizadas × registros técnicos (todas as seções)</h2>
-      <p class="st-note">Cada linha é um grupo; a última, as seções fora de todos os grupos. Contingência e urna trocada: correspondências do TSE. Sem rastro no GEDAI: a carga da urna não aparece em nenhum log publicado do GEDAI. Computador com alerta: a mídia foi gerada num computador cujo log tem assinatura inválida ou falha de integridade do banco. Sem biometria: boletins de urna do 1º turno; "vs. zona" desconta a média da própria zona. Em vermelho: acima de 1,5 vez as demais seções.</p>
+      <p class="st-note">Cada linha é um grupo; a última, as seções fora de todos os grupos. Contingência e urna trocada: correspondências do TSE. Sem rastro no GEDAI: a carga da urna não aparece em nenhum log publicado do GEDAI. Computador com alerta: a mídia foi gerada num computador cujo log tem assinatura inválida ou falha de integridade do banco. Sem biometria: boletins de urna do 1º turno; "vs. zona" desconta a média da própria zona. Em vermelho: acima de 1,5 vez o esperado pelas demais seções do mesmo estado, com excesso significativo (p &lt; 0,01); grupos pequenos não ficam vermelhos por uma ou duas seções.</p>
       <div class="st-tbl"><table id="seg-grupos" data-source="seg_grupos" data-row-key="id">
         <thead><tr><th class="txt" data-field="grupo">Grupo</th><th data-field="secoes">Seções</th><th data-field="eleitores">Eleitores</th><th data-field="pct_pt_2t">Lula 2º</th><th data-field="net_dz_pp">Líquido vs. zona</th>
           <th data-field="contingencia_1t">Contingência 1º</th><th data-field="urna_mudou_2t">Urna trocada</th><th data-field="carga_nova_2t">Carga nova 2º</th><th data-field="sem_rastro_gedai_1t">Sem rastro no GEDAI</th><th data-field="maquina_com_alerta">Computador com alerta</th>
@@ -1035,7 +1035,7 @@
       <p class="st-note">Logs publicados dos computadores que geram as mídias das urnas (1º turno: versão de 04.10; 2º turno: 24.10). Madrugada: eventos entre 22h e 6h. Pacotes em mais de uma versão: o mesmo pacote importado com versões diferentes em computadores do estado. Correspondências: seções do estado.</p>
       <div class="st-tbl"><table id="seg-uf" data-source="seg_uf" data-row-key="id">
         <thead><tr><th class="txt" data-field="uf">UF</th><th class="txt" data-field="turno">Turno</th><th data-field="maquinas">Computadores</th><th data-field="linhas">Linhas de log</th><th data-field="ERRO">Erros</th><th data-field="ALERTA">Alertas</th>
-          <th data-field="assinatura_invalida">Assinatura inválida</th><th data-field="integridade_banco">Integridade do banco</th><th data-field="sem_perfil">Usuário sem perfil</th><th data-field="madrugada">Madrugada</th><th data-field="pacotes_multiversao">Pacotes em +1 versão</th>
+          <th data-field="assinatura_invalida">Assinatura inválida</th><th data-field="integridade_banco">Integridade do banco</th><th data-field="banco_restaurado">Banco restaurado</th><th data-field="sem_perfil">Usuário sem perfil</th><th data-field="madrugada">Madrugada</th><th data-field="pacotes_multiversao">Pacotes em +1 versão</th>
           <th data-field="urnas_contingencia">Urnas de contingência</th><th data-field="contingencia_1t">Seções em contingência 1º</th><th data-field="urna_mudou_2t">Urna trocada</th><th data-field="carga_nova_2t">Carga nova 2º</th><th data-field="sem_rastro_gedai">Sem rastro</th></tr></thead>
         <tbody></tbody>
       </table></div>

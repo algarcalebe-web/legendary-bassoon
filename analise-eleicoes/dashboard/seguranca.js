@@ -2,7 +2,7 @@
 // das seções e cidades sinalizadas com correspondências, logs do GEDAI, boletins de urna, logs das urnas e RDV. Só 2026.
 (() => {
   const { $, $$, F, isNum, tbl, failed, failLine, rowsTable, st, nf0, nf1, UF_NOME, REG } = window.ST;
-  st.segTipo = 'todas';
+  st.segTipo = 'klimek';
   st.segSort = { k: 'aptos', d: -1 };
   const TIPO_SEL = {
     todas: () => true,
@@ -55,14 +55,13 @@
     const t = tbl('seg_grupos');
     const tb = $('#seg-grupos tbody');
     if (!t) { if (failed('seg_grupos')) failLine(tb); return; }
-    const ctl = t.by.get('controle') || {};
     rowsTable(tb, t.rows, [['grupo', F.txt, 0, 1], ['secoes', F.int], ['eleitores', F.int], ['pct_pt_2t', F.pct], ['net_dz_pp', (v) => (isNum(v) ? F.pp(+v / 100) : '—'), 1],
       ['contingencia_1t', F.pct], ['urna_mudou_2t', F.pct], ['carga_nova_2t', F.pct], ['sem_rastro_gedai_1t', F.pct], ['maquina_com_alerta', F.pct],
       ['sem_biometria_1t', F.pct], ['sem_biometria_1t_dz_pp', (v) => (isNum(v) ? F.pp(+v / 100) : '—'), 1], ['fecha_apos_17h30_1t', F.pct], ['chegada_2t_mediana', F.txt]], (tr, r) => {
       if (r.id === 'controle') { tr.style.borderTop = '2px solid var(--color-border-line)'; return; }
-      // acima de 1,5× o controle: destaque
+      // acima de 1,5× as demais seções e significativo (p < 0,01): destaque
       [['contingencia_1t', 5], ['urna_mudou_2t', 6], ['carga_nova_2t', 7], ['sem_rastro_gedai_1t', 8], ['maquina_com_alerta', 9], ['sem_biometria_1t', 10]].forEach(([k, i]) => {
-        if (isNum(r[k]) && isNum(ctl[k]) && +ctl[k] > 0 && +r[k] > 1.5 * +ctl[k]) tr.children[i].classList.add('neg');
+        if (r['sig_' + k] === '1') tr.children[i].classList.add('neg');
       });
     });
   }
@@ -117,7 +116,7 @@
     const list = t.rows.filter((r) => (p.reg === 'BR' || r.regiao === p.reg) && (!p.uf || r.uf === p.uf))
       .sort((a, b) => a.uf.localeCompare(b.uf) || +a.turno - +b.turno);
     rowsTable(tb, list, [['uf', F.txt, 0, 1], ['turno', (v) => `${v}º`, 0, 1], ['maquinas', F.int], ['linhas', F.int], ['ERRO', F.int], ['ALERTA', F.int],
-      ['assinatura_invalida', F.int], ['integridade_banco', F.int], ['sem_perfil', F.int], ['madrugada', F.int], ['pacotes_multiversao', F.int],
+      ['assinatura_invalida', F.int], ['integridade_banco', F.int], ['banco_restaurado', F.int], ['sem_perfil', F.int], ['madrugada', F.int], ['pacotes_multiversao', F.int],
       ['urnas_contingencia', F.int], ['contingencia_1t', F.pct], ['urna_mudou_2t', F.pct], ['carga_nova_2t', F.pct], ['sem_rastro_gedai', F.int]], (tr, r) => {
       if (+r.assinatura_invalida > 0) tr.children[6].classList.add('neg');
       if (+r.integridade_banco > 0) tr.children[7].classList.add('neg');

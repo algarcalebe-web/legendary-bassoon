@@ -32,6 +32,7 @@ from datetime import datetime
 from pathlib import Path
 
 import numpy as np
+from scipy import stats
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_dataset as bd  # noqa: E402
@@ -249,6 +250,8 @@ def gedai(raw):
                         c["assinatura_invalida"] += 1
                     if "integridade de banco" in msg:
                         c["integridade_banco"] += 1
+                    if msg.startswith("Banco de dados restaurado"):
+                        c["banco_restaurado"] += 1
                     if "sem prefil válido" in msg or "sem perfil válido" in msg:
                         c["sem_perfil"] += 1
                     if "rede da Justiça Eleitoral indisponível" in msg:
@@ -538,13 +541,13 @@ def taxa(num, den):
 
 def ident(m, c, k, turno, reserva):
     """Urna da correspondência (efetivada no 1º turno, esperada no 2º) entre as urnas do log no dia: 'confere';
-    senão, alguma urna do log é de contingência registrada na zona: 'contingencia'; senão 'nao_confere'."""
+    senão, alguma urna do log está na lista de contingência do estado: 'contingencia'; senão 'nao_confere'."""
     if not m.get("urnas"):
         return None
     urnas = {nc(u) for u in m["urnas"]}
     if nc(c.get("urna_1t" if turno == 1 else "urna_2t")) in urnas:
         return "confere"
-    if any((k[0], k[2], u) in reserva for u in urnas):
+    if any((k[0], u) in reserva for u in urnas):
         return "contingencia"
     return "nao_confere"
 
@@ -633,6 +636,35 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
         return r5(np.average(x[ok], weights=None if w is None else w[ok])) if ok.any() else None
 
     grupos_rows = []
+    ctl_m = gs["controle"]
+
+    ufi = np.unique(np.array([k[0] for k in ch]), return_inverse=True)[1]
+
+    def esperado(x, m):
+        """Taxa esperada no grupo se cada seção tivesse a taxa das demais seções do seu estado; e os resíduos."""
+        ok_c = ctl_m & np.isfinite(x)
+        taxa_uf = np.bincount(ufi[ok_c], x[ok_c], ufi.max() + 1) / np.maximum(np.bincount(ufi[ok_c], minlength=ufi.max() + 1), 1)
+        ok_g = m & np.isfinite(x)
+        return ok_g, taxa_uf[ufi[ok_g]]
+
+    def sig_prop(x, m):
+        """1 se a taxa do grupo passa de 1,5 vez a esperada pelas demais seções do mesmo estado e o excesso é
+        significativo (soma de Bernoullis com a taxa de cada estado, aproximação normal, p < 0,01)."""
+        ok_g, e = esperado(x, m)
+        if not ok_g.any():
+            return 0
+        k, mu, var = float(np.nansum(x[ok_g])), float(e.sum()), float((e * (1 - e)).sum())
+        if mu <= 0 or k <= 1.5 * mu:
+            return 0
+        return int(var > 0 and stats.norm.sf((k - 0.5 - mu) / math.sqrt(var)) < 0.01)
+
+    def sig_media(x, m):
+        """Igual, para a taxa por seção sem biometria: 1,5 vez a esperada pelo estado e teste t nos resíduos (p < 0,01)."""
+        ok_g, e = esperado(x, m)
+        if ok_g.sum() < 2 or x[ok_g].mean() <= 1.5 * e.mean():
+            return 0
+        return int(stats.ttest_1samp(x[ok_g] - e, 0, alternative="greater").pvalue < 0.01)
+
     for g, rot in GRUPOS:
         m = gs[g]
         grupos_rows.append({
@@ -645,7 +677,11 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
             "sem_biometria_1t": r5(np.nansum(sb[m]) / np.nansum(cb[m])) if m.any() else None,
             "sem_biometria_1t_dz_pp": media(sbp_dz * 100, m, A),
             "fecha_apos_17h30_1t": media((fecha > 17 * 60 + 30).astype(float), m & np.isfinite(fecha)),
-            "chegada_2t_mediana": sc.hhmm(float(np.nanmedian(rec2[m]))) if m.any() and np.isfinite(rec2[m]).any() else ""})
+            "chegada_2t_mediana": sc.hhmm(float(np.nanmedian(rec2[m]))) if m.any() and np.isfinite(rec2[m]).any() else "",
+            **({} if g == "controle" else {
+                "sig_contingencia_1t": sig_prop(sub1, m), "sig_urna_mudou_2t": sig_prop(mud2, m),
+                "sig_carga_nova_2t": sig_prop(car2, m), "sig_sem_rastro_gedai_1t": sig_prop(sr1, m),
+                "sig_maquina_com_alerta": sig_prop(malr, m), "sig_sem_biometria_1t": sig_media(sbp, m)})})
 
     # arquivos da urna (log e RDV): sinalizadas + controles
     sinal_sec = gs["klimek"] | gs["bn0"] | gs["z5"]
@@ -655,7 +691,7 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
         alvos |= set(d) | set(d.values())
     alvos.discard(None)
     U = arquivos_urna([ch[j] for j in sorted(alvos)], urna_dir)
-    res = {t: {(r[0], r[2], r[3]) for r in reserva[1] | reserva[t]} for t in (1, 2)}
+    res = {t: {(r[0], r[3]) for r in reserva[1] | reserva[t]} for t in (1, 2)}
     urna_rows = []
     for g, rot in GRUPOS[:-1]:
         if g in SECAO_GRUPOS:
@@ -722,7 +758,7 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
     for (t, uf, nome, _), r in maq.items():
         c = por[(t, uf)]
         c["maquinas"] += 1
-        for kk in ("linhas", "ERRO", "ALERTA", "assinatura_invalida", "integridade_banco", "sem_perfil", "sem_rede",
+        for kk in ("linhas", "ERRO", "ALERTA", "assinatura_invalida", "integridade_banco", "banco_restaurado", "sem_perfil", "sem_rede",
                    "madrugada", "corresp", "midias_carga", "midias_votacao"):
             c[kk] += r.get(kk, 0)
     sec_uf = defaultdict(Counter)
@@ -753,6 +789,7 @@ def main(secao_dir, raw, bweb_dir, data_dir, out_dir, urna_dir):
               "carga_nova_2t": sum(v["carga_nova_2t"] for v in corr.values()),
               "assinatura_invalida": sum(r.get("assinatura_invalida", 0) for r in maq.values()),
               "integridade_banco": sum(r.get("integridade_banco", 0) for r in maq.values()),
+              "banco_restaurado": sum(r.get("banco_restaurado", 0) for r in maq.values()),
               "maquinas_com_alerta": sum(1 for v in alerta_maq.values() if v),
               "amostra_urna": len(alvos), "sem_biometria_1t": r5(np.nansum(sb) / np.nansum(cb))}
     for t in (1, 2):
@@ -779,11 +816,11 @@ def camadas(out_dir, data_dir):
     f = lambda v: float(v) if v not in ("", None) else float("nan")
     pc = lambda v, c=1: "—" if not math.isfinite(f(v)) else f"{f(v) * 100:.{c}f}%".replace(".", ",")
     n = lambda v: "—" if not math.isfinite(f(v)) else f"{f(v):,.0f}".replace(",", ".")
-    ctl = G["controle"]
-    acima = [G[g]["grupo"].lower() for g, _ in GRUPOS[:-1]
-             if math.isfinite(f(G[g]["sem_biometria_1t"])) and f(G[g]["sem_biometria_1t"]) > 1.5 * f(ctl["sem_biometria_1t"])]
-    cont_acima = [G[g]["grupo"].lower() for g, _ in GRUPOS[:-1]
-                  if math.isfinite(f(G[g]["contingencia_1t"])) and f(G[g]["contingencia_1t"]) > 1.5 * f(ctl["contingencia_1t"])]
+    acima = [G[g]["grupo"].lower() for g, _ in GRUPOS[:-1] if G[g].get("sig_sem_biometria_1t") == "1"]
+    cont_acima = [G[g]["grupo"].lower() for g, _ in GRUPOS[:-1] if G[g].get("sig_contingencia_1t") == "1"]
+    alerta_acima = [G[g]["grupo"].lower() for g, _ in GRUPOS[:-1] if G[g].get("sig_maquina_com_alerta") == "1"]
+    U = {r["id"]: r for r in rd(out / "seg_urna.csv")}
+    kl, klc = U.get("klimek-2", {}), U.get("klimek-2-c", {})
     u1, u2 = f(R.get("t1_urna_confere")), f(R.get("t2_urna_confere"))
     rdv1, rdv2 = f(R.get("t1_rdv_bate")), f(R.get("t2_rdv_bate"))
     log1, log2 = f(R.get("t1_log_bate_comp")), f(R.get("t2_log_bate_comp"))
@@ -798,8 +835,10 @@ def camadas(out_dir, data_dir):
          "resultado": f"{n(R['contingencia_1t'])} seções votaram em urna de contingência no 1º turno; {n(R['urna_mudou_2t'])} receberam "
                       f"outra urna no 2º. Nas seções lidas, a urna da correspondência está no log em {pc(u1)} (1º) e {pc(u2)} (2º); "
                       f"urna de contingência registrada em {pc(R.get('t1_urna_contingencia'))} e {pc(R.get('t2_urna_contingencia'))}; "
-                      f"urna fora das duas listas: {n(R.get('t1_urna_nao_confere'))} e {n(R.get('t2_urna_nao_confere'))} seções"
-                      + (f"; contingência acima de 1,5 vez as demais seções em: {', '.join(cont_acima)}" if cont_acima else "") + ".",
+                      f"urna fora das duas listas: {n(R.get('t1_urna_nao_confere'))} e {n(R.get('t2_urna_nao_confere'))} seções (o log "
+                      "mostra a carga oficial da seção; falta a correspondência efetivada do 2º turno para fechar)"
+                      + (f"; contingência acima de 1,5 vez o esperado pelo estado (p < 0,01) em: {', '.join(cont_acima)}"
+                         if cont_acima else "") + ".",
          "status": "ok" if f(R.get("t1_urna_nao_confere") or 0) + f(R.get("t2_urna_nao_confere") or 0) == 0 and not cont_acima else "atencao",
          "falta": "Integridade física da urna e dos lacres, firmware, chip de segurança: não há dado público por seção."},
         {"camada": "Software", "risco": "Programa diferente do lacrado na urna ou no computador que prepara as mídias.",
@@ -807,8 +846,11 @@ def camadas(out_dir, data_dir):
                   "assinatura inválida e falhas de integridade do banco.",
          "resultado": f"Versões nos logs lidos: {R.get('t1_versoes') or '—'} (1º), {R.get('t2_versoes') or '—'} (2º); seções com falha "
                       f"de verificação de assinatura registrada: {af} ({afd} no dia da eleição); sem nova verificação bem-sucedida do mesmo arquivo depois: {afp}. GEDAI: {n(R['assinatura_invalida'])} avisos de correspondência com assinatura "
-                      f"inválida e {n(R['integridade_banco'])} falhas de integridade do banco, em {n(R['maquinas_com_alerta'])} computadores "
-                      "(registrados pelo próprio sistema).",
+                      f"inválida (rejeitadas na entrada) e {n(R['integridade_banco'])} falhas de integridade do banco, seguidas de "
+                      f"{n(R.get('banco_restaurado'))} restaurações para a versão anterior, em {n(R['maquinas_com_alerta'])} computadores "
+                      "(registrados pelo próprio sistema)"
+                      + (f"; mídias geradas nesses computadores acima do esperado pelo estado em: {', '.join(alerta_acima)}" if alerta_acima else "")
+                      + ".",
          "status": "alerta" if afp else "ok" if af == 0 and gedai_alerta == 0 else "atencao",
          "falta": "Comparar o binário instalado com o código-fonte lacrado; as assinaturas dos arquivos (.vsc) não foram conferidas aqui."},
         {"camada": "Algoritmo", "risco": "Voto registrado ou contado diferente do digitado.",
@@ -822,8 +864,12 @@ def camadas(out_dir, data_dir):
          "teste": "Eleitores habilitados sem biometria (boletins do 1º turno, todas as seções; logs dos dois turnos, amostra) e "
                   "liberações pelo mesário, sinalizadas × controle; aptos diferentes entre turnos.",
          "resultado": f"Sem biometria no 1º turno: {pc(R['sem_biometria_1t'])} do comparecimento"
-                      + (f"; acima de 1,5 vez as demais seções em: {', '.join(acima)}" if acima else "; nenhum grupo acima de 1,5 vez as demais seções")
-                      + f". {n(se['aptos_diferentes'])} seções com cadastro diferente entre turnos.",
+                      + (f"; acima de 1,5 vez o esperado pelo estado (p < 0,01) em: {', '.join(acima)}" if acima
+                         else "; nenhum grupo acima de 1,5 vez o esperado pelo estado (p < 0,01)")
+                      + f". Nos logs do 2º turno, habilitação sem biometria nas seções de comparecimento 95%+ e 90%+ para um lado: "
+                      f"{pc(kl.get('nao_biometrica'))}, contra {pc(klc.get('nao_biometrica'))} nos controles da mesma zona; liberação pelo "
+                      f"mesário: {pc(kl.get('mesario'))} × {pc(klc.get('mesario'))}. {n(se['aptos_diferentes'])} seções com cadastro "
+                      "diferente entre turnos.",
          "status": "atencao" if acima else "ok",
          "falta": "Quem votou, de fato, em cada habilitação manual; o cadastro de eleitores por pessoa não é público."},
         {"camada": "Transmissão", "risco": "Boletim interceptado, alterado ou substituído no caminho.",
